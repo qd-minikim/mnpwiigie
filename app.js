@@ -6,14 +6,9 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
  
-<<<<<<< HEAD
  
+    // 登录登录登录H
  
-    // 登录登录登录
- 
-=======
-    // 登录登录登录
->>>>>>> dev
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
