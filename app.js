@@ -7,6 +7,10 @@ App({
     wx.setStorageSync('logs', logs)
  
  
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> dev
     // 登录登录登录
  
     wx.login({
