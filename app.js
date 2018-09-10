@@ -7,7 +7,11 @@ App({
     wx.setStorageSync('logs', logs)
  
  
-    // 登录登录登录H
+-
+    wx.setStorageSync('logs', logs)
+ 
+ 
+    // 登录登录登录H-d
  
     wx.login({
       success: res => {
