@@ -1,0 +1,18 @@
+<!--page/component/pages/pagewait/pagewait.wxml-->
+ 
+<view class="container" style="flex-direction:column;">
+
+  <view style='display:flex; justify-content:center; align-items:center;'>
+    <image src='/image/logo.jpg' style='width:150px;height:150px'></image>
+  </view>
+
+  <view class='font-size-3' >
+    <view style='display:flex; justify-content:center; align-items:center;'>{{infoMsg}}</view>
+    <view style='display:flex; justify-content:center; align-items:center;'>{{infoTip}}</view>
+  </view>
+
+  <view style='display:flex; justify-content:center; align-items:center;'>
+    <image src='/image/running.gif' style='width:100px;height:100px' ></image>
+  </view>
+
+</view>

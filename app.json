@@ -5,12 +5,15 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index" 
-    
+     
   ],
   "subPackages": [
     {
       "root": "page/component/",
-      "pages": ["pages/pagexdd/pagexdd"]
+      "pages": [
+        "pages/pagexdd/pagexdd",
+        "pages/pagewait/pagewait"
+      ]
     }
   ],
   "window": {

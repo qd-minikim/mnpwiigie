@@ -7,7 +7,7 @@
       <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
     </view>
 
-    <view class="home-1-s font-size-5">
+    <view class="home-1-s font-size-5" bindtap='homeSerarch'>
       {{defaultInfo.searchHolder}}
     </view>
 

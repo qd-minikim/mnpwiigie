@@ -33,6 +33,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -74,5 +75,14 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  homeSerarch:function(){
+
+    wx.navigateTo({ 
+      url: "/page/component/pages/pagewait/pagewait"
+    })
+
   }
+
 })
