@@ -1,2 +1,87 @@
 <!--pages/pagehome/pagehome.wxml-->
-<text>pages/pagehome/pagehome1.wxml</text>
+
+<view class="container" style="flex-direction:column;">
+
+  <view class="home-1" style="flex-direction:row;">
+    <view class="home-1-h">
+      <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    </view>
+
+    <view class="home-1-s">
+      {{defaultInfo.searchHolder}}
+    </view>
+
+    <view class='home-1-a' style="flex-direction:column">
+      <view class='home-1-a-v'>
+        <image bindtap="bindViewTap" class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
+      </view>
+      <view class='home-1-a-t'>
+        <text>{{defaultInfo.askText}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="gap-bg" style="flex-direction:column;"></view>
+
+  
+
+  <view class="home-2" style="flex-direction:column;">
+    <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}">
+      <block wx:for="{{defaultInfo.swiperImgUrls}}">
+        <swiper-item>
+          <image src='{{item}}' style='width:100%;height:100'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+
+
+  </view>
+   <view class="gap-bg" style="flex-direction:column;"></view>
+  <view class="home-3" style="flex-direction:row;">
+    <view style="flex-direction:row;flex:1">
+      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+      <text>{{defaultInfo.home3Text[0]}}</text>
+    </view>
+    <view style="flex-direction:row;flex:1">
+      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+      <text>{{defaultInfo.home3Text[1]}}</text>
+    </view>
+    <view style="flex-direction:row;flex:1">
+      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+      <text>{{defaultInfo.home3Text[2]}}</text>
+    </view>
+    <view style="flex-direction:row;flex:1">
+      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+      <text>{{defaultInfo.home3Text[3]}}</text>
+    </view>
+  </view>
+   <view class="gap-bg" style="flex-direction:column;"></view>
+  <view class="home-4" style="flex-direction:row;">
+    <view class="home-4-1" style="flex-direction:row;display:flex;flex:1">
+      <view class="home-4-1-1" style="flex-direction:column;">
+        <view class="home-4-1-1-1">{{defaultInfo.home4Text1[0]}}</view>
+        <view class="home-4-1-1-2">{{defaultInfo.home4Text2[0]}}</view>
+      </view>
+      <view class="home-4-1-2">
+        <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
+      </view>
+    </view>
+    <view class="home-4-2" style="flex-direction:row;display:flex;flex:1">
+      <view class="home-4-2-1" style="flex-direction:column;">
+        <view class="home-4-2-1-1">{{defaultInfo.home4Text1[1]}}</view>
+        <view class="home-4-2-1-2">{{defaultInfo.home4Text2[1]}}</view>
+      </view>
+      <view class="home-4-2-2">
+        <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
+      </view>
+    </view>
+  </view>
+
+ <view class="gap-bg" style="flex-direction:column;"></view>
+  <view class="home-5" style="flex-direction:column;">
+     <view class="home-5-1">{{defaultInfo.home5Text1}}</view>
+  </view>
+   <view class="gap-bg" style="flex-direction:column;"></view>
+   <view class="home-6" style="flex-direction:column;">
+     <view class="home-6-1">{{defaultInfo.home6Text1}}</view>
+  </view>
+</view>

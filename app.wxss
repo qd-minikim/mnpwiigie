@@ -1,10 +1,18 @@
 /**app.wxss**/
 .container {
   height: 100%;
-  display: flex;
+  width: 100%;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  /* padding: 200rpx 0; */
   box-sizing: border-box;
-} 
+  
+}
+/* 区块的间隔背景色  */
+.gap-bg{
+  width: 100%;
+  height: 20rpx;
+  background-color: #f7f7f7
+}

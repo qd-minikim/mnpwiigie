@@ -1,1 +1,171 @@
 /* pages/pagehome/pagehome.wxss */
+
+/* 检索部分 */
+
+.home-1 {
+  display: flex;
+    padding-top: 5rpx;
+  padding-bottom:5rpx; 
+}
+
+.home-1-h {
+  width: 80rpx;
+  height: 80rpx;
+  /* margin: 20rpx; */
+  border-radius: 50%;
+}
+
+.home-1-h-i {
+  width: 70rpx;
+  height: 70rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+}
+
+.home-1-s {
+  flex: 1;
+  border-radius:50px;
+  border:1px solid #ccc;
+  font-size: 30rpx;
+  padding-left: 30rpx;
+  vertical-align:middle;
+  line-height: 80rpx;
+}
+
+.home-1-a {
+  width: 80rpx;
+  height: 80rpx;
+  align-items: center;
+  padding-left: 20rpx;
+}
+ 
+
+.home-1-a-v {
+  width: 80rpx;
+  align-items: center;
+}
+
+.home-1-a-i {
+  width: 35rpx;
+  height: 35rpx;
+  margin: auto 5rpx;
+  /* border-radius: 50%; */
+}
+
+.home-1-a-t {
+  font-size: 25rpx;
+}
+
+/* 滚动图部分 */
+
+.home-2 {
+  display: flex;
+  padding-top: 5rpx;
+  padding-bottom:5rpx; 
+}
+
+/* 全场包邮等说明部分 */
+
+.home-3 {
+  display: flex;
+    padding-top: 5rpx;
+  padding-bottom:5rpx; 
+  font-size: 35rpx;
+  line-height: 35rpx;
+}
+.home-3-image{
+  width: 35rpx;
+  height: 35rpx;
+}
+/* 人以群分等 */
+
+.home-4 {
+  display: flex;
+   padding-top: 5rpx;
+  padding-bottom:5rpx; 
+}
+.home-4-1 {
+ 
+}
+.home-4-1-1 {
+  /* width: 100rpx; */
+  height: 120rpx;
+  vertical-align: middle;
+ padding-top: 20rpx;
+}
+.home-4-1-1-1 {
+    font-size: 42rpx;
+}
+.home-4-1-1-2 {
+    font-size: 26rpx;
+}
+
+.home-4-1-2{
+   width: 120rpx;
+}
+
+
+.home-4-2 {
+  
+}
+.home-4-2-1 {
+  /* width: 100rpx; */
+  height: 120rpx;
+   padding-top: 20rpx;
+}
+.home-4-2-1-1 {
+    font-size: 42rpx;
+}
+.home-4-2-1-2 {
+    font-size: 26rpx;
+}
+.home-4-2-2{
+   width: 120rpx;
+}
+.home-4-figure2 {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+
+
+/* 好友动态 */
+
+.home-5 {
+  display: flex;
+    padding-top: 5rpx;
+  padding-bottom:5rpx; 
+}
+.home-5-1 {
+ font-size: 36rpx;
+  width: 100%;
+  text-align: center;
+ 
+}
+/* 人气推荐 */
+
+.home-6 {
+  display: flex;
+    padding-top: 5rpx;
+  padding-bottom:5rpx; 
+}
+.home-6-1 {
+ font-size: 36rpx;
+  width: 100%;
+  text-align: center;
+ 
+}
+/* .flex-wrp{
+  margin-top: 60rpx; 
+  display:flex;
+}
+.flex-item{
+  width: 200rpx;
+  height: 300rpx;
+  font-size: 26rpx;
+}
+.flex-item-V{
+  margin: 0 auto;
+  width: 300rpx;
+  height: 200rpx;
+} */
