@@ -117,8 +117,26 @@
    <view class="home-6" style="flex-direction:column;">
      <view class="home-6-1 font-size-4">{{defaultInfo.home6Text1}}</view>
      <view class="gap-line" style="flex-direction:column;"></view>
-     <view style='flex-direction:row'>
-      
+     <view class='home-6-2' style='flex-direction:row'>
+        <view class='home-6-2-1' style='flex-direction:row;display:flex;'>
+          <view class='home-6-2-1-1' style='flex-direction:column'>
+            <view class='home-6-2-1-1-1 font-size-5 view-ellipsis-2'>南非茹德拉红酒红酒红酒酒红酒酒红酒酒红酒</view>
+              <view class='home-6-2-1-1-2 ' style="flex-direction:row;display:flex; justify-content:flex-end ">
+                <view>
+                  <image class="home-6-2-1-1-2-image" src='/image/head-test.jpg'></image>
+                  <image class="home-6-2-1-1-2-image" src='/image/head-test.jpg'></image>
+                  
+                </view>
+              <view>
+              <view class='home-6-2-1-1-2-view-figure4 font-size-6 ' style="background-image: url('/image/figure_4.png');">链购</view>
+            
+              </view>
+            </view>
+          </view>
+          <view class='home-6-2-1-2'>
+           <image class="home-6-2-1-2-image" src='/image/goods-test.jpg'></image>
+          </view>
+        </view>
      
      </view>
   </view>

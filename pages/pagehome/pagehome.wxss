@@ -247,6 +247,39 @@
   width: 100%;
   text-align: center;
 }
+.home-6-2 {
+   width: 100%;
+}
+.home-6-2-1{
+ width: 50%;
+ max-width: 50%;
+ padding: 5rpx;
+}
+.home-6-2-1-1-2{
+
+ margin-top: 40rpx; 
+}
+.home-6-2-1-1-2-image{
+   width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+.home-6-2-1-1-2-view-figure4{
+
+    width: 100rpx;
+   height: 40rpx;
+   background-size: 100% 100%;  
+	 -moz-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
+   text-align: center;
+   color: #fff;
+}
+.home-6-2-1-2-image{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 5%;
+}
 
 /* .flex-wrp{
   margin-top: 60rpx; 
