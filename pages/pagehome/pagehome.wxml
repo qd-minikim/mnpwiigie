@@ -7,7 +7,7 @@
       <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
     </view>
 
-    <view class="home-1-s">
+    <view class="home-1-s font-size-5">
       {{defaultInfo.searchHolder}}
     </view>
 
@@ -15,7 +15,7 @@
       <view class='home-1-a-v'>
         <image bindtap="bindViewTap" class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
       </view>
-      <view class='home-1-a-t'>
+      <view class='home-1-a-t font-size-6'>
         <text>{{defaultInfo.askText}}</text>
       </view>
     </view>
@@ -36,7 +36,7 @@
 
   </view>
    <view class="gap-bg" style="flex-direction:column;"></view>
-  <view class="home-3" style="flex-direction:row;">
+  <view class="home-3 font-size-4" style="flex-direction:row;">
     <view style="flex-direction:row;flex:1">
       <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
       <text>{{defaultInfo.home3Text[0]}}</text>
@@ -58,8 +58,8 @@
   <view class="home-4" style="flex-direction:row;">
     <view class="home-4-1" style="flex-direction:row;display:flex;flex:1">
       <view class="home-4-1-1" style="flex-direction:column;">
-        <view class="home-4-1-1-1">{{defaultInfo.home4Text1[0]}}</view>
-        <view class="home-4-1-1-2">{{defaultInfo.home4Text2[0]}}</view>
+        <view class="home-4-1-1-1 font-size-3">{{defaultInfo.home4Text1[0]}}</view>
+        <view class="home-4-1-1-2 font-size-6">{{defaultInfo.home4Text2[0]}}</view>
       </view>
       <view class="home-4-1-2">
         <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
@@ -67,8 +67,8 @@
     </view>
     <view class="home-4-2" style="flex-direction:row;display:flex;flex:1">
       <view class="home-4-2-1" style="flex-direction:column;">
-        <view class="home-4-2-1-1">{{defaultInfo.home4Text1[1]}}</view>
-        <view class="home-4-2-1-2">{{defaultInfo.home4Text2[1]}}</view>
+        <view class="home-4-2-1-1 font-size-3">{{defaultInfo.home4Text1[1]}}</view>
+        <view class="home-4-2-1-2 font-size-6">{{defaultInfo.home4Text2[1]}}</view>
       </view>
       <view class="home-4-2-2">
         <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
@@ -78,10 +78,48 @@
 
  <view class="gap-bg" style="flex-direction:column;"></view>
   <view class="home-5" style="flex-direction:column;">
-     <view class="home-5-1">{{defaultInfo.home5Text1}}</view>
+     <view class="home-5-1 font-size-4">{{defaultInfo.home5Text1}}</view>
+     <view class="gap-line" style="flex-direction:column;"></view>
+     <view class="home-5-2"  style="flex-direction:row;display:flex;">
+        <view class="home-5-2-1">
+          <image class="home-5-2-1-image"   src='/image/head-test.jpg'></image>
+        </view>
+        <view class="home-5-2-2"  >
+        <view   >
+          <view class="home-5-2-2-1 font-size-5 view-ellipsis-1">风端斌</view>
+          <view class="home-5-2-2-2 font-size-6">购买了</view>
+        </view>
+        
+        </view>
+        <view class="home-5-2-3">
+            <image class="home-5-2-3-image" src='/image/goods-test.jpg'></image>
+        </view>
+        <view class="home-5-2-4" style='flex:1'>
+          <view class="home-5-2-4-1 font-size-4 view-ellipsis-1" >南非茹德拉红酒红酒红酒</view>
+          <view class="home-5-2-4-2 font-size-6">仅剩：18天6小时</view>
+          <view class="home-5-2-4-3 font-size-6">链购优享:97折~85折</view>
+          <view style="flex-direction:row;display:flex; justify-content:flex-end ">
+             
+            <view>
+              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
+              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
+              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
+            </view>
+            <view>
+              <view class='home-5-2-4-4-view-figure4 font-size-6 ' style="background-image: url('/image/figure_4.png');">链购</view>
+            
+            </view>
+          </view>
+        </view>
+     </view>
   </view>
-   <view class="gap-bg" style="flex-direction:column;"></view>
+  <view class="gap-bg" style="flex-direction:column;"></view>
    <view class="home-6" style="flex-direction:column;">
-     <view class="home-6-1">{{defaultInfo.home6Text1}}</view>
+     <view class="home-6-1 font-size-4">{{defaultInfo.home6Text1}}</view>
+     <view class="gap-line" style="flex-direction:column;"></view>
+     <view style='flex-direction:row'>
+      
+     
+     </view>
   </view>
 </view>

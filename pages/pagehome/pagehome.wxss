@@ -4,14 +4,14 @@
 
 .home-1 {
   display: flex;
-    padding-top: 5rpx;
-  padding-bottom:5rpx; 
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
 
 .home-1-h {
   width: 80rpx;
   height: 80rpx;
-  /* margin: 20rpx; */
+ 
   border-radius: 50%;
 }
 
@@ -24,11 +24,11 @@
 
 .home-1-s {
   flex: 1;
-  border-radius:50px;
-  border:1px solid #ccc;
-  font-size: 30rpx;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+   
   padding-left: 30rpx;
-  vertical-align:middle;
+  vertical-align: middle;
   line-height: 80rpx;
 }
 
@@ -38,7 +38,6 @@
   align-items: center;
   padding-left: 20rpx;
 }
- 
 
 .home-1-a-v {
   width: 80rpx;
@@ -53,7 +52,7 @@
 }
 
 .home-1-a-t {
-  font-size: 25rpx;
+   
 }
 
 /* 滚动图部分 */
@@ -61,100 +60,194 @@
 .home-2 {
   display: flex;
   padding-top: 5rpx;
-  padding-bottom:5rpx; 
+  padding-bottom: 5rpx;
 }
 
 /* 全场包邮等说明部分 */
 
 .home-3 {
   display: flex;
-    padding-top: 5rpx;
-  padding-bottom:5rpx; 
-  font-size: 35rpx;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+ 
   line-height: 35rpx;
 }
-.home-3-image{
+
+.home-3-image {
   width: 35rpx;
   height: 35rpx;
 }
+
 /* 人以群分等 */
 
 .home-4 {
   display: flex;
-   padding-top: 5rpx;
-  padding-bottom:5rpx; 
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
+
 .home-4-1 {
- 
 }
+
 .home-4-1-1 {
   /* width: 100rpx; */
   height: 120rpx;
   vertical-align: middle;
- padding-top: 20rpx;
+  padding-top: 20rpx;
 }
+
 .home-4-1-1-1 {
-    font-size: 42rpx;
+   
 }
+
 .home-4-1-1-2 {
-    font-size: 26rpx;
+   
 }
 
-.home-4-1-2{
-   width: 120rpx;
+.home-4-1-2 {
+  width: 120rpx;
 }
-
 
 .home-4-2 {
-  
 }
+
 .home-4-2-1 {
   /* width: 100rpx; */
   height: 120rpx;
-   padding-top: 20rpx;
+  padding-top: 20rpx;
 }
+
 .home-4-2-1-1 {
-    font-size: 42rpx;
+   
 }
+
 .home-4-2-1-2 {
-    font-size: 26rpx;
+   
 }
-.home-4-2-2{
-   width: 120rpx;
+
+.home-4-2-2 {
+  width: 120rpx;
 }
+
 .home-4-figure2 {
   width: 120rpx;
   height: 120rpx;
 }
 
-
-
 /* 好友动态 */
 
 .home-5 {
   display: flex;
-    padding-top: 5rpx;
-  padding-bottom:5rpx; 
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
+
 .home-5-1 {
- font-size: 36rpx;
+   
   width: 100%;
   text-align: center;
+}
+
+.home-5-2 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.home-5-2-1 {
+  width: 120rpx;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-1-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.home-5-2-2 {
+  width: 130rpx;
+  min-width: 130rpx; 
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-2-1 {
+   
+  text-align: center;
+}
+
+.home-5-2-2-2 {
+   
+  text-align: center;
+}
+
+.home-5-2-3 {
+  width: 160rpx;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-3-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 5%;
+}
+
+.home-5-2-4 {
+  padding: 10rpx 10rpx;
+  
+}
+
+.home-5-2-4-1 {
  
+}
+
+.home-5-2-4-2 {
+   
+}
+
+.home-5-2-4-3 {
+  
+}
+
+.home-5-2-4-4-image {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+.home-5-2-4-4-view-figure4{
+
+   width: 120rpx;
+   height: 40rpx;
+   background-size: 100% 100%;  
+	 -moz-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
+   text-align: center;
+   color: #fff;
+   
 }
 /* 人气推荐 */
 
 .home-6 {
   display: flex;
-    padding-top: 5rpx;
-  padding-bottom:5rpx; 
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
+
 .home-6-1 {
- font-size: 36rpx;
+   
   width: 100%;
   text-align: center;
- 
 }
+
 /* .flex-wrp{
   margin-top: 60rpx; 
   display:flex;
