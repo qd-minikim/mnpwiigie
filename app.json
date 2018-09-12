@@ -1,18 +1,44 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/pagehome/pagehome",
+    "pages/pagegoods/pagegoods",
+    "pages/pagemy/pagemy",
     "pages/logs/logs",
-    "packageA/pages/homepage",
-    "packageA/pages/pagexd",
-    "packageA/pages/pagexd/pagexd",
-    "packageA/pages/pagexd/pagexdd/pagexdd",
-    "packageA/pages/pagexd/pagexda/pagexda",
-    "packageA/pages/pagexd/pagexdc/pagexdc"
+    "pages/index/index" 
+    
+  ],
+  "subPackages": [
+    {
+      "root": "page/component/",
+      "pages": ["pages/pagexdd/pagexdd"]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "友托帮",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/pagehome/pagehome",
+        "text": "好友冰鉴",
+        "iconPath": "image/home_0.png",
+        "selectedIconPath": "image/home_1.png"
+      },
+      {
+        "pagePath": "pages/pagegoods/pagegoods",
+        "text": "好物精选",
+        "iconPath": "image/goods_0.png",
+        "selectedIconPath": "image/goods_1.png"
+      },
+      {
+        "pagePath": "pages/pagegoods/pagegoods",
+        "text": "我的",
+        "iconPath": "image/my_0.png",
+        "selectedIconPath": "image/my_1.png"
+      }
+    ]
   }
 }

@@ -1,4 +1,4 @@
-// packageA/pages/pagexd/pagexdc/pagexdc.js
+// pages/pagemy/pagemy.js
 Page({
 
   /**

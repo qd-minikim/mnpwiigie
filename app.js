@@ -1,5 +1,6 @@
 //app.js
 App({
+  //启动时执行的初始化工作
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -39,6 +40,7 @@ App({
       }
     })
   },
+ 
   globalData: {
     userInfo: null
   }
