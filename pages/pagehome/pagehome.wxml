@@ -85,42 +85,53 @@
   </view>
 
  <view class="gap-bg" style="flex-direction:column;"></view>
+ <!-- 好友动态 -->
   <view class="home-5" style="flex-direction:column;">
      <view class="home-5-1 font-size-4">{{defaultInfo.home5Text1}}</view>
      <view class="gap-line" style="flex-direction:column;"></view>
-     <view class="home-5-2"  style="flex-direction:row;display:flex;">
+
+
+     <view wx:for="{{home5Array}}" wx:for-item="item" wx:key="*this" class="home-5-2"  style="flex-direction:row;display:flex;">
         <view class="home-5-2-1">
-          <image class="home-5-2-1-image"   src='/image/head-test.jpg'></image>
+          <image class="home-5-2-1-image"   src='{{item.nicknameimage}}'></image>
         </view>
         <view class="home-5-2-2"  >
         <view   >
-          <view class="home-5-2-2-1 font-size-5 view-ellipsis-1">风端斌</view>
-          <view class="home-5-2-2-2 font-size-6">购买了</view>
+          <view class="home-5-2-2-1 font-size-5 view-ellipsis-1">{{item.nickname}}</view>
+          <view class="home-5-2-2-2 font-size-6">{{item.actiontypename}}</view>
         </view>
         
         </view>
         <view class="home-5-2-3">
-            <image class="home-5-2-3-image" src='/image/goods-test.jpg'></image>
+            <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
         </view>
         <view class="home-5-2-4" style='flex:1'>
-          <view class="home-5-2-4-1 font-size-4 view-ellipsis-1" >南非茹德拉红酒红酒红酒</view>
-          <view class="home-5-2-4-2 font-size-6">仅剩：18天6小时</view>
-          <view class="home-5-2-4-3 font-size-6">链购优享:97折~85折</view>
+          <view class="home-5-2-4-1 font-size-4 view-ellipsis-1" >{{item.title}}</view>
+          <view class="home-5-2-4-2 font-size-6">{{item.leavehoursname}}{{item.leavehours}}</view>
+          
+            
+              <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-6">链购优享:{{item.link_discount}}</view>
+              <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-6">价格:￥{{item.list_price}}</view>
+              <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-6">价格:￥{{item.list_price}}</view>
+        
+        
           <view style="flex-direction:row;display:flex; justify-content:flex-end ">
              
             <view>
-              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
-              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
-              <image class="home-5-2-4-4-image" src='/image/head-test.jpg'></image>
+              
+              <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
+               
             </view>
             <view>
-              <view class='home-5-2-4-4-view-figure4 font-size-6 ' style="background-image: url('/image/figure_4.png');">链购</view>
+              <view class='home-5-2-4-4-view-figure4 font-size-6 ' style="background-image: url       ('/image/figure_4.png');">{{item.link_price_name}}</view>
             
             </view>
           </view>
         </view>
      </view>
+
   </view>
+
   <view class="gap-bg" style="flex-direction:column;"></view>
    <view class="home-6" style="flex-direction:column;">
      <view class="home-6-1 font-size-4">{{defaultInfo.home6Text1}}</view>

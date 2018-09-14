@@ -6,12 +6,7 @@ var config = require('../../config.js')
 Page({
   data: {
     motto: 'Hello World',
-    // modal: {
-    //   modalhidden: true,
-    //   modaltitle: '',
-    //   modalnocancel: true,
-    //   modalinfo: 'sdfsf',
-    // },
+  
 
     defaultInfo: {
       searchHolder: '检索好友昵称或活动主题、描述',
@@ -34,12 +29,15 @@ Page({
       home4Text3: ['', ''],
       //home-5
       home5Text1: '~好友动态~',
+      home5Array:[],
       //home-6
       home6Text1: '~人气推荐~',
     },
     userInfo: {},
 
     hasUserInfo: false,
+
+    loginInfo: {},
     // systemBaseInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -58,31 +56,16 @@ Page({
         hasUserInfo: true,
       
       })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true,
-          
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true,
+    }  
+    if (app.globalData.loginInfo) {
+      this.setData({
+        loginInfo: app.globalData.loginInfo,
  
 
-          })
-        }
       })
-    }
 
+      this.getFriendsActive();
+    } 
 
   },
   onShow: function() {
@@ -134,13 +117,13 @@ Page({
   },
   //获取好友动态
   getFriendsActive: function() {
-
+    var usreId = this.data.loginInfo.userid
     wx.request({
       url: config.requestUrl, //仅为示例，并非真实的接口地址
       data: {
         code_: 'x_getHome4',
         homepageid: 'homepage_4',
-        userid: '',
+        userid: usreId,
         endRow: '0',
         itemsPerPage: '10',
         windowWidth: app.globalData.systemInfo.windowWidth
@@ -148,8 +131,12 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function(res) {
+      success: res => {
         console.log(res.data)
+        this.setData({
+          home5Array: res.data.infolist
+        })
+        
       }
     })
 
