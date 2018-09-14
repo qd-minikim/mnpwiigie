@@ -1,21 +1,29 @@
 <!--pages/pagehome/pagehome.wxml-->
+<!-- <modal hidden="{{modal.modalhidden}}" title="{{modal.modaltitle}}" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{modal.modalnocancel}}">
+    {{modal.modalinfo}}
+</modal> -->
 
 <view class="container" style="flex-direction:column;">
 
   <view class="home-1" style="flex-direction:row;">
     <view class="home-1-h">
-      <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <block  wx:if="{{!hasUserInfo}}">
+      <image   class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
+      </block>
+      <block wx:else>
+       <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    </block>
     </view>
 
     <view class="home-1-s font-size-5" bindtap='homeSerarch'>
       {{defaultInfo.searchHolder}}
     </view>
 
-    <view class='home-1-a' style="flex-direction:column">
-      <view class='home-1-a-v'>
+    <view class='home-1-a' style="flex-direction:column" bindtap='homeNotice'>
+      <view class='home-1-a-v align-center'>
         <image bindtap="bindViewTap" class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
       </view>
-      <view class='home-1-a-t font-size-6'>
+      <view class='home-1-a-t font-size-5 align-center'>
         <text>{{defaultInfo.askText}}</text>
       </view>
     </view>
@@ -26,7 +34,7 @@
 
   <view class="home-2" style="flex-direction:column;">
     <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}">
-      <block wx:for="{{defaultInfo.swiperImgUrls}}">
+      <block wx:for="{{defaultInfo.swiperImgUrls}}" wx:key="*this">
         <swiper-item>
           <image src='{{item}}' style='width:100%;height:100'></image>
         </swiper-item>
@@ -56,7 +64,7 @@
   </view>
    <view class="gap-bg" style="flex-direction:column;"></view>
   <view class="home-4" style="flex-direction:row;">
-    <view class="home-4-1" style="flex-direction:row;display:flex;flex:1">
+    <view class="home-4-1" style="flex-direction:row;display:flex;flex:1" bindtap='homePerson'>
       <view class="home-4-1-1" style="flex-direction:column;">
         <view class="home-4-1-1-1 font-size-3">{{defaultInfo.home4Text1[0]}}</view>
         <view class="home-4-1-1-2 font-size-6">{{defaultInfo.home4Text2[0]}}</view>
@@ -65,7 +73,7 @@
         <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
       </view>
     </view>
-    <view class="home-4-2" style="flex-direction:row;display:flex;flex:1">
+    <view class="home-4-2" style="flex-direction:row;display:flex;flex:1" bindtap='homeGoods'>
       <view class="home-4-2-1" style="flex-direction:column;">
         <view class="home-4-2-1-1 font-size-3">{{defaultInfo.home4Text1[1]}}</view>
         <view class="home-4-2-1-2 font-size-6">{{defaultInfo.home4Text2[1]}}</view>

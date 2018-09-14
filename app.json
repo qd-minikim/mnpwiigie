@@ -4,15 +4,16 @@
     "pages/pagegoods/pagegoods",
     "pages/pagemy/pagemy",
     "pages/logs/logs",
-    "pages/index/index" 
-     
+    "pages/index/index"
+   
   ],
   "subPackages": [
     {
       "root": "page/component/",
       "pages": [
         "pages/pagexdd/pagexdd",
-        "pages/pagewait/pagewait"
+        "pages/pagewait/pagewait",
+        "pages/pageauth/pageauth"
       ]
     }
   ],

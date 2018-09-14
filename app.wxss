@@ -57,6 +57,7 @@
   font-size: 22rpx;
   
 }
+/* 超出范围省略号显示 */
 .view-ellipsis-1{
    text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -75,3 +76,11 @@
   -webkit-box-orient: vertical;
   align-content: center;
 }
+/* 水平居中 */
+.align-center
+{
+   display:flex;
+  justify-content:center;
+   align-items:center;
+}
+ 
