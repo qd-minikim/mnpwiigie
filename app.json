@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/pagewelcome/pagewelcome",
     "pages/pagehome/pagehome",
     "pages/pagegoods/pagegoods",
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-   
+    
   ],
   "subPackages": [
     {

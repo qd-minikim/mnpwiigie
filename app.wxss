@@ -30,6 +30,10 @@
 
 
 /* 字号大小 */
+.font-size-0 {
+  font-size: 52rpx;
+}
+
 .font-size-1 {
   font-size: 46rpx;
 }

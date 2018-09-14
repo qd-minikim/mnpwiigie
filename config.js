@@ -9,11 +9,13 @@ var config = {
   // 登录地址，用于建立会话
   loginUrl: `https://${host}/wiigie/xcx/xcxlogin`,
 
-
+  //  
+  userInfoUrl: `https://${host}/wiigie/xcx/xcxUserInfo`,
+  
   serverUrl:`https://${host}/wiigie`,
-  
+  ///wiigie/logo/wiigie_logo.jpg
 
-  
+  imageUrl: `https://${host}/wiigie/image/getImage?addr=`,
   
 
   // 用code换取openId

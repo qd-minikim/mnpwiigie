@@ -1,124 +1,136 @@
 //app.js
-var config = require('config.js')
+var config = require('/config.js')
+var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 App({
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
     this.userLogin();
-   // this.getUserInfoF();
- 
+    
   },
   globalData: {
     userInfo: null,
-    systemInfo: null
+    userIData: false,
+    systemInfo: null,
+
+    loginInfo:null
   },
   //获取设备信息
-  getSystemInfo: function () {
+  getSystemInfo: function() {
     wx.getSystemInfo({
       success: res => {
         this.globalData.systemInfo = res
       },
-      fail: res => { },
-      complete: res => { },
+      fail: res => {},
+      complete: res => {},
     })
   },
-//先登录
-  userLogin: function(){
+  //先登录
+  userLogin: function() {
     wx.login({
       success: res => {
-        wx.showNavigationBarLoading()
+
         wx.showToast({
-          title: 'Loading……',
-          duration: 3000,
+          title: '正在登录...',
+          duration: 5000,
           icon: 'loading'
         })
-        this.getUserInfoF();
+
+        wx.request({
+          url: config.loginUrl,
+          data: {
+            code: res.code 
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: res => {
+            //console.log("返回成功2--"+res.data)
+            
+            this.globalData.loginInfo = res.data.info
+            this.getUserInfoF();
+          }
+        })
+
+
+        //this.getUserInfoF();
       }
     })
   },
- 
+
   /** */
   getUserInfoF: function() {
     var that = this;
-    wx.getSetting({
-      success: (res) => {
-          /*
-        * res.authSetting = {
-        *   "scope.userInfo": true,
-        *   "scope.userLocation": true
-        * }
-        */
 
-        wx.getUserInfo({
-          success: res => {
-            wx.hideToast()
-            wx.hideNavigationBarLoading();
-            this.globalData.userInfo = res.userInfo
-            /**一开始同意授权 */
-            if (this.userInfoReadyCallback) {
-              this.userInfoReadyCallback(res)
-            }
+    wx.getUserInfo({
+      success: function(res) {
+
+        that.globalData.userInfo = res.userInfo
+        that.globalData.userIData = true
+   //     newUserInfo.setId(id);
+//			newUserInfo.setOpenid(openId);
+//			newUserInfo.setWxStatus("1");//0：未关注  1  ：关注
+//			newUserInfo.setMgmtStatus("0");
+//			newUserInfo.setCreateTime(systemTime);
+//			
+//			newUserInfo.setNickname(CfgParamUtils.getString(map.get("nickname")));
+//			newUserInfo.setSex(CfgParamUtils.getString(map.get("sex")));
+//			newUserInfo.setCity(CfgParamUtils.getString(map.get("city")));
+//			newUserInfo.setCountry(CfgParamUtils.getString(map.get("country")));
+//			newUserInfo.setProvince(CfgParamUtils.getString(map.get("province")));
+//			newUserInfo.setUnionid(CfgParamUtils.getString(map.get("unionid")));
+        var appId = that.globalData.loginInfo.appId
+        var sessionKey = that.globalData.loginInfo.sessionKey
+        var pc = new WXBizDataCrypt(appId, sessionKey)
+
+        var data = pc.decryptData(res.encryptedData, res.iv)
+        wx.request({
+          url: config.userInfoUrl,
+          data: {
+            miniopenId: data.openId,
+            nickname: data.nickName,
+            sex: data.gender,
+            city: data.city,
+            country: data.country,
+            province: data.province,
+            unionid: data.unionId,
           },
-          fail(err) {
-            wx.hideToast()
-            wx.hideNavigationBarLoading();
-
-            wx.showModal({
-              title: '警告',
-              cancelText: '不授权',
-              confirmText: '授权',
-              confirmColor: '#37C31A',
-              content: '若不授权微信登录，则无法正常使用wiigie的更多服务；',
-
-              success: function(res) {
-                if (res.confirm) {
-                  /**用户点击确定 */
-
-                  wx.openSetting({
-                    success: (res) => {
-                      if (res.authSetting['scope.userInfo']) {
-                        wx.getUserInfo({
-                          success: res => {
-                            that.globalData.userInfo = res.userInfo
-                            /**再次同意授权*/
-                            // console.info("再次同意授权" + res.userInfo.nickName);
-                            if (that.userInfoReadyCallback) {
-                              that.userInfoReadyCallback(res)
-                            } 
-                          }
-                        })
-                      } else {
-                        /**再次不允许*/
-                        // console.info("再次不允许");
-                        wx.redirectTo({
-
-                          url: "/page/component/pages/pageauth/pageauth"
-                        })
-                      }
-                    }
-                  });
-                } else if (res.cancel) {
-                  console.log('弹出框用户点击取消')
-                  wx.redirectTo({
-                    url: 'home',
-                  })
-
-                }
-              }
-            })
-
-          }
-
         })
 
+        if (that.userInfoReadyCallback) {
+          that.userInfoReadyCallback(res)
+        }
+
+        wx.hideToast();
+        
+      },
+      fail: function() {
+        //wx.hideToast();
+        
       }
+    }) 
 
+     
+
+
+    // wx.getSetting({
+    //   success: res => {
+    //     console.info("确定" + res);
+
+    //     if (res.authSetting['scope.userInfo']) {
+
+    //     }
+    //   }
+
+    // })
+  },
+  userInfoResetCallBak: function (res) {
+    var that = this;
+    this.setData({
+        'globalData.userInfo' : res.userInfo,
+        'globalData.userIData ': true
     })
-
-
   }
-
-
   // cancel: function () {
   //   this.setData({
 
