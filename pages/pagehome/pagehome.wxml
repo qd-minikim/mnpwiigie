@@ -123,9 +123,11 @@
                
             </view>
             <view>
-              <view class='home-5-2-4-4-view-figure4 font-size-6 ' style="background-image: url       ('/image/figure_4.png');">{{item.link_price_name}}</view>
-            
+              <view class='home-5-2-4-4-view-figure4 font-size-6 ' >{{item.link_price_name}}</view>
+
+ 
             </view>
+              
           </view>
         </view>
      </view>
@@ -136,24 +138,23 @@
    <view class="home-6" style="flex-direction:column;">
      <view class="home-6-1 font-size-4">{{defaultInfo.home6Text1}}</view>
      <view class="gap-line" style="flex-direction:column;"></view>
-     <view class='home-6-2' style='flex-direction:row'>
-        <view class='home-6-2-1' style='flex-direction:row;display:flex;'>
+     <view  class='home-6-2' style='display:flex;flex-direction:row'>
+        <view wx:for="{{home6Array}}" wx:for-item="item" wx:key="*this" class='home-6-2-1' style='flex-direction:row;display:flex;'>
           <view class='home-6-2-1-1' style='flex-direction:column'>
-            <view class='home-6-2-1-1-1 font-size-5 view-ellipsis-2'>南非茹德拉红酒红酒红酒酒红酒酒红酒酒红酒</view>
-              <view class='home-6-2-1-1-2 ' style="flex-direction:row;display:flex; justify-content:flex-end ">
+            <view class='home-6-2-1-1-1 font-size-5 view-ellipsis-2'>{{item.title}}</view>
+            <view class='home-6-2-1-1-2 ' style="flex-direction:row;display:flex; justify-content:flex-end ">
                 <view>
-                  <image class="home-6-2-1-1-2-image" src='/image/head-test.jpg'></image>
-                  <image class="home-6-2-1-1-2-image" src='/image/head-test.jpg'></image>
-                  
+                
+                  <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-6-2-1-1-2-image" src='{{itemi.friend_image_url}}'></image>
                 </view>
-              <view>
-              <view class='home-6-2-1-1-2-view-figure4 font-size-6 ' style="background-image: url('/image/figure_4.png');">链购</view>
+                <view>
+                  <view class='home-6-2-1-1-2-view-figure4 font-size-6 '  s>{{item.link_price_name}}</view>
             
-              </view>
+                </view>
             </view>
           </view>
           <view class='home-6-2-1-2'>
-           <image class="home-6-2-1-2-image" src='/image/goods-test.jpg'></image>
+           <image class="home-6-2-1-2-image" src='{{item.theme_img_url}}'></image>
           </view>
         </view>
      

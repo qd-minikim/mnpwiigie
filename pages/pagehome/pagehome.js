@@ -32,6 +32,7 @@ Page({
       home5Array:[],
       //home-6
       home6Text1: '~人气推荐~',
+      home6Array:[]
     },
     userInfo: {},
 
@@ -63,8 +64,10 @@ Page({
  
 
       })
-
+    //好友动态
       this.getFriendsActive();
+    //人气推荐
+      this.getPopularity();
     } 
 
   },
@@ -141,6 +144,34 @@ Page({
     })
 
   },
+//获取人气推荐
+  getPopularity: function () {
+    var usreId = this.data.loginInfo.userid
+    wx.request({
+      url: config.requestUrl, //仅为示例，并非真实的接口地址
+      data: {
+        code_: 'x_getHome4',
+        homepageid: 'homepage_7',
+        userid: usreId,
+        endRow: '0',
+        itemsPerPage: '10',
+        windowWidth: app.globalData.systemInfo.windowWidth
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res.data)
+        this.setData({
+          home6Array: res.data.infolist
+        })
+
+      }
+    })
+
+  },
+
+
   //好友动态-详情
 
   //人气推荐-详情

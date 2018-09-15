@@ -8,7 +8,7 @@ Page({
    */
   data: {
     windowHeight: app.globalData.systemInfo.windowHeight+'px',
-    backgroundImage: config.imageUrl +'wiigie/background/bg_1/bg_image.jpg'
+    backgroundImage: config.imageUrl +'/wiigie/background/bg_1/bg_image.jpg'
  
   },
 
