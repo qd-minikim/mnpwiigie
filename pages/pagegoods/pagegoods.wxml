@@ -1,2 +1,75 @@
 <!--pages/pagegoods/pagegoods.wxml-->
-<text>pages/pagegoods/pagegoods.wxml</text>
+
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <!-- 导航选择 -->
+  <view wx:if="{{promotiontagArry.length>0}}" class='align-center view_1' style="flex-direction:row;display:flex; ">
+    <scroll-view class="view_1_scroll-view" scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+      <view class='view_1_1' style='align-items:center;flex-direction:row;display:flex; '>
+
+
+        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color' style='width:{{promotiontagWidth}};'>
+          <text>全部</text>
+        </view>
+        <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height  ' style='width:{{promotiontagWidth}};'>
+          <text>全部</text>
+        </view>
+
+        <block wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+          <view wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this" class='align-center view_select_left' style="flex-direction:column;;display:flex">
+            <view class='align-center view_select_style '>{{item.tag_name}}</view>
+
+
+            <view style="flex-direction:row;;display:flex">
+              <block wx:for="{{item.children}}" wx:for-item="itemC" wx:key="trade" wx:for-index="indexC">
+
+                <block wx:if="{{indexC==item.children.length-1}}">
+                  <view wx:if="{{promotiontag==itemC.tag_code}}" class='align-center view_select_style  view_select_top view_select_color' style='width:{{promotiontagWidth}};'>
+                    <text>{{itemC.tag_name}}</text>
+                  </view>
+
+                  <view wx:else bindtap='selectTag' data-tagcode='{{itemC.tag_code}}' class='align-center view_select_style  view_select_top' style='width:{{promotiontagWidth}};'>
+                    <text>{{itemC.tag_name}}</text>
+                  </view>
+
+                </block>
+                <block wx:else>
+                  <view wx:if="{{promotiontag==itemC.tag_code}}" class='align-center view_select_style view_select_right view_select_top view-ellipsis-1 view_select_color' style='width:{{promotiontagWidth}};'>
+                    <text>{{itemC.tag_name}}</text>
+                  </view>
+                  <view wx:else bindtap='selectTag' data-tagcode='{{itemC.tag_code}}' class='align-center view_select_style view_select_right view_select_top view-ellipsis-1  ' style='width:{{promotiontagWidth}};'>
+                    <text>{{itemC.tag_name}}</text>
+                  </view>
+                </block>
+              </block>
+            </view>
+
+
+
+          </view>
+        </block>
+      </view>
+
+    </scroll-view>
+
+  </view>
+  <view wx:if="{{promotiontagArry.length>0}}" class="gap-bg" style="flex-direction:column;"></view>
+ 
+  <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
+    <view>
+      <view ><image src='{{itemG.richtextcover}}'></image></view>
+      <view class='font-size-2 view-ellipsis-1'>{{itemG.title}}啊啊打发打发打发地方</view>
+      <view class='font-size-4  '>{{itemG.leavehoursname}}{{itemG.leavehours}}</view>
+      <view style='flex-direction:row;display:flex'>
+        <view style='flex-direction:column;display:flex'>
+          <view>a</view>
+          <view>g</view>
+        </view>
+        <view>ddd</view>
+      </view>
+
+    </view>
+
+  </block>
+
+
+</view>

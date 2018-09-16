@@ -150,7 +150,7 @@ Page({
     wx.request({
       url: config.requestUrl, //仅为示例，并非真实的接口地址
       data: {
-        code_: 'x_getHome4',
+        code_: 'x_getHome7',
         homepageid: 'homepage_7',
         userid: usreId,
         endRow: '0',

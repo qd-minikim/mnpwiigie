@@ -1,1 +1,51 @@
 /* pages/pagegoods/pagegoods.wxss */
+
+ 
+
+.view_1 {
+ 
+  white-space: nowrap;
+  height: 3rem;
+  overflow: hidden;
+  margin: 1px auto ;
+  border-top:1px solid #9d9b9b;
+  border-bottom:1px solid #9d9b9b
+}
+
+.view_1_scroll-view {
+  width: 100%;
+  white-space: nowrap;
+  height: 3rem;
+  overflow: hidden;
+}
+
+.view_select_style {
+  padding: 2rpx 10rpx;
+}
+
+.view_select_height {
+  height: 3rem;
+}
+
+.view_select_halfheight {
+  height: 1.5rem;
+}
+
+.view_select_right {
+  border-right: 1px solid #9d9b9b;
+}
+.view_select_left {
+  border-left: 1px solid #9d9b9b;
+}
+.view_select_top {
+  border-top: 1px solid #9d9b9b;
+}
+.view_select_bottom {
+  border-bottom: 1px solid #9d9b9b;
+}
+
+.view_select_color{
+
+ color:#ffffff;
+	background: #e36c09
+}
