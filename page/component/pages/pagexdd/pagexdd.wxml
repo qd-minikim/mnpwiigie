@@ -144,11 +144,12 @@
           <view class='font-color-5 font-size-3'>对话展示</view>
         </view>
       </view>
-      <view>
-      <canvas style="width:100%; height: 200px;" canvas-id="firstCanvas"></canvas>
-      </view>
+      <scroll-view style='height:400px' scroll-x='true' scroll-into-view="target" scroll-with-animation="false"> 
+       
+      <canvas style="width:1000px; height: 500px;border:1px solid " canvas-id="route_canvas_id"></canvas>
+       </scroll-view>
       <view></view>
-    </view>
+   </view>
 
 
   </scroll-view>
