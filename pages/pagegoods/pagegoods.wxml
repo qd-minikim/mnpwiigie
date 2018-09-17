@@ -52,24 +52,38 @@
     </scroll-view>
 
   </view>
-  <view wx:if="{{promotiontagArry.length>0}}" class="gap-bg" style="flex-direction:column;"></view>
- 
-  <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
-    <view>
-      <view ><image src='{{itemG.richtextcover}}'></image></view>
-      <view class='font-size-2 view-ellipsis-1'>{{itemG.title}}啊啊打发打发打发地方</view>
-      <view class='font-size-4  '>{{itemG.leavehoursname}}{{itemG.leavehours}}</view>
-      <view style='flex-direction:row;display:flex'>
-        <view style='flex-direction:column;display:flex'>
-          <view>a</view>
-          <view>g</view>
+  <!-- <view wx:if="{{promotiontagArry.length>0}}" class="gap-bg" style="flex-direction:column;"></view> -->
+
+  <scroll-view style='height:{{scrollViewHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
+      <view>
+        <view>
+          <image style='width:{{imageSize}}px;height:{{imageSize}}px' lazy-load='true' mode='scaleToFill' src='{{itemG.richtextcover}}'></image>
         </view>
-        <view>ddd</view>
+        <view class='font-size-2 view-ellipsis-1'>{{itemG.title}}啊啊打发打发打发地方</view>
+        <view class='font-size-4  '>{{itemG.leavehoursname}}{{itemG.leavehours}}</view>
+        <view style='flex-direction:row;display:flex'>
+
+          <view wx:if="{{itemG.deal_type =='1' || itemG.deal_type =='2'||itemG.deal_type =='3'}}" style='flex-direction:column;display:flex'>
+            <view class='font-size-4  ' >￥{{itemG.list_price}}</view>
+            <view wx:if="{{itemG.deal_type =='2'}}" class='font-size-4  '>{{itemG.link_price_name}}{{itemG.link_discount}}</view>
+          </view>
+          <view style="flex-direction:row;display:flex;flex:1; justify-content:flex-end;  ">
+            <view class='align-center'>
+
+              <image wx:for="{{itemG.my_friends}}" wx:for-item="itemi" wx:key="*this" class="scroll-view-friend-image" src='{{itemi.friend_image_url}}'></image>
+            </view>
+            <view class='align-center'>
+              <view class='align-center scroll-view--figure4 bg-figure4-image font-size-5 ' s>{{itemG.link_price_name}}</view>
+
+            </view>
+          </view>
+        </view>
+
       </view>
 
-    </view>
-
-  </block>
-
+    </block>
+  </scroll-view>
 
 </view>

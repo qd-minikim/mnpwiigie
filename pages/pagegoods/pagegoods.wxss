@@ -3,9 +3,9 @@
  
 
 .view_1 {
- 
+ width: 100%;
   white-space: nowrap;
-  height: 3rem;
+  height: 100rpx;
   overflow: hidden;
   margin: 1px auto ;
   border-top:1px solid #9d9b9b;
@@ -15,20 +15,22 @@
 .view_1_scroll-view {
   width: 100%;
   white-space: nowrap;
-  height: 3rem;
+  height: 100rpx;
   overflow: hidden;
 }
 
 .view_select_style {
-  padding: 2rpx 10rpx;
+   
+  padding-left: 10rpx;
+  padding-right: 10rpx;
 }
 
 .view_select_height {
-  height: 3rem;
+  height: 100rpx;
 }
 
 .view_select_halfheight {
-  height: 1.5rem;
+  height: 50rpx;
 }
 
 .view_select_right {
@@ -48,4 +50,25 @@
 
  color:#ffffff;
 	background: #e36c09
+}
+
+
+
+.scroll-view-friend-image{
+   width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+
+.scroll-view--figure4{
+
+    width: 130rpx;
+   height: 60rpx;
+   background-size: 100% 100%;  
+	 -moz-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
+   text-align: center;
+   color: #fff;
+    /*  background-image:'' 在app.wxss bg-figure4-image*/
 }

@@ -23,7 +23,10 @@ Page({
     goodsArry:[],
 
     windowWidth: app.globalData.systemInfo.windowWidth,
-    screenWidth: app.globalData.systemInfo.screenWidth
+    screenWidth: app.globalData.systemInfo.screenWidth,
+    windowHeight: app.globalData.systemInfo.windowHeight,
+    scrollViewHeight:0,
+    imageSize: app.globalData.systemInfo.screenWidth
 
   },
 
@@ -42,6 +45,12 @@ Page({
    */
   onReady: function() {
 
+    var viewTagHeight = (this.data.screenWidth/750) *100
+
+    this.setData({
+
+      scrollViewHeight: (this.data.windowHeight - viewTagHeight-5)+"px"
+    })
   },
 
   /**
