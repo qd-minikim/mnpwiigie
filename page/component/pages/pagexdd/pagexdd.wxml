@@ -1,2 +1,203 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
-<text>page/component/pages/pagexdd/pagexdd.wxml</text>
+<!-- 消费者详情 -->
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <!-- 标题 -->
+  <view class='view-1' style=''>
+    <view class='view-1-1'></view>
+    <view class='view-1-2 font-size-2'>硬品:</view>
+    <view class='view-ellipsis-1 font-size-2' style='flex:1'>渠道书架</view>
+    <view class='view-1-4'>
+      <image class='view-1-4-image' src='/image/keep_off.png'></image>
+    </view>
+  </view>
+  <!-- 出品商 -->
+  <view class='view-2 font-color-3 font-size-3' style='  '>
+    <view class='view-2-1'>出品商:</view>
+    <view class='view-2-2 view-ellipsis-1'>实打实地方</view>
+    <view class='view-2-3 view-ellipsis-1'>>>市府大道府大道</view>
+  </view>
+
+
+
+  <scroll-view class=' ' style='height:400px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <!-- 滚动图 -->
+    <view class='view-3'>
+      <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}">
+        <block wx:for="{{swiperArea.swiperImgUrls}}" wx:key="*this">
+          <swiper-item>
+            <image src='{{item}}' style='width:100%;height:100'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class='view-4 align-center'>
+      <view class='view-4-1 font-size-5'>显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看评率的显示会不会有问题。我举得可能你会被挤掉的，显示很难看的啊，你任务呢 ，看</view>
+    </view>
+
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='view-5 align-center'>
+      <view class='view-5-1 font-size-5 font-color-11'>分享描述：把好东西分享给你爱的人，也许他（她）会喜欢呢？</view>
+    </view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+
+    <view class='view-6 align-center'>
+
+      <view class='align-center view-6-1' style='   '>
+        <view class='view-6-1-1 font-size-3 font-color-8'>展看查看详情</view>
+        <view class='view-6-1-2'>
+          <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='view-7'>
+      <view class='view-7-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-7-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view style='height100%'>门市价格:</view>
+        <view style='flex:1'>￥116.20</view>
+        <view class='align-center'>
+          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+        </view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='view-7-6 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-7-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view style='height100%'>退货周期:</view>
+        <view style='flex:1'>支持7天退货</view>
+        <view class='align-center'>
+          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+        </view>
+      </view>
+
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-7-8 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-7-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view style='height100%'>换货周期:</view>
+        <view style='flex:1'>支持7天换货</view>
+        <view class='align-center'>
+          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+        </view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='view-7-11 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-7-figure' src='/image/figure_7.png'></image>
+        </view>
+        <view style='height100%'>
+          <text style=" letter-spacing:2em ">已</text>选:</view>
+        <view class='view-ellipsis-1' style='flex:1'>已选红*玫瑰金*6.5英寸大屏幕 1份</view>
+        <view class='align-center'>
+          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+        </view>
+      </view>
+
+      <view></view>
+      <view></view>
+    </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+    <view class='view-8'>
+      <view class='view-8-1 align-r-center'>
+
+        <view class='  align-center'>
+          <image class='view-8-figure' src='/image/figure_8.png'></image>
+        </view>
+        <view style='height100%'>朋友态度:</view>
+        <view class='view-ellipsis-1' style='flex:1'></view>
+        <view class='align-center font-color-5'>
+          我要说
+        </view>
+
+
+
+      </view>
+      <view class='view-8-2 align-c-center'>
+        <view>还没有朋友说</view>
+      </view>
+
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='view-9'>
+      <view class='view-9-1'>
+        <view class='align-center view-9-1-1' style='flex:1'>
+          <view class='align-center '><image class='view-9-1-figure' src='/image/figure_9.png'></image></view>
+          <view class='font-color-5 font-size-3'>图例说明</view>
+        </view>
+        <view  class='align-center font-size-1' style='flex:1'>活动中</view>
+        <view class='align-center view-9-1-3' style='flex:1'>
+          <view class='align-center '><image class='view-9-1-figure' src='/image/figure_11.png'></image></view>
+          <view class='font-color-5 font-size-3'>对话展示</view>
+        </view>
+      </view>
+      <view>
+      <canvas style="width:100%; height: 200px;" canvas-id="firstCanvas"></canvas>
+      </view>
+      <view></view>
+    </view>
+
+
+  </scroll-view>
+
+
+
+  <view></view>
+  <!-- 详情区 -->
+  <view></view>
+
+  <!-- 基本信息区 -->
+
+  <view></view>
+
+  <!-- 朋友说区 -->
+  <view></view>
+  <!-- 活动进展区 -->
+  <view></view>
+
+  <view class='flex-bottom align-r-center bottom-v' style=' '>
+    <view class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>
+      <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+        <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+      </view>
+      <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>首页</view>
+    </view>
+
+    <view class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+      <view class='bottom-view-1 align-c-center'>
+        <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+      </view>
+      <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
+    </view>
+    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%'>
+
+      <view class='font-size-3'>下单</view>
+    </view>
+    <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%'>
+
+      <view class='font-size-3'>送礼</view>
+    </view>
+    <view class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
+      <view class='bottom-view-1 align-c-center'>
+        <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+      </view>
+      <view class='bottom-view-1 align-c-center font-size-4'>推荐给</view>
+    </view>
+  </view>
+
+
+
+</view>
