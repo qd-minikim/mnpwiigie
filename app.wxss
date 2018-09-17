@@ -80,14 +80,27 @@
   -webkit-box-orient: vertical;
   align-content: center;
 }
-/* 水平居中 */
+/* 水平垂直居中 */
 .align-center
 {
    display:flex;
   justify-content:center;
    align-items:center;
 }
-
+/* 垂直居中 */
+.align-c-center
+{
+   display:flex;
+  justify-content:center;
+ 
+}
+/* 水平居中  */
+.align-r-center
+{
+   display:flex;
+   align-items:center;
+ 
+}
 /*链购红色背景图*/
 .bg-figure4-image{
 
