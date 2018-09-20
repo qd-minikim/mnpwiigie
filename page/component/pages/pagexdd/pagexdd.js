@@ -1,24 +1,22 @@
-// page/component/pages/pagexdd/pagexdd.js
-
 var config = require('../../../../config.js')
-
-var routeTree = require('../../../../utils/routeTreeInfo.js')
-
+var rCommon = require('../../../../utils/rCommon.js')
+var rRequest = require('../../../../utils/rRequest.js')
 
 const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    requirementInfo: {},
+    requirementInfo: {
+      keepstatus: '/image/keep_off.png'
+    },
 
-   pagePard:{
-     headHeight:'110',
-     footHeight: '120',
-     contentHeight:'',
-   },
+    pagePard: {
+      headHeight: '110',
+      footHeight: '120',
+      contentHeight: '',
+    },
     swiperArea: {
       swiperImgUrls: ['/image/home_swiper_1.jpg', '/image/home_swiper_2.jpg'],
       swiperIndicatorDots: true, //是否显示指示点   
@@ -55,8 +53,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
+    this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
-
+    //this.test()
   },
 
   /**
@@ -68,7 +68,7 @@ Page({
     var windowWidth = app.globalData.systemInfo.windowWidth
     var windowHeight = app.globalData.systemInfo.windowHeight
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
-    var percent = windowWidth/750
+    var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
     console.log(contentHeight)
     this.setData({
@@ -129,10 +129,75 @@ Page({
 
   },
 
+  test: function() {
+
+    rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
+  },
+  /**获取收藏信息 */
+  getRequirementKeepInfo: function() {
+    var that = this
+    var usreId = '1528869953018820';
+    var requirementid = '1535359452591612';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getKeepInfo',
+      requirementid: requirementid,
+      userid: usreId,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      var keepstatus = rdata.keepstatus;
+      if (keepstatus == 1) {
+        that.setData({
+          'requirementInfo.keepstatus': '/image/keep_on.png'
+        })
+      } else {
+        that.setData({
+          'requirementInfo.keepstatus': '/image/keep_off.png'
+        })
+      }
+    })
+  },
+  //获取进展区路径图
+  getProgressRouteInfo: function() {
+    var usreId = '1528869953018820';
+    var requirementid = '1535359452591612';
+    var treetype = 'ZFC12_1';
+
+    var that = this
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRelateTree',
+      id: requirementid,
+      userid: usreId,
+      role: treetype,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      that.setData({
+
+        'canvasViewInfo.canvasWidth':
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+        'canvasViewInfo.canvasHeight':
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+
+        'canvasInfo.canvasTop':
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+        'canvasInfo.canvasLeft':
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+
+      })
+      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+      //rCommon.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+
+    });
+  },
 
   /**获取进展区信息 */
 
-  getProgressRouteInfo: function() {
+  getProgressRouteInfo1: function() {
     var that = this;
     var usreId = '1528869953018820';
     var requirementid = '1535359452591612';
@@ -160,7 +225,7 @@ Page({
           'canvasInfo.canvasLeft': (res.data.boder.max_width * config.routeCicleConfig.circleRM) + "px",
 
         })
-        routeTree.doProgressRouteInfoImpl(res.data, 'content_12', 'route_canvas_id', this);
+        rCommon.doProgressRouteInfoImpl(res.data, 'content_12', 'route_canvas_id', this);
 
 
       }

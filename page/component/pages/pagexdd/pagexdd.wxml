@@ -9,7 +9,7 @@
     <view class='view-1-2  '>硬品:</view>
     <view class='view-ellipsis-1 ' style='flex:1'>渠道书架</view>
     <view class='view-1-4'>
-      <image class='view-1-4-image' src='/image/keep_off.png'></image>
+      <image class='view-1-4-image' src='{{requirementInfo.keepstatus}}'></image>
     </view>
   </view>
   <!-- 出品商 -->
