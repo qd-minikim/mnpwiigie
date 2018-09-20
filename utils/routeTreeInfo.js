@@ -1,70 +1,128 @@
-
 var canvasDraw = require('canvas.js')
 var config = require('../config.js')
-var headImage = { url: [], x: [], y: [], r: [], t: [] };
-function doProgressRouteInfoImpl(data, category,id) {
+var headImage = null
+var context = null
 
-  var info_ = data.info_;
-  headImage = { url: [], x: [], y: [], r: [], t: [] };
- 
+var c = 0;
+function doProgressRouteInfoImpl(data, category, id, that) {
+  var info_ = data.info_
+  headImage = {
+    url: [],
+    x: [],
+    y: [],
+    r: [],
+    t: [],
+    resource: []
+  };
+  context = wx.createCanvasContext(id)
+  context.save()
   for (var i = 0; i < info_.length; i++) {
     var node = info_[i];
+    readTree(node, category, id);
+  }
 
-    readTree(node, category,id);
+  var len = headImage.url.length
+  c = 0;
+  for (var n = 0; n < len; n++) {
+
+    drawImageInfo(n,  id,that);
+
+  
+  }
+ 
+}
+
+function downloadImage(url  ) {
+  return new Promise(function(resolve, reject) {
+    wx.downloadFile({
+      url: url,
+      success: res => {
+        if (res.statusCode === 200) {
+    
+          resolve(res.tempFilePath);
+        
+
+        } else {
+          console.log('出错1');
+        }
+      },
+      fail: function() {
+
+        
+      }
+
+    })
+
+  });
+}
+ 
+function drawImageInfo(i, id,that) {
+
+ 
+  var image = config.routeCicleConfig.headImage;
+  if (headImage.url[i] != undefined) {
 
   }
-  //drawImage(0, id);
+
+  downloadImage(headImage.url[i] ).then(function(value) {
+
+     headImage.resource[i] = value;
+    c++;
   
+    if (c == headImage.url.length   ) {
+     
+      drawHeadImage(id, that );
+
+     }
+
+  }).catch(function(){});
+
+ 
 }
-function drawImage(i, id) {
+ 
+var n 
+function drawHeadImage(id,that) {
 
-  if (i == headImage.x.length) { return; }
-
-  var r = headImage.r[i] - 10;
+  var leng = headImage.resource.length;
   
-  var context = wx.createCanvasContext(id)
+  for (var n = 0; n < leng; n++) {
 
-  var image = new Image();
-
-  image.onload = function () {
+    
+    var r = headImage.r[n] - 5;
+    
     context.save();
-    context.beginPath();
+     
+    context.beginPath()
+    context.arc(headImage.x[n], headImage.y[n], r, 0, 2 * Math.PI);
+    context.stroke();
+    context.clip();
+    context.drawImage(headImage.resource[n], headImage.x[n] - r, headImage.y[n] - r, 2 * r, 2 * r);
+    
+     context.restore(); 
 
-
-
-
-    if (headImage.t[i] == '0') {
-
-      context.arc(headImage.x[i], headImage.y[i], r, 0, Math.PI * 2, true);
-      context.clip();
-      context.closePath();
-
-      context.drawImage(image, headImage.x[i] - r, headImage.y[i] - r, 2 * r, 2 * r);
-    } else {
-      
-      context.drawImage(image, headImage.x[i] - (r + 10) + 2, headImage.y[i] - (r + 10) + 2, 2 * (r + 10) - 12, 2 * (r + 10) - 12);
-
-    }
-
-
-
-    context.restore();
-    i++;
-
-    drawImage(i, id);
-  };
-
-
-  if (headImage.url[i] == undefined) {
-    image.src = "../images/figure_12.png";
-  } else {
-
-    image.src = headImage.url[i];
   }
+   
+  context.draw(false,function(){
 
+    wx.canvasToTempFilePath({
+      canvasId: id, //canvasId和标签里面的id对应
+      success: (res) => {
 
+        that.setData({
+          'canvasViewInfo.canvasSaveImage': res.tempFilePath,
 
+        })
+      }
+    })
+
+  });
+ 
+ 
 }
+
+
+
+
 
 
 function readTree(node, category, id) {
@@ -73,13 +131,15 @@ function readTree(node, category, id) {
 
   if (node.isRequirement) {
 
-    headImage.url.push(node.userHeadUrl);
-    headImage.x.push(node.circlePoint[0]);
-    headImage.y.push(node.circlePoint[1]);
-    headImage.r.push(node.forwardRadius);
     if (category == 'content_12') {
 
-      canvasDraw.drawRect(id, node.circlePoint[0] - node.forwardRadius - 1, node.circlePoint[1] - node.forwardRadius - 1, 2 * (node.forwardRadius) - 4, 2 * (node.forwardRadius) - 4, node.requirementColor);
+      // canvasDraw.drawRect(
+      //   id,
+      //   node.circlePoint[0] - node.forwardRadius - 1,
+      //   node.circlePoint[1] - node.forwardRadius - 1,
+      //   2 * (node.forwardRadius) - 4,
+      //   2 * (node.forwardRadius) - 4,
+      //   node.requirementColor);
 
       headImage.t.push(1);
     } else {
@@ -90,76 +150,151 @@ function readTree(node, category, id) {
 
   } else {
 
-    canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, config.routeCicleConfig.circleYd, 0, 2);
+    var x = node.circlePoint[0] * config.routeCicleConfig.circleRM;
+    var y = node.circlePoint[1] * config.routeCicleConfig.circleRM;
+    var r = node.forwardRadius * config.routeCicleConfig.circleRM;
+    var url = node.userHeadUrl;
 
 
-    canvasDraw.drawImage(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.userHeadUrl);
-
-
-
-    headImage.url.push(node.userHeadUrl);
-    headImage.x.push(node.circlePoint[0]);
-    headImage.y.push(node.circlePoint[1]);
-    headImage.r.push(node.forwardRadius);
+    headImage.url.push(url);
+    headImage.x.push(x);
+    headImage.y.push(y);
+    headImage.r.push(r);
     headImage.t.push(0);
 
-    if (node.isForward) {
 
-      canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.forwardColor, 7 / 4, 1 / 4);
+    // context.beginPath();
+    // context.setStrokeStyle(config.routeCicleConfig.circleYd)
+    // context.arc(x, y, r, Math.PI * 0, Math.PI * 2 )
+    // context.stroke()
 
-      if (node.isAid) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.aidColor, 5 / 4, 7 / 4);
-      }
-      if (node.isReply) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.replyColor, 1 / 4, 3 / 4);
-        if (node.isReplyAccept) {
-          canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius - 5, node.replyColor, 0, 2);
-        }
-      }
-      if (node.isLike) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.likeColor, 3 / 4, 5 / 4);
-      }
-      if (node.isBuy) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius - 5, node.buyColor, 0, 2);
-      }
-
-      if (node.isOpen2) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.open2Color, 7 / 4, 1 / 4);
-      }
-    } else {
-
-      if (node.openChildsOnlyRead) {
-
-        canvasDraw.drawArcnew(id, "(" + node.openChildsOnlyReadNum + ")", node.circlePoint[0] + 48, node.circlePoint[1] + 15, "#6b6a6a", true);
-
-      }
-
-      if (node.isAid) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.aidColor, 5 / 4, 7 / 4);
-
-      }
-      if (node.isReply) {
+    // if (node.isForward) {
 
 
-
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.replyColor, 1 / 4, 3 / 4);
-
-        if (node.isReplyAccept) {
-
-          canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius - 5, node.replyColor, 0, 2);
-        }
+    //   context.beginPath();
+    //   context.setStrokeStyle(node.forwardColor)
+    //   context.arc(x, y, r, Math.PI * 7 / 4, Math.PI * 1 / 4 )
+    //   context.stroke()
 
 
-      }
-      if (node.isLike) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius, node.likeColor, 3 / 4, 5 / 4);
+    //   if (node.isAid) {
 
-      }
-      if (node.isBuy) {
-        canvasDraw.drawArcnew(id, node.circlePoint[0], node.circlePoint[1], node.forwardRadius - 5, node.buyColor, 0, 2);
-      }
 
-    }
+    //     context.setStrokeStyle(node.aidColor)
+    //     context.arc(x, y, r, Math.PI * 5 / 4, Math.PI * 7 / 4 )
+
+    //   }
+    //   if (node.isReply) {
+    //     context.restore()
+
+    //     context.setStrokeStyle(node.replyColor)
+    //     context.arc(x, y, r, Math.PI * 1 / 4, Math.PI * 3 / 4, false)
+
+
+    //     if (node.isReplyAccept) {
+
+    //       context.restore()
+
+    //       context.setStrokeStyle(node.replyColor)
+    //       context.arc(x, y, r - 5, Math.PI * 0, Math.PI * 2, false)
+
+    //     }
+    //   }
+    //   if (node.isLike) {
+    //     context.restore()
+
+    //     context.setStrokeStyle(node.likeColor)
+    //     context.arc(x, y, r - 5, Math.PI * 3 / 4, Math.PI * 5 / 4, false)
+
+    //   }
+    //   if (node.isBuy) {
+    //     context.beginPath();
+
+    //     context.setStrokeStyle(node.buyColor)
+    //     context.arc(x, y, r - 5, Math.PI * 0, Math.PI * 2  )
+    //     // canvasDraw.drawArcnew(
+    //     //   id,
+    //     //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //   node.forwardRadius * config.routeCicleConfig.circleRM - 5 * config.routeCicleConfig.circleRM,
+    //     //   node.buyColor, 0, 2);
+    //   }
+
+    //   if (node.isOpen2) {
+
+
+    //     context.beginPath();
+    //     context.setStrokeStyle(node.open2Color)
+    //     context.arc(x, y, r, Math.PI * 7 / 4, Math.PI * 1 / 4 )
+    //     context.stroke()
+
+    //     // canvasDraw.drawArcnew(
+    //     //   id, node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //   node.forwardRadius * config.routeCicleConfig.circleRM,
+    //     //   node.open2Color, 7 / 4, 1 / 4);
+    //   }
+    // } else {
+
+    //   if (node.openChildsOnlyRead) {
+
+    //     // canvasDraw.drawWord(
+    //     //   id,
+    //     //   "(" + node.openChildsOnlyReadNum + ")",
+    //     //   node.circlePoint[0] * config.routeCicleConfig.circleRM + 48 * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM + 15 * config.routeCicleConfig.circleRM, "#6b6a6a", true);
+
+
+
+    //   }
+
+    //   if (node.isAid) {
+    //     // canvasDraw.drawArcnew(id,
+    //     //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //   node.forwardRadius * config.routeCicleConfig.circleRM,
+    //     //   node.aidColor, 5 / 4, 7 / 4);
+
+    //   }
+    //   if (node.isReply) {
+
+
+
+    //     // canvasDraw.drawArcnew(
+    //     //   id,
+    //     //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //  node.forwardRadius * config.routeCicleConfig.circleRM, node.replyColor, 1 / 4, 3 / 4);
+
+    //     if (node.isReplyAccept) {
+
+    //       // canvasDraw.drawArcnew(
+    //       //   id,
+    //       //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //       //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //       //   node.forwardRadius * config.routeCicleConfig.circleRM - 5 * config.routeCicleConfig.circleRM,
+    //       //   node.replyColor, 0, 2);
+    //     }
+
+
+    //   }
+    //   if (node.isLike) {
+    //     // canvasDraw.drawArcnew(
+    //     //   id, node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //   node.forwardRadius * config.routeCicleConfig.circleRM,
+    //     //   node.likeColor, 3 / 4, 5 / 4);
+
+    //   }
+    //   if (node.isBuy) {
+    //     // canvasDraw.drawArcnew(
+    //     //   id,
+    //     //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
+    //     //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
+    //     //   node.forwardRadius * config.routeCicleConfig.circleRM - 5 * config.routeCicleConfig.circleRM, node.buyColor, 0, 2);
+    //   }
+
+    // }
   }
 
   var isOpen = node.isOpen;
@@ -168,23 +303,34 @@ function readTree(node, category, id) {
   var isPush = node.isPush;
   var isLikePath = node.isLikePath;
   var isOpen2 = node.isOpen2;
+
+
   if (isOpen) {
     var childs = node.openChilds;
     if (childs && childs.length) {
       for (var i = 0; i < childs.length; i++) {
         if (!node.isColseToOpen) {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toOpenLineColor, 2);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toOpenLineColor,
+          //   2);
         } else {
 
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToOpen, 2);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   lineIsCloseToOpen, 2);
         }
 
-        readTree(childs[i]);
-        // this.setData({
+        readTree(childs[i], category, id);
 
-        //   currentnode: childs[i]
-        // })
-        // this.readTree();
       }
     }
 
@@ -194,11 +340,17 @@ function readTree(node, category, id) {
     if (childs && childs.length) {
       for (var i = 0; i < childs.length; i++) {
         if (!node.isColseToPush) {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toPushLineColor, 2);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toPushLineColor, 2);
         } else {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToPush, 2);
+          // canvasDraw.drawLine(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToPush, 2);
         }
-        readTree(childs[i]);
+        readTree(childs[i], category, id);
       }
     }
 
@@ -208,12 +360,24 @@ function readTree(node, category, id) {
     if (childs && childs.length) {
       for (var i = 0; i < childs.length; i++) {
         if (!node.isColseToLikePath) {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toLikePathLineColor, 2);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toLikePathLineColor, 2);
         } else {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToLikePath, 2);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   lineIsCloseToLikePath, 2);
         }
 
-        readTree(childs[i]);
+        readTree(childs[i], category, id);
       }
     }
 
@@ -223,13 +387,25 @@ function readTree(node, category, id) {
     if (childs && childs.length) {
       for (var i = 0; i < childs.length; i++) {
         if (!node.isColseToFriend) {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toFriendLineColor);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toFriendLineColor);
         } else {
 
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToFriend);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   lineIsCloseToFriend);
         }
 
-        readTree(childs[i]);
+        readTree(childs[i], category, id);
       }
 
     }
@@ -240,13 +416,25 @@ function readTree(node, category, id) {
       for (var i = 0; i < childs.length; i++) {
 
         if (!node.isColseToShare) {
-          // dash_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toShareLineColor, 6);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toShareLineColor, 6);
         } else {
 
-          // dash_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToShare, 6);
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   lineIsCloseToShare, 6);
         }
 
-        readTree(childs[i]);
+        readTree(childs[i], category, id);
       }
 
     }
@@ -256,14 +444,39 @@ function readTree(node, category, id) {
     if (childs && childs.length) {
 
       for (var i = 0; i < childs.length; i++) {
+        var rx = node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          ry = node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          lx = childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          ly = childs[i].leftPoint[1] * config.routeCicleConfig.circleRM
+
+        context.beginPath();
         if (!node.isColseToOpen2) {
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], node.toOpen2LineColor);
+
+          context.setStrokeStyle(node.toOpen2LineColor)
+
+
+          // canvasDraw.drawLine(
+          //   id, node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   node.toOpen2LineColor);
         } else {
-
-          // draw_line(id, node.rightPoint[0], node.rightPoint[1], childs[i].leftPoint[0], childs[i].leftPoint[1], lineIsCloseToOpen2);
+          context.setStrokeStyle(config.routeCicleConfig.L_ISCLOSE_TOOPEN2)
+          // canvasDraw.drawLine(
+          //   id,
+          //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
+          //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+          //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
+          //   lineIsCloseToOpen2);
         }
+        context.moveTo(rx, ry);
+        context.lineTo(lx, ly);
+        context.closePath();
+        context.stroke();
 
-        readTree(childs[i]);
+        readTree(childs[i], category, id);
       }
 
 

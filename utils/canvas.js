@@ -1,5 +1,5 @@
  
- 
+ var context = null
  function drawRect(id, x, y, w, h, rgba) {
 
    var context = wx.createCanvasContext(id)
@@ -22,10 +22,16 @@
  /**
   * 绘制 圆弧
   */
- function drawArcnew(id, x, y, r, rgba, starAngle, endAngle) {
-   var context = wx.createCanvasContext(id)
+function drawArcnew( id, x, y, r, rgba, starAngle, endAngle) {
+  //  var context = wx.createCanvasContext(id)
+
+  if (!context){
+    context = wx.createCanvasContext(id)
+  }
+   context.beginPath();
    context.setStrokeStyle(rgba)
    context.arc(x, y, r, Math.PI * starAngle, Math.PI * endAngle, true)
+   context.closePath();
    context.stroke();
    context.draw();
    
@@ -59,18 +65,71 @@ function drawImage(id, x, y, r,image) {
   //  };
   //  image.src = userHeadUrl;
   const ctx = wx.createCanvasContext(id)
-  ctx.save()
-  ctx.beginPath()
-  ctx.arc(x, y, r, 0, Math.PI * 2, true)
-  ctx.clip()
-  ctx.drawImage(image, x - r, y - r, 2 * r, 2 * r)
-  ctx.restore()
+  // ctx.save()
+  // ctx.beginPath()
+  // ctx.arc(x, y, r, 0, Math.PI * 2, true)
+  // ctx.clip()
+  // ctx.drawImage(image, x - r, y - r, 2 * r, 2 * r)
+  ctx.drawImage(image, 0, 0, 300, 200)
+  // ctx.restore()
   ctx.draw()
  }
 
+ /**
+  *  写字
+  */
+ function drawWord(id, text, x, y, clor, isMargin) {
+  //  var canvas = document.getElementById(id);
+  //  if (canvas == null)
+  //    return false;
+  //  var context = canvas.getContext("2d");
+ 
+  //  context.fillStyle = clor;
+  //  context.font = " 30px sans-serif";
+  //  context.textBaseline = 'center';
+  //  context.textAlign = "center";
+  //  context.marginLeft = '110px';
+   //填充字符串
+   var txt = text;
 
+   if (isMargin) {
+     var length = context.measureText(txt).width;
 
+     var h = Number(length) / 2;
 
+     x = Number(x) + Number(h) + 2;
+
+   }
+   const ctx = wx.createCanvasContext(id)
+   
+   ctx.setFontSize(20)
+  
+   ctx.fillText(txt, x, y); 
+   ctx.draw()
+  
+ }
+
+ /**
+  * 绘制 直线
+  */
+
+ function drawLine(id, x, y, to_x, to_y, rgba) {
+  //  var canvas = document.getElementById(id);
+  //  if (canvas == null)
+  //    return false;
+   const context = wx.createCanvasContext(id)
+  //  context.beginPath();
+  //  context.lineWidth = 3;
+  //  context.strokeStyle = rgba; //边框样式
+  //  context.fillStyle = rgba; ////填充的样式
+   //实验证明第一次lineTo的时候和moveTo功能一样
+   context.beginPath();
+   context.moveTo(x, y);
+   context.lineTo(to_x, to_y);
+   context.closePath();
+   context.stroke();
+   context.draw()
+ }
 
 
 
@@ -149,25 +208,7 @@ function drawImage(id, x, y, r,image) {
 //    context.fill();
 //  }
 
-//  /**
-//   * 绘制 直线
-//   */
 
-//  function draw_line(id, x, y, to_x, to_y, rgba) {
-//    var canvas = document.getElementById(id);
-//    if (canvas == null)
-//      return false;
-//    var context = canvas.getContext("2d");
-//    context.beginPath();
-//    context.lineWidth = 3;
-//    context.strokeStyle = rgba; //边框样式
-//    context.fillStyle = rgba; ////填充的样式
-//    //实验证明第一次lineTo的时候和moveTo功能一样
-
-//    context.moveTo(x, y);
-//    context.lineTo(to_x, to_y);
-//    context.stroke();
-//  }
 //  /**
 //   * 绘制 虚线
 //   */
@@ -230,38 +271,7 @@ function drawImage(id, x, y, r,image) {
 //    context.stroke();
 //  }
 
-//  /**
-//   *  写字
-//   */
-//  function drawWord(id, text, x, y, clor, isMargin) {
-//    var canvas = document.getElementById(id);
-//    if (canvas == null)
-//      return false;
-//    var context = canvas.getContext("2d");
-//    //context.fillStyle = "#f90611";
-//    //context.fillRect(0,0,10,10);
-//    context.fillStyle = clor;
-//    context.font = " 30px sans-serif";
-//    context.textBaseline = 'center';
-//    context.textAlign = "center";
-//    context.marginLeft = '110px';
-//    //填充字符串
-//    var txt = text;
 
-//    if (isMargin) {
-//      var length = context.measureText(txt).width;
-
-//      var h = Number(length) / 2;
-
-//      x = Number(x) + Number(h) + 2;
-
-//    }
-
-
-//    context.fillText(txt, x, y);
-
-
-//  }
 
 
 
@@ -340,9 +350,10 @@ function drawImage(id, x, y, r,image) {
      drawImage: drawImage,
   //  drawRect: drawRect,
      drawArcnew: drawArcnew,
+   drawWord: drawWord,
   //  drawArcfill: drawArcfill,
   //  drawArc: drawArc,
-  //  drawLine: drawLine,
+     drawLine: drawLine,
   //  dashLine: dashLine,
   //  dashedLineTo: dashedLineTo,
   //  getBeveling: getBeveling,

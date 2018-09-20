@@ -146,8 +146,8 @@
 }
 .view-9-1-figure{
 
-  width: 60rpx;
-  height: 60rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .bottom-v {
@@ -192,4 +192,16 @@
 .bottom-tj {
   background-color: #62b900;
   color: #f6f4f4;
+}
+
+
+
+.canvasClass {
+    width: 2250rpx;
+    height: 750px;
+    /* transform: translateX(-200%); */
+     
+    
+    left:-2250rpx;
+    top:-750px;
 }

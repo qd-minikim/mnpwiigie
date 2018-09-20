@@ -13,7 +13,14 @@ App({
     userIData: false,
     systemInfo: null,
 
-    loginInfo:null
+    loginInfo:null ,
+
+
+    cacheInfo:{
+      pagexdd_p_1:null,
+
+    }
+
   },
   //获取设备信息
   getSystemInfo: function() {

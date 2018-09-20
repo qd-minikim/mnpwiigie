@@ -4,6 +4,7 @@ var config = require('../../../../config.js')
 
 var routeTree = require('../../../../utils/routeTreeInfo.js')
 
+
 const app = getApp()
 Page({
 
@@ -13,6 +14,11 @@ Page({
   data: {
     requirementInfo: {},
 
+   pagePard:{
+     headHeight:'110',
+     footHeight: '120',
+     contentHeight:'',
+   },
     swiperArea: {
       swiperImgUrls: ['/image/home_swiper_1.jpg', '/image/home_swiper_2.jpg'],
       swiperIndicatorDots: true, //是否显示指示点   
@@ -33,7 +39,16 @@ Page({
     },
 
     //
-    currentnode: null
+    currentnode: null,
+
+    //画布信息
+    canvasViewInfo: {
+      canvasSaveImage: null,
+      canvasWidth: '0px',
+      canvasHeight: '0px',
+      canvasTop: '0px',
+      canvasLeft: '0px'
+    }
   },
 
   /**
@@ -51,14 +66,19 @@ Page({
 
 
     var windowWidth = app.globalData.systemInfo.windowWidth
-
+    var windowHeight = app.globalData.systemInfo.windowHeight
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
-
+    var percent = windowWidth/750
+    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
+    console.log(contentHeight)
     this.setData({
 
       oneGridWidth: ongGridWidth + "px",
-      twoGridWidth: (ongGridWidth * 2) + "px"
+      twoGridWidth: (ongGridWidth * 2) + "px",
+      'pagePard.contentHeight': contentHeight
     })
+
+
   },
 
   /**
@@ -108,31 +128,12 @@ Page({
   getRequirementInfo: function() {
 
   },
- 
 
-  drawTest: function() {
 
-    var context = wx.createCanvasContext('route_canvas_id')
-    context.setStrokeStyle("#00ff00")
-    context.setLineWidth(5)
-    context.rect(0, 0, 200, 200)
-    context.stroke()
-    context.setStrokeStyle("#ff0000")
-    context.setLineWidth(2)
-    context.moveTo(160, 100)
-    context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-    context.moveTo(140, 100)
-    context.arc(100, 100, 40, 0, Math.PI, false)
-    context.moveTo(85, 80)
-    context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-    context.moveTo(125, 80)
-    context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-    context.stroke()
-    context.draw()
-  },
   /**获取进展区信息 */
 
   getProgressRouteInfo: function() {
+    var that = this;
     var usreId = '1528869953018820';
     var requirementid = '1535359452591612';
     var treetype = 'ZFC12_1';
@@ -150,60 +151,21 @@ Page({
       },
       success: res => {
 
-        // this.setData({
+        that.setData({
 
-        //   progressRouteInfo: res.data
-        // })
- // var category = 'content_12';
-  // var id = 'route_canvas_id';
-        routeTree.doProgressRouteInfoImpl(res.data, 'content_12', 'route_canvas_id')
+          'canvasViewInfo.canvasWidth': (res.data.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+          'canvasViewInfo.canvasHeight': (res.data.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+
+          'canvasInfo.canvasTop': (res.data.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+          'canvasInfo.canvasLeft': (res.data.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+
+        })
+        routeTree.doProgressRouteInfoImpl(res.data, 'content_12', 'route_canvas_id', this);
+
+
       }
     })
   },
-  //   datainfo.put("copies", rMap == null ? 0 : rMap.get("all_copies"));
-  //   datainfo.put("orders", rInfo_.size());
-  //   datainfo.put("rInfo_", rInfo_);
-  // }
-
-  // 			datainfo.put("boder", rBorder);
-  // datainfo.put("info_", rInfo);
-  doProgressRouteInfo: function() {
-    var info = this.data.progressRouteInfo;
-    if (info) {
-
-      var boder = info.boder;
-      var treetype = info.treetype;
-      // $("#dr").attr("width", boder.max_width);
-      // $("#dr").attr("height", boder.max_height);
-
-      // $("#dr").css("width", boder.max_width / 3);
-      // $("#dr").css("height", boder.max_height / 3);
-
-
-      // $("#drdiv").height("height", (boder.max_height / 3) + 20);
-
-      // this.doProgressRouteInfoImpl(info.info_, "dr");
-
-      // $("#unlinkfriend_dr").attr("width", boder.max_nl_width);
-      // $("#unlinkfriend_dr").attr("height", boder.max_nl_height);
-      // $("#unlinkfriend_dr").css("width", boder.max_nl_width / 3);
-      // $("#unlinkfriend_dr").css("height", boder.max_nl_height / 3);
-
-      // if (treetype != 'TW') {
-      //   if (dealType == '2') {
-      //     unLinkFrinds(info.rInfo_, "unlinkfriend_dr");
-      //     $("#all_copies_id").text(info.copies);
-      //     $("#all_orders_id").text(info.orders);
-      //   }
-
-      
-
-    }
-
-
-
-  },
- 
 
 
 

@@ -1,26 +1,27 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
 <!-- 消费者详情 -->
-
+<canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; "   canvas-id="route_canvas_id"/> 
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <!-- 标题 -->
-  <view class='view-1' style=''>
+  <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
+  <view class='align-r-center view-1 font-size-3 ' style=''>
     <view class='view-1-1'></view>
-    <view class='view-1-2 font-size-2'>硬品:</view>
-    <view class='view-ellipsis-1 font-size-2' style='flex:1'>渠道书架</view>
+    <view class='view-1-2  '>硬品:</view>
+    <view class='view-ellipsis-1 ' style='flex:1'>渠道书架</view>
     <view class='view-1-4'>
       <image class='view-1-4-image' src='/image/keep_off.png'></image>
     </view>
   </view>
   <!-- 出品商 -->
-  <view class='view-2 font-color-3 font-size-3' style='  '>
+  <view class='view-2 font-color-3 font-size-4' style='  '>
     <view class='view-2-1'>出品商:</view>
     <view class='view-2-2 view-ellipsis-1'>实打实地方</view>
     <view class='view-2-3 view-ellipsis-1'>>>市府大道府大道</view>
   </view>
+</view>
 
 
-
-  <scroll-view class=' ' style='height:400px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+  <scroll-view class=' ' style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
     <!-- 滚动图 -->
     <view class='view-3'>
@@ -33,19 +34,19 @@
       </swiper>
     </view>
     <view class='view-4 align-center'>
-      <view class='view-4-1 font-size-5'>显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看评率的显示会不会有问题。我举得可能你会被挤掉的，显示很难看的啊，你任务呢 ，看</view>
+      <view class='view-4-1 font-size-6'>显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看评率的显示会不会有问题。我举得可能你会被挤掉的，显示很难看的啊，你任务呢 ，看</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
     <view class='view-5 align-center'>
-      <view class='view-5-1 font-size-5 font-color-11'>分享描述：把好东西分享给你爱的人，也许他（她）会喜欢呢？</view>
+      <view class='view-5-1 font-size-6 font-color-11'>分享描述：把好东西分享给你爱的人，也许他（她）会喜欢呢？</view>
     </view>
     <view class="gap-line" style="flex-direction:column;"></view>
 
     <view class='view-6 align-center'>
 
       <view class='align-center view-6-1' style='   '>
-        <view class='view-6-1-1 font-size-3 font-color-8'>展看查看详情</view>
+        <view class='view-6-1-1 font-size-4 font-color-8'>展看查看详情</view>
         <view class='view-6-1-2'>
           <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
         </view>
@@ -55,7 +56,7 @@
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
-    <view class='view-7'>
+    <view class='view-7  font-size-4'>
       <view class='view-7-1 align-r-center'>
         <view class='  align-center'>
           <image class='view-7-figure' src='/image/figure_5.png'></image>
@@ -110,7 +111,7 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
 
 
-    <view class='view-8'>
+    <view class='view-8  font-size-4'>
       <view class='view-8-1 align-r-center'>
 
         <view class='  align-center'>
@@ -136,17 +137,17 @@
       <view class='view-9-1'>
         <view class='align-center view-9-1-1' style='flex:1'>
           <view class='align-center '><image class='view-9-1-figure' src='/image/figure_9.png'></image></view>
-          <view class='font-color-5 font-size-3'>图例说明</view>
+          <view class='font-color-5 font-size-4'>图例说明</view>
         </view>
-        <view  class='align-center font-size-1' style='flex:1'>活动中</view>
+        <view  class='align-center font-size-2' style='flex:1'>活动中</view>
         <view class='align-center view-9-1-3' style='flex:1'>
           <view class='align-center '><image class='view-9-1-figure' src='/image/figure_11.png'></image></view>
-          <view class='font-color-5 font-size-3'>对话展示</view>
+          <view class='font-color-5 font-size-4'>对话展示</view>
         </view>
       </view>
-      <scroll-view style='height:400px' scroll-x='true' scroll-into-view="target" scroll-with-animation="false"> 
-       
-      <canvas style="width:1000px; height: 500px;border:1px solid " canvas-id="route_canvas_id"></canvas>
+      <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false"> 
+    <image  style="width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};  "src='{{canvasViewInfo.canvasSaveImage}}'> </image>
+      
        </scroll-view>
       <view></view>
    </view>
@@ -169,7 +170,7 @@
   <!-- 活动进展区 -->
   <view></view>
 
-  <view class='flex-bottom align-r-center bottom-v' style=' '>
+  <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
     <view class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>
       <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
         <image class='bottom-view-1-image' src='/image/home_0.png'></image>
