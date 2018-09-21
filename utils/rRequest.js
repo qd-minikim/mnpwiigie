@@ -12,6 +12,8 @@
      }
    })
  }
+ 
  module.exports = {
-   doRequest: doRequest
+   doRequest: doRequest,
+ 
  }

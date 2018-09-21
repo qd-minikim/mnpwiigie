@@ -66,7 +66,7 @@ Page({
 
     this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
-    //this.test()
+    this.mytest()
   },
 
   /**
@@ -143,12 +143,12 @@ Page({
   clickView_7x: function(event) {
     var that = this
     var clicklx = event.currentTarget.dataset.lx;
-    rUtils.slideModal.on(that,clicklx);
+    rUtils.slideModal.on(that, clicklx);
   },
   hideModal: function(e) {
     var that = this
-    rUtils.slideModal.off(that );
-    
+    rUtils.slideModal.off(that);
+
   },
 
   /**获取详情 */
@@ -171,10 +171,10 @@ Page({
       })
 
     })
-  
+
   },
   /**获取展开详情信息 */
-  getRequirementRichtext: function () {
+  getRequirementRichtext: function() {
     var that = this
     var usreId = '1528869953018820';
     var spuid = '1535359452591612';
@@ -183,9 +183,9 @@ Page({
     var data = {
       code_: 'x_getRequirementRichtext',
       spuid: spuid,
-     
+
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       that.setData({
         'requirementInfo.richtext': ''
@@ -196,15 +196,53 @@ Page({
   },
   /**mark行为 */
   //
-  requirementMarkAction:function(){
-    requirementMarkAction
-    
-    var url='', data={}, actionType='', that=this, callback
-    rCommon.requirementMarkAction.markAction(url,)
+  requirementMarkAction: function() {
 
-    
+    // url, data, actionType, that, callback
+    var url = '',
+      data = {},
+      actionType = '',
+      that = this
+    rCommon.requirementMarkAction.markAction(url, data, actionType, that, function() {
+
+    })
+
+
   },
-  
+
+  mytest: function() {
+
+  },
+  /**执行收藏操作 */
+  doRequirementKeepInfo: function() {
+
+    var that = this
+
+    var requirementid = '1535359452591612';
+    var userid = '1535359452591612';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_keepdone',
+      requirementid: requirementid,
+      userid: userid,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      var keepstatusmsg = rdata.keepstatusmsg;
+
+      wx.showToast({
+        title: keepstatusmsg,
+        icon: 'success',
+        duration: 2000,
+        success: function() {
+          that.getRequirementKeepInfo();
+        }
+      })
+
+    })
+  },
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
     var that = this

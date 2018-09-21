@@ -473,14 +473,18 @@ var requirementMarkAction = {
   actionType: 'read',
   markAction: function(url, data, actionType, that, callback) {
     var this_ = this;
-    actionType = actionType || this_.actionType
+    actionType = actionType || this_.actionType;
 
+    data = { ...data, actionType: actionType };
+ 
     rRequest.doRequest(url, data, that, function(rdata) {
       typeof callback == "function" && callback(rdata)
     })
   },
 
 }
+ 
+
 
 
 module.exports = {
@@ -488,4 +492,6 @@ module.exports = {
   canvaProgressRoute: canvaProgressRoute,
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
+  
+
 }
