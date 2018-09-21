@@ -2,16 +2,21 @@ var config = require('../../../../config.js')
 var rCommon = require('../../../../utils/rCommon.js')
 var rRequest = require('../../../../utils/rRequest.js')
 var rUtils = require('../../../../utils/rUtils.js')
+var WxParse = require('../../../../wxParse/wxParse.js');
+ 
 const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    
     requirementInfo: {
       keepstatus: '/image/keep_off.png',
       title: '',
-
+      richtextContent:'',
+      richtextMore:true,
+      richtextShow: false
     },
 
     pagePard: {
@@ -66,7 +71,8 @@ Page({
 
     this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
-    this.mytest()
+    this.getRequirementRichtext()
+    this.getRequirementDetail()
   },
 
   /**
@@ -165,19 +171,33 @@ Page({
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
+       
+      if(rdata.info){
 
-      that.setData({
-        'requirementInfo.title': ''
-      })
+        that.setData({
+          'requirementInfo.title': rdata.info.title
+        })
+      }
+    
 
     })
 
   },
+  showRichtext:function(){
+    var that = this;
+    that.setData({
+      'requirementInfo.richtextMore': false,
+      'requirementInfo.richtextShow':true
+    })
+
+  }
+,
+
   /**获取展开详情信息 */
   getRequirementRichtext: function() {
     var that = this
-    var usreId = '1528869953018820';
-    var spuid = '1535359452591612';
+    var usreId = '';
+    var spuid = '1530514250651419';
 
     var url = config.requestUrl
     var data = {
@@ -187,10 +207,23 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-      that.setData({
-        'requirementInfo.richtext': ''
-      })
 
+      var richtext = rdata.info.richtext_content;
+    
+      /**
+      * WxParse.wxParse(bindName , type, data, target,imagePadding)
+      * 1.bindName绑定的数据名(必填)
+      * 2.type可以为html或者md(必填)
+      * 3.data为传入的具体数据(必填)
+      * 4.target为Page对象,一般为this(必填)
+      * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+      */
+      
+     
+      WxParse.wxParse('richtext', 'html', richtext, that, 5);
+   
+      //requirementInfo.richtextContent
+      
     })
 
   },

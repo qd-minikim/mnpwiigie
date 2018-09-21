@@ -1,4 +1,8 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
+ 
+ <import src="../../../../wxParse/wxParse.wxml"/>
+ 
+ 
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
 <view class='container ' style='flex-direction:colum;display:flex; '>
@@ -7,7 +11,7 @@
     <view class='align-r-center view-1 font-size-3 ' style=''>
       <view class='view-1-1'></view>
       <view class='view-1-2  '>硬品:</view>
-      <view class='view-ellipsis-1 ' style='flex:1'>渠道书架</view>
+      <view class='view-ellipsis-1 ' style='flex:1'>{{requirementInfo.title}}</view>
       <view class='view-1-4'>
         <image class='view-1-4-image' src='{{requirementInfo.keepstatus}}'></image>
       </view>
@@ -45,13 +49,17 @@
 
     <view class='view-6 align-center'>
 
-      <view class='align-center view-6-1' style='   '>
+      
+      <view wx:if="{{requirementInfo.richtextMore}}" class='align-center view-6-1'  bindtap='showRichtext'>
         <view class='view-6-1-1 font-size-4 font-color-8'>展看查看详情</view>
         <view class='view-6-1-2'>
           <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
         </view>
       </view>
-
+      <view wx:if="{{requirementInfo.richtextShow}}">
+      <template is="wxParse" data="{{wxParseData:richtext.nodes}}"/>
+ 
+      </view>
     </view>
 
     <view class="gap-bg" style="flex-direction:column;"></view>
