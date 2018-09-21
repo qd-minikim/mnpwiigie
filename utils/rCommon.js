@@ -10,7 +10,7 @@ var canvaProgressRoute = {
   c: 0,
   doProgressRouteInfoImpl: function(data, category, id, that) {
     var info_ = data.info_
-    var this_= this;
+    var this_ = this;
     this_.headImage = {
       url: [],
       x: [],
@@ -55,7 +55,7 @@ var canvaProgressRoute = {
   },
 
   drawImageInfo: function(i, id, that) {
-    
+
     var this_ = this;
     var image = config.routeCicleConfig.headImage;
     if (this_.headImage.url[i] != undefined) {
@@ -456,22 +456,36 @@ var canvaProgressRoute = {
 //收藏
 var requirementKeep = {
 
-    getKeepInfo:function(){
+  getKeepInfo: function() {
 
 
 
-    },
-    doKeepInfo:function(){
+  },
+  doKeepInfo: function() {
 
 
 
-    }
+  }
 
+
+} //
+var requirementMarkAction = {
+  actionType: 'read',
+  markAction: function(url, data, actionType, that, callback) {
+    var this_ = this;
+    actionType = actionType || this_.actionType
+
+    rRequest.doRequest(url, data, that, function(rdata) {
+      typeof callback == "function" && callback(rdata)
+    })
+  },
 
 }
+
 
 module.exports = {
   // doProgressRouteInfoImpl: doProgressRouteInfoImpl,
   canvaProgressRoute: canvaProgressRoute,
-  requirementKeep: requirementKeep
+  requirementKeep: requirementKeep,
+  requirementMarkAction: requirementMarkAction,
 }

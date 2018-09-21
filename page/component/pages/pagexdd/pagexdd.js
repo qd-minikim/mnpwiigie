@@ -142,11 +142,8 @@ Page({
 
   clickView_7x: function(event) {
     var that = this
-
     var clicklx = event.currentTarget.dataset.lx;
-
     rUtils.slideModal.on(that,clicklx);
-   
   },
   hideModal: function(e) {
     var that = this
@@ -174,12 +171,40 @@ Page({
       })
 
     })
-    // requirementInfo: {
-    //   keepstatus: '/image/keep_off.png',
-    //     title: '',
-
-    // },
+  
   },
+  /**获取展开详情信息 */
+  getRequirementRichtext: function () {
+    var that = this
+    var usreId = '1528869953018820';
+    var spuid = '1535359452591612';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRequirementRichtext',
+      spuid: spuid,
+     
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      that.setData({
+        'requirementInfo.richtext': ''
+      })
+
+    })
+
+  },
+  /**mark行为 */
+  //
+  requirementMarkAction:function(){
+    requirementMarkAction
+    
+    var url='', data={}, actionType='', that=this, callback
+    rCommon.requirementMarkAction.markAction(url,)
+
+    
+  },
+  
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
     var that = this
