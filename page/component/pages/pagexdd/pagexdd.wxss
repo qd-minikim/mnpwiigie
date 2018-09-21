@@ -99,39 +99,38 @@
   display: flex;
   flex-direction: row;
 }
- .view-7-6 {
+
+.view-7-6 {
   display: flex;
   flex-direction: row;
 }
 
- .view-7-8 {
+.view-7-8 {
   display: flex;
   flex-direction: row;
 }
 
- .view-7-11 {
+.view-7-11 {
   display: flex;
   flex-direction: row;
 }
-.view-7-figure{
+
+.view-7-figure {
   width: 80rpx;
   height: 80rpx;
 }
-
-
-
 
 .view-8 {
   display: flex;
   flex-direction: column;
 }
+
 .view-8-1 {
   display: flex;
   flex-direction: row;
 }
 
- 
-.view-8-figure{
+.view-8-figure {
   width: 80rpx;
   height: 80rpx;
 }
@@ -140,12 +139,13 @@
   display: flex;
   flex-direction: column;
 }
+
 .view-9-1 {
   display: flex;
   flex-direction: row;
 }
-.view-9-1-figure{
 
+.view-9-1-figure {
   width: 40rpx;
   height: 40rpx;
 }
@@ -195,13 +195,3 @@
 }
 
 
-
-.canvasClass {
-    width: 2250rpx;
-    height: 750px;
-    /* transform: translateX(-200%); */
-     
-    
-    left:-2250rpx;
-    top:-750px;
-}

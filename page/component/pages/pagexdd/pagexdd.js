@@ -1,7 +1,7 @@
 var config = require('../../../../config.js')
 var rCommon = require('../../../../utils/rCommon.js')
 var rRequest = require('../../../../utils/rRequest.js')
-
+var rUtils = require('../../../../utils/rUtils.js')
 const app = getApp()
 Page({
   /**
@@ -9,13 +9,23 @@ Page({
    */
   data: {
     requirementInfo: {
-      keepstatus: '/image/keep_off.png'
+      keepstatus: '/image/keep_off.png',
+      title: '',
+
     },
 
     pagePard: {
       headHeight: '110',
       footHeight: '120',
       contentHeight: '',
+
+    },
+    panelPage: {
+      chooseSize: false,
+      chooseType: '',
+      animationData: {},
+      maskLayerHeight: '',
+      maskLayerWidth: '',
     },
     swiperArea: {
       swiperImgUrls: ['/image/home_swiper_1.jpg', '/image/home_swiper_2.jpg'],
@@ -53,7 +63,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+
     this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
     //this.test()
@@ -75,9 +85,10 @@ Page({
 
       oneGridWidth: ongGridWidth + "px",
       twoGridWidth: (ongGridWidth * 2) + "px",
-      'pagePard.contentHeight': contentHeight
+      'pagePard.contentHeight': contentHeight,
+      'panelPage.maskLayerHeight': windowHeight + "px",
+      'panelPage.maskLayerWidth': windowWidth + "px",
     })
-
 
   },
 
@@ -123,15 +134,51 @@ Page({
 
   },
 
-  /**获取详情信息 */
-
-  getRequirementInfo: function() {
-
-  },
 
   test: function() {
 
     rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
+  },
+
+  clickView_7x: function(event) {
+    var that = this
+
+    var clicklx = event.currentTarget.dataset.lx;
+
+    rUtils.slideModal.on(that,clicklx);
+   
+  },
+  hideModal: function(e) {
+    var that = this
+    rUtils.slideModal.off(that );
+    
+  },
+
+  /**获取详情 */
+  getRequirementDetail: function() {
+    var that = this
+    var usreId = '1528869953018820';
+    var requirementid = '1535359452591612';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRequirementDetail',
+      id: requirementid,
+      userid: usreId,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      that.setData({
+        'requirementInfo.title': ''
+      })
+
+    })
+    // requirementInfo: {
+    //   keepstatus: '/image/keep_off.png',
+    //     title: '',
+
+    // },
   },
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
