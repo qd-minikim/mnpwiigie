@@ -1,11 +1,4 @@
-// panelPage: {
-//   chooseSize: false,
-//     chooseType: '',
-//       animationData: { },
-//   maskLayerHeight: '',
-//     maskLayerWidth: '',
-
-//     }
+ 
 var slideModal = {
 
   duration: 500, //动画持续时间 单位毫秒
