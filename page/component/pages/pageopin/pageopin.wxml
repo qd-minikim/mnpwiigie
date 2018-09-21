@@ -1,0 +1,44 @@
+<!-- 朋友说 -->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='view-0'>
+
+
+    <view class='view-1 font-size-3'>我表态</view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='view-2' style='display:flex;flex-direction:row; '>
+      <view class='view-2-1 font-size-4'>推荐</view>
+      <view class='view-2-1 font-size-4'>不推荐</view>
+      <view class='view-2-1 font-size-4'>中立</view>
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='view-3' style='display:flex;flex-direction:row; '>
+      <view class='view-3-1'>
+        <image class='view-3-1-image' src='/image/goods-test.jpg'></image>
+      </view>
+      <view class='view-3-2 font-size-4 ' style=''>
+
+        <view class='font-size-4 view-ellipsis-2' style='width:100%'>中立中立中立中立中立中立中立中立中立中立中立中</view>
+        <view></view>
+      </view>
+
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view  class='view-4 '>
+     <view class='view-4-1 font-size-3'>描述</view>
+    <view  class='view-4-2 font-size-4'>
+    <textarea  class='view-4-2-textarea font-size-4' style=''
+     placeholder='输入描述信息' placeholder-style=' ' placeholder-class='font-size-4' maxlength='300' auto-height=''></textarea>
+    </view>
+    
+    </view>
+   
+  </view>
+
+  <view class='flex-bottom align-center'>
+  
+  <button class='font-size-2' type="default" plain="true" style='width:99%'>提交</button>
+  </view>
+</view>

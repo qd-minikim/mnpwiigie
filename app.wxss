@@ -164,6 +164,8 @@
   width: 100%;
   box-sizing: border-box;
 }
+ 
+
 
 /* 详情页的右箭头 */
 .arrow_right_1{
