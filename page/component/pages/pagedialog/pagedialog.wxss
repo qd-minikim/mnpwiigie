@@ -63,6 +63,7 @@
   background-color: #95d4ff;
   padding: 20rpx 20rpx 20rpx 20rpx;
   line-height:60rpx;
+  
 
 }
 .view-2 {

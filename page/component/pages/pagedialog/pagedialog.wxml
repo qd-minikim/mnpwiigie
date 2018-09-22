@@ -34,7 +34,7 @@
             <image class='view-1-2-image'   src='../../../../image/head-test.jpg'></image>
              <image class='new_img' wx:if='{{item.show_rignt == "不是自己的内容，显示在左边，左边渲染 nickname_open，head_open"}}' src='../../../../image/head-test.jpg'></image>
             <view   class='view-1-2-sanjiao view-1-2-you'></view>
-            <text wx:if='{{!item.is_img}}' class='view-1-2-text'>不是自己的内容不是自己的内容不是自己的内容不是自己的内容不是自己的内容不是自己的内容</text>
+            <text wx:if='{{!item.is_img}}' class='view-1-2-text'>textarea通过cols和rows设置宽度和高度asdfads也可以用style来设置w</text>
             <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>
           </view>
         </view>
