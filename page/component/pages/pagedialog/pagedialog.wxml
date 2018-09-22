@@ -1,0 +1,63 @@
+<!--page/component/pages/pagedialog/pagedialog.wxml-->
+
+<view class='container'>
+
+
+  <view class='view-1'>
+    <view class='view-1-1 align-center' style='display:flex;flex-direction:row;  '>
+      <view class='view-1-1-line'></view>
+      <view class='' style='display:flex;flex-direction:row;  '>
+        <view class='' style='white-space: nowrap'>您正在与</view>
+        <view class='view-ellipsis-1'>张三张三张三张三张三张三</view>
+        <view class='' style='white-space: nowrap'>进行沟通</view>
+      </view>
+      <view class='view-1-1-line'></view>
+    </view>
+
+    <view class='view-1-2'>
+      <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="view-1-2-scoll"   wx:key=''>
+
+   
+        <view class='view-1-2-right'>
+          <view class='page_row' style='display:flex;flex-direction:row;margin-top:10rpx'>
+            <text   class='view-1-2-text'>213123</text>
+            <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>
+            <view   class='view-1-2-sanjiao view-1-2-my'></view>
+            <image class='view-1-2-image'   src='../../../../image/head-test.jpg'></image>
+             <image class='view-1-2-image' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+          </view>
+        </view>
+
+ 
+        <view class='view-1-2-left'>
+          <view class='page_row' style='display:flex;flex-direction:row;margin-top:10rpx'>
+            <image class='view-1-2-image'   src='../../../../image/head-test.jpg'></image>
+             <image class='new_img' wx:if='{{item.show_rignt == "不是自己的内容，显示在左边，左边渲染 nickname_open，head_open"}}' src='../../../../image/head-test.jpg'></image>
+            <view   class='view-1-2-sanjiao view-1-2-you'></view>
+            <text wx:if='{{!item.is_img}}' class='view-1-2-text'>不是自己的内容不是自己的内容不是自己的内容不是自己的内容不是自己的内容不是自己的内容</text>
+            <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>
+          </view>
+        </view>
+      
+
+       
+
+
+
+      </scroll-view>
+    
+    </view>
+
+
+  </view>
+
+
+  <view class='view-2 flex-bottom'>
+    <view class='view-2-1 align-r-center '>
+      <input class='view-2-1-input' placeholder='发送信息'></input>
+      <button class='view-2-1-button' catchtap="add">发送</button>
+      <image bindtap="upimg1" class='view-2-1-image-ja' src='../../../../image/figure_13.png'></image>
+    </view>
+
+  </view>
+</view>

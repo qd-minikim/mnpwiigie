@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -15,7 +15,8 @@
         "pages/pagexdd/pagexdd",
         "pages/pagewait/pagewait",
         "pages/pageauth/pageauth",
-        "pages/pageopin/pageopin"
+        "pages/pageopin/pageopin",
+        "pages/pagedialog/pagedialog"
       ]
     }
   ],
