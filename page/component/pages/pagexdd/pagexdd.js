@@ -23,6 +23,12 @@ Page({
     },
     spuInfo: {},
 
+    opinionInfo:{
+      dataInfo:{},
+      pageSize:5,
+
+    },
+
     pagePard: {
       headHeight: '110',
       footHeight: '120',
@@ -85,6 +91,7 @@ Page({
     this.getSpuInfo()
     this.getSpuCoverImageInfo()
     this.getConfigMsgInfo()
+    this.getOpinionInfo()
   },
 
   /**
@@ -188,6 +195,12 @@ Page({
     rUtils.slideModal.off(that);
 
   },
+
+  getOpinionInfo:function(){
+
+  },
+
+
   getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
@@ -212,17 +225,14 @@ Page({
     }
     rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
-
-
-
+ 
         that.setData({
           configMsgInfo: rdata.info,
 
         })
        
       }
-
-
+ 
     });
 
   },
