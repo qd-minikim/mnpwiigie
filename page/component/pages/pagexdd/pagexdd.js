@@ -3,21 +3,25 @@ var rCommon = require('../../../../utils/rCommon.js')
 var rRequest = require('../../../../utils/rRequest.js')
 var rUtils = require('../../../../utils/rUtils.js')
 var WxParse = require('../../../../wxParse/wxParse.js');
- 
+
 const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    
-    requirementInfo: {
-      keepstatus: '/image/keep_off.png',
-      title: '',
-      richtextContent:'',
-      richtextMore:true,
+
+    requirementInfo: {},
+
+    richtextInfo: {
+      richtextContent: '',
+      richtextMore: true,
       richtextShow: false
     },
+    keepinfo: {
+      keepstatus: '/image/keep_off.png',
+    },
+    spuInfo: {},
 
     pagePard: {
       headHeight: '110',
@@ -31,13 +35,17 @@ Page({
       animationData: {},
       maskLayerHeight: '',
       maskLayerWidth: '',
+      msginfo: '',
+      isHtml: false
     },
     swiperArea: {
-      swiperImgUrls: ['/image/home_swiper_1.jpg', '/image/home_swiper_2.jpg'],
+      swiperImgUrls: [],
       swiperIndicatorDots: true, //是否显示指示点   
       swiperAutoplay: true, //是否自动切换
       swiperInterval: 2000, //自动切换时间间隔
       swiperDuration: 500, //duration 滑动动画时长
+      swiperWidth: 0,
+      swiperHeight: 0,
     },
     // progressRouteInfo: null,
 
@@ -61,7 +69,8 @@ Page({
       canvasHeight: '0px',
       canvasTop: '0px',
       canvasLeft: '0px'
-    }
+    },
+    configMsgInfo: {}
   },
 
   /**
@@ -73,6 +82,9 @@ Page({
     this.getProgressRouteInfo()
     this.getRequirementRichtext()
     this.getRequirementDetail()
+    this.getSpuInfo()
+    this.getSpuCoverImageInfo()
+    this.getConfigMsgInfo()
   },
 
   /**
@@ -94,6 +106,9 @@ Page({
       'pagePard.contentHeight': contentHeight,
       'panelPage.maskLayerHeight': windowHeight + "px",
       'panelPage.maskLayerWidth': windowWidth + "px",
+
+      'swiperArea.swiperWidth': windowWidth + "px",
+      'swiperArea.swiperHeight': windowWidth + "px",
     })
 
   },
@@ -149,14 +164,120 @@ Page({
   clickView_7x: function(event) {
     var that = this
     var clicklx = event.currentTarget.dataset.lx;
+    var clickcode = event.currentTarget.dataset.code;
+    var isHtml = event.currentTarget.dataset.html
     rUtils.slideModal.on(that, clicklx);
+
+    that.setData({
+      'panelPage.isHtml': isHtml,
+    })
+    if (isHtml) {
+      WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo[clickcode], that, 5);
+
+    } else {
+
+      that.setData({
+        'panelPage.msginfo': that.data.configMsgInfo[clickcode],
+      })
+    }
+
+
   },
   hideModal: function(e) {
     var that = this
     rUtils.slideModal.off(that);
 
   },
+  getConfigMsgInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+    var values = [
+        { code: 'CBDJSM', replace: [] }, 
+        { code: 'THZQ_MSG', replace: [] },
+        { code: 'HHZQ_MSG', replace: [] },
+        { code: 'FWJZ_MSG', replace: [] },
+      
+      ];
 
+    
+    var data = {
+      code_: 'x_getConfigMsgInfo',
+      /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
+      values: values
+    }
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
+      if (rdata.info) {
+
+
+
+        that.setData({
+          configMsgInfo: rdata.info,
+
+        })
+
+      }
+
+
+    });
+
+  },
+  /**获取SpuCoverImage*/
+  getSpuCoverImageInfo: function() {
+    var that = this
+    var spuid = '1529889871942295';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getSpuCoverImageInfo',
+      spuid: spuid,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          'swiperArea.swiperImgUrls': rdata.info,
+
+        })
+
+
+      }
+
+
+    })
+
+  },
+
+
+  /**获取spu*/
+  getSpuInfo: function() {
+
+    var that = this
+    var spuid = '1529889871942295';
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getSpuInfo',
+      spuid: spuid,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          spuInfo: rdata.info,
+          /**
+           * producer_brand_name
+           */
+        })
+      }
+
+
+    })
+  },
+  getSkuInfo: function() {},
+
+  /**获取sku */
   /**获取详情 */
   getRequirementDetail: function() {
     var that = this
@@ -171,27 +292,29 @@ Page({
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-       
-      if(rdata.info){
+
+      if (rdata.info) {
 
         that.setData({
-          'requirementInfo.title': rdata.info.title
+          requirementInfo: rdata.info
+          //           'requirementInfo.title': rdata.info.title,
+          //  'requirementInfo.wxdescription': rdata.info.wxdescription
+          //           'requirementInfo.merchantbrandname'
         })
       }
-    
+
 
     })
 
   },
-  showRichtext:function(){
+  showRichtext: function() {
     var that = this;
     that.setData({
-      'requirementInfo.richtextMore': false,
-      'requirementInfo.richtextShow':true
+      'richtextInfo.richtextMore': false,
+      'richtextInfo.richtextShow': true
     })
 
-  }
-,
+  },
 
   /**获取展开详情信息 */
   getRequirementRichtext: function() {
@@ -206,24 +329,18 @@ Page({
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-
-
       var richtext = rdata.info.richtext_content;
-    
       /**
-      * WxParse.wxParse(bindName , type, data, target,imagePadding)
-      * 1.bindName绑定的数据名(必填)
-      * 2.type可以为html或者md(必填)
-      * 3.data为传入的具体数据(必填)
-      * 4.target为Page对象,一般为this(必填)
-      * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
-      */
-      
-     
+       * WxParse.wxParse(bindName , type, data, target,imagePadding)
+       * 1.bindName绑定的数据名(必填)
+       * 2.type可以为html或者md(必填)
+       * 3.data为传入的具体数据(必填)
+       * 4.target为Page对象,一般为this(必填)
+       * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+       */
+
       WxParse.wxParse('richtext', 'html', richtext, that, 5);
-   
-      //requirementInfo.richtextContent
-      
+
     })
 
   },

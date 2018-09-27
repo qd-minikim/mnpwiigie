@@ -14,8 +14,7 @@ App({
     systemInfo: null,
 
     loginInfo:null ,
-
-
+ 
     cacheInfo:{
       pagexdd_p_1:null,
 
@@ -133,11 +132,13 @@ App({
   },
   userInfoResetCallBak: function (res) {
     var that = this;
-    this.setData({
+    that.setData({
         'globalData.userInfo' : res.userInfo,
         'globalData.userIData ': true
     })
-  }
+  },
+  
+ 
   // cancel: function () {
   //   this.setData({
 

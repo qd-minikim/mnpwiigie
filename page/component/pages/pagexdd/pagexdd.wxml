@@ -1,8 +1,8 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
- 
- <import src="../../../../wxParse/wxParse.wxml"/>
- 
- 
+
+<import src="../../../../wxParse/wxParse.wxml" />
+
+
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
 <view class='container ' style='flex-direction:colum;display:flex; '>
@@ -13,14 +13,14 @@
       <view class='view-1-2  '>硬品:</view>
       <view class='view-ellipsis-1 ' style='flex:1'>{{requirementInfo.title}}</view>
       <view class='view-1-4'>
-        <image class='view-1-4-image' src='{{requirementInfo.keepstatus}}'></image>
+        <image class='view-1-4-image' src='{{keepinfo.keepstatus}}'></image>
       </view>
     </view>
     <!-- 出品商 -->
     <view class='view-2 font-color-3 font-size-4' style='  '>
       <view class='view-2-1'>出品商:</view>
-      <view class='view-2-2 view-ellipsis-1'>实打实地方</view>
-      <view class='view-2-3 view-ellipsis-1'>>>市府大道府大道</view>
+      <view class='view-2-2 view-ellipsis-1'>{{spuInfo.producer_brand_name}}</view>
+      <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
     </view>
   </view>
 
@@ -29,43 +29,43 @@
 
     <!-- 滚动图 -->
     <view class='view-3'>
-      <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}">
+      <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
         <block wx:for="{{swiperArea.swiperImgUrls}}" wx:key="*this">
           <swiper-item>
-            <image src='{{item}}' style='width:100%;height:100'></image>
+            <image src='{{item.imageUrl}}' style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'></image>
           </swiper-item>
         </block>
       </swiper>
     </view>
     <view class='view-4 align-center'>
-      <view class='view-4-1 font-size-6'>显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看显示很难看的啊，你任务呢 ，看评率的显示会不会有问题。我举得可能你会被挤掉的，显示很难看的啊，你任务呢 ，看</view>
+      <view class='view-4-1 font-size-6'>{{spuInfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
     <view class='view-5 align-center'>
-      <view class='view-5-1 font-size-6 font-color-11'>分享描述：把好东西分享给你爱的人，也许他（她）会喜欢呢？</view>
+      <view class='view-5-1 font-size-6 font-color-11'>{{requirementInfo.wxdescription}}</view>
     </view>
     <view class="gap-line" style="flex-direction:column;"></view>
 
     <view class='view-6 align-center'>
 
-      
-      <view wx:if="{{requirementInfo.richtextMore}}" class='align-center view-6-1'  bindtap='showRichtext'>
+
+      <view wx:if="{{richtextInfo.richtextMore}}" class='align-center view-6-1' bindtap='showRichtext'>
         <view class='view-6-1-1 font-size-4 font-color-8'>展看查看详情</view>
         <view class='view-6-1-2'>
           <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
         </view>
       </view>
-      <view wx:if="{{requirementInfo.richtextShow}}">
-      <template is="wxParse" data="{{wxParseData:richtext.nodes}}"/>
- 
+      <view wx:if="{{richtextInfo.richtextShow}}">
+        <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+
       </view>
     </view>
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
     <view class='view-7  font-size-4'>
-      <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default'>
+      <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
         <view class='  align-center'>
           <image class='view-7-figure' src='/image/figure_5.png'></image>
         </view>
@@ -76,31 +76,47 @@
         </view>
       </view>
       <view class="gap-line" style="flex-direction:column;"></view>
+      <block wx:if="{{ requirementInfo.deliverytype=='1'}}">
+        <view class='view-7-5 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='FWJZ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>服务截至:</view>
+          <view style='flex:1'></view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+      <block wx:if="{{ requirementInfo.deliverytype=='2'}}">
 
-      <view class='view-7-6 align-r-center'>
-        <view class='  align-center'>
-          <image class='view-7-figure' src='/image/figure_6.png'></image>
-        </view>
-        <view style='height100%'>退货周期:</view>
-        <view style='flex:1'>支持7天退货</view>
-        <view class='align-center'>
-          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-        </view>
-      </view>
 
-      <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='view-7-8 align-r-center'>
-        <view class='  align-center'>
-          <image class='view-7-figure' src='/image/figure_6.png'></image>
-        </view>
-        <view style='height100%'>换货周期:</view>
-        <view style='flex:1'>支持7天换货</view>
-        <view class='align-center'>
-          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-        </view>
-      </view>
-      <view class="gap-line" style="flex-direction:column;"></view>
 
+        <view class='view-7-6 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='THZQ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>退货周期:</view>
+          <view style='flex:1'>支持7天退货</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='view-7-8 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='HHZQ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>换货周期:</view>
+          <view style='flex:1'>支持7天换货</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
       <view class='view-7-11 align-r-center'>
         <view class='  align-center'>
           <image class='view-7-figure' src='/image/figure_7.png'></image>
@@ -182,17 +198,20 @@
   <!-- 活动进展区 -->
   <view></view>
 
-  
-<!--隐藏区域  -->
-<view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}'  wx:if="{{panelPage.chooseSize}}" bindtap='hideModal'></view>
-<scroll-view class='choose font-size-4' wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
-<view class='choose_view'  wx:if="{{ panelPage.chooseType=='default'}}">
-  {{panelPage.msginfo}}
-vi.	未履行任务或责任; 受传唤时未出庭; 由于不到庭而败诉; 弃权;
- 
-</view>
-</scroll-view>
+  <!--隐藏区域  -->
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideModal'></view>
+  <scroll-view class='choose font-size-4' wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <view class='choose_view' wx:if="{{ panelPage.chooseType=='default'}}">
+      <block wx:if="{{panelPage.isHtml }}">
+        <template is="wxParse" data="{{wxParseData:codemsg.nodes}}" />
+      </block>
+      <block wx:if="{{!panelPage.isHtml}}">
+        {{panelPage.msginfo}}
+      </block>
+    </view>
+  </scroll-view>
 
   <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
     <view class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>

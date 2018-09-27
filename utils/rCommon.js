@@ -468,7 +468,28 @@ var requirementKeep = {
   }
 
 
-} //
+} 
+var configMsgInfo={
+
+  url: config.requestUrl,
+   
+  getConfigMsg: function (url, pdata,  that, callback){
+    var this_ = this;
+    url = url || this_.url;
+  
+    rRequest.doRequest(url, pdata, that, function (rdata) {
+      typeof callback == "function" && callback(rdata)
+    })
+    }
+
+} 
+var configCodeInfo={
+
+
+} 
+
+
+ //
 var requirementMarkAction = {
   actionType: 'read',
   markAction: function(url, data, actionType, that, callback) {
@@ -492,6 +513,6 @@ module.exports = {
   canvaProgressRoute: canvaProgressRoute,
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
-  
+  configMsgInfo: configMsgInfo,
 
 }
