@@ -196,9 +196,14 @@ Page({
         { code: 'THZQ_MSG', replace: [] },
         { code: 'HHZQ_MSG', replace: [] },
         { code: 'FWJZ_MSG', replace: [] },
+        { code: 'TGJZ_MSG', replace: [] },
+        { code: 'CBDJSM', replace: [] },
+        { code: 'SOWER_PER_MSG', replace: [] },
+        { code: 'CFG_GROUP_MSG', replace: [] },
+      { code: 'MSJG_MSG', replace: [] },
       
       ];
-
+    
     
     var data = {
       code_: 'x_getConfigMsgInfo',
@@ -214,7 +219,7 @@ Page({
           configMsgInfo: rdata.info,
 
         })
-
+       
       }
 
 
@@ -282,7 +287,7 @@ Page({
   getRequirementDetail: function() {
     var that = this
     var usreId = '1528869953018820';
-    var requirementid = '1535359452591612';
+    var requirementid = '1533265163611127';
 
     var url = config.requestUrl
     var data = {
@@ -301,6 +306,10 @@ Page({
           //  'requirementInfo.wxdescription': rdata.info.wxdescription
           //           'requirementInfo.merchantbrandname'
         })
+
+        var s = that.data.requirementInfo.cfggroupgradeinfos;
+
+        var ss='';
       }
 
 

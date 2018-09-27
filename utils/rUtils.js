@@ -59,8 +59,15 @@ var slideModal = {
   }
  
 }
-
+var filters = {
+  toFix: function (value) {
+    return value.toFixed(2)//此处2为保留两位小数
+  }
+}
+module.exports = {
+  toFix: filters.toFix
+}
 module.exports = {
   slideModal: slideModal,
-
+  filters: filters,
 }
