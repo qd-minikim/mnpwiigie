@@ -13,7 +13,7 @@
       <view class='view-1-2  '>硬品:</view>
       <view class='view-ellipsis-1 ' style='flex:1'>{{requirementInfo.title}}</view>
       <view class='view-1-4'>
-        <image class='view-1-4-image' src='{{keepinfo.keepstatus}}'></image>
+        <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
       </view>
     </view>
     <!-- 出品商 -->
@@ -30,9 +30,11 @@
     <!-- 滚动图 -->
     <view class='view-3'>
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
-        <block wx:for="{{swiperArea.swiperImgUrls}}" wx:key="*this">
+        <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="*this">
           <swiper-item>
-            <image src='{{item.imageUrl}}' style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'></image>
+            <!-- <image src='{{item.imageUrl}}' style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'></image> -->
+
+            <image style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}' bindtap="imageYl" data-list="{{swiperArea.swiperImgUrlsArry}}" data-src="{{itemyl}}" wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:for-item="itemyl" src="{{item}}"></image>
           </swiper-item>
         </block>
       </swiper>
@@ -268,23 +270,28 @@
         </view>
 
       </view>
+
       <view class='view-8-2 align-c-center'>
-        <view class='view-8-2-1' style=' display: flex;flex-direction: column;'>
-          <view class='view-8-2-1-1 align-r-center' style='display: flex;flex-direction: row;'>
-            <view class='view-8-2-1-1-1'>
-              <image class='view-8-2-1-1-1-image' src='/image/head-test.jpg'></image>
+        <block wx:for="{{opinionInfo.dataInfo}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+           <view class="gap-line" wx:if="{{index>0}}" style="flex-direction:column;"></view>
+          <view class='view-8-2-1' style=' display: flex;flex-direction: column;'>
+            <view class='view-8-2-1-1 align-r-center' style='display: flex;flex-direction: row;'>
+              <view class='view-8-2-1-1-1'>
+                <image class='view-8-2-1-1-1-image' src='{{item.image_url}}'></image>
+              </view>
+              <view class='view-8-2-1-1-2' style='flex:1'>
+                <view class='font-size-5'>{{item.friend_nickname}}</view>
+                <view class='font-size-5'>{{item.datetime}}</view>
+              </view>
+              <view class='view-8-2-1-1-3 font-size-4'>{{item.opinion_code_name}}</view>
             </view>
-            <view class='view-8-2-1-1-2' style='flex:1'>
-              <view class='font-size-5'>昵称</view>
-              <view class='font-size-5'>2012-12-12</view>
-            </view>
-            <view class='view-8-2-1-1-3 font-size-4'>推荐</view>
+            <view class='font-size-5'>{{item.opinion_reason}}</view>
           </view>
-          <view class='font-size-5'>漂亮试用，真的很不错</view>
-        </view>
+        </block>
       </view>
 
-      <view class='view-8-3 align-c-center'>
+      <view wx:if="{{!opinionInfo.dataInfo}}" class='view-8-3 align-c-center'>
         <view>还没有朋友说</view>
       </view>
 

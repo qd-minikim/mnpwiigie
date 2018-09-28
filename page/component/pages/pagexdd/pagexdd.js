@@ -23,9 +23,9 @@ Page({
     },
     spuInfo: {},
 
-    opinionInfo:{
-      dataInfo:{},
-      pageSize:5,
+    opinionInfo: {
+      dataInfo: [],
+      pageSize: 5,
 
     },
 
@@ -46,6 +46,7 @@ Page({
     },
     swiperArea: {
       swiperImgUrls: [],
+      swiperImgUrlsArry: [],
       swiperIndicatorDots: true, //是否显示指示点   
       swiperAutoplay: true, //是否自动切换
       swiperInterval: 2000, //自动切换时间间隔
@@ -196,28 +197,88 @@ Page({
 
   },
 
-  getOpinionInfo:function(){
+  imageYl: function(event) {
 
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+
+    })
+  },
+
+  /**获取朋友说 */
+  getOpinionInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = '1527673151198212';
+    var requirementId = '1530067167175595';
+    var data = {
+      code_: 'x_getOpinionList',
+      endRow: 0,
+      itemsPerPage: 10,
+      userid: userid,
+      requirementId: requirementId,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+    
+        that.setData({
+          'opinionInfo.dataInfo': rdata.info,
+   
+        })
+      }
+    })
   },
 
 
   getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
-    var values = [
-        { code: 'CBDJSM', replace: [] }, 
-        { code: 'THZQ_MSG', replace: [] },
-        { code: 'HHZQ_MSG', replace: [] },
-        { code: 'FWJZ_MSG', replace: [] },
-        { code: 'TGJZ_MSG', replace: [] },
-        { code: 'CBDJSM', replace: [] },
-        { code: 'SOWER_PER_MSG', replace: [] },
-        { code: 'CFG_GROUP_MSG', replace: [] },
-      { code: 'MSJG_MSG', replace: [] },
-      
-      ];
-    
-    
+    var values = [{
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'THZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'HHZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'FWJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'TGJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'SOWER_PER_MSG',
+        replace: []
+      },
+      {
+        code: 'CFG_GROUP_MSG',
+        replace: []
+      },
+      {
+        code: 'MSJG_MSG',
+        replace: []
+      },
+
+    ];
+
+
     var data = {
       code_: 'x_getConfigMsgInfo',
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
@@ -225,14 +286,14 @@ Page({
     }
     rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
- 
+
         that.setData({
           configMsgInfo: rdata.info,
 
         })
-       
+
       }
- 
+
     });
 
   },
@@ -249,18 +310,19 @@ Page({
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
+        // imageUrl
+        var imageUrlArry = new Array();
+        for (var n = 0; n < rdata.info.length; n++) {
 
+          var imageUrl = rdata.info[n].imageUrl
+          imageUrlArry.push(imageUrl)
+        }
         that.setData({
           'swiperArea.swiperImgUrls': rdata.info,
-
+          'swiperArea.swiperImgUrlsArry': imageUrlArry,
         })
-
-
       }
-
-
     })
-
   },
 
 
@@ -319,7 +381,7 @@ Page({
 
         var s = that.data.requirementInfo.cfggroupgradeinfos;
 
-        var ss='';
+        var ss = '';
       }
 
 
@@ -415,7 +477,7 @@ Page({
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
     var that = this
-    var usreId = '1528869953018820';
+    var usreId = '1535359452591612';
     var requirementid = '1535359452591612';
 
     var url = config.requestUrl
@@ -429,11 +491,11 @@ Page({
       var keepstatus = rdata.keepstatus;
       if (keepstatus == 1) {
         that.setData({
-          'requirementInfo.keepstatus': '/image/keep_on.png'
+          'keepinfo.keepstatus': '/image/keep_on.png'
         })
       } else {
         that.setData({
-          'requirementInfo.keepstatus': '/image/keep_off.png'
+          'keepinfo.keepstatus': '/image/keep_off.png'
         })
       }
     })
