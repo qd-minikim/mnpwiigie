@@ -5,8 +5,8 @@
     "pages/pagegoods/pagegoods",
     "pages/pagemy/pagemy",
     "pages/logs/logs",
-    "pages/index/index"
-   
+    "pages/index/index",
+    "page/common/pages/pagesign"
   ],
   "subPackages": [
     {

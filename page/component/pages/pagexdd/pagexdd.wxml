@@ -1,10 +1,23 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
 
 <import src="../../../../wxParse/wxParse.wxml" />
+
+<import src ="../../../common/pages/pagesign.wxml"/>
 <wxs module="filters" src="../../../../utils/rNumberUtils.wxs"></wxs>
 
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
+
+<view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
+
+  <view class='view-modal-content'>
+   <template is="pagesign"/>
+
+  </view>
+
+</view>
+
+
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <!-- 标题 -->
   <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
@@ -274,7 +287,7 @@
       <view class='view-8-2 align-c-center'>
         <block wx:for="{{opinionInfo.dataInfo}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
-           <view class="gap-line" wx:if="{{index>0}}" style="flex-direction:column;"></view>
+          <view class="gap-line" wx:if="{{index>0}}" style="flex-direction:column;"></view>
           <view class='view-8-2-1' style=' display: flex;flex-direction: column;'>
             <view class='view-8-2-1-1 align-r-center' style='display: flex;flex-direction: row;'>
               <view class='view-8-2-1-1-1'>
@@ -300,7 +313,7 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
     <view class='view-9'>
       <view class='view-9-1'>
-        <view class='align-center view-9-1-1' style='flex:1'>
+        <view class='align-center view-9-1-1' style='flex:1' bindtap='openModal'>
           <view class='align-center '>
             <image class='view-9-1-figure' src='/image/figure_9.png'></image>
           </view>
@@ -341,7 +354,7 @@
 
 
   <!--隐藏区域  -->
-  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideModal'></view>
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
   <scroll-view class='choose font-size-4' wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
     <view class='choose_view' wx:if="{{ panelPage.chooseType=='default'}}">

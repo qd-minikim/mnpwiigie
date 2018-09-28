@@ -18,6 +18,10 @@ Page({
       richtextMore: true,
       richtextShow: false
     },
+    viewModal:{
+      isModalShow:false,
+
+    },
     keepinfo: {
       keepstatus: '/image/keep_off.png',
     },
@@ -191,7 +195,7 @@ Page({
 
 
   },
-  hideModal: function(e) {
+  hideSlideModal: function(e) {
     var that = this
     rUtils.slideModal.off(that);
 
@@ -226,16 +230,29 @@ Page({
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
-    
+
         that.setData({
           'opinionInfo.dataInfo': rdata.info,
-   
+
         })
       }
     })
   },
 
 
+  openModal:  function () {
+    var that = this;
+        that.setData({
+          'viewModal.isModalShow': true,
+        })
+  },
+  closeModal: function () {
+    var that = this;
+    that.setData({
+      'viewModal.isModalShow': false,
+    })
+  },
+  /**获取配置描述 */
   getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;

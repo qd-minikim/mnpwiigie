@@ -1,0 +1,75 @@
+ 
+ <template name="pagesign">
+ <view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+  
+    <view style='margin-left:10rpx;flex:1'>图例说明</view> 
+    <view class='align-right'style="margin-right:10rpx;" bindtap='closeModal' ><image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image></view>      
+    </view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+     
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_0.png' class='view-modal-sign'></image>需求者</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_yd.png' class='view-modal-sign'></image>阅读</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_zf.png' class='view-modal-sign'></image>转发</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_jc.png' class='view-modal-sign'></image>加持</view>
+      </view>
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_hf.png' class='view-modal-sign'></image>回复</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_xd.png' class='view-modal-sign'></image>下单</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+          <image src='/image/sign_dt.png' class='view-modal-sign'></image>动态</view>
+        <view class='font-size-5 align-left' style='width:25%'>
+        </view>
+      </view>
+      <view class='font-size-4'>结题前转发：</view>
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_zf.png' class='view-modal-sign'></image>发送朋友</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_fx.png' class='view-modal-sign'></image>分析朋友圈</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_fb.png' class='view-modal-sign'></image>发布平台</view>
+
+      </view>
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_hy.png' class='view-modal-sign'></image>好友动态</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+        </view>
+        <view class='font-size-5 align-left' style='width:33%'>
+        </view>
+
+      </view>
+      <view class='font-size-4'>结题后转发：</view>
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_zf_c.png' class='view-modal-sign'></image>发送朋友</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_fx_c.png' class='view-modal-sign'></image>分析朋友圈</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_fb_c.png' class='view-modal-sign'></image>发布平台</view>
+
+      </view>
+      <view style='flex-direction:row;display:flex;width:100% ;padding:20rpx 10rpx'>
+        <view class='font-size-5 align-left' style='width:33%'>
+          <image src='/image/sign_line_hy_c.png' class='view-modal-sign'></image>好友动态</view>
+        <view class='font-size-5 align-left' style='width:33%'>
+        </view>
+        <view class='font-size-5 align-left' style='width:33%'>
+        </view>
+
+      </view>
+    </view>
+
+    <view >
+    <button type="default" bindtap='closeModal'>知道了</button>
+    </view>
+
+    </template>
