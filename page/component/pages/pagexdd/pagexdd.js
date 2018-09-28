@@ -18,8 +18,8 @@ Page({
       richtextMore: true,
       richtextShow: false
     },
-    viewModal:{
-      isModalShow:false,
+    viewModal: {
+      isModalShow: false,
 
     },
     keepinfo: {
@@ -174,6 +174,10 @@ Page({
   },
 
   clickView_7x: function(event) {
+    /**
+     *  data-lx='default' data-code='CBDJSM' data-html='true'
+     *  data-lx='sku' data-code='' data-html='false'
+     */
     var that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
@@ -183,16 +187,21 @@ Page({
     that.setData({
       'panelPage.isHtml': isHtml,
     })
-    if (isHtml) {
-      WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo[clickcode], that, 5);
 
-    } else {
+    if (clicklx == 'default') {
+      if (isHtml) {
+        WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo[clickcode], that, 5);
 
-      that.setData({
-        'panelPage.msginfo': that.data.configMsgInfo[clickcode],
-      })
+      } else {
+
+        that.setData({
+          'panelPage.msginfo': that.data.configMsgInfo[clickcode],
+        })
+      }
+    } else if (clicklx == 'sku') {
+
+
     }
-
 
   },
   hideSlideModal: function(e) {
@@ -240,13 +249,13 @@ Page({
   },
 
 
-  openModal:  function () {
+  openModal: function() {
     var that = this;
-        that.setData({
-          'viewModal.isModalShow': true,
-        })
+    that.setData({
+      'viewModal.isModalShow': true,
+    })
   },
-  closeModal: function () {
+  closeModal: function() {
     var that = this;
     that.setData({
       'viewModal.isModalShow': false,

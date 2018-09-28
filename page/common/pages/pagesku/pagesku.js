@@ -1,4 +1,4 @@
-// page/common/pages/pagesign.js
+// page/common/pages/pagesku/pagesku.js
 Page({
 
   /**
