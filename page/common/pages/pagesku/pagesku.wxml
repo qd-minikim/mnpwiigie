@@ -1,62 +1,57 @@
 <template name="pagesku">
+  <wxs module="filters" src="../../../../utils/rNumberUtils.wxs"></wxs>
   <view class='container ' style='flex-direction:colum;display:flex; '>
-   
+
 
     <view class='pagesku-view-1' style='flex-direction:row;display:flex;'>
       <view class='pagesku-view-1-1'>
-        <image class='pagesku-view-1-1-image' src='/image/goods-test.jpg'></image>
+        <image class='pagesku-view-1-1-image' src='{{myOrderInfo.mySkuInfo.image_url}}'></image>
       </view>
       <view class='pagesku-view-1-2'>
-        <view class='font-size-4 font-color-7' style='height:25% '>￥288.00</view>
+
+        <view class='font-size-4 font-color-7' style='height:25% '>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
         <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
           <view>库存：</view>
-          <view></view>
+          <view>{{myOrderInfo.mySkuInfo.storage}}</view>
         </view>
         <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
           <view>限购：</view>
-          <view></view>
+          <view>{{spuInfo.spuinfo.min_copies}}~{{spuInfo.spuinfo.max_copies}}</view>
         </view>
         <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
           <view>已选：</view>
-          <view></view>
+          <view>{{myOrderInfo.mySkuInfo.sku_desc}} 共{{myOrderInfo.orderCopies}}份</view>
         </view>
       </view>
     </view>
-     <view class="gap-line-h" style="flex-direction:column;"></view>
+    <view class="gap-line-h" style="flex-direction:column;"></view>
+
     <view class='pagesku-view-2'>
-      <view class='pagesku-view-2-1 font-size-5'>重量</view>
-      <view class='pagesku-view-2-2' style='flex-direction:row;display:flex;'>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'> <view class='pagesku-view-2-2-1-1 align-center'>15斤</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>25斤</view></view>
-      </view>
-      <view class='pagesku-view-2-1 font-size-5'>快递区域</view>
-      <view style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'>
-        <view class='pagesku-view-2-2-1-1 align-center'>山东</view>
+
+      <block wx:for="{{spuInfo.spuname}}" wx:for-index="indexname" wx:for-item="itemname" wx:key="*this">
+        <view class='pagesku-view-2-1 font-size-5'>{{itemname.spec_name}}</view>
+        <view class='pagesku-view-2-2' style='flex-direction:row;display:flex;'>
+          <block wx:for="{{itemname.skuspecvalues}}" wx:for-index="indexvalue" wx:for-item="itemvalue" wx:key="*this">
+            <view class='pagesku-view-2-2-1 font-size-5 align-center'>
+              <view class='pagesku-view-2-2-1-1 align-center' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}'>{{itemvalue.spec_value}}</view>
+            </view>
+
+          </block>
         </view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view
-        class='pagesku-view-2-2-1-1 align-center'>山东山东山东山东</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>江苏</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>香港</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>上海</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>北京</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>天津</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>河北</view></view>
-        <view class='pagesku-view-2-2-1 font-size-5 align-center'><view class='pagesku-view-2-2-1-1 align-center'>广东</view></view>
-      </view>
+      </block>
 
     </view>
-     <view class="gap-line-h" style="flex-direction:column;"></view>
+    <view class="gap-line-h" style="flex-direction:column;"></view>
     <view class='pagesku-view-3 align-center' style='flex-direction:row;display:flex;'>
       <view style='flex:1'>份数</view>
       <view style=';flex-direction:row;display:flex;'>
-         <view class='view-sub align-center'>-</view>
-         <view class='view-num align-center'>1</view>
-          <view class='view-add align-center'>+</view>
+        <view class='view-sub align-center' data-dotype='sub' bindtap='updateCopies'>-</view>
+        <view class='view-num align-center'>{{myOrderInfo.orderCopies}}</view>
+        <view class='view-add align-center' data-dotype='add' bindtap='updateCopies'>+</view>
       </view>
     </view>
     <view class='pagesku-view-4'>
-    <button type="primary">确定</button>
+      <button type="primary" disabled='{{myOrderInfo.sureBtn.btnDisabled}}'>{{myOrderInfo.sureBtn.btnDisabled?myOrderInfo.sureBtn.btnTipMsg:myOrderInfo.sureBtn.btntext}}</button>
     </view>
 
   </view>

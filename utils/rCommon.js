@@ -507,12 +507,12 @@ var requirementMarkAction = {
  
 
 
-
 module.exports = {
   // doProgressRouteInfoImpl: doProgressRouteInfoImpl,
   canvaProgressRoute: canvaProgressRoute,
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
   configMsgInfo: configMsgInfo,
+ 
 
 }

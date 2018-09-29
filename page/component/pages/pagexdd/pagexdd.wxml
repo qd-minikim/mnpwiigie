@@ -35,7 +35,7 @@
     <!-- 出品商 -->
     <view class='view-2 font-color-3 font-size-4' style='  '>
       <view class='view-2-1'>出品商:</view>
-      <view class='view-2-2 view-ellipsis-1'>{{spuInfo.producer_brand_name}}</view>
+      <view class='view-2-2 view-ellipsis-1'>{{spuInfo.spuinfo.producer_brand_name}}</view>
       <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
     </view>
   </view>
@@ -56,7 +56,7 @@
       </swiper>
     </view>
     <view class='view-4 align-center'>
-      <view class='view-4-1 font-size-6'>{{spuInfo.description}}</view>
+      <view class='view-4-1 font-size-6'>{{spuInfo.spuinfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
@@ -373,7 +373,7 @@
    </block>
      <block wx:elif="{{ panelPage.chooseType=='sku'}}">
        <view class='choose_view' >
-      <template is="pagesku" />
+      <template is="pagesku" data="{{spuInfo,myOrderInfo}}"/>
     </view>
     </block>
 

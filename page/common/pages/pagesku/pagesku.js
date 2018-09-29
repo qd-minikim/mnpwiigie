@@ -1,66 +1,149 @@
-// page/common/pages/pagesku/pagesku.js
-Page({
+ /**修改份数 */
+ var uppdateCopies = {
+   addCopies: function(that) {
+   
+     var orderCopies = that.data.myOrderInfo.orderCopies;
+     var this_ = this;
+     var newOrderCopies = Number(orderCopies) + 1;
+     this_.canBuyCopies(that, newOrderCopies);
+     that.setData({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
+       'myOrderInfo.orderCopies': newOrderCopies
+     })
+ 
+   },
+   subCopies: function(that) {
+     var orderCopies = that.data.myOrderInfo.orderCopies;
 
-  },
+     var  this_  = this;
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+     if (orderCopies <= 1) {
+       return false;
+     } else {
 
-  },
+       var newOrderCopies = Number(orderCopies) - 1;
+       this_.canBuyCopies(that, newOrderCopies);
+       that.setData({
+         'myOrderInfo.orderCopies': newOrderCopies
+       })
+     }
+ 
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+   },
+   canBuyCopies: function (that, newOrderCopies) {
 
-  },
+     var storage = that.data.myOrderInfo.mySkuInfo.storage;
+     var minCopies = that.data.spuInfo.spuinfo.min_copies;
+     var maxCopies = that.data.spuInfo.spuinfo.max_copies;
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+     if (Number(storage) < Number(minCopies)) {
+       that.setData({
 
-  },
+         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+         'myOrderInfo.sureBtn.btnDisabled': true,
+         'myOrderInfo.sureBtn.btnTipMsg': '库存小于限购'
+       })
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+     } else if (Number(storage) == Number(minCopies)) {
 
-  },
+       if (Number(newOrderCopies) > Number(storage)) {
+         that.setData({
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
+         })
 
-  },
+       } else if (Number(newOrderCopies) < Number(storage)) {
+         that.setData({
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+         })
 
-  },
+       } else if (Number(newOrderCopies) == Number(storage)) {
+         that.setData({
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': false,
+           'myOrderInfo.sureBtn.btnTipMsg': ''
+         })
 
-  },
+       }
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+     } else if (Number(storage) > Number(minCopies) && Number(storage) <= Number(maxCopies)) {
 
-  }
-})
+       if (Number(newOrderCopies) < Number(minCopies)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+         })
+
+       } else if (Number(newOrderCopies) > Number(storage)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
+         })
+
+       } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(storage)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': false,
+           'myOrderInfo.sureBtn.btnTipMsg': ''
+         })
+
+       }
+
+     } else if (Number(storage) > Number(maxCopies)) {
+
+       if (Number(newOrderCopies) < Number(minCopies)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+         })
+
+       } else if (Number(newOrderCopies) > Number(maxCopies)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
+         })
+
+       } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(maxCopies)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': false,
+           'myOrderInfo.sureBtn.btnTipMsg': ''
+         })
+
+       } else if (Number(newOrderCopies) > Number(storage)) {
+         that.setData({
+
+           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+           'myOrderInfo.sureBtn.btnDisabled': true,
+           'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
+         })
+
+       }
+     }
+
+
+   }
+ }
+
+
+
+ module.exports = {
+   uppdateCopies: uppdateCopies,
+
+ }

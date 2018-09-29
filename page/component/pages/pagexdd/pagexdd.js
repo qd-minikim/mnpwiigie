@@ -1,9 +1,9 @@
-var config = require('../../../../config.js')
-var rCommon = require('../../../../utils/rCommon.js')
-var rRequest = require('../../../../utils/rRequest.js')
-var rUtils = require('../../../../utils/rUtils.js')
+var config = require('../../../../config.js');
+var rCommon = require('../../../../utils/rCommon.js');
+var rRequest = require('../../../../utils/rRequest.js');
+var rUtils = require('../../../../utils/rUtils.js');
 var WxParse = require('../../../../wxParse/wxParse.js');
-
+var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
 const app = getApp()
 Page({
   /**
@@ -25,7 +25,20 @@ Page({
     keepinfo: {
       keepstatus: '/image/keep_off.png',
     },
+    /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
     spuInfo: {},
+    myOrderInfo:{
+      orderType: 1,//1选择2:下单拦截选择  3:送礼拦截选择
+      mySkuInfo:null,
+      orderCopies:1,
+      /**根据库存 限购 等控制sku选择时的按钮显示 */
+      sureBtn:{
+        btntext:'确定',
+        btnDisabled:false,
+        btnTipMsg:''
+
+      }
+    },
 
     opinionInfo: {
       dataInfo: [],
@@ -94,6 +107,7 @@ Page({
     this.getRequirementRichtext()
     this.getRequirementDetail()
     this.getSpuInfo()
+    //this.getSkuInfo()
     this.getSpuCoverImageInfo()
     this.getConfigMsgInfo()
     this.getOpinionInfo()
@@ -357,28 +371,96 @@ Page({
 
     var that = this
     var spuid = '1529889871942295';
-
+   
+    var promotionid = '1530064196743354';
     var url = config.requestUrl
     var data = {
       code_: 'x_getSpuInfo',
       spuid: spuid,
+      promotionid: promotionid,
+
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    rRequest.doRequest(url, data, that, function (rdata) {
 
       if (rdata.info) {
 
-        that.setData({
+         that.setData({
           spuInfo: rdata.info,
-          /**
-           * producer_brand_name
-           */
+    
         })
+
+        /**判断是佛存在自选的skuinfo */
+        var maySkuInfo = that.data.myOrderInfo.mySkuInfo;
+
+
+        if (maySkuInfo){
+
+           
+        }else{
+          var skuInfo = that.data.spuInfo.skuinfo;
+          that.setData({
+            'myOrderInfo.mySkuInfo': skuInfo[0],
+            'myOrderInfo.orderType': 1,//1选择2:下单拦截选择  3:送礼拦截选择
+            'myOrderInfo.orderCopies': 1,
+          })
+        }
+        
       }
 
 
     })
+
+    // var url = config.requestUrl
+    // var data = {
+    //   code_: 'x_getSpuInfo',
+    //   spuid: spuid,
+    // }
+    // rRequest.doRequest(url, data, that, function(rdata) {
+    //   if (rdata.info) {
+    //     that.setData({
+    //       spuInfo: rdata.info,
+    //       /**
+    //        * producer_brand_name
+    //        */
+    //     })
+    //   }
+
+
+    // })
   },
-  getSkuInfo: function() {},
+  getSkuInfo: function() {
+    var that = this
+    
+    var spuid = '1529889871942295';
+    var promotionid = '1533265163611127';
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRequirementDetail',
+      id: requirementid,
+      userid: usreId,
+
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          requirementInfo: rdata.info
+          //           'requirementInfo.title': rdata.info.title,
+          //  'requirementInfo.wxdescription': rdata.info.wxdescription
+          //           'requirementInfo.merchantbrandname'
+        })
+
+        var s = that.data.requirementInfo.cfggroupgradeinfos;
+
+        var ss = '';
+      }
+
+
+    })
+
+
+  },
 
   /**获取sku */
   /**获取详情 */
@@ -562,6 +644,23 @@ Page({
     });
   },
 
+  /** */
+
+  updateCopies:function(event){
+    //var src = event.currentTarget.dataset.src; //获取data-src
+    var doType = event.currentTarget.dataset.dotype; 
+    var  that = this;
+    if (doType=='add'){
+
+      pagekskujs.uppdateCopies.addCopies(that);
+    }
+
+    if (doType == 'sub') {
+
+      pagekskujs.uppdateCopies.subCopies(that);
+    }
+  
+  },
   /**获取进展区信息 */
 
   getProgressRouteInfo1: function() {
