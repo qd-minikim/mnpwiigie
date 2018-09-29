@@ -30,10 +30,15 @@
 
       <block wx:for="{{spuInfo.spuname}}" wx:for-index="indexname" wx:for-item="itemname" wx:key="*this">
         <view class='pagesku-view-2-1 font-size-5'>{{itemname.spec_name}}</view>
-        <view class='pagesku-view-2-2' style='flex-direction:row;display:flex;'>
+        <view class='pagesku-view-2-2' style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
           <block wx:for="{{itemname.skuspecvalues}}" wx:for-index="indexvalue" wx:for-item="itemvalue" wx:key="*this">
             <view class='pagesku-view-2-2-1 font-size-5 align-center'>
-              <view class='pagesku-view-2-2-1-1 align-center' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}'>{{itemvalue.spec_value}}</view>
+              <view class='pagesku-view-2-2-1-1 align-center' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}'>{{itemvalue.spec_value}}
+              <view style='position:absolute;right:1rpx;;bottom:-4px;'>
+                <image style='width:20rpx;height:20rpx;' src='/image/figure_16.gif'></image>
+              </view>
+              </view>
+              
             </view>
 
           </block>

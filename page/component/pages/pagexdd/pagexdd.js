@@ -370,9 +370,9 @@ Page({
   getSpuInfo: function() {
 
     var that = this
-    var spuid = '1529889871942295';
+    var spuid = '1529215126697316';
    
-    var promotionid = '1530064196743354';
+    var promotionid = '1529291860866339';
     var url = config.requestUrl
     var data = {
       code_: 'x_getSpuInfo',
@@ -395,6 +395,7 @@ Page({
 
         if (maySkuInfo){
 
+
            
         }else{
           var skuInfo = that.data.spuInfo.skuinfo;
@@ -404,6 +405,8 @@ Page({
             'myOrderInfo.orderCopies': 1,
           })
         }
+      
+         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
         
       }
 

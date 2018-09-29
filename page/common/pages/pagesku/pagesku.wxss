@@ -37,6 +37,7 @@
   border-radius: 10%; */
   margin: 10rpx;
   width: 120rpx;
+ 
 
 }
 .pagesku-view-2-2-1-1{
@@ -46,7 +47,7 @@
   border-radius: 10%;
   
   width: 100%;
-
+ position:relative;
 }
 
 .pagesku-view-3 {
