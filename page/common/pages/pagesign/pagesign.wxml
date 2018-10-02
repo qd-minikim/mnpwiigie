@@ -69,7 +69,7 @@
     </view>
 
     <view >
-    <button type="default" bindtap='closeModal'>知道了</button>
+    <button class='font-size-4' type="default" bindtap='closeModal'>知道了</button>
     </view>
 
     </template>

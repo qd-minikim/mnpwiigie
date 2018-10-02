@@ -1,0 +1,31 @@
+var filters  = {
+  toFix: function (value,num) {
+   
+    return value.toFixed(num)
+  },
+  toContain:function(str,strR){
+
+
+    if (str.indexOf(strR) != -1 ){
+
+       var strArry= str.split(",");
+       if(strArry.length=1){
+         /**只有一个时，自动选中 */
+         return '1'
+       }else{
+          /**超过一个时，允许选择， */
+         return '2'
+       }
+       
+    }else{
+
+      return '0'
+    }
+  }
+}
+
+module.exports = {
+  toFix: filters.toFix,
+  toContain: filters.toContain
+}
+

@@ -6,7 +6,7 @@
 <import src="../../../common/pages/pagesku/pagesku.wxml" />
 
 
-<wxs module="filters" src="../../../../utils/rNumberUtils.wxs"></wxs>
+<wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
@@ -373,7 +373,7 @@
    </block>
      <block wx:elif="{{ panelPage.chooseType=='sku'}}">
        <view class='choose_view' >
-      <template is="pagesku" data="{{spuInfo,myOrderInfo}}"/>
+      <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}"/>
     </view>
     </block>
 

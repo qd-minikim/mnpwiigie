@@ -193,12 +193,12 @@
 }
 
 .bottom-view-1-image {
-  width: 60rpx;
-  height: 60rpx;
+  width: 55rpx;
+  height: 55rpx;
 }
 
 .bottom-view-1 {
-  height: 60rpx;
+  height: 55rpx;
 }
 
 .bottom-view {

@@ -37,7 +37,9 @@ Page({
         btnDisabled:false,
         btnTipMsg:''
 
-      }
+      },
+      /**选择规格时的动态赋值变化 */
+      selectSkuId:[]
     },
 
     opinionInfo: {
@@ -48,7 +50,7 @@ Page({
 
     pagePard: {
       headHeight: '110',
-      footHeight: '120',
+      footHeight: '110',
       contentHeight: '',
 
     },
@@ -58,6 +60,9 @@ Page({
       animationData: {},
       maskLayerHeight: '',
       maskLayerWidth: '',
+      maskPanHeight: '',//例如下单选择等存在底端按钮的时候，按钮上部的view的高度
+      maskPanWidth: '',
+
       msginfo: '',
       isHtml: false
     },
@@ -124,7 +129,8 @@ Page({
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
     var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
-    console.log(contentHeight)
+  
+    var maskPanHeight = 400 - 84 * percent 
     this.setData({
 
       oneGridWidth: ongGridWidth + "px",
@@ -132,6 +138,9 @@ Page({
       'pagePard.contentHeight': contentHeight,
       'panelPage.maskLayerHeight': windowHeight + "px",
       'panelPage.maskLayerWidth': windowWidth + "px",
+
+      'panelPage.maskPanHeight': maskPanHeight + "px",
+      'panelPage.maskPanWidth': windowWidth + "px",
 
       'swiperArea.swiperWidth': windowWidth + "px",
       'swiperArea.swiperHeight': windowWidth + "px",
@@ -364,7 +373,14 @@ Page({
       }
     })
   },
-
+/**选择sku */
+  selectSku:function(event){
+    var that = this
+    var skuindex = event.currentTarget.dataset.skuindex; 
+    var skuids = event.currentTarget.dataset.skuids; 
+    var vindex = event.currentTarget.dataset.vindex; 
+    pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
+  },
 
   /**获取spu*/
   getSpuInfo: function() {
@@ -399,11 +415,36 @@ Page({
            
         }else{
           var skuInfo = that.data.spuInfo.skuinfo;
+
+          var spuname = that.data.spuInfo.spuname;
+
           that.setData({
             'myOrderInfo.mySkuInfo': skuInfo[0],
             'myOrderInfo.orderType': 1,//1选择2:下单拦截选择  3:送礼拦截选择
             'myOrderInfo.orderCopies': 1,
+            'myOrderInfo.orderCopies': 1,
+            'myOrderInfo.selectSkuId': skuInfo[0].id
           })
+
+          for(var i=0;i<spuname.length;i++){
+
+
+            for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
+              var dataskuids = spuname[i].skuspecvalues[x].sku_id;
+
+              if (dataskuids.indexOf(skuInfo[0].id) >= 0) {
+                pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
+
+              }
+             
+            }
+             
+          }
+
+
+           
+
+
         }
       
          pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
