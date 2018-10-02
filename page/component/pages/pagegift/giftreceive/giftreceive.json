@@ -1,0 +1,24 @@
+{"navigationBarTitleText": "友托帮-我收的礼",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/pagehome/pagehome",
+        "text": "好友冰鉴",
+        "iconPath": "image/home_0.png",
+        "selectedIconPath": "image/home_1.png"
+      },
+      {
+        "pagePath": "pages/pagegoods/pagegoods",
+        "text": "好物精选",
+        "iconPath": "image/goods_0.png",
+        "selectedIconPath": "image/goods_1.png"
+      },
+      {
+        "pagePath": "pages/pagemy/pagemy",
+        "text": "我的",
+        "iconPath": "image/my_0.png",
+        "selectedIconPath": "image/my_1.png"
+      }
+    ]
+  }
+}
