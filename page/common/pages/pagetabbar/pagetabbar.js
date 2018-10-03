@@ -1,30 +1,17 @@
-// page/component/pages/pagegift/giftreceivesucc/giftreceivesucc.js
-var config = require('../../../../../config.js');
-var app = getApp();
+// page/common/pages/pagetabbar/pagebar.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    giftInfo: {
-      process: '1',
-      coverImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png",//展示的图片路径
-      giftSkuImage: '/image/goods-test.jpg'
-    },
 
-    /**tabbar */
-    tabbar: {},//tabbar 信息
-    tabbarPage:'/pages/pagemy/pagemy'//当前页面属于哪个tabbar 默认是null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //调用函数
-    app.editTabBar("/pages/pagemy/pagemy"); 
-
 
   },
 

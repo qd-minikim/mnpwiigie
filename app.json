@@ -6,6 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
+     
   ],
   "subPackages": [
     {
@@ -48,6 +49,7 @@
         "iconPath": "image/my_0.png",
         "selectedIconPath": "image/my_1.png"
       }
-    ]
+    ],
+    "position": "bottom"
   }
 }

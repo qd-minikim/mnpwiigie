@@ -6,19 +6,44 @@ App({
   onLaunch: function() {
     this.getSystemInfo();
     this.userLogin();
-    
+
   },
   globalData: {
     userInfo: null,
     userIData: false,
     systemInfo: null,
+    loginInfo: null,
+    cacheInfo: {
+      pagexdd_p_1: null,
 
-    loginInfo:null ,
- 
-    cacheInfo:{
-      pagexdd_p_1:null,
-
+    },
+    tabbar: {
+      // color: "#000000",
+      selectedColor: "#00c003",
+      // backgroundColor: "#ffffff",
+      // borderStyle: "black",
+      "list": [{
+          "pagePath": "/pages/pagehome/pagehome",
+          "text": "好友冰鉴",
+          "iconPath": "/image/home_0.png",
+        "selectedIconPath": "/image/home_1.png"
+        },
+        {
+          "pagePath": "/pages/pagegoods/pagegoods",
+          "text": "好物精选",
+          "iconPath": "/image/goods_0.png",
+          "selectedIconPath": "/image/goods_1.png"
+        },
+        {
+          "pagePath": "/pages/pagemy/pagemy",
+          "text": "我的",
+          "iconPath": "/image/my_0.png",
+          "selectedIconPath": "/image/my_1.png"
+        }
+      ],
+      position: "bottom"
     }
+
 
   },
   //获取设备信息
@@ -45,14 +70,14 @@ App({
         wx.request({
           url: config.loginUrl,
           data: {
-            code: res.code 
+            code: res.code
           },
           header: {
             'content-type': 'application/json' // 默认值
           },
           success: res => {
             //console.log("返回成功2--"+res.data)
-            
+
             this.globalData.loginInfo = res.data.info
             this.getUserInfoF();
           }
@@ -73,18 +98,18 @@ App({
 
         that.globalData.userInfo = res.userInfo
         that.globalData.userIData = true
-   //     newUserInfo.setId(id);
-//			newUserInfo.setOpenid(openId);
-//			newUserInfo.setWxStatus("1");//0：未关注  1  ：关注
-//			newUserInfo.setMgmtStatus("0");
-//			newUserInfo.setCreateTime(systemTime);
-//			
-//			newUserInfo.setNickname(CfgParamUtils.getString(map.get("nickname")));
-//			newUserInfo.setSex(CfgParamUtils.getString(map.get("sex")));
-//			newUserInfo.setCity(CfgParamUtils.getString(map.get("city")));
-//			newUserInfo.setCountry(CfgParamUtils.getString(map.get("country")));
-//			newUserInfo.setProvince(CfgParamUtils.getString(map.get("province")));
-//			newUserInfo.setUnionid(CfgParamUtils.getString(map.get("unionid")));
+        //     newUserInfo.setId(id);
+        //			newUserInfo.setOpenid(openId);
+        //			newUserInfo.setWxStatus("1");//0：未关注  1  ：关注
+        //			newUserInfo.setMgmtStatus("0");
+        //			newUserInfo.setCreateTime(systemTime);
+        //			
+        //			newUserInfo.setNickname(CfgParamUtils.getString(map.get("nickname")));
+        //			newUserInfo.setSex(CfgParamUtils.getString(map.get("sex")));
+        //			newUserInfo.setCity(CfgParamUtils.getString(map.get("city")));
+        //			newUserInfo.setCountry(CfgParamUtils.getString(map.get("country")));
+        //			newUserInfo.setProvince(CfgParamUtils.getString(map.get("province")));
+        //			newUserInfo.setUnionid(CfgParamUtils.getString(map.get("unionid")));
         var appId = that.globalData.loginInfo.appId
         var sessionKey = that.globalData.loginInfo.sessionKey
         var pc = new WXBizDataCrypt(appId, sessionKey)
@@ -108,15 +133,15 @@ App({
         }
 
         wx.hideToast();
-        
+
       },
       fail: function() {
         //wx.hideToast();
-        
-      }
-    }) 
 
-     
+      }
+    })
+
+
 
 
     // wx.getSetting({
@@ -130,15 +155,15 @@ App({
 
     // })
   },
-  userInfoResetCallBak: function (res) {
+  userInfoResetCallBak: function(res) {
     var that = this;
     that.setData({
-        'globalData.userInfo' : res.userInfo,
-        'globalData.userIData ': true
+      'globalData.userInfo': res.userInfo,
+      'globalData.userIData ': true
     })
   },
-  
- 
+
+
   // cancel: function () {
   //   this.setData({
 
@@ -151,4 +176,28 @@ App({
   //   });
 
   // }
+
+
+  editTabBar: function() {
+    var tabbar = this.globalData.tabbar,
+      currentPages = getCurrentPages(),
+      _this = currentPages[currentPages.length - 1],
+    pagePath = _this.data.tabbarPage
+    if (pagePath){
+
+        
+      }else{
+        pagePath = _this.__route__;
+      }
+      
+    (pagePath.indexOf('/') != 0) && (pagePath = '/' + pagePath);
+    for (var i in tabbar.list) {
+      tabbar.list[i].selected = false;
+      (tabbar.list[i].pagePath == pagePath) && (tabbar.list[i].selected = true);
+    }
+    _this.setData({
+      tabbar: tabbar
+    });
+  },
+
 })

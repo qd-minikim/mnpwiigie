@@ -1,5 +1,16 @@
 /* page/component/pages/pagegift/giftgivesucc/giftgivesucc.wxss */
 
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
+.grs-view-1 {
+  width: 100%;
+}
+
+.grs-view-1-image {
+  width: 500rpx;
+  height: 500rpx;
+}
+
 .grs-view-1 {
   width: 100%;
 }
@@ -28,5 +39,5 @@
   width: 100%;
   position: absolute;
   right: 1rpx;
-  bottom:20rpx;
+  bottom: 20rpx;
 }
