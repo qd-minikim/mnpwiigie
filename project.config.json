@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -66,6 +66,18 @@
 					"id": 4,
 					"name": "收到礼品",
 					"pathName": "page/component/pages/pagegift/giftreceive/giftreceive",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "送到礼品",
+					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "收到礼品-succ",
+					"pathName": "page/component/pages/pagegift/giftreceivesucc/giftreceivesucc",
 					"query": ""
 				}
 			]

@@ -1,11 +1,16 @@
 // page/component/pages/pagegift/giftreceivesucc/giftreceivesucc.js
+var config = require('../../../../../config.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    giftInfo: {
+      process: '1',
+      coverImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png",//展示的图片路径
+      giftSkuImage: '/image/goods-test.jpg'
+    },
   },
 
   /**

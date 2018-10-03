@@ -1,4 +1,6 @@
 // page/component/pages/pagegift/giftgivesucc/giftgivesucc.js
+
+var config = require('../../../../../config.js');
 Page({
 
   /**
@@ -6,6 +8,11 @@ Page({
    */
   data: {
 
+    giftInfo: {
+      process: '0',
+      coverImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png",//展示的图片路径
+      giftSkuImage:'/image/goods-test.jpg'
+    },
   },
 
   /**

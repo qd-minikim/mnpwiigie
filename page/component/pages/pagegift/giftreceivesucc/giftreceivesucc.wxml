@@ -1,2 +1,27 @@
-<!--page/component/pages/pagegift/giftreceivesucc/giftreceivesucc.wxml-->
-<text>page/component/pages/pagegift/giftreceivesucc/giftreceivesucc.wxml</text>
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='grs-view-1 align-center'>
+    <image class='grs-view-1-image' src='{{giftInfo.coverImage}}'></image>
+  </view>
+
+
+
+  <view class='grs-view-3 align-center'>
+    该礼品超时未获知，现已退回
+
+  </view>
+
+
+  <view class='grs-view-5 align-center'>
+    <view>
+      <image class='grs-view-5-image' src='{{giftInfo.giftSkuImage}}'></image>
+    </view>
+
+    <view class='grs-view-5-2 align-center'>
+      
+      
+    <button type='default' class='font-size-5'>打开看看</button>
+    </view>
+  </view>
+
+
+</view>

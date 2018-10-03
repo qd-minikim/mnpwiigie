@@ -1,1 +1,50 @@
 /* page/component/pages/pagegift/giftreceive/giftreceive.wxss */
+
+.gr-view-1 {
+  width: 100%;
+}
+
+.gr-view-1-image {
+  width: 400rpx;
+  height: 400rpx;
+}
+
+.gr-view-5 {
+  width: 100%;
+  margin-top: 100rpx
+}
+
+.gr-view-5-1 {
+  width: 100%;
+}
+
+.gr-view-5-1-btn {
+  width: 70%;
+}
+
+.gr-view-7 {
+  
+  width: 100%;
+  margin-top: 100rpx;
+}
+
+.gr-view-7-1 {
+  width: 100%;
+}
+
+.gr-view-7-1-btn {
+  width: 70%;
+}
+
+.gr-view-9 {
+  width: 100%;
+  margin-top: 100rpx;
+}
+
+.gr-view-9-1 {
+  width: 100%;
+}
+
+.gr-view-9-1-btn {
+  width: 70%;
+}

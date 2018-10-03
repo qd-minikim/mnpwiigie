@@ -1,1 +1,32 @@
-/* page/component/pages/pagegift/giftreceivesucc/giftreceivesucc.wxss */
+/* page/component/pages/pagegift/giftgivesucc/giftgivesucc.wxss */
+
+.grs-view-1 {
+  width: 100%;
+}
+
+.grs-view-1-image {
+  width: 500rpx;
+  height: 500rpx;
+}
+
+.grs-view-3 {
+  width: 100%;
+}
+
+.grs-view-5 {
+  width: 100%;
+  margin-top: 50rpx;
+  position: relative;
+}
+
+.grs-view-5-image {
+  width: 450rpx;
+  height: 450rpx;
+}
+
+.grs-view-5-2 {
+  width: 100%;
+  position: absolute;
+  right: 1rpx;
+  bottom:20rpx;
+}

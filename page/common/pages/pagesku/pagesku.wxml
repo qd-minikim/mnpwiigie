@@ -38,7 +38,7 @@
                 <block wx:if="{{itemvalue.currentstatus=='selected'}}">
 
                   <view class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
-                    <view style='position:absolute;right:1rpx;;bottom:-4px;'>
+                    <view >
                       <image style='width:20rpx;height:20rpx;' src='/image/figure_16.gif'></image>
                     </view>
                   </view>

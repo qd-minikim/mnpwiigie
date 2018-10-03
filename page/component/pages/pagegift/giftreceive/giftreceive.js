@@ -1,4 +1,7 @@
 // page/component/pages/pagegift/giftreceive/giftreceive.js
+
+var config = require('../../../../../config.js');
+var rUtils = require('../../../../../utils/rUtils.js');
 Page({
 
   /**
@@ -6,6 +9,18 @@ Page({
    */
   data: {
 
+    giftInfo:{
+      process:'0',
+      coverImage: config.imageUrl +"/wiigie/background/gift/give_gift_icon.png",//展示的图片路径
+      currentTime:'2018-10-04 21:16:08',
+      endTime: '2018-10-04 21:16:12',
+    },
+    timerDown:{
+      day:'00',
+      hou:'00',
+      min: '00',
+      sec: '00',
+    }
   },
 
   /**
@@ -13,6 +28,8 @@ Page({
    */
   onLoad: function (options) {
 
+
+    this.getTimerDown()
   },
 
   /**
@@ -62,5 +79,18 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**倒计时 */
+  getTimerDown: function(){
+    var that = this;
+    var currentTime = that.data.giftInfo.currentTime;
+    var endTime = that.data.giftInfo.endTime;
+    rUtils.timerDown.countDown(that, currentTime, endTime,function(){
+
+      console.log("结束----")
+    });
   }
 })
+
+ 
