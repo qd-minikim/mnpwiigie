@@ -18,7 +18,7 @@ App({
 
     },
 
-    
+
     tabbarHeight: 120,//pagetabbar.wxss 同步修改
     tabbar: {
       // color: "#000000",
@@ -198,9 +198,17 @@ App({
       tabbar.list[i].selected = false;
       (tabbar.list[i].pagePath == pagePath) && (tabbar.list[i].selected = true);
     }
+    var windowWidth = this.globalData.systemInfo.windowWidth
+    var windowHeight = this.globalData.systemInfo.windowHeight
+
+    var percent = windowWidth / 750
+    var scrollHeight = windowHeight - this.globalData.tabbarHeight * percent
     _this.setData({
-      tabbar: tabbar
+      tabbar: tabbar,
+      'pageScrollView.height': scrollHeight + "px"
     });
+
+    
   },
 
 })

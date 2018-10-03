@@ -28,14 +28,7 @@ Page({
   onLoad: function(options) {
     /****调用函数设置tabbar及页面*****/
     app.editTabBar("/pages/pagemy/pagemy");
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
-
-    var percent = windowWidth / 750
-    var scrollHeight = windowHeight - app.globalData.tabbarHeight * percent
-    this.setData({
-      'pageScrollView.height': scrollHeight + "px"
-    })
+   
     /****调用函数设置tabbar及页面*****/
 
   },
