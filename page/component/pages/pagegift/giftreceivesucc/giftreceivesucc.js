@@ -9,71 +9,83 @@ Page({
   data: {
     giftInfo: {
       process: '1',
-      coverImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png",//展示的图片路径
+      coverImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png", //展示的图片路径
       giftSkuImage: '/image/goods-test.jpg'
     },
 
+
     /**tabbar */
-    tabbar: {},//tabbar 信息
-    tabbarPage:'/pages/pagemy/pagemy'//当前页面属于哪个tabbar 默认是null
+    pageScrollView: {
+      height: app.globalData.systemInfo.windowHeight
+    },
+    tabbar: {}, //tabbar 信息
+    tabbarPage: '/pages/pagemy/pagemy' //当前页面属于哪个tabbar 默认是null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    //调用函数
-    app.editTabBar("/pages/pagemy/pagemy"); 
+  onLoad: function(options) {
+    /****调用函数设置tabbar及页面*****/
+    app.editTabBar("/pages/pagemy/pagemy");
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
 
+    var percent = windowWidth / 750
+    var scrollHeight = windowHeight - app.globalData.tabbarHeight * percent
+    this.setData({
+      'pageScrollView.height': scrollHeight + "px"
+    })
+    /****调用函数设置tabbar及页面*****/
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

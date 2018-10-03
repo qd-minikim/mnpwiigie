@@ -17,6 +17,9 @@ App({
       pagexdd_p_1: null,
 
     },
+
+    
+    tabbarHeight: 120,//pagetabbar.wxss 同步修改
     tabbar: {
       // color: "#000000",
       selectedColor: "#00c003",

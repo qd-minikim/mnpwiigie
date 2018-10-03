@@ -1,6 +1,7 @@
 
 <import src="/page/common/pages/pagetabbar/pagetabbar.wxml"/>
 <template is="tabbar" data="{{tabbar}}"/>
+<scroll-view style='height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <view class='grs-view-1 align-center'>
     <image class='grs-view-1-image' src='{{giftInfo.coverImage}}'></image>
@@ -9,7 +10,7 @@
 
 
   <view class='grs-view-3 align-center'>
-    该礼品超时未获知，现已退回
+    该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回
 
   </view>
 
@@ -28,3 +29,5 @@
 
 
 </view>
+
+</scroll-view>
