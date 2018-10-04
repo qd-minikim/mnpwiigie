@@ -27,7 +27,7 @@ Page({
    */
   onLoad: function(options) {
     /****调用函数设置tabbar及页面*****/
-    app.editTabBar("/pages/pagemy/pagemy");
+    app.editTabBar();
    
     /****调用函数设置tabbar及页面*****/
 

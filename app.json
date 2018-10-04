@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-     
+   
   ],
   "subPackages": [
     {
@@ -19,7 +19,9 @@
         "pages/pagedialog/pagedialog",
         "pages/pagegift/giftreceive/giftreceive",
         "pages/pagegift/giftreceivesucc/giftreceivesucc",
-        "pages/pagegift/giftgivesucc/giftgivesucc"
+        "pages/pagegift/giftgivesucc/giftgivesucc",
+        "pages/pageaddr/addrlist/addrlist",
+        "pages/pageaddr/addradd/addradd"
       ]
     }
   ],

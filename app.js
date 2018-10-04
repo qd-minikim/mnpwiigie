@@ -18,8 +18,11 @@ App({
 
     },
 
+    /** 底部按钮的高度*/
+    bottomBtnHeight: 120, //flex-bottom  同步修改
+    /** */
 
-    tabbarHeight: 120,//pagetabbar.wxss 同步修改
+    tabbarHeight: 120, //pagetabbar.wxss 同步修改
     tabbar: {
       // color: "#000000",
       selectedColor: "#00c003",
@@ -29,7 +32,7 @@ App({
           "pagePath": "/pages/pagehome/pagehome",
           "text": "好友冰鉴",
           "iconPath": "/image/home_0.png",
-        "selectedIconPath": "/image/home_1.png"
+          "selectedIconPath": "/image/home_1.png"
         },
         {
           "pagePath": "/pages/pagegoods/pagegoods",
@@ -185,14 +188,14 @@ App({
     var tabbar = this.globalData.tabbar,
       currentPages = getCurrentPages(),
       _this = currentPages[currentPages.length - 1],
-    pagePath = _this.data.tabbarPage
-    if (pagePath){
+      pagePath = _this.data.tabbarPage
+    if (pagePath) {
 
-        
-      }else{
-        pagePath = _this.__route__;
-      }
-      
+
+    } else {
+      pagePath = _this.__route__;
+    }
+
     (pagePath.indexOf('/') != 0) && (pagePath = '/' + pagePath);
     for (var i in tabbar.list) {
       tabbar.list[i].selected = false;
@@ -208,7 +211,26 @@ App({
       'pageScrollView.height': scrollHeight + "px"
     });
 
-    
+
   },
+  editBottom:function(){
+    var currentPages = getCurrentPages(),
+    this_ = currentPages[currentPages.length - 1];
+
+    var windowWidth = this.globalData.systemInfo.windowWidth
+    var windowHeight = this.globalData.systemInfo.windowHeight
+
+    var percent = windowWidth / 750
+    var scrollHeight = windowHeight - this.globalData.bottomBtnHeight * percent
+
+    if (this_.data.pageview.bottomView){
+
+
+      this_.setData({
+        'pageview.scrollviewHeight': scrollHeight + "px"
+      });
+    }
+
+  }
 
 })
