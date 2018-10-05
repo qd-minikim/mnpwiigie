@@ -27,7 +27,7 @@
             </block>
           </view>
           <view class='align-center'>
-            <button class='addrlist-view-1-4-btn font-size-4 align-center' style='  margin-right:10rpx'>
+            <button class='addrlist-view-1-4-btn font-size-4 align-center' style='  margin-right:10rpx'  bindtap='editAddr' data-id='{{item.id}}'>
               <image class='addrlist-view-1-4_figure' src='/image/figure_17.png'></image> 编辑</button>
             <button button class='addrlist-view-1-4-btn font-size-4 align-center' bindtap='deleteAddress' data-id='{{item.id}}'>
               <image class='addrlist-view-1-4_figure' src='/image/figure_18.png'></image>删除</button>
@@ -43,7 +43,7 @@
 
   </scroll-view>
   <view class='addrlist-view-4 flex-bottom  '>
-    <button type="default" style='width:100%'>新建地址</button>
+    <button type="default" style='width:100%' bindtap='addAddr'>新建地址</button>
   </view>
 
 </view>

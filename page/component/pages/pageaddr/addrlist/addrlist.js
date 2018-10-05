@@ -38,7 +38,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getAddressInfo();
   },
 
   /**
@@ -133,31 +133,30 @@ Page({
 
   deleteAddress: function(event) {
     var that = this;
-    
+
     wx.showModal({
       title: '提示',
       content: '确定要删除地址吗',
 
       success: function() {
 
-      
+
         var url = config.requestUrl;
 
-        var id = event.currentTarget.dataset.id;;
+        var id = event.currentTarget.dataset.id;
         var data = {
           code_: 'x_delAddress',
 
           id: id
 
         }
-        rRequest.doRequest(url, data, that, function (rdata) {
+        rRequest.doRequest(url, data, that, function(rdata) {
 
           wx.showToast({
             title: '删除成功',
             image: '/image/icon_ok.png',
             duration: 2000,
-            success: function () {
-            }
+            success: function() {}
           })
 
           that.getAddressInfo();
@@ -170,6 +169,19 @@ Page({
 
 
 
-  }
+  },
+  addAddr: function() {
 
+    wx.navigateTo({
+      url: '/page/component/pages/pageaddr/addradd/addradd?action=add'
+    })
+
+  },
+  editAddr: function (event) {
+      var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/page/component/pages/pageaddr/addradd/addradd?action=upp&id=' + id
+    })
+
+  }
 })

@@ -5,13 +5,13 @@
     <view class='addradd-view-1 '>
       <view>姓名：</view>
       <view style='flex:1'>
-        <input placeholder='姓名' name="order_username"></input>
+        <input placeholder='姓名' name="order_username" value='{{myAddressInfo.orderUserName}}'></input>
       </view>
     </view>
     <view class='addradd-view-2 '>
       <view>电话：</view>
       <view style='flex:1'>
-        <input placeholder='联系电话' name="phone"></input>
+        <input placeholder='联系电话' name="phone" value='{{myAddressInfo.phone}}'></input>
       </view>
     </view>
     <view class='addradd-view-3 '>
@@ -43,7 +43,7 @@
     <view class='addradd-view-4 '>
       <view>地址：</view>
       <view style='flex:1'>
-        <input placeholder='门楼地址' name="address_house"></input>
+        <input placeholder='门楼地址' name="address_house" value='{{myAddressInfo.addressHouse}}'></input>
       </view>
     </view>
 

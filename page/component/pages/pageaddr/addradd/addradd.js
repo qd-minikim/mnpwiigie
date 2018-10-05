@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    useraddressid: '',
+    action: 'add',
     addrInfo: {
       defaultProvice: [{
         'code': '',
@@ -34,6 +35,14 @@ Page({
         index: 0
       }
     },
+    myAddressInfo: {
+      orderUserName: '',
+      province: '',
+      city: '',
+      district: '',
+      addressHouse: '',
+      phone: ''
+    }
 
 
   },
@@ -44,15 +53,44 @@ Page({
   onLoad: function(options) {
 
 
-    this.getProvince()
+    var action = options.action;
+
+    if (action == 'add') {
 
 
-    var city = this.data.addrInfo.defaultCity;
-    var district = this.data.addrInfo.defaultDistrict;
-    this.setData({
-      'addrInfo.cityInfo.city': city,
-      'addrInfo.districtInfo.district': district,
-    })
+
+      var city = this.data.addrInfo.defaultCity;
+      var district = this.data.addrInfo.defaultDistrict;
+      this.setData({
+
+        'addrInfo.cityInfo.city': city,
+        'addrInfo.districtInfo.district': district,
+        'action': action,
+
+      })
+
+      this.getProvince()
+    }
+
+    if (action == 'upp') {
+      var useraddressid = options.id;
+
+      var city = this.data.addrInfo.defaultCity;
+      var district = this.data.addrInfo.defaultDistrict;
+      this.setData({
+
+        'addrInfo.cityInfo.city': city,
+        'addrInfo.districtInfo.district': district,
+        'action': action,
+        'useraddressid': useraddressid
+      })
+
+      this.getAddressInfo();
+    }
+
+
+
+
   },
 
   /**
@@ -103,6 +141,46 @@ Page({
   onShareAppMessage: function() {
 
   },
+
+
+  getAddressInfo: function() {
+
+    var that = this;
+    var url = config.requestUrl;
+    var id = that.data.useraddressid;
+    var userid = '1528869953018820';
+    var data = {
+      code_: 'x_getAddressById',
+      id: id,
+      userid: userid,
+
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      var provice = that.data.addrInfo.defaultProvice;
+
+      if (rdata.info) {
+        that.setData({
+          'myAddressInfo.orderUserName': rdata.info.orderUsername,
+          'myAddressInfo.province': rdata.info.province,
+          'myAddressInfo.city': rdata.info.city,
+          'myAddressInfo.district': rdata.info.district,
+          'myAddressInfo.addressHouse': rdata.info.addressHouse,
+          'myAddressInfo.phone': rdata.info.phone,
+        })
+
+
+        that.getProvince();
+
+
+
+      }
+    })
+
+  },
+
+
   /**
    * 获取省份
    */
@@ -127,16 +205,39 @@ Page({
           'addrInfo.provinceInfo.provice': provice.concat(rdata.info),
 
         })
+
+        if (that.data.action == 'upp') {
+
+
+          var fcode = that.data.myAddressInfo.province;
+          var findex = 0;
+          for (var i = 0; i < rdata.info.length; i++) {
+            if (fcode == rdata.info[i].code) {
+
+              findex = i;
+              break;
+            }
+
+          }
+          that.setData({
+
+            'addrInfo.provinceInfo.index': findex+1
+          })
+          that.getCity();
+        }
       }
     })
   },
 
   changeProvince: function(e) {
     var that = this;
-    console.log('picker发送选择改变，携带值为', that.data.addrInfo.provinceInfo.provice[e.detail.value].code)
+   
     that.setData({
 
-      'addrInfo.provinceInfo.index': e.detail.value
+      'addrInfo.provinceInfo.index': e.detail.value,
+      'addrInfo.cityInfo.index': 0,
+      'addrInfo.districtInfo.index': 0,
+      'action': 'change',
     })
     this.getCity();
 
@@ -149,7 +250,8 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var fcode = that.data.addrInfo.provinceInfo.provice[that.data.addrInfo.provinceInfo.index].code;
+   var fcode = that.data.addrInfo.provinceInfo.provice[that.data.addrInfo.provinceInfo.index].code;
+    //  var fcode = that.data.myAddressInfo.province;
     var code = fcode.substring(0, 2) + "%" + "00";
 
 
@@ -169,6 +271,25 @@ Page({
         that.setData({
           'addrInfo.cityInfo.city': city.concat(rdata.info)
         })
+
+        if (that.data.action == 'upp') {
+          var fcode = that.data.myAddressInfo.city;
+          var findex = 0;
+          for (var i = 0; i < rdata.info.length; i++) {
+            if (fcode == rdata.info[i].code) {
+
+              findex = i;
+              break;
+            }
+
+          }
+          that.setData({
+
+            'addrInfo.cityInfo.index': findex+1
+          })
+
+          that.getDistrict();
+        }
       }
     })
   },
@@ -176,7 +297,9 @@ Page({
     var that = this;
     that.setData({
 
-      'addrInfo.cityInfo.index': e.detail.value
+      'addrInfo.cityInfo.index': e.detail.value,
+       'addrInfo.districtInfo.index': 0,
+        'action': 'change',
     })
     this.getDistrict();
 
@@ -187,7 +310,8 @@ Page({
   getDistrict: function() {
     var that = this;
     var url = config.requestUrl;
-    var fcode = that.data.addrInfo.cityInfo.city[that.data.addrInfo.cityInfo.index].code;
+   var fcode = that.data.addrInfo.cityInfo.city[that.data.addrInfo.cityInfo.index].code;
+    // var fcode = that.data.myAddressInfo.city;
 
     var code = fcode.substring(0, 4) + "%";
 
@@ -207,6 +331,24 @@ Page({
         that.setData({
           'addrInfo.districtInfo.district': district.concat(rdata.info)
         })
+
+        if (that.data.action == 'upp') {
+          var fcode = that.data.myAddressInfo.district;
+          var findex = 0;
+          for (var i = 0; i < rdata.info.length; i++) {
+            if (fcode == rdata.info[i].code) {
+
+              findex = i;
+              break;
+            }
+
+          }
+          that.setData({
+            'addrInfo.districtInfo.index': findex+1
+          })
+
+        
+        }
       }
     })
   },
@@ -214,7 +356,8 @@ Page({
     var that = this;
     that.setData({
 
-      'addrInfo.districtInfo.index': e.detail.value
+      'addrInfo.districtInfo.index': e.detail.value,
+      'action': 'change',
     })
 
 
@@ -234,8 +377,8 @@ Page({
     // that.data.addrInfo.cityInfo.city[that.data.addrInfo.cityInfo.index].code;
     // that.data.addrInfo.districtInfo.district[that.data.addrInfo.districtInfo.index].code;
 
-    var useraddressid = '',
-      userid = '',
+    var useraddressid = that.data.useraddressid,
+      userid = '1528869953018820',
       orderUsername = formObj.order_username,
       phone = formObj.phone,
       province = that.data.addrInfo.provinceInfo.provice[that.data.addrInfo.provinceInfo.index].code,
@@ -268,7 +411,7 @@ Page({
         title: '联系电话不能为空',
         image: '/image/icon_warn.png',
         duration: 12000,
-        success: function () {
+        success: function() {
 
         }
       })
@@ -281,7 +424,7 @@ Page({
         title: '省份不能为空',
         image: '/image/icon_warn.png',
         duration: 12000,
-        success: function () {
+        success: function() {
 
         }
       })
@@ -294,7 +437,7 @@ Page({
         title: '地市不能为空',
         image: '/image/icon_warn.png',
         duration: 12000,
-        success: function () {
+        success: function() {
 
         }
       })
@@ -307,7 +450,7 @@ Page({
         title: '区县不能为空',
         image: '/image/icon_warn.png',
         duration: 12000,
-        success: function () {
+        success: function() {
 
         }
       })
@@ -320,7 +463,7 @@ Page({
         title: '地址不能为空',
         image: '/image/icon_warn.png',
         duration: 12000,
-        success: function () {
+        success: function() {
 
         }
       })
@@ -355,6 +498,10 @@ Page({
 
         }
       })
+      wx.navigateBack({
+        delta: 1
+      })
+
 
     })
 
