@@ -1,5 +1,6 @@
 /* page/component/pages/pagegift/giftgivesucc/giftgivesucc.wxss */
-
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
 .ggs-view-1 {
   width: 100%;
 }

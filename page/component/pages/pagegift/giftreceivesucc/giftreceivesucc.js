@@ -136,7 +136,14 @@ Page({
     })
 
   },
+ /**打开看看 */
+  openGiveGiftDetail:function(event){
 
+
+  }
+
+
+,
   /**获取配置描述 */
   getConfigMsgInfo: function () {
     var that = this;
