@@ -35,7 +35,7 @@ Page({
     app.editTabBar();
     /****调用函数设置tabbar及页面*****/
 
-    // window.location.replace("/wiigie/give/giveGiftResult?u=" + userid + "&gr=" + giftRecordId + "&t=" + operatortype);
+   
     var giftRecordId = options.gr;
     var t = options.t;
     
@@ -51,7 +51,7 @@ Page({
     if (t == '3') {
       giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
     }
-
+ 
     this.setData({
       'giftInfo.giftRecordId': giftRecordId,
       'giftInfo.process': process,
