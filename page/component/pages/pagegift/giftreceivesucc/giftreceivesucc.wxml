@@ -1,33 +1,42 @@
-
-<import src="/page/common/pages/pagetabbar/pagetabbar.wxml"/>
-<template is="tabbar" data="{{tabbar}}"/>
+<import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
+<template is="tabbar" data="{{tabbar}}" />
 <scroll-view style='height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
-<view class='container ' style='flex-direction:colum;display:flex; '>
-  <view class='grs-view-1 align-center'>
-    <image class='grs-view-1-image' src='{{giftInfo.coverImage}}'></image>
-  </view>
-
-
-
-  <view class='grs-view-3 align-center'>
-    该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回该礼品超时未获知，现已退回
-
-  </view>
-
-
-  <view class='grs-view-5 align-center'>
-    <view>
-      <image class='grs-view-5-image' src='{{giftInfo.giftSkuImage}}'></image>
+  <view class='container ' style='flex-direction:colum;display:flex; '>
+    <view class='grs-view-1 align-center'>
+      <image class='grs-view-1-image' src='{{giftInfo.giftStatusImage}}'></image>
     </view>
 
-    <view class='grs-view-5-2 align-center'>
-      
-      
-    <button type='default' class='font-size-5'>打开看看</button>
+
+
+    <view class='grs-view-3 align-center'>
+      <block wx:if="{{giftInfo.process=='1'}}">
+        {{configMsgInfo.RESULT_23}}
+      </block>
+
+      <block wx:if="{{giftInfo.process=='2'}}">
+        {{configMsgInfo.RESULT_24}}
+      </block>
+
+      <block wx:if="{{giftInfo.process=='3'}}">
+        {{configMsgInfo.RESULT_21}}
+      </block>
+
     </view>
+
+
+    <view class='grs-view-5 align-center'>
+      <view>
+        <image class='grs-view-5-image' src='{{giftInfo.recordInfo.cover_image_url}}'></image>
+      </view>
+
+      <view class='grs-view-5-2 align-center'>
+
+
+        <button type='default' class='font-size-5'>打开看看</button>
+      </view>
+    </view>
+
+
   </view>
-
-
-</view>
 
 </scroll-view>
