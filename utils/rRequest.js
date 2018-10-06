@@ -13,6 +13,7 @@
      }
    })
  }
+ 
 function submitRequest(url, paramdata, that, callback) {
   url = url || config.requestUrl;
 
@@ -30,5 +31,6 @@ function submitRequest(url, paramdata, that, callback) {
 }
  module.exports = {
    doRequest: doRequest,
+ 
    submitRequest: submitRequest,
  }

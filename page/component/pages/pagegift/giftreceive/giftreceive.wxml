@@ -1,37 +1,73 @@
 <!--用户收到礼品-->
-<view class='container ' style='flex-direction:colum;display:flex; '>
+<import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
+<template is="tabbar" data="{{tabbar}}" />
+<scroll-view style='height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+  <view class='container ' style='flex-direction:colum;display:flex; '>
 
-  <view class='gr-view-1 align-center'>
-    <image class='gr-view-1-image' src='{{giftInfo.coverImage}}'></image>
-  </view>
+    <view class='gr-view-1 align-center'>
+      <block wx:if="{{giftInfo.process=='0'}}">
+        <image class='gr-view-1-image' src='{{giftInfo.giftStatusImage}}'></image>
+      </block>
 
-  <block  wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-    <view class='gr-view-3'>
-      {{timerDown.day}}天{{timerDown.hou}}时{{timerDown.min}}分{{timerDown.sec}}秒
+      <block wx:else>
+        <image class='gr-view-1-image' src='{{giftInfo.recordInfo.cover_image_url}}'></image>
+      </block>
+
     </view>
-  </block>
 
-  <view class='gr-view-5'>
     <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-      <view class='gr-view-5-1'>
-        <button class='gr-view-5-1-btn' type='default'>提交收货信息</button>
+      <view class='gr-view-3'>
+        倒计时{{timerDown.day}}天{{timerDown.hou}}时{{timerDown.min}}分{{timerDown.sec}}秒
       </view>
     </block>
 
-  </view>
-  <view class='gr-view-7'>
-    <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-      <view class='gr-view-7-1'>
-        <button class='gr-view-7-1-btn' type='default'>转送给其他朋友</button>
-      </view>
-    </block>
-  </view>
-  <view class='gr-view-9'>
-    <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-      <view class='gr-view-9-1'>
-        <button class='gr-view-9-1-btn' type='default'>拒绝</button>
-      </view>
-    </block>
+    <view class='gr-view-5'>
+      <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
+        <view class='gr-view-5-1'>
+          {{configMsgInfo.GIFT_ADR_MSG}}
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process=='23' }}">
+        <view class='gr-view-5-1'>
+          {{configMsgInfo.ACCEPT_GIFT}}
+        </view>
+      </block>
 
+      <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
+
+        <view class='gr-view-5-1'>
+          <button class='gr-view-5-1-btn' type='default'>提交收货信息</button>
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process=='23'}}">
+
+        <view class='gr-view-5-1'>
+          <button class='gr-view-5-1-btn' type='default'>已接收</button>
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='23'}}">
+
+        <view class='gr-view-5-1'>
+          <button class='gr-view-5-1-btn' type='default' disabled='disabled'>提交收货信息</button>
+        </view>
+      </block>
+
+    </view>
+    <view class='gr-view-7'>
+      <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
+        <view class='gr-view-7-1'>
+          <button class='gr-view-7-1-btn' type='default'>转送给其他朋友</button>
+        </view>
+      </block>
+    </view>
+    <view class='gr-view-9'>
+      <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
+        <view class='gr-view-9-1'>
+          <button class='gr-view-9-1-btn' type='default'>拒绝</button>
+        </view>
+      </block>
+
+    </view>
   </view>
-</view>
+
+</scroll-view>

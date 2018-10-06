@@ -476,7 +476,7 @@ var configMsgInfo={
   getConfigMsg: function (url, pdata,  that, callback){
     var this_ = this;
     url = url || this_.url;
-  
+ 
     rRequest.doRequest(url, pdata, that, function (rdata) {
       typeof callback == "function" && callback(rdata)
     })

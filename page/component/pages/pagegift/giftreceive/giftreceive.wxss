@@ -1,5 +1,6 @@
 /* page/component/pages/pagegift/giftreceive/giftreceive.wxss */
-
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
 .gr-view-1 {
   width: 100%;
 }
@@ -39,6 +40,7 @@
 .gr-view-9 {
   width: 100%;
   margin-top: 100rpx;
+   margin-bottom: 50rpx;
 }
 
 .gr-view-9-1 {
