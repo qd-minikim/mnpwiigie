@@ -5,6 +5,7 @@ var rUtils = require('../../../../../utils/rUtils.js');
 
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+var WxParse = require('../../../../../wxParse/wxParse.js');
 var app = getApp();
 Page({
 
@@ -162,11 +163,41 @@ Page({
           regexp: 'nickname',
           replacement: fUserNickname
         }]
-      } 
+      }, {
+        code: 'GIFT_FOR_MSG',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'FORWARD_GIFT',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'GIFT_REJ_MSG',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'REJECT_GIFT',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'REJECT_GIFT_1',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }
 
     ];
-
-
+    
+    
     var data = {
       code_: 'x_getConfigMsgInfo',
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
@@ -177,9 +208,16 @@ Page({
 
         that.setData({
           configMsgInfo: rdata.info,
-
         })
 
+        WxParse.wxParse('GIFT_ADR_MSG', 'html', rdata.info.GIFT_ADR_MSG, that, 5);
+        WxParse.wxParse('ACCEPT_GIFT', 'html', rdata.info.ACCEPT_GIFT, that, 5);
+        WxParse.wxParse('GIFT_FOR_MSG', 'html', rdata.info.GIFT_FOR_MSG, that, 5);
+        WxParse.wxParse('FORWARD_GIFT', 'html', rdata.info.FORWARD_GIFT, that, 5);
+        WxParse.wxParse('GIFT_REJ_MSG', 'html', rdata.info.GIFT_REJ_MSG, that, 5);
+        WxParse.wxParse('REJECT_GIFT', 'html', rdata.info.REJECT_GIFT, that, 5);
+        WxParse.wxParse('REJECT_GIFT_1', 'html', rdata.info.REJECT_GIFT_1, that, 5);
+             
       }
 
     });
