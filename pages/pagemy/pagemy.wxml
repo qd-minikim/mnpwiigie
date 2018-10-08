@@ -1,2 +1,25 @@
 <!--pages/pagemy/pagemy.wxml-->
-<text>pages/pagemy/pagemy.wxml</text>
+<view class="container" style="flex-direction:column;">
+
+  <view class='pagemy-view-1'>
+    <view class='pagemy-view-1-1'>
+      <image class='pagemy-view-1-1-image' src='{{userWxInfo.avatarUrl}}'></image>
+    </view>
+
+    <view class='pagemy-view-1-2 align-c-center'>
+      <view  class='font-size-2'>{{userWxInfo.nickName}}</view>
+      <view  class='font-size-4'>行为积分：142</view>
+    </view>
+  </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+  <view></view>
+
+
+  <view></view>
+
+  <view></view>
+
+</view>
