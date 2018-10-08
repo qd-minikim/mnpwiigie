@@ -1,6 +1,7 @@
 // pages/pagegoods/pagegoods.js
 var config = require('../../config.js')
-
+var pagegood = require('../../page/common/pages/pagegood/pagegood.js');
+var rRequest = require('../../utils/rRequest.js');
 const app = getApp()
 Page({
 
@@ -26,7 +27,13 @@ Page({
     screenWidth: app.globalData.systemInfo.screenWidth,
     windowHeight: app.globalData.systemInfo.windowHeight,
     scrollViewHeight:0,
-    imageSize: app.globalData.systemInfo.screenWidth
+    imageSize: app.globalData.systemInfo.screenWidth,
+
+      /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
 
   },
 
@@ -34,7 +41,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
 
     this.promotionTag();
     this.getGoods();
@@ -95,6 +108,17 @@ Page({
 
   },
 
+
+  goodShowDetail: function (event) {
+    var that = this;
+
+    var upmarkid = event.currentTarget.dataset.upmarkid;
+    var requirementid = event.currentTarget.dataset.requir;
+    var userid = that.data.userInfo.id;
+    pagegood.pageGood.showDetail(upmarkid, requirementid, userid);
+
+
+  },
   promotionTag: function() {
     wx.request({
       url: config.requestUrl, //仅为示例，并非真实的接口地址
@@ -156,36 +180,30 @@ Page({
 
   getGoods: function() {
 
-    // var usreId = this.data.loginInfo.userid
+
+    var that = this;
+    var url = config.requestUrl;
     var usreId = '1527671283933540'
     var tag = this.data.promotiontag;
-    wx.request({
-      url: config.requestUrl, //仅为示例，并非真实的接口地址
-      data: {
-        code_: 'x_getGoods',
-        goodspageid: 'goodspage_1',
-        userid: usreId,
-        endRow: '0',
-        itemsPerPage: '10',
-        promotiontag: tag,
+    var data = {
+      code_: 'x_getGoods',
+      goodspageid: 'goodspage_1',
+      userid: usreId,
+      endRow: '0',
+      itemsPerPage: '10',
+      promotiontag: tag,
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+      console.log("-----------------")
+      if (rdata.infolist) {
 
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
+        that.setData({
 
-        
-        console.log(res.data.infolist)
-        this.setData({
-            
-          goodsArry: res.data.infolist
+          goodsArry: rdata.infolist
         })
       }
     })
-  }
 
-
-  //		var data ={"endRow":endRow,"itemsPerPage":itemsPerPage,"promotiontag":tag,"userid":userid, "search":search,"goodspageid":goodspageid};
-  //		var url = "/wiigie/wiigiegoods/getGoodspageInfo";
+   }
+ 
 })

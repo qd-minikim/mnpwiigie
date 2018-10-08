@@ -1,0 +1,33 @@
+<template name="pagegood">
+
+ <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
+      <view wx:if="{{indexG>0}}" class="gap-bg" style="flex-direction:column;"></view>
+      <view bindtap='goodShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+        <view>
+          <image style='width:{{imageSize}}px;height:{{imageSize}}px' lazy-load='true' mode='scaleToFill' src='{{itemG.richtextcover}}'></image>
+        </view>
+        <view class='font-size-2 view-ellipsis-1'>{{itemG.title}}</view>
+        <view class='font-size-4  '>{{itemG.leavehoursname}}{{itemG.leavehours}}</view>
+        <view style='flex-direction:row;display:flex'>
+
+          <view wx:if="{{itemG.deal_type =='1' || itemG.deal_type =='2'||itemG.deal_type =='3'}}" class='align-c-center' style='flex-direction:column;display:flex; '>
+            <view class='font-size-4  '>￥{{itemG.list_price}}</view>
+            <view wx:if="{{itemG.deal_type =='2'}}" class='font-size-4  '>{{itemG.link_price_name}}{{itemG.link_discount}}</view>
+          </view>
+          <view style="flex-direction:row;display:flex;flex:1; justify-content:flex-end;  ">
+            <view class='align-center'>
+
+              <image wx:for="{{itemG.my_friends}}" wx:for-item="itemi" wx:key="*this" class="scroll-view-friend-image" src='{{itemi.friend_image_url}}'></image>
+            </view>
+            <view class='align-center'>
+              <view class='align-center scroll-view--figure4 bg-figure4-image font-size-5 ' s>{{itemG.link_price_name}}</view>
+
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+    </block>
+
+</template>
