@@ -254,11 +254,12 @@
 .home-6-2-1{
  width: 50%;
  max-width: 50%;
- padding: 5rpx;
+ /* padding: 5rpx; */
 }
 .home-6-2-1-1-1{
 
-height: 90rpx;
+height: 2rem;
+margin-left:10rpx;
    
 }
 .home-6-2-1-1-2{

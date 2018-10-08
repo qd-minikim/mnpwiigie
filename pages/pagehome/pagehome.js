@@ -4,7 +4,7 @@ const app = getApp()
 var rCommon = require('../../utils/rCommon.js');
 var rRequest = require('../../utils/rRequest.js');
 var config = require('../../config.js')
-
+var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
     motto: 'Hello World',
@@ -124,12 +124,27 @@ Page({
       windowWidth: app.globalData.systemInfo.windowWidth
     }
     rRequest.doRequest(url, data, that, function (rdata) {
+        console.log("-----------------")
+      if (rdata.infolist) {
 
-      if (rdata.info) {
 
         that.setData({
-          home5Array: res.data.infolist
+          home5Array: rdata.infolist
         })
+ 
+        var actiontyArr = [];
+    
+        for (let i = 0; i < rdata.infolist.length; i++) {
+          actiontyArr.push(rdata.infolist[i].actiontypename);
+        }
+
+        for (let i = 0; i < actiontyArr.length; i++) {
+          WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
+          if (i === actiontyArr.length - 1) {
+            WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
+          }
+        }
+       
       }
     })
 
@@ -150,10 +165,10 @@ Page({
     }
     rRequest.doRequest(url, data, that, function (rdata) {
 
-      if (rdata.info) {
+      if (rdata.infolist) {
 
         that.setData({
-          home6Array: res.data.infolist
+          home6Array: rdata.infolist
         })
       }
     })

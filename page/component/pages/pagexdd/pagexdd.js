@@ -454,23 +454,7 @@ Page({
 
     })
 
-    // var url = config.requestUrl
-    // var data = {
-    //   code_: 'x_getSpuInfo',
-    //   spuid: spuid,
-    // }
-    // rRequest.doRequest(url, data, that, function(rdata) {
-    //   if (rdata.info) {
-    //     that.setData({
-    //       spuInfo: rdata.info,
-    //       /**
-    //        * producer_brand_name
-    //        */
-    //     })
-    //   }
-
-
-    // })
+     
   },
   getSkuInfo: function() {
     var that = this
@@ -490,9 +474,7 @@ Page({
 
         that.setData({
           requirementInfo: rdata.info
-          //           'requirementInfo.title': rdata.info.title,
-          //  'requirementInfo.wxdescription': rdata.info.wxdescription
-          //           'requirementInfo.merchantbrandname'
+         
         })
 
         var s = that.data.requirementInfo.cfggroupgradeinfos;
@@ -526,9 +508,7 @@ Page({
 
         that.setData({
           requirementInfo: rdata.info
-          //           'requirementInfo.title': rdata.info.title,
-          //  'requirementInfo.wxdescription': rdata.info.wxdescription
-          //           'requirementInfo.merchantbrandname'
+      
         })
 
         var s = that.data.requirementInfo.cfggroupgradeinfos;
