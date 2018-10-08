@@ -1,9 +1,6 @@
-<!--pages/pagehome/pagehome.wxml-->
-<!-- <modal hidden="{{modal.modalhidden}}" title="{{modal.modaltitle}}" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm" no-cancel="{{modal.modalnocancel}}">
-    {{modal.modalinfo}}
-</modal> -->
+ 
 <import src="../../wxParse/wxParse.wxml" />
-
+<import src="../../page/common/pages/pagehydt/pagehydt.wxml" />
 <view class="container" style="flex-direction:column;">
 
   <view class="home-1" style="flex-direction:row;">
@@ -93,57 +90,7 @@
     <view class="gap-line" style="flex-direction:column;"></view>
 
 
-    <block wx:for="{{home5Array}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-      <block wx:if="{{index >0}}">
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
-      <view class="home-5-2" style="flex-direction:row;display:flex;">
-        <view class="home-5-2-1">
-          <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
-        </view>
-        <view class="home-5-2-2">
-          <view>
-            <view class="home-5-2-2-1 font-size-5 view-ellipsis-1">{{item.nickname}}</view>
-            <view class="home-5-2-2-2 font-size-6">
-              <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexa">
-                <block wx:if="{{index == indexa}}">
-                  <template is="wxParse" data="{{wxParseData:item}}" />
-                </block>
-              </block>
-            </view>
-          </view>
-
-        </view>
-        <view class="home-5-2-3">
-          <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
-        </view>
-        <view class="home-5-2-4" style='flex:1'>
-          <view class="home-5-2-4-1 font-size-4 view-ellipsis-1">{{item.title}}</view>
-          <view class="home-5-2-4-2 font-size-6">{{item.leavehoursname}}{{item.leavehours}}</view>
-
-
-          <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-6">链购优享:{{item.link_discount}}</view>
-          <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-6">价格:￥{{item.list_price}}</view>
-          <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-6">价格:￥{{item.list_price}}</view>
-
-
-          <view style="flex-direction:row;display:flex; justify-content:flex-end ">
-
-            <view>
-
-              <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
-
-            </view>
-            <view>
-              <view class='home-5-2-4-4-view-figure4 font-size-6 '>{{item.link_price_name}}</view>
-
-
-            </view>
-
-          </view>
-        </view>
-      </view>
-    </block>
+    <template is="pagehydt" data="{{home5Array,actiontyTemArray}}"/>
   </view>
 
   <view class="gap-bg" style="flex-direction:column;"></view>

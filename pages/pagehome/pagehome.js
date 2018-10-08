@@ -1,10 +1,12 @@
 // pages/pagehome/pagehome.js
 const app = getApp()
- 
+
 var rCommon = require('../../utils/rCommon.js');
 var rRequest = require('../../utils/rRequest.js');
 var config = require('../../config.js')
 var WxParse = require('../../wxParse/wxParse.js');
+
+var pagehydt = require('../../page/common/pages/pagehydt/pagehydt.js');
 Page({
   data: {
     motto: 'Hello World',
@@ -110,7 +112,7 @@ Page({
   },
   //获取好友动态
   getFriendsActive: function() {
-  
+
 
     var that = this;
     var url = config.requestUrl;
@@ -123,17 +125,17 @@ Page({
       itemsPerPage: '10',
       windowWidth: app.globalData.systemInfo.windowWidth
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
-        console.log("-----------------")
+    rRequest.doRequest(url, data, that, function(rdata) {
+      console.log("-----------------")
       if (rdata.infolist) {
 
 
         that.setData({
           home5Array: rdata.infolist
         })
- 
+
         var actiontyArr = [];
-    
+
         for (let i = 0; i < rdata.infolist.length; i++) {
           actiontyArr.push(rdata.infolist[i].actiontypename);
         }
@@ -144,7 +146,7 @@ Page({
             WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
           }
         }
-       
+
       }
     })
 
@@ -163,7 +165,7 @@ Page({
       itemsPerPage: '10',
       windowWidth: app.globalData.systemInfo.windowWidth
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.infolist) {
 
@@ -177,6 +179,17 @@ Page({
 
 
   //好友动态-详情
+
+  hydtShowDetail: function(event) {
+    var that = this;
+
+    var upmarkid = event.currentTarget.dataset.upmarkid;
+    var requirementid = event.currentTarget.dataset.requir;
+    var userid = that.data.userInfo.id;
+    pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
+
+
+  },
 
   //人气推荐-详情
 
