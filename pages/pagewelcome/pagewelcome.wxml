@@ -1,12 +1,16 @@
 <!--pages/pagewelcome/pagewelcome.wxml-->
 <!--  
 background-image: url('{{backgroundImage}}') -->
-<view class='container v-bgimage ' 
-style="height:{{windowHeight}};;background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%">
+<view class='container v-bgimage ' style="height:{{windowHeight}};;background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%">
 
-     <view class='font-size-0 ' model='aspectFill' style='display:flex; justify-content:center; align-items:center;padding-top:30%'>
-     友托帮欢迎您
-      </view>
-   
+  <view class='font-size-0 ' model='aspectFill' style='display:flex; justify-content:center; align-items:center;padding-top:30%'>
+    友托帮欢迎您
+  </view>
+
+  <view style='margin-top:50%'>
+  
+        <button style='width:80%' type="primary" open-type="getUserInfo" bindgetuserinfo="setAuthInfo">开始使用</button>
+  </view> 
+
+
 </view>
- 

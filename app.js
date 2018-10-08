@@ -1,21 +1,22 @@
 //app.js
 var config = require('/config.js')
 var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
+
+var rRequest = require('/utils/rRequest.js');
 App({
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
-    this.userLogin();
-
   },
   globalData: {
-    userInfo: null,
+    userInfo: null,//用户信息--wiigie
     userIData: false,
+    userWxInfo: null,//用户微信信息--wiigie
     systemInfo: null,
-    loginInfo: null,
+    //登录信息
+    loginInfo: null,//用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
-
     },
 
     /** 底部按钮的高度*/
@@ -62,128 +63,56 @@ App({
       complete: res => {},
     })
   },
-  //先登录
-  userLogin: function() {
-    wx.login({
-      success: res => {
-
-        wx.showToast({
-          title: '正在登录...',
-          duration: 5000,
-          icon: 'loading'
-        })
-
-        wx.request({
-          url: config.loginUrl,
-          data: {
-            code: res.code
-          },
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: res => {
-            //console.log("返回成功2--"+res.data)
-
-            this.globalData.loginInfo = res.data.info
-            this.getUserInfoF();
-          }
-        })
-
-
-        //this.getUserInfoF();
-      }
-    })
-  },
-
-  /** */
-  getUserInfoF: function() {
+ 
+  
+  userInfoResetCallBak: function(res) {
     var that = this;
-
+    // that.setData({
+    //   'globalData.userInfo': res.userInfo,
+    //   'globalData.userIData ': true
+    // })
+  },
+ 
+  getUsersInfo: function () {
+    var that = this;
     wx.getUserInfo({
-      success: function(res) {
+      success: function (res) {
 
-        that.globalData.userInfo = res.userInfo
-        that.globalData.userIData = true
-        //     newUserInfo.setId(id);
-        //			newUserInfo.setOpenid(openId);
-        //			newUserInfo.setWxStatus("1");//0：未关注  1  ：关注
-        //			newUserInfo.setMgmtStatus("0");
-        //			newUserInfo.setCreateTime(systemTime);
-        //			
-        //			newUserInfo.setNickname(CfgParamUtils.getString(map.get("nickname")));
-        //			newUserInfo.setSex(CfgParamUtils.getString(map.get("sex")));
-        //			newUserInfo.setCity(CfgParamUtils.getString(map.get("city")));
-        //			newUserInfo.setCountry(CfgParamUtils.getString(map.get("country")));
-        //			newUserInfo.setProvince(CfgParamUtils.getString(map.get("province")));
-        //			newUserInfo.setUnionid(CfgParamUtils.getString(map.get("unionid")));
+        that.globalData.userWxInfo = res.userInfo;
+
+
         var appId = that.globalData.loginInfo.appId
         var sessionKey = that.globalData.loginInfo.sessionKey
         var pc = new WXBizDataCrypt(appId, sessionKey)
-
         var data = pc.decryptData(res.encryptedData, res.iv)
-        wx.request({
-          url: config.userInfoUrl,
-          data: {
-            miniopenId: data.openId,
-            nickname: data.nickName,
-            sex: data.gender,
-            city: data.city,
-            country: data.country,
-            province: data.province,
-            unionid: data.unionId,
-          },
-        })
-
-        if (that.userInfoReadyCallback) {
-          that.userInfoReadyCallback(res)
+        var url = config.userInfoUrl;
+        var data = {
+          miniopenId: data.openId,
+          nickname: encodeURIComponent(data.nickName),
+          sex: data.gender,
+          city: encodeURIComponent(data.city),
+          country: encodeURIComponent(data.country),
+          province: encodeURIComponent(data.province),
+          avatarUrl: data.avatarUrl,
+          unionid: data.unionId,
         }
+        rRequest.doRequest(url, data, that, function (rdata) {
 
-        wx.hideToast();
-
-      },
-      fail: function() {
-        //wx.hideToast();
+          if (rdata.info) {
+            that.globalData.userInfo = rdata.info;
+            that.globalData.userIData = true;
+            wx.switchTab({
+              url: '/pages/pagehome/pagehome',
+            })
+          }
+        })
 
       }
     })
-
-
-
-
-    // wx.getSetting({
-    //   success: res => {
-    //     console.info("确定" + res);
-
-    //     if (res.authSetting['scope.userInfo']) {
-
-    //     }
-    //   }
-
-    // })
-  },
-  userInfoResetCallBak: function(res) {
-    var that = this;
-    that.setData({
-      'globalData.userInfo': res.userInfo,
-      'globalData.userIData ': true
-    })
   },
 
 
-  // cancel: function () {
-  //   this.setData({
-
-  //     'modal.modalhidden': true,
-  //   });
-  // },
-  // confirm: function () {
-  //   this.setData({
-  //     'modal.modalhidden': true,
-  //   });
-
-  // }
-
-
+/**导航栏 */
   editTabBar: function() {
     var tabbar = this.globalData.tabbar,
       currentPages = getCurrentPages(),
@@ -213,9 +142,9 @@ App({
 
 
   },
-  editBottom:function(){
+  editBottom: function() {
     var currentPages = getCurrentPages(),
-    this_ = currentPages[currentPages.length - 1];
+      this_ = currentPages[currentPages.length - 1];
 
     var windowWidth = this.globalData.systemInfo.windowWidth
     var windowHeight = this.globalData.systemInfo.windowHeight
@@ -223,7 +152,7 @@ App({
     var percent = windowWidth / 750
     var scrollHeight = windowHeight - this.globalData.bottomBtnHeight * percent
 
-    if (this_.data.pageview.bottomView){
+    if (this_.data.pageview.bottomView) {
 
 
       this_.setData({

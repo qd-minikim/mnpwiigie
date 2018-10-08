@@ -7,11 +7,11 @@
 
   <view class="home-1" style="flex-direction:row;">
     <view class="home-1-h">
-      <block wx:if="{{!hasUserInfo}}">
+     <block wx:if="{{!userIData}}">
         <image class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
-      </block>
+      </block> 
       <block wx:else>
-        <image bindtap="bindViewTap" class="home-1-h-i" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <image bindtap="bindViewTap" class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
       </block>
     </view>
 

@@ -1,12 +1,14 @@
 // pages/pagehome/pagehome.js
 const app = getApp()
-
+ 
+var rCommon = require('../../utils/rCommon.js');
+var rRequest = require('../../utils/rRequest.js');
 var config = require('../../config.js')
 
 Page({
   data: {
     motto: 'Hello World',
-  
+
 
     defaultInfo: {
       searchHolder: '检索好友昵称或活动主题、描述',
@@ -29,18 +31,22 @@ Page({
       home4Text3: ['', ''],
       //home-5
       home5Text1: '~好友动态~',
-      home5Array:[],
+      home5Array: [],
       //home-6
       home6Text1: '~人气推荐~',
-      home6Array:[]
+      home6Array: []
     },
+
+
+    /**用户信息 */
     userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
 
-    hasUserInfo: false,
-
-    loginInfo: {},
-    // systemBaseInfo: {},
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    // loginInfo: {},
+    // // systemBaseInfo: {},
+    // canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   //事件处理函数
@@ -51,39 +57,23 @@ Page({
   },
   onLoad: function() {
 
-    if (app.globalData.userInfo) {
+    if (app.globalData.userWxInfo) {
       this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-      
       })
-    }  
-    if (app.globalData.loginInfo) {
-      this.setData({
-        loginInfo: app.globalData.loginInfo,
- 
 
-      })
-    //好友动态
+      //好友动态
       this.getFriendsActive();
-    //人气推荐
+      //人气推荐
       this.getPopularity();
-    } 
+    }
 
   },
   onShow: function() {
 
 
-    }
-
-    ,
-  getUserInfo: function(e) {
-    // console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   },
 
   //检索
@@ -120,52 +110,51 @@ Page({
   },
   //获取好友动态
   getFriendsActive: function() {
-    var usreId = this.data.loginInfo.userid
-    wx.request({
-      url: config.requestUrl, //仅为示例，并非真实的接口地址
-      data: {
-        code_: 'x_getHome4',
-        homepageid: 'homepage_4',
-        userid: usreId,
-        endRow: '0',
-        itemsPerPage: '10',
-        windowWidth: app.globalData.systemInfo.windowWidth
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data)
-        this.setData({
+  
+
+    var that = this;
+    var url = config.requestUrl;
+    var usreId = that.data.userInfo.id
+    var data = {
+      code_: 'x_getHome4',
+      homepageid: 'homepage_4',
+      userid: usreId,
+      endRow: '0',
+      itemsPerPage: '10',
+      windowWidth: app.globalData.systemInfo.windowWidth
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
           home5Array: res.data.infolist
         })
-        
       }
     })
 
+
   },
-//获取人气推荐
-  getPopularity: function () {
-    var usreId = this.data.loginInfo.userid
-    wx.request({
-      url: config.requestUrl, //仅为示例，并非真实的接口地址
-      data: {
-        code_: 'x_getHome7',
-        homepageid: 'homepage_7',
-        userid: usreId,
-        endRow: '0',
-        itemsPerPage: '10',
-        windowWidth: app.globalData.systemInfo.windowWidth
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-        console.log(res.data)
-        this.setData({
+  //获取人气推荐
+  getPopularity: function() {
+    var that = this;
+    var url = config.requestUrl;
+    var usreId = that.data.userInfo.id
+    var data = {
+      code_: 'x_getHome7',
+      homepageid: 'homepage_7',
+      userid: usreId,
+      endRow: '0',
+      itemsPerPage: '10',
+      windowWidth: app.globalData.systemInfo.windowWidth
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
           home6Array: res.data.infolist
         })
-
       }
     })
 

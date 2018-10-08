@@ -1,4 +1,5 @@
 // page/component/pages/pageauth/pageauth.js
+const app = getApp()
 Page({
 
   /**
@@ -77,6 +78,8 @@ Page({
          *   "scope.userLocation": true
          * }
          */
+        app.getUsersInfo();
+
       }
     })
 
