@@ -46,7 +46,7 @@
     <view class='ggs-view-5-2 align-center'>
 
 
-      <button type='default' class='font-size-5'>打开看看</button>
+      <button type='default' class='font-size-5' bindtap='showGiftRequirementDetail' data-id='{{giftInfo.giftRecordId}}'>打开看看</button>
     </view>
   </view>
 

@@ -95,7 +95,7 @@ Page({
 
     }
     rRequest.doRequest(url, data, that, function (rdata) {
-console.log("----------")
+ 
       if (rdata.infolist) {
  
           that.setData({
@@ -105,4 +105,14 @@ console.log("----------")
     })
 
   },
+
+  showGiftDetail:function(event){
+    //window.location.href = "/wiigie/give/giveOrderSucc?gr=" + giftRecordId + "&u=" + userid;
+    var id = event.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + id,
+      })
+   
+
+  }
 })

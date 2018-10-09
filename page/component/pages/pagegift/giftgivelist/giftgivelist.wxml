@@ -7,6 +7,7 @@
     <block wx:if="{{index>0}}">
       <view class="gap-bg" style="flex-direction:column;"></view>
     </block>
+    <view bindtap='showGiftDetail' data-id='{{item.id}}' style='width:100%'>
     <view class='gglist-view-1 font-size-4  '>
       <view>订单编号：</view>
       <view style='flex:1'>{{item.order_id}}</view>
@@ -27,6 +28,7 @@
         <view class='font-size-5 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
       </view>
       
+    </view>
     </view>
   </block>
 </view>

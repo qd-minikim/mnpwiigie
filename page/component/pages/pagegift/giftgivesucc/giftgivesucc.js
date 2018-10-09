@@ -17,6 +17,11 @@ Page({
 
       recordInfo: {}
     },
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
     /**提示信息 */
     configMsgInfo: {},
 
@@ -35,6 +40,14 @@ Page({
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     /****调用函数设置tabbar及页面*****/
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
+
     var giftRecordId = options.gr;
     this.setData({
       'giftInfo.giftRecordId': giftRecordId,
@@ -91,11 +104,22 @@ Page({
   onShareAppMessage: function() {
 
   },
+  showGiftRequirementDetail: function (event) {
+
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/page/component/pages/pagegift/giftdeta/giftdeta?gr=' + id+"&t=6",
+    })
+   // window.location.href = "/wiigie/give/mygivegiftdetail?gr=" + giftRecordId + "&u=" + userid + "&t=6";
+
+  }
+
+  ,
   /** */
   getGiveGiftRecordInfo: function() {
 
     var that = this
-    var giftRecordId = '1537842768256558';
+    var giftRecordId = that.data.giftInfo.giftRecordId;
 
     var url = config.requestUrl
     var data = {

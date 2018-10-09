@@ -76,13 +76,9 @@ Page({
 
   },
 
-
-
   onclick:function(event){
     var ty = event.currentTarget.dataset.type;
-
     if (ty =='giftgivelist'){
-
       wx.navigateTo({
         url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
       })
