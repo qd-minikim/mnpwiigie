@@ -209,13 +209,13 @@
   min-height: 100px;
   max-height: 400px;
   z-index: 999;
-  padding: 10rpx;
+  padding: 2rpx;
 }
 
 .choose_view {
-  with: 100%;
+  width: 100%;
   height: 100%;
-  margin: 10rpx;
+  margin: 0 10rpx;
 }
 
 

@@ -52,7 +52,7 @@
 
 .pagesku-view-4 {
   width: 120%;
-  height: 84rpx;
+  height: 120rpx;
 }
 
 .view-add {

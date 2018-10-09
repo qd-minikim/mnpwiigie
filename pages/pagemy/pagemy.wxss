@@ -20,3 +20,24 @@ flex-direction: column;
 flex: 1;
 margin: 5rpx 10rpx;
 }
+
+.pagemy-view-2{
+
+flex-direction: column;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+.pagemy-view-3{
+
+flex-direction: column;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+
+.pagemy-view-figure{
+
+  width: 50rpx;
+  height: 50rpx
+}

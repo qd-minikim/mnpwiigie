@@ -15,10 +15,33 @@
   <view class="gap-bg" style="flex-direction:column;"></view>
 
 
-  <view></view>
+  <view class='pagemy-view-2'>
+    <view class='align-r-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
+      <view style='margin-right:20rpx'>
+        <image src='/image/figure_20.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-4'>我的账户</view>
+    </view>
+    
+  </view>
+<view class="gap-bg" style="flex-direction:column;"></view>
 
+    <view class='pagemy-view-3'>
+    <view class='align-r-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
+      <view style='margin-right:20rpx'>
+        <image src='/image/figure_20.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-4'>我送的礼</view>
+    </view>
+    <view class="gap-line" style="flex-direction:column;"></view>
 
-  <view></view>
+    <view class='align-r-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
+      <view style='margin-right:20rpx'>
+        <image src='/image/figure_19.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-4'>我收的礼</view>
+    </view>
+  </view>
 
   <view></view>
 

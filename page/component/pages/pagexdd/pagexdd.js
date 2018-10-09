@@ -130,7 +130,7 @@ Page({
     var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
   
-    var maskPanHeight = 400 - 84 * percent 
+    var maskPanHeight = 400 - 120 * percent 
     this.setData({
 
       oneGridWidth: ongGridWidth + "px",
