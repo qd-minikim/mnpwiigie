@@ -113,6 +113,11 @@
   color: #e36c09;
 }
 
+.bg-15{
+	border:1px solid #e33ff7;
+	background-color: #e33ff7;
+}
+
 /* 超出范围省略号显示 */
 
 .view-ellipsis-1 {
@@ -280,4 +285,10 @@
 
 .font_color_11 {
   color: #e36c09;
+}
+
+
+.bg_15{
+	border:1px solid #e33ff7;
+	background-color: #e33ff7;
 }

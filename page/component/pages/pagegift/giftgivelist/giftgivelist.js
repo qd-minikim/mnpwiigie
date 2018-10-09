@@ -1,12 +1,16 @@
-// pages/pagemy/pagemy.js
-
-const app = getApp()
+// page/component/pages/pagegift/giftgivelist/giftgivelist.js
+var config = require('../../../../../config.js');
+var rCommon = require('../../../../../utils/rCommon.js');
+var rRequest = require('../../../../../utils/rRequest.js');
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    giftgivelist:null,
+
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -25,6 +29,7 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
+    this.getGiftGiveListInfo();
   },
 
   /**
@@ -75,18 +80,29 @@ Page({
   onShareAppMessage: function () {
 
   },
+  getGiftGiveListInfo: function () {
 
+    var that = this
+    var userid =  that.data.userInfo.id
+    var endRow = '0';
+    var itemsPerPage = '10';
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getGiveGiftList',
+      userid: userid,
+      endRow: endRow,
+      itemsPerPage: itemsPerPage,
 
-
-  onclick:function(event){
-    var ty = event.currentTarget.dataset.type;
-
-    if (ty =='giftgivelist'){
-
-      wx.navigateTo({
-        url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
-      })
     }
-   
-  }
+    rRequest.doRequest(url, data, that, function (rdata) {
+console.log("----------")
+      if (rdata.infolist) {
+ 
+          that.setData({
+            'giftgivelist': rdata.infolist
+          })
+      }
+    })
+
+  },
 })

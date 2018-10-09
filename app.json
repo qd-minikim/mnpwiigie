@@ -21,7 +21,8 @@
         "pages/pagegift/giftgivesucc/giftgivesucc",
         "pages/pageaddr/addrlist/addrlist",
         "pages/pageaddr/addradd/addradd",
-        "pages/pagegift/giftdeta/giftdeta"
+        "pages/pagegift/giftdeta/giftdeta",
+        "pages/pagegift/giftgivelist/giftgivelist"
       ]
     }
   ],

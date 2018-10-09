@@ -27,7 +27,7 @@
 <view class="gap-bg" style="flex-direction:column;"></view>
 
     <view class='pagemy-view-3'>
-    <view class='align-r-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
+    <view class='align-r-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx' bindtap='onclick' data-type='giftgivelist'> 
       <view style='margin-right:20rpx'>
         <image src='/image/figure_20.png' class='pagemy-view-figure'></image>
       </view>
