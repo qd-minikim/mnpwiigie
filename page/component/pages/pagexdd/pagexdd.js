@@ -28,7 +28,7 @@ Page({
     /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
     spuInfo: {},
     myOrderInfo:{
-      orderType: 1,//1选择2:下单拦截选择  3:送礼拦截选择
+      orderType: 1,//1选择2:下单拦截选择  3:送礼拦截选择 0:查看
       mySkuInfo:null,
       orderCopies:1,
       /**根据库存 限购 等控制sku选择时的按钮显示 */
@@ -206,7 +206,7 @@ Page({
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
-    rUtils.slideModal.up(that, clicklx);
+    rUtils.slideModal.up(that, clicklx,true);
 
 
 
@@ -231,7 +231,7 @@ Page({
     }
 
   },
-  hideSlideModal: function(e) {
+  hideSlideModal: function() {
     var that = this
     rUtils.slideModal.down(that,null,false);
    
@@ -385,6 +385,14 @@ Page({
     var vindex = event.currentTarget.dataset.vindex; 
     pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
   },
+  sureSelect: function () {
+
+    var that = this
+    pagekskujs.selectSpuSku.sureBtn( that)
+
+    that.hideSlideModal();
+   },
+
 
   /**获取spu*/
   getSpuInfo: function() {

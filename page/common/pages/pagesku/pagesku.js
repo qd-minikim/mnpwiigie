@@ -157,12 +157,7 @@
      that.setData({
        'spuInfo.spuname': spunamelist
      })
-
-     //  obj.removeClass("canselect");
-     //  obj.addClass("selected");
-     //  obj.find(".iblock").css("display", "");
-     //  obj.css("background-color", "");
-
+ 
      if (inde == 0) {
 
        for (var n = 0; n < spunamelist[inde].skuspecvalues.length; n++) {
@@ -196,7 +191,26 @@
          }
 
        }
-       var selectSkuId = that.data.myOrderInfo.selectSkuId;
+       var lastSelectSkuId ='';
+       for (var m = 0; m < spunamelist[inde-1].skuspecvalues.length; m++) {
+       
+         var v = spunamelist[inde - 1].skuspecvalues[m];
+
+           if (v.currentstatus == 'selected') {
+
+             lastSelectSkuId = v.sku_id
+
+           }  
+         
+       }
+       var selectSkuId = new Array();
+       if (lastSelectSkuId.indexOf(",") >= 0) {
+         selectSkuId = lastSelectSkuId.split(',');
+       } else {
+         selectSkuId.push(lastSelectSkuId);
+       }
+
+      //  var selectSkuId = that.data.myOrderInfo.selectSkuId;
        var intersect = '';
        if(arr.length ==1){
 
@@ -252,35 +266,86 @@
        'spuInfo.spuname': spunamelist
      })
 
-
      var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
+     if (selectSkuId.length == 1) {
+       that.setData({
 
-     if (selectSkuId.length ==1){
+         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+         'myOrderInfo.sureBtn.btnDisabled': false,
+           'myOrderInfo.sureBtn.btnTipMsg': '确定'
+       })
 
-       var skuinfo = that.data.spuInfo.skuinfo;
-        var ind = 0;
+       var orderCopies = that.data.myOrderInfo.orderCopies;
+       uppdateCopies.canBuyCopies(that, orderCopies);
 
-        for(var m=0;m<skuinfo.length;m++){
-            var  skuId = skuinfo[m].id;
-          if (skuId == selectSkuId[0] ){
+     }else{
 
-            that.setData({
-              'myOrderInfo.mySkuInfo': skuinfo[m]
-            })
+       that.setData({
 
-            return false;
-          }
-             
-        }
- 
+         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+         'myOrderInfo.sureBtn.btnDisabled': true,
+          'myOrderInfo.sureBtn.btnTipMsg': '请选择规格'
+       })
      }
-     
 
-     var orderCopies = that.data.myOrderInfo.orderCopies;
-     uppdateCopies.canBuyCopies(that, orderCopies);
+
+    //  var selectSkuId = that.data.myOrderInfo.selectSkuId;
+
+
+    //  if (selectSkuId.length ==1){
+
+    //    var skuinfo = that.data.spuInfo.skuinfo;
+    //     var ind = 0;
+
+    //     for(var m=0;m<skuinfo.length;m++){
+    //         var  skuId = skuinfo[m].id;
+    //       if (skuId == selectSkuId[0] ){
+
+    //         that.setData({
+    //           'myOrderInfo.mySkuInfo': skuinfo[m]
+    //         })
+
+    //         return false;
+    //       }
+             
+    //     }
+ 
+    //  }
+     
+ //    var orderCopies = that.data.myOrderInfo.orderCopies;
+    //    uppdateCopies.canBuyCopies(that, orderCopies);
+     
   
    },
+
+   sureBtn: function (that){
+
+    var selectSkuId = that.data.myOrderInfo.selectSkuId;
+
+
+    if (selectSkuId.length == 1) {
+
+      var skuinfo = that.data.spuInfo.skuinfo;
+      var ind = 0;
+
+      for (var m = 0; m < skuinfo.length; m++) {
+        var skuId = skuinfo[m].id;
+        if (skuId == selectSkuId[0]) {
+
+          that.setData({
+            'myOrderInfo.mySkuInfo': skuinfo[m]
+          })
+
+          return false;
+        }
+
+      }
+
+    }
+
+  },
+
    /**点击选择时，每次都取交集 */
    intersect: function(a, b) {
 
@@ -295,4 +360,5 @@
  module.exports = {
    uppdateCopies: uppdateCopies,
    selectSpuSku: selectSpuSku
+ 
  }

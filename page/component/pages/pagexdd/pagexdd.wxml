@@ -261,7 +261,7 @@
         </view>
         <view style='height100%'>
           <text style=" letter-spacing:2em ">已</text>选:</view>
-        <view class='view-ellipsis-1' style='flex:1'>已选红*玫瑰金*6.5英寸大屏幕 1份</view>
+        <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}</view>
         <view class='align-center'>
           <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
         </view>

@@ -99,7 +99,7 @@
     </scroll-view>
     <block wx:if="{{myOrderInfo.orderType !='0'}}">
       <view class='pagesku-view-4'>
-        <button style='height:100%' type="primary" disabled='{{myOrderInfo.sureBtn.btnDisabled}}'>{{myOrderInfo.sureBtn.btnDisabled?myOrderInfo.sureBtn.btnTipMsg:myOrderInfo.sureBtn.btntext}}</button>
+        <button bindtap='sureSelect' style='height:100%' type="primary" disabled='{{myOrderInfo.sureBtn.btnDisabled}}'>{{myOrderInfo.sureBtn.btnDisabled?myOrderInfo.sureBtn.btnTipMsg:myOrderInfo.sureBtn.btntext}}</button>
       </view>
     </block>
   </view>
