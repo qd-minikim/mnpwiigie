@@ -55,6 +55,7 @@ Page({
 
     },
     panelPage: {
+      panelPageTop: false,// false 表示底部上推，true 表示 上不下推
       chooseSize: false,
       chooseType: '',
       animationData: {},
@@ -205,10 +206,13 @@ Page({
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
-    rUtils.slideModal.on(that, clicklx);
+    rUtils.slideModal.up(that, clicklx);
+
+
 
     that.setData({
       'panelPage.isHtml': isHtml,
+      
     })
 
     if (clicklx == 'default') {
@@ -229,8 +233,8 @@ Page({
   },
   hideSlideModal: function(e) {
     var that = this
-    rUtils.slideModal.off(that);
-
+    rUtils.slideModal.down(that,null,false);
+   
   },
 
   imageYl: function(event) {

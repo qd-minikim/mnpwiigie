@@ -12,6 +12,16 @@ Page({
    */
   data: {
 
+    giftInfo: {
+      giftRecordId: '',
+      giftInfo: null,
+      giftRecordInfo: null,
+      fUserNickname: '',
+      tUserNickname: '',
+      skuinfo: null,
+
+    },
+
     requirementInfo: {},
 
     richtextInfo: {
@@ -27,9 +37,10 @@ Page({
       keepstatus: '/image/keep_off.png',
     },
     /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
+
     spuInfo: {},
     myOrderInfo: {
-      orderType: 1,//1选择2:下单拦截选择  3:送礼拦截选择
+      orderType: 0, //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       mySkuInfo: null,
       orderCopies: 1,
       /**根据库存 限购 等控制sku选择时的按钮显示 */
@@ -43,11 +54,6 @@ Page({
       selectSkuId: []
     },
 
-    // opinionInfo: {
-    //   dataInfo: [],
-    //   pageSize: 5,
-
-    // },
 
     pagePard: {
       headHeight: '110',
@@ -55,13 +61,16 @@ Page({
       contentHeight: '',
 
     },
+
+
     panelPage: {
+      panelPageTop: false, // false 表示底部上推，true 表示 上不下推
       chooseSize: false,
       chooseType: '',
       animationData: {},
       maskLayerHeight: '',
       maskLayerWidth: '',
-      maskPanHeight: '',//例如下单选择等存在底端按钮的时候，按钮上部的view的高度
+      maskPanHeight: '', //例如下单选择等存在底端按钮的时候，按钮上部的view的高度
       maskPanWidth: '',
 
       msginfo: '',
@@ -92,37 +101,59 @@ Page({
     //
     // currentnode: null,
 
-    //画布信息
-    // canvasViewInfo: {
-    //   canvasSaveImage: null,
-    //   canvasWidth: '0px',
-    //   canvasHeight: '0px',
-    //   canvasTop: '0px',
-    //   canvasLeft: '0px'
-    // },
-    configMsgInfo: {}
+    configMsgInfo: {},
+
+    processMsg: '',
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
-    this.getRequirementKeepInfo()
-    // this.getProgressRouteInfo()
-    this.getRequirementRichtext()
-    this.getRequirementDetail()
-    this.getSpuInfo()
-    //this.getSkuInfo()
-    this.getSpuCoverImageInfo()
-    this.getConfigMsgInfo()
-    // this.getOpinionInfo()
+    var giftRecordId = options.gr;
+    this.setData({
+      'giftInfo.giftRecordId': giftRecordId,
+
+    })
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
+    this.getGiftInfo();
+
+
+
+  },
+  panelPageTop: function() {
+    var that = this;
+
+    that.setData({
+      'panelPage.panelPageTop': true,
+      'panelPage.msginfo': '',
+    })
+    rUtils.slideModal.down(that, 'pagetop', true);
+    setTimeout(function() {
+      rUtils.slideModal.up(that, null, false);
+
+      that.setData({
+        'panelPage.panelPageTop': false,
+      })
+    }, 2000)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
 
     var windowWidth = app.globalData.systemInfo.windowWidth
@@ -132,6 +163,11 @@ Page({
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
 
     var maskPanHeight = 400 - 120 * percent
+    var orderType = this.data.myOrderInfo.orderType;
+    if (orderType == '0') {
+        maskPanHeight = 400
+    }
+
     this.setData({
 
       // oneGridWidth: ongGridWidth + "px",
@@ -152,52 +188,96 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
 
-  test: function () {
+  test: function() {
 
     rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
   },
 
-  clickView_7x: function (event) {
+  getGiftInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+
+    var gr = that.data.giftInfo.giftRecordId;
+    var data = {
+      code_: 'x_getGiftInfo',
+      gr: gr,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          //   'opinionInfo.dataInfo': rdata.info,
+          'giftInfo.giftInfo': rdata.info.giftInfo,
+          'giftInfo.giftRecordInfo': rdata.info.giftRecordInfo,
+          'giftInfo.fUserNickname': rdata.info.fUserNickname,
+          'giftInfo.tUserNickname': rdata.info.tUserNickname,
+          'giftInfo.skuinfo': rdata.info.skuinfo,
+          'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
+          'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
+        })
+
+
+        that.getRequirementKeepInfo()
+        // this.getProgressRouteInfo()
+        that.getRequirementRichtext()
+        that.getRequirementDetail()
+        that.getSpuInfo()
+        // this.getSkuInfo()
+        that.getSpuCoverImageInfo()
+        that.getConfigMsgInfo()
+        // this.getOpinionInfo()
+        that.panelPageTop()
+      }
+
+
+
+    })
+
+  },
+
+  clickView_7x: function(event) {
     /**
      *  data-lx='default' data-code='CBDJSM' data-html='true'
      *  data-lx='sku' data-code='' data-html='false'
@@ -206,10 +286,11 @@ Page({
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
-    rUtils.slideModal.on(that, clicklx);
+    rUtils.slideModal.up(that, clicklx, true);
 
     that.setData({
       'panelPage.isHtml': isHtml,
+
     })
 
     if (clicklx == 'default') {
@@ -228,13 +309,14 @@ Page({
     }
 
   },
-  hideSlideModal: function (e) {
+
+  hideSlideModal: function(e) {
     var that = this
-    rUtils.slideModal.off(that);
+    rUtils.slideModal.down(that, null, false);
 
   },
 
-  imageYl: function (event) {
+  imageYl: function(event) {
 
     var src = event.currentTarget.dataset.src; //获取data-src
     var imgList = event.currentTarget.dataset.list; //获取data-list
@@ -247,12 +329,12 @@ Page({
   },
 
   /**获取朋友说 */
-  getOpinionInfo: function () {
+  getOpinionInfo: function() {
     var that = this;
     var url = config.requestUrl;
 
-    var userid = '1527673151198212';
-    var requirementId = '1530067167175595';
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.giftInfo.giftInfo.requirementId;
     var data = {
       code_: 'x_getOpinionList',
       endRow: 0,
@@ -260,7 +342,7 @@ Page({
       userid: userid,
       requirementId: requirementId,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -273,73 +355,88 @@ Page({
   },
 
 
-  openModal: function () {
+  openModal: function() {
     var that = this;
     that.setData({
       'viewModal.isModalShow': true,
     })
   },
-  closeModal: function () {
-    var that = this;
-    that.setData({
-      'viewModal.isModalShow': false,
-    })
-  },
+  // closeModal: function () {
+  //   var that = this;
+  //   that.setData({
+  //     'viewModal.isModalShow': false,
+  //   })
+  // },
   /**获取配置描述 */
-  getConfigMsgInfo: function () {
+  getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
+
+    var processStatus = that.data.giftInfo.giftRecordInfo.processStatus;
+    if (processStatus == '24') {
+      processStatus = '23';
+    }
+    var PROCESS_ = 'PROCESS_' + processStatus;
+
+    var tUserNickname = that.data.giftInfo.tUserNickname;
+
     var values = [{
-      code: 'CBDJSM',
-      replace: []
-    },
-    {
-      code: 'THZQ_MSG',
-      replace: []
-    },
-    {
-      code: 'HHZQ_MSG',
-      replace: []
-    },
-    {
-      code: 'FWJZ_MSG',
-      replace: []
-    },
-    {
-      code: 'TGJZ_MSG',
-      replace: []
-    },
-    {
-      code: 'CBDJSM',
-      replace: []
-    },
-    {
-      code: 'SOWER_PER_MSG',
-      replace: []
-    },
-    {
-      code: 'CFG_GROUP_MSG',
-      replace: []
-    },
-    {
-      code: 'MSJG_MSG',
-      replace: []
-    },
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'THZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'HHZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'FWJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'TGJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'SOWER_PER_MSG',
+        replace: []
+      },
+      {
+        code: 'CFG_GROUP_MSG',
+        replace: []
+      },
+      {
+        code: 'MSJG_MSG',
+        replace: []
+      },
+      {
+        code: PROCESS_,
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }
 
     ];
-
-
     var data = {
       code_: 'x_getConfigMsgInfo',
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
       values: values
     }
-    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
 
         that.setData({
           configMsgInfo: rdata.info,
 
+          'processMsg': rdata.info[PROCESS_]
         })
 
       }
@@ -348,16 +445,16 @@ Page({
 
   },
   /**获取SpuCoverImage*/
-  getSpuCoverImageInfo: function () {
+  getSpuCoverImageInfo: function() {
     var that = this
-    var spuid = '1529889871942295';
+    var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var url = config.requestUrl
     var data = {
       code_: 'x_getSpuCoverImageInfo',
       spuid: spuid,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
         // imageUrl
@@ -375,7 +472,7 @@ Page({
     })
   },
   /**选择sku */
-  selectSku: function (event) {
+  selectSku: function(event) {
     var that = this
     var skuindex = event.currentTarget.dataset.skuindex;
     var skuids = event.currentTarget.dataset.skuids;
@@ -384,12 +481,12 @@ Page({
   },
 
   /**获取spu*/
-  getSpuInfo: function () {
+  getSpuInfo: function() {
 
     var that = this
-    var spuid = '1529215126697316';
+    var spuid = that.data.giftInfo.giftInfo.spuId;
 
-    var promotionid = '1529291860866339';
+    var promotionid = that.data.giftInfo.giftInfo.promotionId;
     var url = config.requestUrl
     var data = {
       code_: 'x_getSpuInfo',
@@ -397,7 +494,7 @@ Page({
       promotionid: promotionid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -408,41 +505,45 @@ Page({
 
         /**判断是佛存在自选的skuinfo */
         var maySkuInfo = that.data.myOrderInfo.mySkuInfo;
-
+        var orderCopies = that.data.myOrderInfo.orderCopies;
 
         if (maySkuInfo) {
 
 
 
         } else {
-          var skuInfo = that.data.spuInfo.skuinfo;
 
-          var spuname = that.data.spuInfo.spuname;
+          maySkuInfo = that.data.spuInfo.skuinfo;
+          orderCopies = 1;
+        }
+        //var skuInfo = that.data.spuInfo.skuinfo;
 
-          that.setData({
-            'myOrderInfo.mySkuInfo': skuInfo[0],
-            'myOrderInfo.orderType': 1,//1选择2:下单拦截选择  3:送礼拦截选择
-            'myOrderInfo.orderCopies': 1,
-            'myOrderInfo.orderCopies': 1,
-            'myOrderInfo.selectSkuId': skuInfo[0].id
-          })
+        var spuname = that.data.spuInfo.spuname;
 
-          for (var i = 0; i < spuname.length; i++) {
+        that.setData({
+          'myOrderInfo.mySkuInfo': maySkuInfo,
+          'myOrderInfo.orderType': 0, //1选择2:下单拦截选择  3:送礼拦截选择 0查看
+          'myOrderInfo.orderCopies': orderCopies,
+          // 'myOrderInfo.orderCopies': 1,
+          'myOrderInfo.selectSkuId': maySkuInfo.id
+        })
+
+        for (var i = 0; i < spuname.length; i++) {
 
 
-            for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
-              var dataskuids = spuname[i].skuspecvalues[x].sku_id;
+          for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
+            var dataskuids = spuname[i].skuspecvalues[x].sku_id;
 
-              if (dataskuids.indexOf(skuInfo[0].id) >= 0) {
-                pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
-
-              }
+            if (dataskuids.indexOf(maySkuInfo.id) >= 0) {
+              pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
 
             }
 
           }
- 
+
         }
+
+
 
         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
@@ -453,11 +554,11 @@ Page({
 
 
   },
-  getSkuInfo: function () {
+  getSkuInfo: function() {
     var that = this
 
-    var spuid = '1529889871942295';
-    var promotionid = '1533265163611127';
+    var spuid = that.data.giftInfo.giftInfo.spuId;
+    var promotionid = that.data.giftInfo.giftInfo.promotionId;
     var url = config.requestUrl
     var data = {
       code_: 'x_getRequirementDetail',
@@ -465,7 +566,7 @@ Page({
       userid: usreId,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -487,10 +588,10 @@ Page({
 
   /**获取sku */
   /**获取详情 */
-  getRequirementDetail: function () {
+  getRequirementDetail: function() {
     var that = this
-    var usreId = '1528869953018820';
-    var requirementid = '1533265163611127';
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.giftInfo.giftInfo.requirementId;
 
     var url = config.requestUrl
     var data = {
@@ -499,7 +600,7 @@ Page({
       userid: usreId,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -517,7 +618,7 @@ Page({
     })
 
   },
-  showRichtext: function () {
+  showRichtext: function() {
     var that = this;
     that.setData({
       'richtextInfo.richtextMore': false,
@@ -527,10 +628,10 @@ Page({
   },
 
   /**获取展开详情信息 */
-  getRequirementRichtext: function () {
+  getRequirementRichtext: function() {
     var that = this
-    var usreId = '';
-    var spuid = '1530514250651419';
+    var usreId = that.data.userInfo.id;;
+    var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var url = config.requestUrl
     var data = {
@@ -538,7 +639,7 @@ Page({
       spuid: spuid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       var richtext = rdata.info.richtext_content;
       /**
        * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -554,16 +655,16 @@ Page({
     })
 
   },
- 
 
-   
+
+
   /**执行收藏操作 */
-  doRequirementKeepInfo: function () {
+  doRequirementKeepInfo: function() {
 
     var that = this
 
-    var requirementid = '1535359452591612';
-    var userid = '1535359452591612';
+    var requirementid = that.data.giftInfo.giftInfo.requirementId;
+    var userid = that.data.userInfo.id;
 
     var url = config.requestUrl
     var data = {
@@ -572,7 +673,7 @@ Page({
       userid: userid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       var keepstatusmsg = rdata.keepstatusmsg;
 
@@ -580,7 +681,7 @@ Page({
         title: keepstatusmsg,
         icon: 'success',
         duration: 2000,
-        success: function () {
+        success: function() {
           that.getRequirementKeepInfo();
         }
       })
@@ -588,10 +689,10 @@ Page({
     })
   },
   /**获取收藏信息 */
-  getRequirementKeepInfo: function () {
+  getRequirementKeepInfo: function() {
     var that = this
-    var usreId = '1535359452591612';
-    var requirementid = '1535359452591612';
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.giftInfo.giftInfo.requirementId;
 
     var url = config.requestUrl
     var data = {
@@ -600,7 +701,7 @@ Page({
       userid: usreId,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       var keepstatus = rdata.keepstatus;
       if (keepstatus == 1) {
         that.setData({
@@ -613,7 +714,7 @@ Page({
       }
     })
   },
-  
+
 
 
 })

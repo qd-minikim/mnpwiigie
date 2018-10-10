@@ -1,25 +1,16 @@
 <!--page/component/pages/pagegift/giftdeta/giftdeta.wxml-->
- 
 <import src="../../../../../wxParse/wxParse.wxml" />
-
-<import src="../../../../common/pages/pagesign/pagesign.wxml" />
+<!-- <import src="../../../../common/pages/pagesign/pagesign.wxml" /> -->
 <import src="../../../../common/pages/pagesku/pagesku.wxml" />
-
-
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
-
-<!-- -->
 <!-- <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" /> -->
 
-<view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
-
+<!-- <view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
   <view class='view-modal-content'>
     <template is="pagesign" />
-
   </view>
-
-</view>
-
+</view> -->
+ 
 
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <!-- 标题 -->
@@ -48,8 +39,7 @@
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
         <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="*this">
           <swiper-item>
-            <!-- <image src='{{item.imageUrl}}' style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'></image> -->
-
+              
             <image style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}' bindtap="imageYl" data-list="{{swiperArea.swiperImgUrlsArry}}" data-src="{{itemyl}}" wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:for-item="itemyl" src="{{item}}"></image>
           </swiper-item>
         </block>
@@ -261,7 +251,7 @@
         </view>
         <view style='height100%'>
           <text style=" letter-spacing:2em ">已</text>选:</view>
-        <view class='view-ellipsis-1' style='flex:1'>已选红*玫瑰金*6.5英寸大屏幕 1份</view>
+        <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
         <view class='align-center'>
           <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
         </view>
@@ -357,8 +347,8 @@
 
 
   <!--隐藏区域  -->
-  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
-  <scroll-view class='choose font-size-4' wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize && !panelPage.panelPageTop}}" bindtap='hideSlideModal'></view>
+  <scroll-view class="{{panelPage.panelPageTop?'choose_top':'choose' }}  font-size-4" wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
     <block wx:if="{{ panelPage.chooseType=='default'}}">
 
       <view class='choose_view'>
@@ -376,9 +366,11 @@
         <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}" />
       </view>
     </block>
-
-
-
+    <block wx:elif="{{ panelPage.chooseType=='pagetop'}}">
+      <view class='align-r-center bg-6 font-color-2 font-size-3 ' style=' width: 100%;height: 100%;'>
+          {{processMsg}}
+      </view>
+    </block>
   </scroll-view>
 
     <!-- <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>

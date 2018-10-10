@@ -111,9 +111,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "我送礼-详情",
-					"pathName": "page/component/pages/pagegift/giftdeta/giftdeta"
+					"pathName": "page/component/pages/pagegift/giftdeta/giftdeta",
+					"query": "gr=1537842834692515"
 				}
 			]
 		}

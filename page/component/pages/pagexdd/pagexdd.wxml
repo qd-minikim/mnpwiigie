@@ -358,7 +358,7 @@
 
   <!--隐藏区域  -->
   <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
-  <scroll-view class='choose font-size-4' wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
+  <scroll-view class="{{panelPage.panelPageTop?'choose_top':'choose' }} font-size-4" wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
     <block wx:if="{{ panelPage.chooseType=='default'}}">
 
       <view class='choose_view'>
@@ -376,7 +376,7 @@
         <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}" />
       </view>
     </block>
-
+  
 
 
   </scroll-view>

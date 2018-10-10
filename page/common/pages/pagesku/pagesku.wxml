@@ -2,64 +2,70 @@
   <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
   <view class='container ' style='flex-direction:colum;display:flex; '>
 
-    <scroll-view style='height:{{panelPage.maskPanHeight}}'  scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+    <scroll-view style='height:{{panelPage.maskPanHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
       <view>
-      <view class='pagesku-view-1' style='flex-direction:row;display:flex;'>
-        <view class='pagesku-view-1-1'>
-          <image class='pagesku-view-1-1-image' src='{{myOrderInfo.mySkuInfo.image_url}}'></image>
+        <view class='pagesku-view-1' style='flex-direction:row;display:flex;'>
+          <view class='pagesku-view-1-1'>
+            <image class='pagesku-view-1-1-image' src='{{myOrderInfo.mySkuInfo.image_url}}'></image>
+          </view>
+          <view class='pagesku-view-1-2'>
+
+            <view class='font-size-4 font-color-7' style='height:25% '>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
+            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+              <view style='white-space:nowrap;'>库存：</view>
+              <view>{{myOrderInfo.mySkuInfo.storage}}</view>
+            </view>
+            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+              <view style='white-space:nowrap;'>限购：</view>
+              <view>{{spuInfo.spuinfo.min_copies}}~{{spuInfo.spuinfo.max_copies}}</view>
+            </view>
+            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+              <view style='white-space:nowrap;'>已选：</view>
+              <block wx:if="{{myOrderInfo.orderType !='0'}}">
+                <view>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
+              </block>
+              <block wx:else>
+                <view>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
+              </block>
+
+            </view>
+          </view>
         </view>
-        <view class='pagesku-view-1-2'>
+        <view class="gap-line-h" style="flex-direction:column;"></view>
 
-          <view class='font-size-4 font-color-7' style='height:25% '>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
-          <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
-            <view style='white-space:nowrap;'>库存：</view>
-            <view>{{myOrderInfo.mySkuInfo.storage}}</view>
-          </view>
-          <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
-            <view style='white-space:nowrap;'>限购：</view>
-            <view>{{spuInfo.spuinfo.min_copies}}~{{spuInfo.spuinfo.max_copies}}</view>
-          </view>
-          <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
-            <view style='white-space:nowrap;'>已选：</view>
-            <view>{{myOrderInfo.mySkuInfo.sku_desc}} 共{{myOrderInfo.orderCopies}}份</view>
-          </view>
-        </view>
-      </view>
-      <view class="gap-line-h" style="flex-direction:column;"></view>
+        <view class='pagesku-view-2'>
 
-      <view class='pagesku-view-2'>
+          <block wx:for="{{spuInfo.spuname}}" wx:for-index="indexname" wx:for-item="itemname" wx:key="*this">
+            <view class='pagesku-view-2-1 font-size-5'>{{itemname.spec_name}}</view>
+            <view class='pagesku-view-2-2' style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
+              <block wx:for="{{itemname.skuspecvalues}}" wx:for-index="indexvalue" wx:for-item="itemvalue" wx:key="*this">
+                <view class='pagesku-view-2-2-1 font-size-5 align-center'>
 
-        <block wx:for="{{spuInfo.spuname}}" wx:for-index="indexname" wx:for-item="itemname" wx:key="*this">
-          <view class='pagesku-view-2-1 font-size-5'>{{itemname.spec_name}}</view>
-          <view class='pagesku-view-2-2' style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
-            <block wx:for="{{itemname.skuspecvalues}}" wx:for-index="indexvalue" wx:for-item="itemvalue" wx:key="*this">
-              <view class='pagesku-view-2-2-1 font-size-5 align-center'>
+                  <block wx:if="{{itemvalue.currentstatus=='selected'}}">
 
-                <block wx:if="{{itemvalue.currentstatus=='selected'}}">
-
-                  <view class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
-                    <view style='position:absolute;right:1rpx;;bottom:-4px;'>
-                      <image style='width:20rpx;height:20rpx;' src='/image/figure_16.gif'></image>
+                    <view class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
+                      <view style='position:absolute;right:1rpx;;bottom:-4px;'>
+                        <image style='width:20rpx;height:20rpx;' src='/image/figure_16.gif'></image>
+                      </view>
                     </view>
-                  </view>
-                </block>
+                  </block>
 
 
-                <block wx:elif="{{itemvalue.currentstatus=='canselect'}}">
-                  <view bindtap='selectSku' class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
+                  <block wx:elif="{{itemvalue.currentstatus=='canselect'}}">
+                    <view bindtap='selectSku' class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
 
-                  </view>
+                    </view>
 
-                </block>
+                  </block>
 
-                <block wx:elif="{{itemvalue.currentstatus=='unselect'}}">
+                  <block wx:elif="{{itemvalue.currentstatus=='unselect'}}">
 
-                  <view class='pagesku-view-2-2-1-1 align-center pagesku-sku-unselect' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
+                    <view class='pagesku-view-2-2-1-1 align-center pagesku-sku-unselect' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}' data-vindex='{{indexvalue}}'>{{itemvalue.spec_value}}
 
-                  </view>
-                </block>
+                    </view>
+                  </block>
 
-                <!-- <view bindtap='selectSku' class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}'>{{itemvalue.spec_value}}
+                  <!-- <view bindtap='selectSku' class='pagesku-view-2-2-1-1 align-center ' data-skuindex='{{indexname}}' data-skuids='{{itemvalue.sku_id}}'>{{itemvalue.spec_value}}
                  <block wx:if='{{filters.toContain(itemvalue.sku_id,myOrderInfo.selectSpec)}}'>
  
                 <block wx:if="{{itemvalue.currentstatus=='selected'}}">
@@ -71,28 +77,31 @@
                 </block>
               </view> -->
 
-              </view>
+                </view>
 
-            </block>
+              </block>
+            </view>
+          </block>
+
+        </view>
+        <block wx:if="{{myOrderInfo.orderType !='0'}}">
+          <view class="gap-line-h" style="flex-direction:column;"></view>
+          <view class='pagesku-view-3 align-center' style='flex-direction:row;display:flex;'>
+            <view style='flex:1'>份数</view>
+            <view style=';flex-direction:row;display:flex;'>
+              <view class='view-sub align-center' data-dotype='sub' bindtap='updateCopies'>-</view>
+              <view class='view-num align-center'>{{myOrderInfo.orderCopies}}</view>
+              <view class='view-add align-center' data-dotype='add' bindtap='updateCopies'>+</view>
+            </view>
           </view>
         </block>
-
-      </view>
-      <view class="gap-line-h" style="flex-direction:column;"></view>
-      <view class='pagesku-view-3 align-center' style='flex-direction:row;display:flex;'>
-        <view style='flex:1'>份数</view>
-        <view style=';flex-direction:row;display:flex;'>
-          <view class='view-sub align-center' data-dotype='sub' bindtap='updateCopies'>-</view>
-          <view class='view-num align-center'>{{myOrderInfo.orderCopies}}</view>
-          <view class='view-add align-center' data-dotype='add' bindtap='updateCopies'>+</view>
-        </view>
-      </view>
       </view>
     </scroll-view>
-    <view class='pagesku-view-4'>
-      <button style='height:100%' type="primary" disabled='{{myOrderInfo.sureBtn.btnDisabled}}'>{{myOrderInfo.sureBtn.btnDisabled?myOrderInfo.sureBtn.btnTipMsg:myOrderInfo.sureBtn.btntext}}</button>
-    </view>
-
+    <block wx:if="{{myOrderInfo.orderType !='0'}}">
+      <view class='pagesku-view-4'>
+        <button style='height:100%' type="primary" disabled='{{myOrderInfo.sureBtn.btnDisabled}}'>{{myOrderInfo.sureBtn.btnDisabled?myOrderInfo.sureBtn.btnTipMsg:myOrderInfo.sureBtn.btntext}}</button>
+      </view>
+    </block>
   </view>
 
 </template>
