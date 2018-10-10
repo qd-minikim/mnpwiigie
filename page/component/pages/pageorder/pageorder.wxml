@@ -1,20 +1,26 @@
 <!--page/component/pages/pageorder/pageorder.wxml-->
 <view class='container ' style="flex-direction:column;display:flex; ">
   <view class='pageorder-view-1 align-center' bindtap='selectUserAddr'>
+    <block wx:if="{{userDefAddr}}">
+      <view style='flex-direction:column;display:flex;flex:1'>
+        <view class='pageorder-view-row'>
 
-    <view style='flex-direction:column;display:flex;'>
-      <view class='pageorder-view-row'>
-
-        <view class='align-center font-size-1 ' style='flex:1;flex-direction:row;display:flex;'>
-          <view class='view-ellipsis-1 ' style='width:200rpx'>王鹏王鹏王鹏</view>
-          <view style='flex:1;'>1123123123123</view>
+          <view class='align-center font-size-1 ' style='flex:1;flex-direction:row;display:flex;'>
+            <view class='view-ellipsis-1 ' style='width:200rpx'>{{userDefAddr.orderUsername}}</view>
+            <view style='flex:1;'>{{userDefAddr.phone}}</view>
+          </view>
         </view>
-      </view>
-      <view class='pageorder-view-row align-r-center font-color-4'>
-        <view class='font-size-4' style='flex:1'>a阿斯顿发的说法双方的发的说法双方的发的说法双方的</view>
-      </view>
+        <view class='pageorder-view-row align-r-center font-color-4'>
+          <view class='font-size-4' style='flex:1'>{{userDefAddr.address}}</view>
+        </view>
 
-    </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class='pageorder-view-row font-color-9' style='flex-direction:column;display:flex;flex:1'>
+        请选择收货信息
+      </view>
+    </block>
     <view>
       <image style='width:60rpx;height:60rpx' src='/image/arrow_right_1.png'></image>
     </view>
@@ -40,7 +46,11 @@
 
 
   <view class='flex-bottom align-center'>
-
-    <button class='font-size-2' type="warn" bindtap='orderpay' style='width:100%'>提交订单</button>
+    <block wx:if="{{userDefAddr}}">
+      <button class='font-size-2' type="warn" bindtap='orderpay' style='width:100%'>提交订单</button>
+    </block>
+    <block wx:else>
+      <button class='font-size-2' type="warn" bindtap='orderpay' disabled='disabled' style='width:100%'>请选择收货信息</button>
+    </block>
   </view>
 </view>

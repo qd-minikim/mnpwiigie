@@ -2,13 +2,21 @@
 var config = require('../../../../config.js');
 var rCommon = require('../../../../utils/rCommon.js');
 var rRequest = require('../../../../utils/rRequest.js');
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
 
+    /**用户默认地址 */
+    userDefAddr: null,
   },
 
   /**
@@ -16,6 +24,34 @@ Page({
    */
   onLoad: function(options) {
 
+    var  that = this;
+    if (app.globalData.userWxInfo) {
+      that.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
+
+    wx.getStorage({
+      key: 'userDefAddr',
+      success: function(res) {
+        if(res.data){
+          that.setData({
+            userDefAddr: res.data
+          })
+        }
+        
+      },
+    })
+    // this.setData({
+    //   userDefAddr:
+    // })
+
+
+    //需要判断是否是自购，还是 送礼
+
+   // that.getUserDefAddr() //x_getDefAddr
   },
 
   /**
@@ -66,21 +102,22 @@ Page({
   onShareAppMessage: function() {
 
   },
-  selectUserAddr:function(event){
+  selectUserAddr: function(event) {
 
     wx.navigateTo({
       url: '/page/component/pages/pageaddr/addrlist/addrlist',
     })
 
-  }
+  },
 
-  ,
+
+
   orderpay: function() {
 
     var that = this;
     var url = config.orderPayUrl;
 
-    
+
     var data = {
       requirementid: '1529296099516208',
       userid: '1528869953018820',
@@ -99,7 +136,7 @@ Page({
       city: '370200',
       province: '370000',
       district: '370211',
-      
+
       phone: '111111111111',
       orderUsername: 'weibo',
       ordertype: '2',

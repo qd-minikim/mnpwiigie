@@ -1,7 +1,7 @@
 //app.js
 var config = require('/config.js')
 var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
-
+var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
 App({
   //启动时执行的初始化工作
@@ -104,7 +104,11 @@ App({
             wx.switchTab({
               url: '/pages/pagehome/pagehome',
             })
+
+            rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
           }
+
+
         })
 
       }

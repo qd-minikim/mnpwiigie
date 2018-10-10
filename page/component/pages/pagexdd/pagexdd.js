@@ -415,7 +415,7 @@ Page({
 
     if (orderType == '2') {//1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       wx.navigateTo({
-        url: 'page/component/pages/pageorder/pageorder',
+        url: '/page/component/pages/pageorder/pageorder',
       })
     }
 
@@ -732,11 +732,10 @@ Page({
     
     var isHtml = false
     rUtils.slideModal.up(that, 'sku', true);
-
     that.setData({
       'myOrderInfo.orderType': 2, //1选择2:下单拦截选择  3:送礼拦截选择
     })
- 
+
 
   }
 

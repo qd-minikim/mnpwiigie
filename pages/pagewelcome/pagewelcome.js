@@ -3,6 +3,8 @@ const app = getApp()
 var config = require('../../config.js')
 var rRequest = require('../../utils/rRequest.js');
 var WXBizDataCrypt = require('../../utils/WXBizDataCrypt.js')
+
+
 Page({
 
   /**

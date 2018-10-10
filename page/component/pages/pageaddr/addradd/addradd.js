@@ -42,9 +42,13 @@ Page({
       district: '',
       addressHouse: '',
       phone: ''
-    }
+    },
 
-
+   /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
@@ -52,7 +56,13 @@ Page({
    */
   onLoad: function(options) {
 
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
     var action = options.action;
 
     if (action == 'add') {
@@ -148,7 +158,7 @@ Page({
     var that = this;
     var url = config.requestUrl;
     var id = that.data.useraddressid;
-    var userid = '1528869953018820';
+    var userid = that.data.userInfo.id;
     var data = {
       code_: 'x_getAddressById',
       id: id,
@@ -363,11 +373,7 @@ Page({
 
   },
   formSubmit: function(e) {
-
-    //console.log('form发生了submit事件，携带数据为：', e.detail.value)
-
-
-
+ 
     var that = this;
     var url = config.requestUrl;
 

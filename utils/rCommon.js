@@ -458,53 +458,76 @@ var requirementKeep = {
 
   getKeepInfo: function() {
 
-
-
   },
   doKeepInfo: function() {
 
-
-
   }
 
+}
+var userDefAddr = {
+  getUserDefAddr: function(that, userid) {
 
-} 
-var configMsgInfo={
+    var url = config.requestUrl;
 
+    var data = {
+      code_: 'x_getDefAddr',
+      userid: userid,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info.v_info) {
+        wx.setStorage({
+          key: 'userDefAddr',
+          data: rdata.info.v_info,
+        })
+      }else{
+        wx.setStorage({
+          key: 'userDefAddr',
+          data: null,
+        })
+
+      }
+    })
+  }
+}
+
+var configMsgInfo = {
   url: config.requestUrl,
-   
-  getConfigMsg: function (url, pdata,  that, callback){
+
+  getConfigMsg: function(url, pdata, that, callback) {
     var this_ = this;
     url = url || this_.url;
- 
-    rRequest.doRequest(url, pdata, that, function (rdata) {
+
+    rRequest.doRequest(url, pdata, that, function(rdata) {
       typeof callback == "function" && callback(rdata)
     })
-    }
+  }
 
-} 
-var configCodeInfo={
-
-
-} 
+}
+var configCodeInfo = {
 
 
- //
+}
+
+
+//
 var requirementMarkAction = {
   actionType: 'read',
   markAction: function(url, data, actionType, that, callback) {
     var this_ = this;
     actionType = actionType || this_.actionType;
 
-    data = { ...data, actionType: actionType };
- 
+    data = { ...data,
+      actionType: actionType
+    };
+
     rRequest.doRequest(url, data, that, function(rdata) {
       typeof callback == "function" && callback(rdata)
     })
   },
 
 }
- 
+
 
 
 module.exports = {
@@ -513,6 +536,6 @@ module.exports = {
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
   configMsgInfo: configMsgInfo,
- 
+  userDefAddr: userDefAddr,
 
 }
