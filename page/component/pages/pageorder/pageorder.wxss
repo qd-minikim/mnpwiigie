@@ -1,0 +1,21 @@
+/* page/component/pages/pageorder/pageorder.wxss */
+
+.pageorder-view-1 {
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+}
+
+.pageorder-view-row {
+  flex-direction: row;
+  display: flex;
+  margin: 8rpx 10rpx;
+}
+.pageorder-view-title {
+   width: 5rem;
+}
+.pageorder-view-2 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}

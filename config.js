@@ -17,6 +17,10 @@ var config = {
 
   imageUrl: `https://${host}/wiigie/image/getImage?addr=`,
   
+  orderPayUrl: `https://${host}/wiigie/xcx/prePayOrder`,
+
+
+
 
   // 用code换取openId
   openIdUrl: `https://${host}/openid`,

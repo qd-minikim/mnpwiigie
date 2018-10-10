@@ -15,7 +15,12 @@ Page({
       scrollviewHeight: 0,
       bottomView: true, //存在底部按钮
     },
-    addressInfo: {}
+    addressInfo: {},
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
@@ -23,7 +28,13 @@ Page({
    */
   onLoad: function(options) {
     app.editBottom();
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
     this.getAddressInfo();
   },
 
@@ -81,7 +92,7 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var userid = '1528869953018820';
+    var userid = that.data.userInfo.id;
 
     var data = {
       code_: 'x_getAddress',
@@ -107,7 +118,7 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var userid = '1528869953018820';
+    var userid = that.data.userInfo.id;
     var id = event.currentTarget.dataset.id;;
     var data = {
       code_: 'x_uppAddDefault',

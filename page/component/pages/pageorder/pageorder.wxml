@@ -1,0 +1,46 @@
+<!--page/component/pages/pageorder/pageorder.wxml-->
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view class='pageorder-view-1 align-center' bindtap='selectUserAddr'>
+
+    <view style='flex-direction:column;display:flex;'>
+      <view class='pageorder-view-row'>
+
+        <view class='align-center font-size-1 ' style='flex:1;flex-direction:row;display:flex;'>
+          <view class='view-ellipsis-1 ' style='width:200rpx'>王鹏王鹏王鹏</view>
+          <view style='flex:1;'>1123123123123</view>
+        </view>
+      </view>
+      <view class='pageorder-view-row align-r-center font-color-4'>
+        <view class='font-size-4' style='flex:1'>a阿斯顿发的说法双方的发的说法双方的发的说法双方的</view>
+      </view>
+
+    </view>
+    <view>
+      <image style='width:60rpx;height:60rpx' src='/image/arrow_right_1.png'></image>
+    </view>
+
+  </view>
+
+
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class='pageorder-view-2'>
+    <view class='pageorder-view-row font-size-3 align-r-center'>
+      <view class='pageorder-view-title'>已选规格：</view>
+      <view style='flex:1'>红色红色红色红 1份</view>
+    </view>
+    <view class='pageorder-view-row font-size-3'>
+      <view class='pageorder-view-title'>预付单价：</view>
+      <view>￥299.00</view>
+    </view>
+    <view class='pageorder-view-row font-size-3'>
+      <view class='pageorder-view-title'>支付金额：</view>
+      <view class=' font-color-7'>￥299.00</view>
+    </view>
+  </view>
+
+
+  <view class='flex-bottom align-center'>
+
+    <button class='font-size-2' type="warn" bindtap='orderpay' style='width:100%'>提交订单</button>
+  </view>
+</view>

@@ -261,7 +261,7 @@
         </view>
         <view style='height100%'>
           <text style=" letter-spacing:2em ">已</text>选:</view>
-        <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}</view>
+        <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
         <view class='align-center'>
           <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
         </view>
@@ -307,8 +307,8 @@
         </block>
       </view>
 
-      <view wx:if="{{!opinionInfo.dataInfo}}" class='view-8-3 align-c-center'>
-        <view>还没有朋友说</view>
+      <view wx:if="{{opinionInfo.dataInfo.length==0}}" class='view-8-3 align-c-center'>
+        <view style='padding:10rpx 2rpx'>还没有朋友说</view>
       </view>
 
     </view>
@@ -395,7 +395,7 @@
       </view>
       <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
     </view>
-    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%'>
+    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' bindtap='order'>
 
       <view class='font-size-3'>下单</view>
     </view>

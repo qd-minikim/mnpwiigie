@@ -10,9 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    /**传递的参数 */
+    requirementId: '',
+    upmarkid: '',
 
     requirementInfo: {},
-
     richtextInfo: {
       richtextContent: '',
       richtextMore: true,
@@ -27,19 +29,19 @@ Page({
     },
     /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
     spuInfo: {},
-    myOrderInfo:{
-      orderType: 1,//1选择2:下单拦截选择  3:送礼拦截选择 0:查看
-      mySkuInfo:null,
-      orderCopies:1,
+    myOrderInfo: {
+      orderType: 1, //1选择2:下单拦截选择  3:送礼拦截选择 0:查看
+      mySkuInfo: null,
+      orderCopies: 1,
       /**根据库存 限购 等控制sku选择时的按钮显示 */
-      sureBtn:{
-        btntext:'确定',
-        btnDisabled:false,
-        btnTipMsg:''
+      sureBtn: {
+        btntext: '确定',
+        btnDisabled: false,
+        btnTipMsg: ''
 
       },
       /**选择规格时的动态赋值变化 */
-      selectSkuId:[]
+      selectSkuId: []
     },
 
     opinionInfo: {
@@ -55,13 +57,13 @@ Page({
 
     },
     panelPage: {
-      panelPageTop: false,// false 表示底部上推，true 表示 上不下推
+      panelPageTop: false, // false 表示底部上推，true 表示 上不下推
       chooseSize: false,
       chooseType: '',
       animationData: {},
       maskLayerHeight: '',
       maskLayerWidth: '',
-      maskPanHeight: '',//例如下单选择等存在底端按钮的时候，按钮上部的view的高度
+      maskPanHeight: '', //例如下单选择等存在底端按钮的时候，按钮上部的view的高度
       maskPanWidth: '',
 
       msginfo: '',
@@ -100,21 +102,37 @@ Page({
       canvasTop: '0px',
       canvasLeft: '0px'
     },
-    configMsgInfo: {}
+    configMsgInfo: {},
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
+    this.setData({
+      'requirementId': options.r,
+      'upmarkid': options.m
+    })
 
     this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
-    this.getRequirementRichtext()
+
     this.getRequirementDetail()
-    this.getSpuInfo()
+
     //this.getSkuInfo()
-    this.getSpuCoverImageInfo()
+
     this.getConfigMsgInfo()
     this.getOpinionInfo()
   },
@@ -130,8 +148,8 @@ Page({
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
     var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
-  
-    var maskPanHeight = 400 - 120 * percent 
+
+    var maskPanHeight = 400 - 120 * percent
     this.setData({
 
       oneGridWidth: ongGridWidth + "px",
@@ -206,13 +224,12 @@ Page({
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
-    rUtils.slideModal.up(that, clicklx,true);
+    rUtils.slideModal.up(that, clicklx, true);
 
 
 
     that.setData({
       'panelPage.isHtml': isHtml,
-      
     })
 
     if (clicklx == 'default') {
@@ -233,8 +250,8 @@ Page({
   },
   hideSlideModal: function() {
     var that = this
-    rUtils.slideModal.down(that,null,false);
-   
+    rUtils.slideModal.down(that, null, false);
+
   },
 
   imageYl: function(event) {
@@ -254,8 +271,8 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var userid = '1527673151198212';
-    var requirementId = '1530067167175595';
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;;
     var data = {
       code_: 'x_getOpinionList',
       endRow: 0,
@@ -353,7 +370,7 @@ Page({
   /**获取SpuCoverImage*/
   getSpuCoverImageInfo: function() {
     var that = this
-    var spuid = '1529889871942295';
+    var spuid = that.data.requirementInfo.spuid;
 
     var url = config.requestUrl
     var data = {
@@ -377,30 +394,42 @@ Page({
       }
     })
   },
-/**选择sku */
-  selectSku:function(event){
+  /**选择sku */
+  selectSku: function(event) {
     var that = this
-    var skuindex = event.currentTarget.dataset.skuindex; 
-    var skuids = event.currentTarget.dataset.skuids; 
-    var vindex = event.currentTarget.dataset.vindex; 
+    var skuindex = event.currentTarget.dataset.skuindex;
+    var skuids = event.currentTarget.dataset.skuids;
+    var vindex = event.currentTarget.dataset.vindex;
     pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
   },
-  sureSelect: function () {
+  /**点击确认按钮 */
+  sureSelect: function() {
 
     var that = this
-    pagekskujs.selectSpuSku.sureBtn( that)
+    pagekskujs.selectSpuSku.sureBtn(that)
 
     that.hideSlideModal();
-   },
+ 
+
+    var orderType = that.data.myOrderInfo.orderType;
+
+    if (orderType == '2') {//1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      wx.navigateTo({
+        url: 'page/component/pages/pageorder/pageorder',
+      })
+    }
+
+
+  },
 
 
   /**获取spu*/
   getSpuInfo: function() {
 
     var that = this
-    var spuid = '1529215126697316';
-   
-    var promotionid = '1529291860866339';
+    var spuid = that.data.requirementInfo.spuid;
+
+    var promotionid = that.data.requirementInfo.promotionid;
     var url = config.requestUrl
     var data = {
       code_: 'x_getSpuInfo',
@@ -408,37 +437,37 @@ Page({
       promotionid: promotionid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
-         that.setData({
+        that.setData({
           spuInfo: rdata.info,
-    
+
         })
 
         /**判断是佛存在自选的skuinfo */
         var maySkuInfo = that.data.myOrderInfo.mySkuInfo;
 
 
-        if (maySkuInfo){
+        if (maySkuInfo) {
 
 
-           
-        }else{
+
+        } else {
           var skuInfo = that.data.spuInfo.skuinfo;
 
           var spuname = that.data.spuInfo.spuname;
 
           that.setData({
             'myOrderInfo.mySkuInfo': skuInfo[0],
-            'myOrderInfo.orderType': 1,//1选择2:下单拦截选择  3:送礼拦截选择
+            'myOrderInfo.orderType': 1, //1选择2:下单拦截选择  3:送礼拦截选择
             'myOrderInfo.orderCopies': 1,
             'myOrderInfo.orderCopies': 1,
             'myOrderInfo.selectSkuId': skuInfo[0].id
           })
 
-          for(var i=0;i<spuname.length;i++){
+          for (var i = 0; i < spuname.length; i++) {
 
 
             for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
@@ -448,50 +477,19 @@ Page({
                 pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
 
               }
-             
+
             }
-             
+
           }
 
 
-           
+
 
 
         }
-      
-         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
-        
-      }
 
+        pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
-    })
-
-     
-  },
-  getSkuInfo: function() {
-    var that = this
-    
-    var spuid = '1529889871942295';
-    var promotionid = '1533265163611127';
-    var url = config.requestUrl
-    var data = {
-      code_: 'x_getRequirementDetail',
-      id: requirementid,
-      userid: usreId,
-
-    }
-    rRequest.doRequest(url, data, that, function (rdata) {
-
-      if (rdata.info) {
-
-        that.setData({
-          requirementInfo: rdata.info
-         
-        })
-
-        var s = that.data.requirementInfo.cfggroupgradeinfos;
-
-        var ss = '';
       }
 
 
@@ -504,8 +502,8 @@ Page({
   /**获取详情 */
   getRequirementDetail: function() {
     var that = this
-    var usreId = '1528869953018820';
-    var requirementid = '1533265163611127';
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
 
     var url = config.requestUrl
     var data = {
@@ -520,12 +518,11 @@ Page({
 
         that.setData({
           requirementInfo: rdata.info
-      
+
         })
-
-        var s = that.data.requirementInfo.cfggroupgradeinfos;
-
-        var ss = '';
+        that.getSpuCoverImageInfo()
+        that.getSpuInfo()
+        that.getRequirementRichtext()
       }
 
 
@@ -545,7 +542,7 @@ Page({
   getRequirementRichtext: function() {
     var that = this
     var usreId = '';
-    var spuid = '1530514250651419';
+    var spuid = that.data.requirementInfo.spuid;;
 
     var url = config.requestUrl
     var data = {
@@ -573,7 +570,6 @@ Page({
   //
   requirementMarkAction: function() {
 
-    // url, data, actionType, that, callback
     var url = '',
       data = {},
       actionType = '',
@@ -581,7 +577,6 @@ Page({
     rCommon.requirementMarkAction.markAction(url, data, actionType, that, function() {
 
     })
-
 
   },
 
@@ -593,8 +588,8 @@ Page({
 
     var that = this
 
-    var requirementid = '1535359452591612';
-    var userid = '1535359452591612';
+    var requirementid = that.data.requirementId;
+    var userid = that.data.userInfo.id;
 
     var url = config.requestUrl
     var data = {
@@ -621,8 +616,8 @@ Page({
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
     var that = this
-    var usreId = '1535359452591612';
-    var requirementid = '1535359452591612';
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
 
     var url = config.requestUrl
     var data = {
@@ -646,11 +641,12 @@ Page({
   },
   //获取进展区路径图
   getProgressRouteInfo: function() {
-    var usreId = '1528869953018820';
-    var requirementid = '1535359452591612';
+    var that = this
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
     var treetype = 'ZFC12_1';
 
-    var that = this
+
     var url = config.requestUrl
     var data = {
       code_: 'x_getRelateTree',
@@ -682,27 +678,23 @@ Page({
 
   /** */
 
-  updateCopies:function(event){
+  updateCopies: function(event) {
     //var src = event.currentTarget.dataset.src; //获取data-src
-    var doType = event.currentTarget.dataset.dotype; 
-    var  that = this;
-    if (doType=='add'){
-
+    var doType = event.currentTarget.dataset.dotype;
+    var that = this;
+    if (doType == 'add') {
       pagekskujs.uppdateCopies.addCopies(that);
     }
-
     if (doType == 'sub') {
-
       pagekskujs.uppdateCopies.subCopies(that);
     }
-  
   },
   /**获取进展区信息 */
 
   getProgressRouteInfo1: function() {
     var that = this;
-    var usreId = '1528869953018820';
-    var requirementid = '1535359452591612';
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
     var treetype = 'ZFC12_1';
     wx.request({
       url: config.requestUrl, //仅为示例，并非真实的接口地址
@@ -734,6 +726,18 @@ Page({
     })
   },
 
+  order:function(){
 
+    var that = this
+    
+    var isHtml = false
+    rUtils.slideModal.up(that, 'sku', true);
+
+    that.setData({
+      'myOrderInfo.orderType': 2, //1选择2:下单拦截选择  3:送礼拦截选择
+    })
+ 
+
+  }
 
 })

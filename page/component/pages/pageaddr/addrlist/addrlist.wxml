@@ -36,10 +36,10 @@
       </view>
 
     </block>
+    <block wx:if="{{addressInfo.length ==0}}">
+    <view class='align-center' style='width:100%'>还没有收货地址</view>
 
-
-
-
+    </block>
 
   </scroll-view>
   <view class='addrlist-view-4 flex-bottom  '>

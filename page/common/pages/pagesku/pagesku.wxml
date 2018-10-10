@@ -2,7 +2,7 @@
   <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
   <view class='container ' style='flex-direction:colum;display:flex; '>
 
-    <scroll-view style='height:{{panelPage.maskPanHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+    <scroll-view style='max-height:{{panelPage.maskPanHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
       <view>
         <view class='pagesku-view-1' style='flex-direction:row;display:flex;'>
           <view class='pagesku-view-1-1'>
