@@ -25,47 +25,71 @@
   line-height: 40px;
   word-break: break-all;
 }
-.view-1-2-right{
-    float: right;
+
+.view-1-2-right {
+  float: right;
   position: relative;
   right: 40rpx;
 }
-.view-1-2-sanjiao{
-    top: 20rpx;
+
+.view-1-2-sanjiao {
+  top: 30rpx;
   position: relative;
   width: 0px;
   height: 0px;
   border-width: 10px;
   border-style: solid;
 }
-.view-1-2-my{
-  border-color: transparent transparent transparent #95d4ff;
+
+.view-1-2-my {
+  border-color: transparent transparent transparent #35f56f;
 }
+
 .view-1-2-you {
   border-color: transparent #95d4ff transparent transparent;
 }
 
-.view-1-2-image{
-    width: 100rpx;
+.view-1-2-image {
+  width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
 }
 
-.view-1-2-left{
+.view-1-2-left {
   float: left;
   position: relative;
   left: 5rpx;
 }
-.view-1-2-text
-{
-  width: 380rpx;
+.view-1-2-right-text {
+     
+ 
+  border-radius: 7px;
+  background-color: #35f56f;
+  padding: 15rpx 15rpx 15rpx 15rpx;
+  line-height: 50rpx;
+}
+.view-1-2-left-text {
+     
+  
   border-radius: 7px;
   background-color: #95d4ff;
   padding: 20rpx 20rpx 20rpx 20rpx;
-  line-height:60rpx;
-  
-
+  line-height: 60rpx;
 }
+
+.view-1-2-image-right {
+  width: 150rpx;
+  height: 150rpx;
+ margin-right: 10px
+}
+.view-1-2-image-left {
+  width: 150rpx;
+  height: 150rpx;
+ margin-left: 10px
+}
+
+
+
 .view-2 {
 }
 
@@ -106,3 +130,5 @@
   border: 1rpx solid #2223;
   border-radius: 50%;
 }
+
+ 

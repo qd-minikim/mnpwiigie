@@ -18,7 +18,8 @@ var config = {
   imageUrl: `https://${host}/wiigie/image/getImage?addr=`,
   
   orderPayUrl: `https://${host}/wiigie/xcx/prePayOrder`,
-
+ 
+  socketUrl: `wss://${host}/wiigie/ws/`,
 
 
 
