@@ -13,7 +13,7 @@ margin: 5rpx 10rpx;
 
   width: 150rpx;
   height: 150rpx;
-  border-radius: 2%;
+  border-radius: 50%;
 }
 .pagemy-view-1-2{
 flex-direction: column;
@@ -40,4 +40,12 @@ margin: 5rpx 20rpx;
 
   width: 50rpx;
   height: 50rpx
+}
+
+.pagemy-view-6{
+
+flex-direction: column;
+display: flex;
+margin: 5rpx 20rpx;
+
 }

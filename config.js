@@ -21,6 +21,8 @@ var config = {
  
   socketUrl: `wss://${host}/wiigie/ws/`,
 
+  // 上传文件接口
+  uploadFileUrl: `https://${host}/wiigie/xcx/upload`,
 
 
   // 用code换取openId
@@ -35,8 +37,7 @@ var config = {
   // 发送模板消息接口
   templateMessageUrl: `https://${host}/templateMessage`,
 
-  // 上传文件接口
-  uploadFileUrl: `https://${host}/upload`,
+  
 
   // 下载示例图片接口
   downloadExampleUrl: `https://${host}/static/weapp.jpg`,

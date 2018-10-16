@@ -3,6 +3,8 @@
 var rRequest = require('../../../../utils/rRequest.js');
 var config = require('../../../../config.js');
 var rSocket = require('../../../../utils/rSocket.js');
+var rUtils = require('../../../../utils/rUtils.js');
+var rUpload = require('../../../../utils/rUpload.js');
 const app = getApp()
 Page({
 
@@ -11,21 +13,54 @@ Page({
    */
   data: {
 
-    dialogInfo: null,
-    dialogDetailList: null,
-    /**0:消费者 1：商户 */
-    dialogType:0,
+    dialogInfoId: '',
+    timestamp: '',
+    relationId: '',
+    onickname: '',
+    ousericon: '',
+    ouserid: '',
+    spuId: '',
+    promotionId: '',
+    inputValue: '',
+    /**要发送的文字信息 */
+    imageFilePaths: [],
+    /**图片文件 */
 
-    dialogCofig:{
-      width:0
+    dialogDetailList: [],
+    /**1:消费者 0：商户 */
+    userType: 1,
+
+
+
+    dialogCofig: {
+      width: 0
     },
-
+    scrollTop: 0,
 
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
     userWxInfo: {},
+
+
+    scrollHeight: 0,
+
+
+    panelPage: {
+      panelPageTop: false, // false 表示底部上推，true 表示 上不下推
+      chooseSize: false,
+      chooseType: '',
+      animationData: {},
+      maskLayerHeight: '',
+      maskLayerWidth: '',
+      maskPanHeight: '', //例如下单选择等存在底端按钮的时候，按钮上部的view的高度
+      maskPanWidth: '',
+
+      msginfo: '',
+      isHtml: false
+    },
+
   },
 
   /**
@@ -40,21 +75,21 @@ Page({
       })
     }
     this.setData({
-     
+
       'userInfo.id': '1528869953018820',
     })
- 
+
     this.createSocket()
- 
+
     this.setData({
-      dialogType: options.type,
- 
+      userType: options.type,
+
     })
 
-    
+
     this.getDialogInfo()
-    
-    
+
+
   },
 
   /**
@@ -62,11 +97,15 @@ Page({
    */
   onReady: function() {
     var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
     var percent = windowWidth / 750
+    var scrollHeight = windowHeight - app.globalData.bottomBtnHeight * percent - 25
     this.setData({
-      'dialogCofig.width': windowWidth*0.60,
-
+      'dialogCofig.width': windowWidth * 0.60,
+      'scrollHeight': scrollHeight,
+      'panelPage.maskPanWidth': windowWidth
     })
+
   },
 
   /**
@@ -117,44 +156,53 @@ Page({
 
 
   },
-  getDialogInfo: function () {
+  getDialogInfo: function() {
 
     var that = this;
     var url = config.requestUrl;
     var userId = that.data.userInfo.id;
     // var userId = '1528869953018820';
     var requirementId = '1533134736777395';
-    var dialogType = that.data.dialogType;
+    var customDialogId = '1533134875012282'; //商户时 存在
+    var userType = that.data.userType;
     var data = {
       code_: 'x_getDialogInfo',
-      dialogtype: dialogType,
+      userType: userType,
       userid: userId,
       requirementid: requirementId,
+      customDialogId: customDialogId
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
         that.setData({
-          'dialogInfo': rdata.info,
+          'dialogInfoId': rdata.info.customDialogId,
+          'timestamp': rdata.info.timestamp,
+          'relationId': rdata.info.relationId,
+          'onickname': rdata.info.oNickname,
+          'ousericon': rdata.info.oUsericon,
+          'ouserid': rdata.info.oUserid,
+
+          'spuId': rdata.info.spuId,
+          'promotionId': rdata.info.promotionId,
         })
 
         that.getDialogDetailList();
       }
     })
-  }
-  ,
+  },
   getDialogDetailList: function() {
     var that = this;
     var url = config.requestUrl;
 
-    var customDialogId = that.data.dialogInfo.id;
+    // var customDialogId = that.data.dialogInfo.id;
 
-   
+    var customDialogId = that.data.dialogInfoId;
     var data = {
       code_: 'x_getDialogDetailList',
       customDialogId: customDialogId,
-  
+
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -164,16 +212,261 @@ Page({
           'dialogDetailList': rdata.infolist,
 
         })
+        that.setData({
+          scrollTop: 1000 * rdata.infolist.length 
+        });
+
+      }
+    })
+
+
+  },
+  bindKeyInput: function(e) {
+    this.setData({
+      inputValue: e.detail.value
+    })
+
+
+  },
+
+  cancleattach:function(){
+  var that = this;
+  rUtils.slideModal.down(that, null, false);
+}
+  ,
+  photos: function (event) {
+    var that = this;
+    var sourcetype = event.currentTarget.dataset.sourcetype;
+ 
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: [sourcetype],
+      success: function(res) {
+        that.setData({
+          imageFilePaths: res.tempFilePaths
+        })
+
+
+        var requirementId = '1533134736777395';
+        var timestamp = that.data.timestamp;
+        var userType = that.data.userType;
+
+        //  /**1:消费者 0：商户 */
+        var cUserId = '';
+        var sUserId = '';
+        if (userType == '1') {
+          cUserId = that.data.ouserid;
+          sUserId = that.data.userInfo.id;
+
+        }
+        if (userType == '0') {
+          cUserId = that.data.userInfo.id;
+          sUserId = that.data.ouserid;
+
+        }
+
+        var content = '';
+        var dialogType = '1';
+        var userId = that.data.userInfo.id;
+        var voiceDuration = '';
+        var customDialogId = that.data.dialogInfoId;
+        var spuId = that.data.spuId;
+        var promotionId = that.data.promotionId;
+
+        var data = {
+          code_: 'x_sendDialog',
+          requirement_id: requirementId,
+          timestamp: timestamp,
+          user_type: userType,
+          c_user_id: cUserId,
+          s_user_id: sUserId,
+          content: encodeURIComponent(content),
+          dialog_type: dialogType,
+          user_id: userId,
+          voice_duration: voiceDuration,
+          custom_dialog_id: customDialogId,
+          spu_id: spuId,
+          promotion_id: promotionId,
+
+          service_:'dialogimage'
+
+
+        }
+
+        // imageFilePaths
+        // var dialogDetailList = that.data.dialogDetailList;
+
+        // for (var x = 0; x < res.tempFilePaths.length;x++){
+        //   var newInfo = {
+        //     dialog_type: 1,
+        //     content: '/image/loader.gif',
+        //     user_id: userId
+        //   }
+        //   dialogDetailList.push(newInfo);
+        // }
+       
+
+
+        rUpload.upload.uploadImage('upfile', 0, res.tempFilePaths.length, res.tempFilePaths, data, that, function (rdata) {
+
+         var dialogDetailList = that.data.dialogDetailList;
+
+          var newInfo = {
+            dialog_type: 1,
+            content: rdata.filePath,
+            user_id: userId
+          }
+          dialogDetailList.push(newInfo);
+          that.setData({
+            'dialogDetailList': dialogDetailList,
+
+          })
+          that.setData({
+            scrollTop: 1000 * dialogDetailList.length
+          });
+
+
+        });
+
+      },
+    })
+
+  },
+  camera: function() {
+      var that = this;
+      wx.chooseImage({
+        count: 9,
+        sizeType: ['original', 'compressed'],
+        sourceType: ['camera'],
+        success: function(res) {
+
+          // const tempFilePaths = res.tempFilePaths
+          that.setData({
+            imageFilePaths: res.tempFilePaths
+          })
+
+        },
+      })
+
+    }
+
+    ,
+  sendDialog: function(event) {
+    var that = this;
+    var url = config.requestUrl;
+
+    var requirementId = '1533134736777395';
+    var timestamp = that.data.timestamp;
+    var userType = that.data.userType;
+
+    //  /**1:消费者 0：商户 */
+    var cUserId = '';
+    var sUserId = '';
+    if (userType == '1') {
+      cUserId = that.data.ouserid;
+      sUserId = that.data.userInfo.id;
+
+    }
+    if (userType == '0') {
+      cUserId = that.data.userInfo.id;
+      sUserId = that.data.ouserid;
+
+    }
+
+    var content = that.data.inputValue;
+    var dialogType = '0';
+    var userId = that.data.userInfo.id;
+    var voiceDuration = '';
+    var customDialogId = that.data.dialogInfoId;
+    var spuId = that.data.spuId;
+    var promotionId = that.data.promotionId;
+
+    var data = {
+      code_: 'x_sendDialog',
+      requirement_id: requirementId,
+      timestamp: timestamp,
+      user_type: userType,
+      c_user_id: cUserId,
+      s_user_id: sUserId,
+      content: encodeURIComponent(content),
+      dialog_type: dialogType,
+      user_id: userId,
+      voice_duration: voiceDuration,
+      custom_dialog_id: customDialogId,
+      spu_id: spuId,
+      promotion_id: promotionId,
+
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+        var mgmtStatus = rdata.info.mgmtStatus;
+        // rMap.put("mgmtMsg", "");
+        // rMap.put("mgmtStatus", 0);
+        // rMap.put("dialogDetailIds", "");
+        if (mgmtStatus == '1') {
+
+          wx.showToast({
+            title: rdata.info.mgmtMsg,
+            image: '/image/icon_warn.png',
+            duration: 2000,
+            success: function() {
+
+            }
+          })
+
+        } else {
+
+          var dialogDetailList = that.data.dialogDetailList;
+
+          var newInfo = {
+            dialog_type: 0,
+            content: content,
+            user_id: userId
+          }
+          dialogDetailList.push(newInfo);
+          that.setData({
+            'dialogDetailList': dialogDetailList,
+            'inputValue': ''
+          })
+
+
+          that.setData({
+            scrollTop: 1000 * dialogDetailList.length
+          });
+
+        }
       }
     })
 
 
   },
 
-  imageYl: function (event) {
+
+  attachment: function(event) {
+    var that = this
+    var clicklx = event.currentTarget.dataset.lx;
+    var clickcode = event.currentTarget.dataset.code;
+    var isHtml = event.currentTarget.dataset.html
+    rUtils.slideModal.up(that, clicklx, true);
+
+    that.setData({
+      'panelPage.isHtml': isHtml,
+    })
+
+    if (clicklx == 'attachment') { //匹配模板
+
+    }
+
+  },
+
+
+  imageYl: function(event) {
 
     var src = event.currentTarget.dataset.src; //获取data-src
-     
+
     var imgList = new Array();
     imgList.push(src)
     //图片预览

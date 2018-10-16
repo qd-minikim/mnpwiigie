@@ -1,3 +1,4 @@
+var config = require('../config.js')
 //对外请求公共方法
 function connectSocket(url, paramdata, that, callback) {
   url = url || config.requestUrl;

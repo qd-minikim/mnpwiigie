@@ -1,84 +1,88 @@
 <!--page/component/pages/pagedialog/pagedialog.wxml-->
 
-<view class='container'>
+<import src="../../../common/pages/pageattach/pageattach.wxml" />
 
 
-  <view class='view-1'>
-    <view class='view-1-1 align-center' style='display:flex;flex-direction:row;  '>
-      <view class='view-1-1-line'></view>
-      <view class='' style='display:flex;flex-direction:row;  '>
-        <view class='' style='white-space: nowrap'>您正在与</view>
-        <view class='view-ellipsis-1'>张三张三张三张三张三张三</view>
-        <view class='' style='white-space: nowrap'>进行沟通</view>
-      </view>
-      <view class='view-1-1-line'></view>
+<view class='container' bindtap='cancleattach'>
+
+  <view class='view-1-1 align-center' style='display:flex;flex-direction:row;  '>
+    <view class='view-1-1-line'></view>
+    <view class='' style='display:flex;flex-direction:row;  '>
+      <view class='' style='white-space: nowrap'>您正在与</view>
+      <view class='view-ellipsis-1'>{{onickname}}</view>
+      <view class='' style='white-space: nowrap'>进行沟通</view>
     </view>
+    <view class='view-1-1-line'></view>
+  </view>
 
-    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" class="view-1-2-scoll" wx:key=''>
-      <block wx:for="{{dialogDetailList}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+  <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style='height:{{scrollHeight}}px' class="view-1-2-scoll" wx:key='' scroll-into-view="target" scroll-with-animation="true">
 
-        <block wx:if="{{item.user_id ==userInfo.id}}">
-          <!-- 自己 -->
-          <view class='view-1-2-right'>
-            <view class='page_row  ' style='display:flex;flex-direction:row;margin-top:10rpx'>
-              <view wx:if="{{item.dialog_type =='0'}}" class='align-right' style='width:{{dialogCofig.width}}px'>
-                <view style='flex:1'></view>
-                <text class='view-1-2-right-text' style='text-align:left'>{{item.content}}</text>
-              </view>
+    <block wx:for="{{dialogDetailList}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
-              <image bindtap='imageYl' wx:if="{{item.dialog_type =='1'}}" src='{{item.content}}' class='view-1-2-image-right' data-src='{{item.content}}'></image>
-              <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-my'></view>
-              <image class='view-1-2-image' src='../../../../image/head-test.jpg'></image>
-              <image class='view-1-2-image' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
+      <block wx:if="{{item.user_id ==userInfo.id}}">
+        <!-- 自己 -->
+        <view class='view-1-2-right'>
+          <view class='page_row  ' style='display:flex;flex-direction:row;margin-top:10rpx'>
+            <view wx:if="{{item.dialog_type =='0'}}" class='align-right' style='width:{{dialogCofig.width}}px'>
+              <view style='flex:1'></view>
+              <text class='view-1-2-right-text' style='text-align:left'>{{item.content}}</text>
             </view>
 
-          </view>
-        </block>
-
-        <block wx:else>
-          <!-- 对方 -->
-          <view class='view-1-2-left'>
-            <view class='page_row' style='display:flex;flex-direction:row;margin-top:10rpx'>
-              <image class='view-1-2-image' src='../../../../image/head-test.jpg'></image>
-             <image bindtap='imageYl' wx:if="{{item.dialog_type =='1'}}" src='{{item.content}}' class='view-1-2-image-left' data-src='{{item.content}}'></image>
-              <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-you'></view>
-
-              <view wx:if="{{item.dialog_type =='0'}}" class='align-left' style='width:{{dialogCofig.width}}px'>
-
-                <text class='view-1-2-left-text' style='text-align:left'>{{item.content}}</text>
-                <view style='flex:1'></view>
-              </view>
-
-              <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>
+          <view wx:if="{{item.dialog_type =='1'}}" class='align-right' style='width:{{dialogCofig.width}}px'>
+              <view style='flex:1'></view>
+                <image catchtap='imageYl'   src='{{item.content}}' class='view-1-2-image-right' data-src='{{item.content}}'></image>
             </view>
+ 
+            <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-my'></view>
+            <image class='view-1-2-image' src='{{userWxInfo.avatarUrl}}'></image>
+            <image class='view-1-2-image' wx:if='{{item.show_rignt == "是自己的内容，显示在右边，右边渲染 nickname_open，head_open"}}' src='{{item.head_open}}'></image>
           </view>
-        </block>
 
-
-
-
+        </view>
       </block>
 
+      <block wx:else>
+        <!-- 对方 -->
+        <view class='view-1-2-left'>
+          <view class='page_row' style='display:flex;flex-direction:row;margin-top:10rpx'>
+            <image class='view-1-2-image' src='{{ousericon}}'></image>
+            <image catchtap='imageYl' wx:if="{{item.dialog_type =='1'}}" src='{{item.content}}' class='view-1-2-image-left' data-src='{{item.content}}'></image>
+            <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-you'></view>
+
+            <view wx:if="{{item.dialog_type =='0'}}" class='align-left' style='width:{{dialogCofig.width}}px'>
+
+              <text class='view-1-2-left-text' style='text-align:left'>{{item.content}}</text>
+              <view style='flex:1'></view>
+            </view>
+
+            <image wx:if='{{item.is_img}}' src='http://sz800800.cn/Uploads/{{item.content}}' class='new_imgtent'></image>
+          </view>
+        </view>
+      </block>
+
+    </block>
 
 
+  </scroll-view>
 
 
-
-
-
-
-    </scroll-view>
-
-
-
-  </view>
+<!--隐藏区域  -->
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
+  <scroll-view class="{{panelPage.panelPageTop?'choose_top':'choose' }} font-size-4" wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
+     
+    <block wx:if="{{ panelPage.chooseType=='attachment'}}">
+      <view class='choose_view'>
+        <template is="pageattach" data="{{panelPage}}" />
+      </view>
+    </block>
+  </scroll-view>
 
 
   <view class='view-2 flex-bottom'>
     <view class='view-2-1 align-r-center '>
-      <input class='view-2-1-input' placeholder='发送信息'></input>
-      <button class='view-2-1-button' catchtap="add">发送</button>
-      <image bindtap="upimg1" class='view-2-1-image-ja' src='../../../../image/figure_13.png'></image>
+      <input bindinput="bindKeyInput" maxlength='200' class='view-2-1-input' placeholder='发送信息' value='{{inputValue}}'></input>
+      <button class='view-2-1-button' catchtap="sendDialog">发送</button>
+      <image catchtap="upimg1" class='view-2-1-image-ja' src='../../../../image/figure_13.png' catchtap='attachment' data-lx='attachment' data-code='' data-html='false'></image>
     </view>
 
   </view>

@@ -60,7 +60,7 @@
 					"id": 3,
 					"name": "对话",
 					"pathName": "page/component/pages/pagedialog/pagedialog",
-					"query": "type=0"
+					"query": "type=1"
 				},
 				{
 					"id": 4,
