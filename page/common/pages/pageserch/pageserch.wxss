@@ -1,0 +1,40 @@
+/* page/common/pages/pageserch/pageserch.wxss */
+
+.pageserch-view-1 {
+  flex-direction: column;
+  display: flex;
+  margin-top:5rpx;
+  margin-bottom: 5rpx;
+}
+
+.pageserch-view-1-1 {
+  flex-direction: row;
+  display: flex;
+}
+.pageserch-view-1-1-1 {
+  width:60px;height:60px
+}
+.pageserch-view-1-1-2 {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  margin: 5rpx 10rpx;
+}
+
+.pageserch-view-1-4 {
+  flex-direction: row;
+  display: flex;
+}
+
+.pageserch-view-1-4-figure {
+  width: 30rpx;
+  height: 30rpx;
+}
+.pageserch-view-1-1-1-f-image{
+
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+ 

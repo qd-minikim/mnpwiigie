@@ -25,7 +25,9 @@
         "pages/pagegift/giftdeta/giftdeta",
         "pages/pagegift/giftgivelist/giftgivelist",
         "pages/pageorder/pageorder",
-        "pages/pagegift/giftorder/giftorder"
+        "pages/pagegift/giftorder/giftorder",
+        "pages/pageserch/serchlist/serchlist",
+        "pages/pageserch/serchmoref/serchmoref"
       ]
     }
   ],

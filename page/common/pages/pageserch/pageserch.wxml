@@ -1,0 +1,59 @@
+<!--page/common/pages/pageserch/pageserch.wxml-->
+
+<template name="pageserch">
+
+  <block wx:for="{{serchListA}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+
+    <block wx:if="{{inde>0}}">
+      <view class="gap-line" style="flex-direction:column;"></view>
+    </block>
+    <view class='pageserch-view-1'  catchtap='serchShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view class='pageserch-view-1-1'>
+        <view class='pageserch-view-1-1-1 '>
+          <image style='width:60px;height:60px' mode='scaleToFill' src='{{item.theme_img_url}}'></image>
+        </view>
+        <view class='pageserch-view-1-1-2 '>
+          <view class='font-size-4'>{{item.merchant_brand_name_des}}</view>
+
+          <block wx:if="{{item.deal_type =='0'}}">
+            <view class='font-size-6 font-color-7'>{{item.deal_type_name}}</view>
+
+
+          </block>
+          <block wx:else>
+            <view class='font-size-6 font-color-4'>门市价：￥{{item.list_price}}</view>
+
+          </block>
+          <block wx:if="{{item.deal_type !='0'}}">
+            <view class='font-size-6 font-color-7'>{{item.link_price_name}}:{{item.link_discount}}</view>
+          </block>
+        </view>
+      </view>
+      <view class='view-ellipsis-1  font-size-4'>{{item.title}}</view>
+      <view style='flex-direction:row;display:flex; '>
+        <view class='font-size-6 font-color-4' style='width:5em'>驻足好友：</view>
+        <view class='font-size-6 font-color-4' style='flex-direction:row;display:flex;flex:1'>
+          <block wx:for="{{item.my_friends}}" wx:key="" wx:for-index="indexf" wx:for-item="itemf">
+
+            <image class="pageserch-view-1-1-1-f-image" src='{{itemf.friend_image_url}}'></image>({{item.my_friends_num}}人)
+          </block>
+        </view>
+      </view>
+      <view class='pageserch-view-1-4 '>
+        <view class='font-size-6 font-color-4' style='flex:1'>活动截止：{{item.deadlinetime}}</view>
+        <view class='align-right' style='flex-direction:row;display:flex;'>
+          <view class='font-size-7 font-color-4' style='width:100rpx'>
+            <image class='pageserch-view-1-4-figure' src='/image/figure_29.png'></image>{{item.zfnum}}
+          </view>
+          <view class='font-size-7 font-color-4' style='width:100rpx'>
+            <image class='pageserch-view-1-4-figure' src='/image/figure_31.png'></image>{{item.evaluate_num}}
+          </view>
+          <view class='font-size-7 font-color-4' style='width:100rpx'>
+            <image class='pageserch-view-1-4-figure' src='/image/figure_30.png'></image>{{item.all_copies}}
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </block>
+</template>

@@ -82,9 +82,9 @@ Page({
   homeSerarch: function() {
 
     wx.navigateTo({
-      url: "/page/component/pages/pagewait/pagewait"
+      url: "/page/component/pages/pageserch/serchlist/serchlist"
     })
-
+    
   },
   //通知
   homeNotice: function() {

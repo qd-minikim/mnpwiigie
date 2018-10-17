@@ -1,0 +1,106 @@
+/* page/component/pages/pageserch/serchlist/serchlist.wxss */
+ 
+@import "../../../../common/pages/pageserch/pageserch.wxss";
+.serchlist-view-1 {
+  flex-direction: row;
+  display: flex;
+  height: 60rpx;
+  width: 95%;
+}
+
+.serchlist-view-1-1 {
+  flex: 1;
+  position: relative;
+}
+
+.serchlist-view-1-1-figure {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: 10rpx;
+  top: 10rpx;
+}
+
+.serchlist-view-1-1-input {
+  padding-left: 55rpx;
+  border: 1rpx solid #f7f7f7;
+  border-radius: 15rpx;
+  height: 60rpx;
+}
+
+.serchlist-view-figure {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.serchlist-view-2 {
+  width: 95%;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  margin-top: 40%;
+}
+
+.serchlist-view-figure-2 {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.serchlist-view-3 {
+  flex-direction: column;
+  display: flex;
+  width: 95%;
+}
+
+.serchlist-view-3-friend {
+  flex-direction: column;
+  display: flex;
+  margin-bottom: 5rpx;
+  margin-top: 5rpx;
+}
+
+.serchlist-view-3-friend-1 {
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+}
+
+.serchlist-view-3-friend-1-userimage {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+}
+
+.serchlist-view-3-friend-2 {
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  margin-bottom: 5rpx;
+  margin-top: 5rpx;
+}
+
+.serchlist-view-3-friend-2-1 {
+  flex-direction: column;
+  display: flex;
+  position: relative;
+}
+
+.serchlist-view-3-friend-2-1-1 {
+  position: absolute;
+  top: 5rpx;
+  right: 15rpx;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10rpx;
+  padding: 3rpx 5rpx;
+}
+
+.serchlist-view-3-active {
+  flex-direction: column;
+  display: flex;
+  margin-bottom: 5rpx;
+  margin-top: 5rpx;
+}
+
+

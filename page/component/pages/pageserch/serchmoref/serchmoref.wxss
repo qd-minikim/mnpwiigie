@@ -1,0 +1,14 @@
+/* page/component/pages/pageserch/serchmoref/serchmoref.wxss */
+@import "../../../../common/pages/pageserch/pageserch.wxss";
+.serchmoref-view-1 {
+  flex-direction: column;
+  display: flex;
+  width: 95%;
+}
+.serchmoref-view-1-active {
+  flex-direction: column;
+  display: flex;
+  margin-bottom: 5rpx;
+  margin-top: 5rpx;
+}
+
