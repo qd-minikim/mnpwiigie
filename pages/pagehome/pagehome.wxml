@@ -9,17 +9,17 @@
         <image class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
       </block>
       <block wx:else>
-        <image bindtap="bindViewTap" class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
+        <image   class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
       </block>
     </view>
 
-    <view class="home-1-s font-size-5" bindtap='homeSerarch'>
+    <view class="home-1-s font-size-5" catchtap='homeSerarch'>
       {{defaultInfo.searchHolder}}
     </view>
 
-    <view class='home-1-a' style="flex-direction:column" bindtap='homeNotice'>
+    <view class='home-1-a' style="flex-direction:column" catchtap='homeNotice'  >
       <view class='home-1-a-v align-center'>
-        <image bindtap="bindViewTap" class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
+        <image  class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
       </view>
       <view class='home-1-a-t font-size-5 align-center'>
         <text>{{defaultInfo.askText}}</text>

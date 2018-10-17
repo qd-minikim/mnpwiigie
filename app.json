@@ -38,6 +38,10 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+ 
+"selectedColor": "#00c003",
+"backgroundColor": "#ffffff",
+"borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/pagehome/pagehome",

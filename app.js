@@ -25,10 +25,10 @@ App({
 
     tabbarHeight: 120, //pagetabbar.wxss 同步修改
     tabbar: {
-      // color: "#000000",
-      selectedColor: "#00c003",
-      // backgroundColor: "#ffffff",
-      // borderStyle: "black",
+      "color": "#000000",
+      "selectedColor": "#00c003",
+        "backgroundColor": "#ffffff",
+        "borderStyle": "black",
       "list": [{
           "pagePath": "/pages/pagehome/pagehome",
           "text": "好友冰鉴",

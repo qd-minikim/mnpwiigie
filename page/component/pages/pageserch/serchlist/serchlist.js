@@ -18,7 +18,7 @@ Page({
     serchListA: [],
 
     isList: false,
-
+    isListMsg:'在这里您可以检索您想要的',
 
     serchListFRSize:{
       width:0,
@@ -115,8 +115,21 @@ Page({
   },
   bindKeyInput: function(event) {
     this.setData({
-      serchInputValue: event.detail.value
+      serchInputValue: event.detail.value,
+     
     })
+    var value = event.detail.value, len = parseInt(value.length);
+    if (len == 0){
+      this2.setData({
+        'serchListF': [],
+        'serchListA': [],
+        'isList': false,
+        'isListMsg': '在这里您可以检索您想要的',
+      })
+    }
+
+   
+
   },
   showDetail: function (event){
 
@@ -160,8 +173,8 @@ Page({
  
     var url = config.requestUrl;
 
-    // var userid = that.data.userInfo.id;
-    var userid = '1528869953018820';
+      var userid = that.data.userInfo.id;
+     
     // var search = '冯';
     var data = {
       code_: 'x_getSerchInfo',
@@ -179,12 +192,14 @@ Page({
         'serchListF': [],
         'serchListA': [],
         'isList': false,
+        'isListMsg': '很抱歉没有检索到您要找的',
       })
-
+    
       if (rdata.info.serchListIdinfo_1) {
         that.setData({
           'serchListF': rdata.info.serchListIdinfo_1,
           'isList': true,
+          'isListMsg': '',
         })
         var requirementArr = [];
         for (let x = 0; x < rdata.info.serchListIdinfo_1.infolist.length; x++) {
@@ -221,8 +236,12 @@ Page({
 
           'serchListA': rdata.info.serchListIdinfo_2,
           'isList': true,
+          'isListMsg': '',
         })
       }
+    
+ 
+
 
       wx.hideLoading();
     })
