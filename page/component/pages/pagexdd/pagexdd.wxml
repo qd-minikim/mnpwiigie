@@ -395,11 +395,11 @@
       </view>
       <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
     </view>
-    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' bindtap='order'>
+    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'  >
 
       <view class='font-size-3'>下单</view>
     </view>
-    <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%'>
+    <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
 
       <view class='font-size-3'>送礼</view>
     </view>

@@ -149,6 +149,7 @@
    slideModal: slideModal,
  
    timerDown: timerDown,
+
    // filters: filters,
    // toFix: filters.toFix
  }

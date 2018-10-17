@@ -419,6 +419,12 @@ Page({
       })
     }
 
+    if (orderType == '3') {//1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftorder/giftorder',
+      })
+    }
+
 
   },
 
@@ -737,6 +743,19 @@ Page({
     })
 
 
-  }
+  },
+
+  gift: function () {
+
+    var that = this
+
+    var isHtml = false
+    rUtils.slideModal.up(that, 'sku', true);
+    that.setData({
+      'myOrderInfo.orderType': 3, //1选择2:下单拦截选择  3:送礼拦截选择
+    })
+
+
+  },
 
 })

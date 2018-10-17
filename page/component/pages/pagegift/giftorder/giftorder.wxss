@@ -1,0 +1,34 @@
+/* page/component/pages/pagegift/giftorder/giftorder.wxss */
+
+.giftorder-view-1 {
+   width: 95%;  
+  flex-direction: column;
+  display: flex;
+  margin-bottom: 10rpx;
+ 
+}
+.giftorder-view-1-1 {
+   width: 100%;
+ flex-direction: row;
+  display: flex;
+}
+.giftorder-view-row {
+  flex-direction: row;
+  display: flex;
+  margin: 8rpx 0;
+}
+.giftorder-view-title {
+   width: 5rem;
+}
+.giftorder-view-2 {
+    width: 95%;
+  flex-direction: column;
+  display: flex;
+}
+
+.giftorder-view-1-textarea{
+   height: 5em ;
+   border:1rpx solid #f7f7f7;
+   border-radius: 5rpx;
+   padding: 5rpx 3rpx
+}
