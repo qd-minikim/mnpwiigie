@@ -27,14 +27,12 @@
     </view>
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
-
-
-
+ 
   <view class="home-2" style="flex-direction:column;">
-    <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}">
+    <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}" style='height:96px' class='align-center'>
       <block wx:for="{{defaultInfo.swiperImgUrls}}" wx:key="*this">
         <swiper-item>
-          <image src='{{item}}' style='width:100%;height:100'></image>
+          <image src='{{item}}' mode='widthFix' style='height:100%;width:100%'></image>
         </swiper-item>
       </block>
     </swiper>

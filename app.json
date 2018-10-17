@@ -6,7 +6,6 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-   
   ],
   "subPackages": [
     {
@@ -38,10 +37,9 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
- 
-"selectedColor": "#00c003",
-"backgroundColor": "#ffffff",
-"borderStyle": "black",
+    "selectedColor": "#00c003",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/pagehome/pagehome",
