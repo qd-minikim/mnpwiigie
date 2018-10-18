@@ -20,7 +20,7 @@
 .view-1-2-scoll {
   height: 100%;
   margin-top: 15px;
-  margin: 10px;
+  margin: 5px 0;
   font-size: 14px;
   line-height: 40px;
   word-break: break-all;
@@ -29,11 +29,13 @@
 .view-1-2-right {
   float: right;
   position: relative;
-  right: 40rpx;
+  right: 10rpx;
+  margin-top:10rpx;
+
 }
 
 .view-1-2-sanjiao {
-  top: 30rpx;
+  top: 20rpx;
   position: relative;
   width: 0px;
   height: 0px;
@@ -50,23 +52,24 @@
 }
 
 .view-1-2-image {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10%;
 }
 
 .view-1-2-left {
   float: left;
   position: relative;
-  left: 5rpx;
+  left: 10rpx;
+ margin-top:10rpx;
 }
 .view-1-2-right-text {
      
  
   border-radius: 7px;
   background-color: #35f56f;
-  padding: 15rpx 15rpx 15rpx 15rpx;
-  line-height: 50rpx;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  line-height: 60rpx;
 }
 .view-1-2-left-text {
      

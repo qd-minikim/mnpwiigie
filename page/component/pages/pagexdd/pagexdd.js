@@ -13,6 +13,9 @@ Page({
     /**传递的参数 */
     requirementId: '',
     upmarkid: '',
+    /**初始化时的数据 */
+    initDetail: {},
+    ///**{markid:'',upmarkid:'',fmarkid:''} */
 
     requirementInfo: {},
     richtextInfo: {
@@ -25,14 +28,14 @@ Page({
 
     },
     /**转发蒙板 */
-    pagemask:{
+    pagemask: {
       isForward: false,
-      msgTitle:'',
+      msgTitle: '',
       msgTitleColor: '',
       msgDesc: '',
       msgDescColor: '',
     },
-    
+
 
     keepinfo: {
       keepstatus: '/image/keep_off.png',
@@ -136,6 +139,8 @@ Page({
       'upmarkid': options.m
     })
 
+    this.getInitDetail()
+
     this.getRequirementKeepInfo()
     this.getProgressRouteInfo()
 
@@ -217,14 +222,20 @@ Page({
    */
   onShareAppMessage: function() {
 
-    return{
-      title: '转发',
-      path:'',
-      imageUrl:'/image/goods-test.jpg',
-      success:function(){
+
+    var that = this;
+    var title = that.data.requirementInfo.wxdescription;
+    var fm = that.data.initDetail.fmarkid;;
+    var r = that.data.requirementId;
+    return {
+      title: title,
+      path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
+      imageUrl: '/image/goods-test.jpg',
+      success: function() {
+
 
       },
-      fail: function () {
+      fail: function() {
 
       }
 
@@ -433,17 +444,17 @@ Page({
     pagekskujs.selectSpuSku.sureBtn(that)
 
     that.hideSlideModal();
- 
+
 
     var orderType = that.data.myOrderInfo.orderType;
 
-    if (orderType == '2') {//1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+    if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       wx.navigateTo({
         url: '/page/component/pages/pageorder/pageorder',
       })
     }
 
-    if (orderType == '3') {//1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+    if (orderType == '3') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       wx.navigateTo({
         url: '/page/component/pages/pagegift/giftorder/giftorder',
       })
@@ -643,6 +654,32 @@ Page({
 
     })
   },
+  /**详情页初始化 */
+  getInitDetail: function() {
+      var that = this
+      var usreId = that.data.userInfo.id;
+      var requirementid = that.data.requirementId;
+      var upmarkid = that.data.upmarkid;
+      var url = config.requestUrl
+      var data = {
+        code_: 'x_initDetail',
+        m: upmarkid,
+        r: requirementid,
+        u: usreId,
+      }
+      rRequest.doRequest(url, data, that, function(rdata) {
+
+        if (rdata.info) {
+          that.setData({
+            'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:''} */
+          })
+
+        }
+      })
+
+    }
+
+    ,
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
     var that = this
@@ -756,10 +793,10 @@ Page({
     })
   },
 
-  order:function(){
+  order: function() {
 
     var that = this
-    
+
     var isHtml = false
     rUtils.slideModal.up(that, 'sku', true);
     that.setData({
@@ -769,7 +806,7 @@ Page({
 
   },
 
-  gift: function () {
+  gift: function() {
 
     var that = this
 
@@ -782,21 +819,77 @@ Page({
 
   },
 
-/**转发蒙板 */
-  forwardfriend:function(){
+  /**转发蒙板 */
+  forwardfriend: function() {
     this.setData({
       'pagemask.isForward': true,
       'pagemask.msgTitle': '请点击右上角,选择【发送给朋友】以便进行链购优享'
     })
-    
+
   },
-  closeforwardfriend: function () {
+  closeforwardfriend: function() {
     this.setData({
       'pagemask.isForward': false,
       'pagemask.msgTitle': ''
     })
 
   }
+  ,
+  /**首页 */
+  homepage:function(){
+
+    wx.switchTab({
+      url: '/pages/pagehome/pagehome',
+    })
+
+  },
+  /**客服聊天 */
+  customerpage: function () {
+    var r = this.data.requirementId;
+       /**type = 1:消费者 0：商户 */
+    wx.navigateTo({
+      url: '/page/component/pages/pagedialog/pagedialog?type=1&r=' + r,
+    })
+
+  },
+
+  /**转发成功 */
+  forwardSuccess:function(){
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;
+    var upmarkid = that.data.initDetail.upmarkid;
+    var markid = that.data.initDetail.markid;
+
+    var data = {
+      code_: 'x_addForward',
+      userid: userid,
+      requirement_id: requirementId,
+      upmarkid: gr,
+      markid: gr,
+
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+ 
+
+    })
+
+  }
+  ,
+  /**我要说 */
+  addopinion:function(event){
+    var requirementId = this.data.requirementId;
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/pageopin?r=' + requirementId,
+    })
+
+
+  }
+    // initDetail: {},
+    ///**{markid:'',upmarkid:'',fmarkid:''} */
+
   //   pagemask: {
   //   isForward: false,
   //   msgTitle: '',

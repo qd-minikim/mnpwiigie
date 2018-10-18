@@ -12,6 +12,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    /**传递参数 */
+    requirementId: '',
+    userType: 1,//1:消费者 0：商户
+
+
 
     dialogInfoId: '',
     timestamp: '',
@@ -27,11 +32,7 @@ Page({
     /**图片文件 */
 
     dialogDetailList: [],
-    /**1:消费者 0：商户 */
-    userType: 1,
-
-
-
+   
     dialogCofig: {
       width: 0
     },
@@ -74,18 +75,16 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
+
+  
     this.setData({
 
-      'userInfo.id': '1528869953018820',
+        'requirementId': options.r,
+         'userType': options.type,
     })
 
     this.createSocket()
-
-    this.setData({
-      userType: options.type,
-
-    })
-
+ 
 
     this.getDialogInfo()
 
@@ -99,13 +98,14 @@ Page({
     var windowWidth = app.globalData.systemInfo.windowWidth
     var windowHeight = app.globalData.systemInfo.windowHeight
     var percent = windowWidth / 750
-    var scrollHeight = windowHeight - app.globalData.bottomBtnHeight * percent - 25
+    var scrollHeight = windowHeight - app.globalData.bottomBtnHeight * percent - 20
     this.setData({
       'dialogCofig.width': windowWidth * 0.60,
       'scrollHeight': scrollHeight,
       'panelPage.maskPanWidth': windowWidth
     })
 
+    wx.hideShareMenu();
   },
 
   /**
@@ -161,8 +161,9 @@ Page({
     var that = this;
     var url = config.requestUrl;
     var userId = that.data.userInfo.id;
-    // var userId = '1528869953018820';
-    var requirementId = '1533134736777395';
+ 
+    var requirementId = that.data.requirementId;
+    
     var customDialogId = '1533134875012282'; //商户时 存在
     var userType = that.data.userType;
     var data = {
@@ -247,8 +248,8 @@ Page({
           imageFilePaths: res.tempFilePaths
         })
 
-
-        var requirementId = '1533134736777395';
+        var requirementId = that.data.requirementId;
+        
         var timestamp = that.data.timestamp;
         var userType = that.data.userType;
 
@@ -356,7 +357,7 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var requirementId = '1533134736777395';
+    var requirementId = that.data.requirementId;
     var timestamp = that.data.timestamp;
     var userType = that.data.userType;
 
@@ -375,6 +376,19 @@ Page({
     }
 
     var content = that.data.inputValue;
+
+    if(content == ''){
+ 
+      wx.showToast({
+        title: '发送信息不能为空',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function () { }
+      })
+      return false;
+    }
+
+
     var dialogType = '0';
     var userId = that.data.userInfo.id;
     var voiceDuration = '';

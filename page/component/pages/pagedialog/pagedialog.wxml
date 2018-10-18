@@ -18,7 +18,7 @@
   <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style='height:{{scrollHeight}}px' class="view-1-2-scoll" wx:key='' scroll-into-view="target" scroll-with-animation="true">
 
     <block wx:for="{{dialogDetailList}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-
+ 
       <block wx:if="{{item.user_id ==userInfo.id}}">
         <!-- 自己 -->
         <view class='view-1-2-right'>

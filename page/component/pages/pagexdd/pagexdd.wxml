@@ -58,13 +58,15 @@
         </block>
       </swiper>
     </view>
+     <!-- 描述 -->
     <view class='view-4 align-center'>
-      <view class='view-4-1 font-size-6'>{{spuInfo.spuinfo.description}}</view>
+      <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
+     <!--微信传播描述 -->
     <view class='view-5 align-center'>
-      <view class='view-5-1 font-size-6 font-color-11'>{{requirementInfo.wxdescription}}</view>
+      <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
     </view>
     <view class="gap-line" style="flex-direction:column;"></view>
 
@@ -284,7 +286,7 @@
         </view>
         <view style='height100%'>朋友态度:</view>
         <view class='view-ellipsis-1' style='flex:1'></view>
-        <view class='align-center font-color-5'>
+        <view class='align-center font-color-5' catchtap='addopinion'>
           我要说
         </view>
 
@@ -385,14 +387,14 @@
   </scroll-view>
 
   <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
-    <view class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>
+    <view catchtap='homepage' class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>
       <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
         <image class='bottom-view-1-image' src='/image/home_0.png'></image>
       </view>
       <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>首页</view>
     </view>
 
-    <view class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+    <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
       <view class='bottom-view-1 align-c-center'>
         <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
       </view>
