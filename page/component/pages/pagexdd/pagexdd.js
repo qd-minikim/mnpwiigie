@@ -10,6 +10,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    backpage:'',/**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
+
     /**传递的参数 */
     requirementId: '',
     upmarkid: '',
@@ -60,7 +63,7 @@ Page({
     opinionInfo: {
       dataInfo: [],
       pageSize: 5,
-
+      allrows:0
     },
 
     pagePard: {
@@ -187,6 +190,18 @@ Page({
    */
   onShow: function() {
 
+
+    var backpage = this.data.backpage;
+
+    if (backpage =='opinion'){
+
+      this.getOpinionInfo()
+    }
+
+    this.setData({
+      'backpage': 'opinion',
+    })
+    //
   },
 
   /**
@@ -308,10 +323,13 @@ Page({
 
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;;
+    var pageSize = that.data.opinionInfo.pageSize;
+  
+
     var data = {
       code_: 'x_getOpinionList',
       endRow: 0,
-      itemsPerPage: 10,
+      itemsPerPage: pageSize,
       userid: userid,
       requirementId: requirementId,
     }
@@ -320,8 +338,8 @@ Page({
       if (rdata.info) {
 
         that.setData({
-          'opinionInfo.dataInfo': rdata.info,
-
+          'opinionInfo.dataInfo': rdata.info.infolist,
+          'opinionInfo.allrows': rdata.info.allrows,
         })
       }
     })
@@ -882,19 +900,21 @@ Page({
   addopinion:function(event){
     var requirementId = this.data.requirementId;
     wx.navigateTo({
-      url: '/page/component/pages/pageopin/pageopin?r=' + requirementId,
+      url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
     })
-
-
-  }
-    // initDetail: {},
-    ///**{markid:'',upmarkid:'',fmarkid:''} */
-
-  //   pagemask: {
-  //   isForward: false,
-  //   msgTitle: '',
-  //   msgTitleColor: '',
-  //   msgDesc: '',
-  //   msgDescColor: '',
-  // },
+    this.setData({
+      'backpage': 'opinion',
+    })
+  },
+  /**更多朋友说 */
+  moreopinion: function (event) {
+    var requirementId = this.data.requirementId;
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
+    })
+    // this.setData({
+    //   'backpage': 'opinion',
+    // })
+  },
+ 
 })

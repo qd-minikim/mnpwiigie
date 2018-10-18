@@ -1,3 +1,4 @@
+<!--page/component/pages/pageopin/opinadd/opinadd.wxml-->
 <!-- 朋友说 -->
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <view class='view-0'>

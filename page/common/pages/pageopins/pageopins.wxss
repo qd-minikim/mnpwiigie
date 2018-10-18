@@ -1,0 +1,7 @@
+/* page/common/pages/pageopins/pageopins.wxss */
+
+.pageopins-view-8-2-1-1-1-image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}

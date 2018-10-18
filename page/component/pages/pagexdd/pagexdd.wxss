@@ -1,5 +1,6 @@
 /* page/component/pages/pagexdd/pagexdd.wxss */
 @import "../../../common/pages/pagesku/pagesku.wxss";
+@import "../../../common/pages/pageopins/pageopins.wxss";
 /* 标题块 */
 
 .view-1 {

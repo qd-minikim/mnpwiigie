@@ -1,8 +1,6 @@
-// page/component/pages/pageopin/pageopin.js
-
-
-var config = require('../../../../config.js');
-var rRequest = require('../../../../utils/rRequest.js');
+// page/component/pages/pageopin/opinadd/opinadd.js
+var config = require('../../../../../config.js');
+var rRequest = require('../../../../../utils/rRequest.js');
 const app = getApp()
 Page({
 
@@ -32,7 +30,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (app.globalData.userWxInfo) {
       this.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -52,83 +50,82 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
-  getInitOpinion: function() {
+  getInitOpinion: function () {
 
-      var that = this;
-      var url = config.requestUrl;
+    var that = this;
+    var url = config.requestUrl;
 
-      var userid = that.data.userInfo.id;
-      var requirementId = that.data.requirementId;
-      // var userid = '';
-      // var requirementId = '1529296099516208';
-      var data = {
-        code_: 'x_getInitOpinion',
-        userid: userid,
-        requirementid: requirementId,
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;
+
+    var data = {
+      code_: 'x_getInitOpinion',
+      userid: userid,
+      requirementid: requirementId,
 
 
-      }
-      rRequest.doRequest(url, data, that, function(rdata) {
-        if (rdata.info) {
-
-          that.setData({
-
-            'initOpinion': rdata.info
-          })
-        }
-
-      })
     }
+    rRequest.doRequest(url, data, that, function (rdata) {
+      if (rdata.info) {
+
+        that.setData({
+
+          'initOpinion': rdata.info
+        })
+      }
+
+    })
+  }
 
 
-    ,
-  addopinion: function() {
+  ,
+  addopinion: function () {
     var that = this;
     var url = config.requestUrl;
 
@@ -141,7 +138,7 @@ Page({
         title: '请选择您的表态',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function() {}
+        success: function () { }
       })
 
       return false;
@@ -153,16 +150,14 @@ Page({
         title: '请输入您的描述',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function() {}
+        success: function () { }
       })
 
       return false;
     }
 
-
-    var userid = '1528869953018820';
-    var requirementId = '1529296099516208';
-
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;
     var promotionId = that.data.initOpinion.promotionid;
 
     var data = {
@@ -176,19 +171,19 @@ Page({
       images: [],
       voices: []
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    rRequest.doRequest(url, data, that, function (rdata) {
 
       wx.showToast({
         title: '提交成功',
         image: '/image/icon_ok.png',
         duration: 2000,
-        success: function() {
+        success: function () {
 
 
         }
       })
 
-      setTimeout(function() {
+      setTimeout(function () {
         wx.navigateBack({
           delta: 1,
         })
@@ -198,7 +193,7 @@ Page({
 
 
   },
-  selectCode: function(event) {
+  selectCode: function (event) {
 
     var code = event.currentTarget.dataset.code;
 
@@ -209,7 +204,7 @@ Page({
   },
 
   //字数限制
-  bindWordLimit: function(e) {
+  bindWordLimit: function (e) {
     var value = e.detail.value,
       len = parseInt(value.length);
     if (len > this.data.noteMaxLen) return;

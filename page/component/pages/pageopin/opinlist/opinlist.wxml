@@ -1,0 +1,8 @@
+<!--page/component/pages/pageopin/opinlist/opinlist.wxml-->
+<import src="../../../../common/pages/pageopins/pageopins.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+ 
+ <template is="pageopins" data="{{opinionInfo}}" />
+ 
+</view>

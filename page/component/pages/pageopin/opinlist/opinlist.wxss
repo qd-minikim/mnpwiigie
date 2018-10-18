@@ -1,0 +1,7 @@
+/* page/component/pages/pageopin/opinlist/opinlist.wxss */
+@import "../../../../common/pages/pageopins/pageopins.wxss";
+ .view-8-2 {
+  display: flex;
+  flex-direction: column;
+  padding: 2rpx 25rpx;
+}
