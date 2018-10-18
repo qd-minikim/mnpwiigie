@@ -77,7 +77,11 @@ Page({
 
 
   },
+  onReady: function () {
 
+    wx.hideShareMenu()
+
+  },
   //检索
   homeSerarch: function() {
 

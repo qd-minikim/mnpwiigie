@@ -24,6 +24,16 @@ Page({
       isModalShow: false,
 
     },
+    /**转发蒙板 */
+    pagemask:{
+      isForward: false,
+      msgTitle:'',
+      msgTitleColor: '',
+      msgDesc: '',
+      msgDescColor: '',
+    },
+    
+
     keepinfo: {
       keepstatus: '/image/keep_off.png',
     },
@@ -206,6 +216,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+
+    return{
+      title: '转发',
+      path:'',
+      imageUrl:'/image/goods-test.jpg',
+      success:function(){
+
+      },
+      fail: function () {
+
+      }
+
+
+    }
 
   },
 
@@ -758,4 +782,26 @@ Page({
 
   },
 
+/**转发蒙板 */
+  forwardfriend:function(){
+    this.setData({
+      'pagemask.isForward': true,
+      'pagemask.msgTitle': '请点击右上角,选择【发送给朋友】以便进行链购优享'
+    })
+    
+  },
+  closeforwardfriend: function () {
+    this.setData({
+      'pagemask.isForward': false,
+      'pagemask.msgTitle': ''
+    })
+
+  }
+  //   pagemask: {
+  //   isForward: false,
+  //   msgTitle: '',
+  //   msgTitleColor: '',
+  //   msgDesc: '',
+  //   msgDescColor: '',
+  // },
 })

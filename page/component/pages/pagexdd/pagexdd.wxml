@@ -4,12 +4,15 @@
 
 <import src="../../../common/pages/pagesign/pagesign.wxml" />
 <import src="../../../common/pages/pagesku/pagesku.wxml" />
-
+<import src="../../../common/pages/pagemask/pagemask.wxml" />
 
 <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
+<!-- 蒙板 -->
+ <template is="pagemask" data="{{pagemask}}" />
+<!-- 蒙板 -->
 
 <view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
 
@@ -376,7 +379,7 @@
         <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}" />
       </view>
     </block>
-  
+
 
 
   </scroll-view>
@@ -395,7 +398,7 @@
       </view>
       <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
     </view>
-    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'  >
+    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'>
 
       <view class='font-size-3'>下单</view>
     </view>
@@ -403,11 +406,14 @@
 
       <view class='font-size-3'>送礼</view>
     </view>
-    <view class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
+    <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
+
       <view class='bottom-view-1 align-c-center'>
         <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
       </view>
-      <view class='bottom-view-1 align-c-center font-size-4'>推荐给</view>
+      <view class='bottom-view-1 align-c-center font-size-4'>推荐给
+      </view>
+
     </view>
   </view>
 
