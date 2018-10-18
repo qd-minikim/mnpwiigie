@@ -69,7 +69,7 @@ Page({
       'serchListFRSize.height': windowWidth * 0.95 / 3,
       'scrollView.height': scrollViewHeight
     })
-    
+    wx.hideShareMenu();
   },
 
   /**

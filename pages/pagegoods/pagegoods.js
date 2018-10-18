@@ -64,6 +64,7 @@ Page({
 
       scrollViewHeight: (this.data.windowHeight - viewTagHeight-5)+"px"
     })
+    wx.hideShareMenu();
   },
 
   /**

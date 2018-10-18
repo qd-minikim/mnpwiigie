@@ -44,11 +44,7 @@ Page({
         
       },
     })
-    // this.setData({
-    //   userDefAddr:
-    // })
-
-
+ 
     //需要判断是否是自购，还是 送礼
 
    // that.getUserDefAddr() //x_getDefAddr
@@ -58,7 +54,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    wx.hideShareMenu();
   },
 
   /**

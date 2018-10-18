@@ -34,7 +34,7 @@ Page({
     //     url: '/pages/pagehome/pagehome',
     //   })
     // }, 3000);
-
+    wx.hideShareMenu();
   },
 
   /**

@@ -182,7 +182,7 @@ Page({
       'swiperArea.swiperWidth': windowWidth + "px",
       'swiperArea.swiperHeight': windowWidth + "px",
     })
-
+    wx.hideShareMenu();
   },
 
   /**
