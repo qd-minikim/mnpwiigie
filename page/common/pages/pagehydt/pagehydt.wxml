@@ -5,7 +5,7 @@
     <block wx:if="{{index >0}}">
       <view class="gap-line" style="flex-direction:column;"></view>
     </block>
-    <view class="home-5-2" style="flex-direction:row;display:flex;" bindtap='hydtShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+    <view class="home-5-2" style="flex-direction:row;display:flex;"  catchtap='hydtShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
       <view class="home-5-2-1">
         <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
       </view>

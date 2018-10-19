@@ -8,7 +8,7 @@
       <image class='serchlist-view-1-1-figure' src='/image/figure_27.png'></image>
       <input class='serchlist-view-1-1-input' focus='true' maxlength='20' placeholder='检索主题、描述、昵称' bindinput="bindKeyInput"></input>
     </view>
-    <view style='margin:3rpx 15rpx' catchtap='serchInfo'>
+    <view class='align-center' style='margin:3rpx 15rpx' catchtap='serchInfo'>
       <image class='serchlist-view-figure' src='/image/figure_27.png'></image>
     </view>
   </view>
@@ -21,85 +21,88 @@
       </view>
     </view>
   </block>
-  <scroll-view class='serchlist-view-3' style='height:{{scrollView.height}}px'>
-    <block wx:if="{{serchListF.infolist.length >0}}">
-      <view>
-        <view class='font-size-4' style='margin:8rpx 0'>搜索的好友</view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-        <view class='serchlist-view-3-friend '>
 
-          <block wx:for="{{serchListF.infolist}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+  <block wx:if="{{serchListA.infolist.length >0 ||serchListF.infolist.length >0}}">
 
-            <block wx:if="{{inde>0}}">
+    <scroll-view class='serchlist-view-3' style='height:{{scrollView.height}}px'>
+      <block wx:if="{{serchListF.infolist.length >0}}">
+        <view>
+          <view class='font-size-4' style='margin:8rpx 0'>搜索的好友</view>
+          <view class="gap-line" style="flex-direction:column;"></view>
+          <view class='serchlist-view-3-friend '>
+
+            <block wx:for="{{serchListF.infolist}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+              <block wx:if="{{inde>0}}">
+                <view class="gap-line" style="flex-direction:column;"></view>
+              </block>
+              <view class='serchlist-view-3-friend-1 align-center'>
+                <view>
+                  <image class='serchlist-view-3-friend-1-userimage' src='{{item.imagurl}}'></image>
+                </view>
+                <view class='font-size-4' style='flex:1'>{{item.nickname}}</view>
+                <view>
+                  <block wx:if="{{item.friendrequirementnum>3}}">
+                    <button catchtap='moreactive' data-fu='{{item.friend_userid}}' data-fn='{{item.nickname}}' class='font-size-5' style='padding:15rpx;line-height:1em'>更多</button>
+                  </block>
+                </view>
+              </view>
               <view class="gap-line" style="flex-direction:column;"></view>
-            </block>
-            <view class='serchlist-view-3-friend-1 align-center'>
-              <view>
-                <image class='serchlist-view-3-friend-1-userimage' src='{{item.imagurl}}'></image>
-              </view>
-              <view class='font-size-4' style='flex:1'>{{item.nickname}}</view>
-              <view>
-                <block wx:if="{{item.friendrequirementnum>3}}">
-                  <button catchtap='moreactive' data-fu='{{item.friend_userid}}' data-fn='{{item.nickname}}' class='font-size-5' style='padding:15rpx;line-height:1em'>更多</button>
-                </block>
-              </view>
-            </view>
-            <view class="gap-line" style="flex-direction:column;"></view>
-            <view class='serchlist-view-3-friend-2'>
+              <view class='serchlist-view-3-friend-2'>
 
 
-              <block wx:for="{{item.friendrequirement}}" wx:for-index="indexc" wx:for-item="itemc" wx:key="*this">
+                <block wx:for="{{item.friendrequirement}}" wx:for-index="indexc" wx:for-item="itemc" wx:key="*this">
 
-                <view catchtap='showDetail' data-upmarkid='{{itemc.upmarkid}}' data-requir='{{itemc.requirement_id}}' class='align-center serchlist-view-3-friend-2-1' style='width:{{serchListFRSize.width}}px;height:{{serchListFRSize.height}}px'>
-                  <view class='serchlist-view-3-friend-2-1-1 font-size-6'>
+                  <view catchtap='showDetail' data-upmarkid='{{itemc.upmarkid}}' data-requir='{{itemc.requirement_id}}' class='align-center serchlist-view-3-friend-2-1' style='width:{{serchListFRSize.width}}px;height:{{serchListFRSize.height}}px'>
+                    <view class='serchlist-view-3-friend-2-1-1 font-size-6'>
 
-                    <block wx:for="{{requirementArr}}" wx:key="" wx:for-index="indexa" wx:for-item="itemxa">
+                      <block wx:for="{{requirementArr}}" wx:key="" wx:for-index="indexa" wx:for-item="itemxa">
 
-                      <block wx:if="{{index == indexa }}">
-                        <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexax">
-                          <block wx:if="{{indexc == indexax }}">
-                            <template is="wxParse" data="{{wxParseData:item}}" />
+                        <block wx:if="{{index == indexa }}">
+                          <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexax">
+                            <block wx:if="{{indexc == indexax }}">
+                              <template is="wxParse" data="{{wxParseData:item}}" />
+                            </block>
                           </block>
                         </block>
                       </block>
-                    </block>
+                    </view>
+                    <image style='width:{{serchListFRSize.width-5}}px;height:{{serchListFRSize.width-5}}px' mode='scaleToFill' src='{{itemc.coverimage}}'></image>
+
+                    <view class='font-size-6'>
+                      <block wx:if="{{itemc.deal_type =='2'}}">
+                        {{itemc.link_discount}}
+                      </block>
+                      <block wx:if="{{itemc.deal_type =='1' || itemc.deal_type =='3'}}">
+                        ￥{{list_price}}
+                      </block>
+                    </view>
+
                   </view>
-                  <image style='width:{{serchListFRSize.width-5}}px;height:{{serchListFRSize.width-5}}px' mode='scaleToFill' src='{{itemc.coverimage}}'></image>
+                </block>
 
-                  <view class='font-size-6'>
-                    <block wx:if="{{itemc.deal_type =='2'}}">
-                      {{itemc.link_discount}}
-                    </block>
-                    <block wx:if="{{itemc.deal_type =='1' || itemc.deal_type =='3'}}">
-                      ￥{{list_price}}
-                    </block>
-                  </view>
-
-                </view>
-              </block>
-
-            </view>
-          </block>
+              </view>
+            </block>
+          </view>
         </view>
-      </view>
 
-    </block>
-    <block wx:if="{{serchListA.infolist.length >0}}">
-      <block wx:if="{{serchListF.infolist.length >0}}">
-        <view class="gap-bg" style="flex-direction:column;"></view>
       </block>
-      <view>
-        <view class='font-size-4' style='margin:8rpx 0'>搜索的活动</view>
-        <view class="gap-line" style="flex-direction:column;"></view>
+      <block wx:if="{{serchListA.infolist.length >0}}">
+        <block wx:if="{{serchListF.infolist.length >0}}">
+          <view class="gap-bg" style="flex-direction:column;"></view>
+        </block>
+        <view>
+          <view class='font-size-4' style='margin:8rpx 0'>搜索的活动</view>
+          <view class="gap-line" style="flex-direction:column;"></view>
 
-        <view class='serchlist-view-3-active '>
-          <template is="pageserch" data="{{serchListA}}" />
+          <view class='serchlist-view-3-active '>
+            <template is="pageserch" data="{{serchListA}}" />
+          </view>
         </view>
-      </view>
-    </block>
+      </block>
 
-  </scroll-view>
-
+    </scroll-view>
+  </block>
 
 
 

@@ -12,7 +12,7 @@
 </view> -->
  
 
-<view class='container ' style='flex-direction:colum;display:flex; '>
+<view class='container '   style='flex-direction:colum;display:flex; '>
   <!-- 标题 -->
   <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
     <view class='align-r-center view-1 font-size-3 ' style=''>

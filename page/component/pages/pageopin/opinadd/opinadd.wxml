@@ -44,7 +44,7 @@
    
   </view>
 
-  <view class='flex-bottom align-center'>
+  <view class='flex-bottom  '>
   
   <button class='font-size-2' type="primary" catchtap='addopinion'  style='width:100%'>提交</button>
   </view>

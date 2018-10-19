@@ -178,7 +178,7 @@
 
 .flex-bottom {
   /* //height:8%; */
-  height: 120rpx;
+  height: 110rpx;
   /* background:#F4F4F4;  *//* padding: 16rpx; */
   display: flex;
   position: fixed;

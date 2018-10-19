@@ -67,10 +67,10 @@
 
 .home-3 {
   display: flex;
-  padding-top: 5rpx;
-  padding-bottom: 5rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
  
-  line-height: 35rpx;
+  /* line-height: 35rpx; */
 }
 
 .home-3-image {
@@ -91,7 +91,7 @@
 
 .home-4-1-1 {
   /* width: 100rpx; */
-  height: 120rpx;
+  height: 110rpx;
   vertical-align: middle;
   padding-top: 20rpx;
 }
@@ -105,7 +105,7 @@
 }
 
 .home-4-1-2 {
-  width: 120rpx;
+  width: 110rpx;
 }
 
 .home-4-2 {
@@ -113,7 +113,7 @@
 
 .home-4-2-1 {
   /* width: 100rpx; */
-  height: 120rpx;
+  height: 110rpx;
   padding-top: 20rpx;
 }
 

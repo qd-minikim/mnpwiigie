@@ -61,7 +61,7 @@ Page({
     
     var percent = windowWidth / 750
      
-    var scrollViewHeight = windowHeight - 60 * percent
+    var scrollViewHeight = windowHeight - 80 * percent
 
     this.setData({
 
@@ -120,7 +120,7 @@ Page({
     })
     var value = event.detail.value, len = parseInt(value.length);
     if (len == 0){
-      this2.setData({
+      this.setData({
         'serchListF': [],
         'serchListA': [],
         'isList': false,

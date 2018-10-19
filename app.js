@@ -20,10 +20,10 @@ App({
     },
 
     /** 底部按钮的高度*/
-    bottomBtnHeight: 120, //flex-bottom  同步修改
+    bottomBtnHeight: 110, //flex-bottom  同步修改
     /** */
 
-    tabbarHeight: 120, //pagetabbar.wxss 同步修改
+    tabbarHeight: 110, //pagetabbar.wxss 同步修改
     tabbar: {
       "color": "#000000",
       "selectedColor": "#00c003",

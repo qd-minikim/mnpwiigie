@@ -4,7 +4,7 @@
 .serchlist-view-1 {
   flex-direction: row;
   display: flex;
-  height: 60rpx;
+  height: 80rpx;
   width: 95%;
 }
 
@@ -18,14 +18,14 @@
   width: 40rpx;
   height: 40rpx;
   left: 10rpx;
-  top: 10rpx;
+  top: 20rpx;
 }
 
 .serchlist-view-1-1-input {
   padding-left: 55rpx;
-  border: 1rpx solid #f7f7f7;
+  border: 1rpx solid #ccc;
   border-radius: 15rpx;
-  height: 60rpx;
+  height: 80rpx;
 }
 
 .serchlist-view-figure {
