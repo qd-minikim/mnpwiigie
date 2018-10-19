@@ -3,8 +3,8 @@
 <view class='container ' style="flex-direction:column;display:flex; ">
   <view class='align-left giftorder-view-1 align-center' bindtap='selectUserAddr'>
 
-    <view class='giftorder-view-1-1 font-size-3'  >
-      <view>留言：</view>
+    <view class='giftorder-view-1-1 font-size-4'  >
+      <view>送礼留言：</view>
       <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
     </view>
     <view>
@@ -14,15 +14,15 @@
   </view>
   <view class="gap-line" style="flex-direction:column;"></view>
   <view class='giftorder-view-2'>
-    <view class='giftorder-view-row font-size-3 align-r-center'>
+    <view class='giftorder-view-row font-size-4 align-r-center'>
       <view class='giftorder-view-title'>已选规格：</view>
       <view style='flex:1'>红色红色红色红 1份</view>
     </view>
-    <view class='giftorder-view-row font-size-3'>
+    <view class='giftorder-view-row font-size-4'>
       <view class='giftorder-view-title'>预付单价：</view>
       <view>￥299.00</view>
     </view>
-    <view class='giftorder-view-row font-size-3'>
+    <view class='giftorder-view-row font-size-4'>
       <view class='giftorder-view-title'>支付金额：</view>
       <view class=' font-color-7'>￥299.00</view>
     </view>

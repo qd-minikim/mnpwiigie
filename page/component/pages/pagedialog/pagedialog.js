@@ -150,12 +150,7 @@ Page({
 
   },
 
-
-  sendDialogInfo: function() {
-
-
-
-  },
+ 
   getDialogInfo: function() {
 
     var that = this;

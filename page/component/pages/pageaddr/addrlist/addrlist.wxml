@@ -7,7 +7,7 @@
         <view class="gap-bg" style="flex-direction:column;"></view>
 
       </block>
-      <view class='addrlist-view-1' style='flex-direction:colum; '>
+      <view class='addrlist-view-1' style='flex-direction:colum; ' catchtap='selectAddress' data-index='{{index}}'>
         <view class='addrlist-view-1-1'>
           <view style='flex:1' class='view-ellipsis-1'>{{item.orderUsername}}</view>
           <view>{{item.phone}}</view>

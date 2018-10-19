@@ -11,7 +11,8 @@ Page({
    */
   data: {
 
-    backpage:'',/**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
+    backpage: '',
+    /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
 
     /**传递的参数 */
     requirementId: '',
@@ -63,7 +64,7 @@ Page({
     opinionInfo: {
       dataInfo: [],
       pageSize: 5,
-      allrows:0
+      allrows: 0
     },
 
     pagePard: {
@@ -193,7 +194,7 @@ Page({
 
     var backpage = this.data.backpage;
 
-    if (backpage =='opinion'){
+    if (backpage == 'opinion') {
 
       this.getOpinionInfo()
     }
@@ -324,7 +325,7 @@ Page({
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;;
     var pageSize = that.data.opinionInfo.pageSize;
-  
+
 
     var data = {
       code_: 'x_getOpinionList',
@@ -457,22 +458,37 @@ Page({
   },
   /**点击确认按钮 */
   sureSelect: function() {
-
     var that = this
     pagekskujs.selectSpuSku.sureBtn(that)
-
     that.hideSlideModal();
-
 
     var orderType = that.data.myOrderInfo.orderType;
 
+    var orderData = {
+      requirementid: that.data.requirementId,
+      userid: that.data.userInfo.id,
+      markid: that.data.initDetail.markid,
+      upmarkid: that.data.upmarkid,
+      buycash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
+      skuid: that.data.myOrderInfo.mySkuInfo.id,
+      spuid: that.data.requirementInfo.spuid,
+      promotionid: that.data.requirementInfo.promotionid,
+      buycopies: that.data.myOrderInfo.orderCopies,
+      unitprice: that.data.myOrderInfo.mySkuInfo.list_price,
+      ordertype: orderType,
+      sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
+    }
+  
     if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      app.globalData.orderData = orderData
+
       wx.navigateTo({
         url: '/page/component/pages/pageorder/pageorder',
       })
     }
 
     if (orderType == '3') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      app.globalData.orderData = orderData
       wx.navigateTo({
         url: '/page/component/pages/pagegift/giftorder/giftorder',
       })
@@ -851,10 +867,9 @@ Page({
       'pagemask.msgTitle': ''
     })
 
-  }
-  ,
+  },
   /**首页 */
-  homepage:function(){
+  homepage: function() {
 
     wx.switchTab({
       url: '/pages/pagehome/pagehome',
@@ -862,9 +877,9 @@ Page({
 
   },
   /**客服聊天 */
-  customerpage: function () {
+  customerpage: function() {
     var r = this.data.requirementId;
-       /**type = 1:消费者 0：商户 */
+    /**type = 1:消费者 0：商户 */
     wx.navigateTo({
       url: '/page/component/pages/pagedialog/pagedialog?type=1&r=' + r,
     })
@@ -872,7 +887,7 @@ Page({
   },
 
   /**转发成功 */
-  forwardSuccess:function(){
+  forwardSuccess: function() {
     var that = this;
     var url = config.requestUrl;
 
@@ -889,15 +904,14 @@ Page({
       markid: gr,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
- 
+    rRequest.doRequest(url, data, that, function(rdata) {
+
 
     })
 
-  }
-  ,
+  },
   /**我要说 */
-  addopinion:function(event){
+  addopinion: function(event) {
     var requirementId = this.data.requirementId;
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
@@ -907,7 +921,7 @@ Page({
     })
   },
   /**更多朋友说 */
-  moreopinion: function (event) {
+  moreopinion: function(event) {
     var requirementId = this.data.requirementId;
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
@@ -916,5 +930,5 @@ Page({
     //   'backpage': 'opinion',
     // })
   },
- 
+
 })

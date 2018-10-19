@@ -9,16 +9,19 @@ App({
     this.getSystemInfo();
   },
   globalData: {
-    userInfo: null,//用户信息--wiigie
+    userInfo: null, //用户信息--wiigie
     userIData: false,
-    userWxInfo: null,//用户微信信息--wiigie
+    userWxInfo: null, //用户微信信息--wiigie
     systemInfo: null,
     //登录信息
-    loginInfo: null,//用户登录信息{appId:,sessionKey}
+    loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
     },
 
+
+    orderData: null,/**赋值在 pagexdd.js中 sureSelect //funtion */
+    
     /** 底部按钮的高度*/
     bottomBtnHeight: 110, //flex-bottom  同步修改
     /** */
@@ -27,8 +30,8 @@ App({
     tabbar: {
       "color": "#000000",
       "selectedColor": "#00c003",
-        "backgroundColor": "#ffffff",
-        "borderStyle": "black",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
       "list": [{
           "pagePath": "/pages/pagehome/pagehome",
           "text": "好友冰鉴",
@@ -63,8 +66,8 @@ App({
       complete: res => {},
     })
   },
- 
-  
+
+
   userInfoResetCallBak: function(res) {
     var that = this;
     // that.setData({
@@ -72,11 +75,11 @@ App({
     //   'globalData.userIData ': true
     // })
   },
- 
-  getUsersInfo: function () {
+
+  getUsersInfo: function() {
     var that = this;
     wx.getUserInfo({
-      success: function (res) {
+      success: function(res) {
 
         that.globalData.userWxInfo = res.userInfo;
 
@@ -96,7 +99,7 @@ App({
           avatarUrl: data.avatarUrl,
           unionid: data.unionId,
         }
-        rRequest.doRequest(url, data, that, function (rdata) {
+        rRequest.doRequest(url, data, that, function(rdata) {
 
           if (rdata.info) {
             that.globalData.userInfo = rdata.info;
@@ -116,7 +119,7 @@ App({
   },
 
 
-/**导航栏 */
+  /**导航栏 */
   editTabBar: function() {
     var tabbar = this.globalData.tabbar,
       currentPages = getCurrentPages(),

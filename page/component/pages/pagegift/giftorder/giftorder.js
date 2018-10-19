@@ -4,6 +4,8 @@ var config = require('../../../../../config.js');
 
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+
+const app = getApp()
 Page({
 
   /**
@@ -13,78 +15,85 @@ Page({
 
 
     /**字数限制 */
-    textareaMaxLen:40,
+    textareaMaxLen: 40,
 
-     configMsgInfo: {},
+    configMsgInfo: {},
+
+    /**留言 */
+    inputValue: '',
+    /**下单信息 */
+    orderData: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    this.setData({
+      orderData: app.globalData.orderData,
+    })
     this.getConfigMsgInfo()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     wx.hideShareMenu();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
 
 
   /**获取配置描述 */
-  getConfigMsgInfo: function () {
+  getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
     var values = [{
       code: 'GIFT_FORWARD_MSG',
       replace: []
-    }
-    ];
+    }];
 
 
     var data = {
@@ -92,7 +101,7 @@ Page({
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
       values: values
     }
-    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
 
         that.setData({
@@ -105,38 +114,33 @@ Page({
     });
 
   },
-  orderpay: function () {
+  orderpay: function() {
 
     var that = this;
     var url = config.orderPayUrl;
- 
-    var data = {
-      requirementid: '1529296099516208',
-      userid: '1528869953018820',
-      markid: '17482c48dfc64a04',
-      upmarkid: '6f9608ca15bd4bcc',
-      buyCash: '0.45',
-      skuid: '1529217692948442',
-      spuid: '1529215126697316',
-      promotionid: '1529291860866339',
-      buycopies: '1',
-      unitPrice: '0.45',
-
-      mobile_phone: '15192720655',
-      address: 'addressaddressaddress',
-      addressHouse: 'addressHouseaddressHouse',
-      city: '370200',
-      province: '370000',
-      district: '370211',
-
-      phone: '111111111111',
-      orderUsername: 'weibo',
-      ordertype: '2',
-      fromLeaveMessage: 'fromLeaveMessage',
 
 
+    var fromLeaveMessage = that.data.inputValue;
+
+    if (fromLeaveMessage == '') {
+      wx.showToast({
+        title: '请输入送礼留言',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+
+    var orderData = that.data.orderData;
+
+    var orderInfo = { ...orderData,
+      fromLeaveMessage: encodeURIComponent(fromLeaveMessage),
+      sku_desc: encodeURIComponent(orderData.sku_desc)
+    };
+
+    return;
+    rRequest.doRequest(url, orderInfo, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -146,13 +150,13 @@ Page({
           package: rdata.info.package, //统一下单接口返回的 prepay_id 参数值
           signType: rdata.info.signType, //签名算法
           paySign: rdata.info.paySign, //签名
-          success: function (res) {
+          success: function(res) {
             console.log("---------success")
           },
-          fail: function (res) {
+          fail: function(res) {
             console.log("---------fail")
           },
-          complete: function (res) {
+          complete: function(res) {
 
           }
         })
@@ -162,11 +166,13 @@ Page({
 
   },
   //字数限制
-  bindWordLimit: function (e) {
-    var value = e.detail.value, len = parseInt(value.length);
+  bindWordLimit: function(e) {
+    var value = e.detail.value,
+      len = parseInt(value.length);
     if (len > this.data.noteMaxLen) return;
     this.setData({
-      currentNoteLen: len //当前字数
+      currentNoteLen: len, //当前字数
+      inputValue: value
     });
   }
 })

@@ -15,7 +15,7 @@ Page({
       scrollviewHeight: 0,
       bottomView: true, //存在底部按钮
     },
-    addressInfo: {},
+    addressInfo: [],
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -102,10 +102,10 @@ Page({
     rRequest.doRequest(url, data, that, function(rdata) {
 
 
-      if (rdata.info) {
+      if (rdata.infolist) {
 
         that.setData({
-          addressInfo: rdata.info
+          addressInfo: rdata.infolist
         })
       }
     })
@@ -151,7 +151,6 @@ Page({
 
       success: function() {
 
-
         var url = config.requestUrl;
 
         var id = event.currentTarget.dataset.id;
@@ -177,10 +176,24 @@ Page({
 
     })
 
-
-
-
   },
+  /**点击选择地址 */
+  selectAddress: function(event) {
+
+      var index = event.currentTarget.dataset.index;
+      var selectAddress = this.data.addressInfo[index];
+      wx.setStorage({
+        key: 'userDefAddr',
+        data: selectAddress,
+      })
+
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+
+    ,
+  /**新增地址 */
   addAddr: function() {
 
     wx.navigateTo({
@@ -188,8 +201,8 @@ Page({
     })
 
   },
-  editAddr: function (event) {
-      var id = event.currentTarget.dataset.id;
+  editAddr: function(event) {
+    var id = event.currentTarget.dataset.id;
     wx.navigateTo({
       url: '/page/component/pages/pageaddr/addradd/addradd?action=upp&id=' + id
     })

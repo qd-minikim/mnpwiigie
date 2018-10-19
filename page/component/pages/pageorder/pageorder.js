@@ -17,6 +17,9 @@ Page({
 
     /**用户默认地址 */
     userDefAddr: null,
+    /**下单信息 */
+    orderData: null,
+
   },
 
   /**
@@ -24,7 +27,7 @@ Page({
    */
   onLoad: function(options) {
 
-    var  that = this;
+    var that = this;
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -32,22 +35,27 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
+    that.setData({
+      orderData: app.globalData.orderData,
+    })
 
+
+    /** */
     wx.getStorage({
       key: 'userDefAddr',
       success: function(res) {
-        if(res.data){
+        if (res.data) {
           that.setData({
             userDefAddr: res.data
           })
         }
-        
+
       },
     })
- 
+
     //需要判断是否是自购，还是 送礼
 
-   // that.getUserDefAddr() //x_getDefAddr
+    // that.getUserDefAddr() //x_getDefAddr
   },
 
   /**
@@ -61,7 +69,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this;
+    wx.getStorage({
+      key: 'userDefAddr',
+      success: function(res) {
+        if (res.data) {
+          that.setData({
+            userDefAddr: res.data
+          })
+        }
 
+      },
+    })
   },
 
   /**
@@ -107,40 +126,44 @@ Page({
   },
 
 
-
+  /**提交订单 */
   orderpay: function() {
 
     var that = this;
     var url = config.orderPayUrl;
 
-
-    var data = {
-      requirementid: '1529296099516208',
-      userid: '1528869953018820',
-      markid: '17482c48dfc64a04',
-      upmarkid: '6f9608ca15bd4bcc',
-      buyCash: '0.45',
-      skuid: '1529217692948442',
-      spuid: '1529215126697316',
-      promotionid: '1529291860866339',
-      buycopies: '1',
-      unitPrice: '0.45',
-
-      mobile_phone: '15192720655',
-      address: 'addressaddressaddress',
-      addressHouse: 'addressHouseaddressHouse',
-      city: '370200',
-      province: '370000',
-      district: '370211',
-
-      phone: '111111111111',
-      orderUsername: 'weibo',
-      ordertype: '2',
-      fromLeaveMessage: 'fromLeaveMessage',
-
-
+    var userDefAddr = that.data.userDefAddr;
+    if (!userDefAddr) {
+      wx.showToast({
+        title: '请选择地址',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+
+
+    var addressInfo ={
+
+      mobile_phone: that.data.userDefAddr.phone,//服务类型
+
+      address: encodeURIComponent(that.data.userDefAddr.address),
+      addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
+      city: that.data.userDefAddr.city,
+      province: that.data.userDefAddr.province,
+      district: that.data.userDefAddr.district,
+
+      phone: that.data.userDefAddr.phone,
+      orderUsername: encodeURIComponent(that.data.userDefAddr.orderUsername),
+    }
+    var orderData = that.data.orderData;
+
+    
+    var orderInfo = Object.assign(orderData, addressInfo);
+    orderInfo = { ...orderInfo, sku_desc: encodeURIComponent(orderInfo.sku_desc) };
+  
+    rRequest.doRequest(url, orderInfo, that, function(rdata) {
 
       if (rdata.info) {
 

@@ -1,4 +1,6 @@
 <!--page/component/pages/pageorder/pageorder.wxml-->
+<wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
+
 <view class='container ' style="flex-direction:column;display:flex; ">
   <view class='pageorder-view-1 align-center' bindtap='selectUserAddr'>
     <block wx:if="{{userDefAddr}}">
@@ -32,15 +34,15 @@
   <view class='pageorder-view-2'>
     <view class='pageorder-view-row font-size-3 align-r-center'>
       <view class='pageorder-view-title'>已选规格：</view>
-      <view style='flex:1'>红色红色红色红 1份</view>
+      <view style='flex:1'>{{orderData.sku_desc}} {{orderData.buycopies}}份</view>
     </view>
     <view class='pageorder-view-row font-size-3'>
       <view class='pageorder-view-title'>预付单价：</view>
-      <view>￥299.00</view>
+      <view>￥{{filters.toFix(orderData.unitprice*1,2)}}</view>
     </view>
     <view class='pageorder-view-row font-size-3'>
       <view class='pageorder-view-title'>支付金额：</view>
-      <view class=' font-color-7'>￥299.00</view>
+      <view class=' font-color-7'>￥{{filters.toFix(orderData.buycash*1,2)}}</view>
     </view>
   </view>
 
