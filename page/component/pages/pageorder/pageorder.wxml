@@ -38,11 +38,11 @@
     </view>
     <view class='pageorder-view-row font-size-3'>
       <view class='pageorder-view-title'>预付单价：</view>
-      <view>￥{{filters.toFix(orderData.unitprice*1,2)}}</view>
+      <view>￥{{filters.toFix(orderData.unitPrice*1,2)}}</view>
     </view>
     <view class='pageorder-view-row font-size-3'>
       <view class='pageorder-view-title'>支付金额：</view>
-      <view class=' font-color-7'>￥{{filters.toFix(orderData.buycash*1,2)}}</view>
+      <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
     </view>
   </view>
 

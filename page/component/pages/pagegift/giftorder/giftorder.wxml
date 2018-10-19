@@ -1,5 +1,5 @@
 <!--page/component/pages/pagegift/giftorder/giftorder.wxml-->
-
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 <view class='container ' style="flex-direction:column;display:flex; ">
   <view class='align-left giftorder-view-1 align-center' bindtap='selectUserAddr'>
 
@@ -16,15 +16,15 @@
   <view class='giftorder-view-2'>
     <view class='giftorder-view-row font-size-4 align-r-center'>
       <view class='giftorder-view-title'>已选规格：</view>
-      <view style='flex:1'>红色红色红色红 1份</view>
+      <view style='flex:1'>{{orderData.sku_desc}} {{orderData.buycopies}}</view>
     </view>
     <view class='giftorder-view-row font-size-4'>
       <view class='giftorder-view-title'>预付单价：</view>
-      <view>￥299.00</view>
+      <view>￥{{filters.toFix(orderData.unitPrice*1,2)}}</view>
     </view>
     <view class='giftorder-view-row font-size-4'>
       <view class='giftorder-view-title'>支付金额：</view>
-      <view class=' font-color-7'>￥299.00</view>
+      <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
     </view>
   </view>
 

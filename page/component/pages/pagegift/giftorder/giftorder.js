@@ -139,7 +139,7 @@ Page({
       sku_desc: encodeURIComponent(orderData.sku_desc)
     };
 
-    return;
+
     rRequest.doRequest(url, orderInfo, that, function(rdata) {
 
       if (rdata.info) {
@@ -151,10 +151,35 @@ Page({
           signType: rdata.info.signType, //签名算法
           paySign: rdata.info.paySign, //签名
           success: function(res) {
-            console.log("---------success")
+
+            var giftRecordId = rdata.info.giftRecordId;
+            wx.showToast({
+              title: '下单成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+
+            setTimeout(function() {
+
+              wx.redirectTo({
+                url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + giftRecordId,
+              })
+
+            }, 1500)
           },
           fail: function(res) {
-            console.log("---------fail")
+            wx.showToast({
+              title: '下单失败',
+              image: '/image/icon_err.png',
+              duration: 2000,
+              success: function() {}
+            })
+            setTimeout(function() {
+              wx.navigateBack({
+                delta: 1,
+              })
+            }, 1500)
           },
           complete: function(res) {
 

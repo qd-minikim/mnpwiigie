@@ -144,9 +144,9 @@ Page({
     }
 
 
-    var addressInfo ={
+    var addressInfo = {
 
-      mobile_phone: that.data.userDefAddr.phone,//服务类型
+      mobile_phone: that.data.userDefAddr.phone, //服务类型
 
       address: encodeURIComponent(that.data.userDefAddr.address),
       addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
@@ -159,10 +159,12 @@ Page({
     }
     var orderData = that.data.orderData;
 
-    
+
     var orderInfo = Object.assign(orderData, addressInfo);
-    orderInfo = { ...orderInfo, sku_desc: encodeURIComponent(orderInfo.sku_desc) };
-  
+    orderInfo = { ...orderInfo,
+      sku_desc: encodeURIComponent(orderInfo.sku_desc)
+    };
+
     rRequest.doRequest(url, orderInfo, that, function(rdata) {
 
       if (rdata.info) {
@@ -174,7 +176,23 @@ Page({
           signType: rdata.info.signType, //签名算法
           paySign: rdata.info.paySign, //签名
           success: function(res) {
-            console.log("---------success")
+           
+            wx.showToast({
+              title: '下单成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+
+            setTimeout(function() {
+
+              wx.navigateBack({
+                delta: 1,
+              })
+
+            }, 2000)
+
+
           },
           fail: function(res) {
             console.log("---------fail")

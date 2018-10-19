@@ -25,6 +25,17 @@ Page({
     /**提示信息 */
     configMsgInfo: {},
 
+    /**分享时的title */
+    shareTitle:'',
+  
+    /**转发蒙板 */
+    pagemask: {
+      isForward: false,
+      msgTitle: '点击右上角的【发送给朋友】，将这个礼物送给指定的朋友',
+      msgTitleColor: '',
+      msgDesc: '',
+      msgDescColor: '',
+    },
     /**tabbar */
     pageScrollView: {
       height: app.globalData.systemInfo.windowHeight
@@ -37,6 +48,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.hideShareMenu();
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     /****调用函数设置tabbar及页面*****/
@@ -51,16 +63,19 @@ Page({
     var giftRecordId = options.gr;
     this.setData({
       'giftInfo.giftRecordId': giftRecordId,
+      'userInfo.id': '1528869953018820'
 
     })
     this.getGiveGiftRecordInfo()
+ 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.hideShareMenu();
+   
+     
   },
 
   /**
@@ -102,19 +117,52 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    var that = this;
+    var title = that.data.shareTitle;
+    var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
+    return {
+      title: title,
+      path: "/page/component/pages/pagexdd/pagexdd?m=" ,
+      imageUrl: imageUrl,
+      success: function () {
+
+
+      },
+      fail: function () {
+
+      }
+
+
+    }
+  },
+
+  /**转发蒙板 */
+  forwardfriend: function() {
+    this.setData({
+      'pagemask.isForward': true,
+     
+    })
 
   },
-  showGiftRequirementDetail: function (event) {
-
-    var id = event.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftdeta/giftdeta?gr=' + id+"&t=6",
+  closeforwardfriend: function() {
+    this.setData({
+      'pagemask.isForward': false,
+       
     })
-   // window.location.href = "/wiigie/give/mygivegiftdetail?gr=" + giftRecordId + "&u=" + userid + "&t=6";
 
-  }
+  },
 
-  ,
+ 
+  showGiftRequirementDetail: function(event) {
+
+      var id = event.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftdeta/giftdeta?gr=' + id + "&t=6",
+      })
+
+    }
+
+    ,
   /** */
   getGiveGiftRecordInfo: function() {
 
@@ -157,6 +205,10 @@ Page({
         }
         if (process == '99') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
+
+           wx.showShareMenu();
+           
+          that.forwardfriend();
         }
         that.setData({
           'giftInfo.recordInfo': rdata.info,
@@ -174,8 +226,8 @@ Page({
   getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
-
-    var fUserNickname = that.data.giftInfo.recordInfo.from_person_nickname;
+    
+    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname) ;
     var values = [{
         code: 'PROCESS_0',
         replace: [{
@@ -218,6 +270,18 @@ Page({
           regexp: 'nickname',
           replacement: fUserNickname
         }]
+      }, {
+        code: 'FORWARD_TIP',//模板信息
+        replace: []
+      }, {
+        code: 'GIFTWX_DESC',//转发默认信息 如果fromLeaveMessage没值时
+        replace: []
+      },{
+        code:'GIFT_FORWARD_TIT',//分享时的title
+        replace: [{
+          regexp:'nickname',
+          replacement: fUserNickname
+        }]
       }
 
     ];
@@ -233,8 +297,10 @@ Page({
 
         that.setData({
           configMsgInfo: rdata.info,
-
+          'pagemask.msgTitle': rdata.info.FORWARD_TIP,
+          'shareTitle': rdata.info.GIFT_FORWARD_TIT,
         })
+       
 
       }
 

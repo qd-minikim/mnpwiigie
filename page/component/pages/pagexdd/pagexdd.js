@@ -459,7 +459,7 @@ Page({
   /**点击确认按钮 */
   sureSelect: function() {
     var that = this
-    pagekskujs.selectSpuSku.sureBtn(that)
+    // pagekskujs.selectSpuSku.sureBtn(that)
     that.hideSlideModal();
 
     var orderType = that.data.myOrderInfo.orderType;
@@ -469,12 +469,12 @@ Page({
       userid: that.data.userInfo.id,
       markid: that.data.initDetail.markid,
       upmarkid: that.data.upmarkid,
-      buycash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
+      buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
       skuid: that.data.myOrderInfo.mySkuInfo.id,
       spuid: that.data.requirementInfo.spuid,
       promotionid: that.data.requirementInfo.promotionid,
       buycopies: that.data.myOrderInfo.orderCopies,
-      unitprice: that.data.myOrderInfo.mySkuInfo.list_price,
+      unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
       ordertype: orderType,
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
     }

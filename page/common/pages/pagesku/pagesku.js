@@ -289,7 +289,28 @@
        })
      }
 
+     var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
+
+     if (selectSkuId.length == 1) {
+
+       var skuinfo = that.data.spuInfo.skuinfo;
+       var ind = 0;
+
+       for (var m = 0; m < skuinfo.length; m++) {
+         var skuId = skuinfo[m].id;
+         if (skuId == selectSkuId[0]) {
+
+           that.setData({
+             'myOrderInfo.mySkuInfo': skuinfo[m]
+           })
+
+           return false;
+         }
+
+       }
+
+     }
     //  var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
 
