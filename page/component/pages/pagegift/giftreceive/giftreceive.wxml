@@ -24,13 +24,13 @@
 
     <view class='gr-view-5'>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-5-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:GIFT_ADR_MSG.nodes}}" />
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='23' }}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-5-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
           <template is="wxParse" data="{{wxParseData:ACCEPT_GIFT.nodes}}" />
 
         </view>
@@ -39,33 +39,33 @@
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
 
         <view class='gr-view-5-1'>
-          <button class='gr-view-5-1-btn' type='default'>提交收货信息</button>
+          <button class='gr-view-5-1-btn font-size-4' type='default'>提交收货信息</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='23'}}">
 
         <view class='gr-view-5-1'>
-          <button class='gr-view-5-1-btn' type='default'>已接收</button>
+          <button class='gr-view-5-1-btn font-size-4' type='default'>已接收</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='23'}}">
 
         <view class='gr-view-5-1'>
-          <button class='gr-view-5-1-btn' type='default' disabled='disabled'>提交收货信息</button>
+          <button class='gr-view-5-1-btn font-size-4' type='default' disabled='disabled'>提交收货信息</button>
         </view>
       </block>
 
     </view>
     <view class='gr-view-7'>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-7-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:GIFT_FOR_MSG.nodes}}" />
 
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-7-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:FORWARD_GIFT.nodes}}" />
         </view>
@@ -74,53 +74,53 @@
 
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-7-1'>
-          <button class='gr-view-7-1-btn' type='default'>转送给其他朋友</button>
+          <button class='gr-view-7-1-btn font-size-4' type='default'>转送给其他朋友</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
         <view class='gr-view-7-1'>
-          <button class='gr-view-7-1-btn' type='default'>已转送</button>
+          <button class='gr-view-7-1-btn font-size-4' type='default'>已转送</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='24' }}">
-        <view class='gr-view-7-1'>
-          <button class='gr-view-7-1-btn' type='default' disabled='disabled'>转送给其他朋友</button>
+        <view class='gr-view-7-1  '>
+          <button class='gr-view-7-1-btn font-size-4' type='default' disabled='disabled'>转送给其他朋友</button>
         </view>
       </block>
     </view>
     <view class='gr-view-9'>
 
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-9-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:GIFT_REJ_MSG.nodes}}" />
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='21' }}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-9-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:REJECT_GIFT.nodes}}" />
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='1' || giftInfo.process=='22'}}">
-        <view class='gr-view-5-1'>
+        <view class='gr-view-9-1 font-size-4 align-center' style='padding:2rpx 5rpx'>
 
           <template is="wxParse" data="{{wxParseData:REJECT_GIFT_1.nodes}}" />
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-9-1'>
-          <button class='gr-view-9-1-btn' type='default'>拒绝</button>
+          <button class='gr-view-9-1-btn font-size-4' type='default'>拒绝</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='21'}}">
-        <view class='gr-view-9-1'>
-          <button class='gr-view-9-1-btn' type='default'>已拒绝</button>
+        <view class='gr-view-9-1 '>
+          <button class='gr-view-9-1-btn font-size-4' type='default'>已拒绝</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='21'}}">
-        <view class='gr-view-9-1'>
-          <button class='gr-view-9-1-btn' type='default' disabled='disabled'>已拒绝</button>
+        <view class='gr-view-9-1 '>
+          <button class='gr-view-9-1-btn font-size-4' type='default' disabled='disabled'>已拒绝</button>
         </view>
       </block>
 

@@ -12,7 +12,7 @@
 
 .gr-view-5 {
   width: 100%;
-  margin-top: 100rpx
+  margin-top: 70rpx
 }
 
 .gr-view-5-1 {
@@ -26,7 +26,7 @@
 .gr-view-7 {
   
   width: 100%;
-  margin-top: 100rpx;
+  margin-top: 70rpx;
 }
 
 .gr-view-7-1 {
@@ -39,7 +39,7 @@
 
 .gr-view-9 {
   width: 100%;
-  margin-top: 100rpx;
+  margin-top: 70rpx;
    margin-bottom: 50rpx;
 }
 
