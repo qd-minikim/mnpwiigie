@@ -22,9 +22,15 @@ Page({
 
       giftRecordId: '',
       process: '0',
+      fuserid: '',
+      newGiftRecordId: '',
       giftStatusImage: config.imageUrl + "/wiigie/background/gift/give_gift_icon.png", //展示的图片路径
       recordInfo: {}
     },
+    /** */
+    actionprocess: '',
+    /**要执行的状态 */
+
     timerDown: {
       day: '00',
       hou: '00',
@@ -50,6 +56,13 @@ Page({
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     /****调用函数设置tabbar及页面*****/
+    var giftRecordId = options.gr;
+    var fuserid = options.fu;
+
+    this.setData({
+      'giftInfo.giftRecordId': giftRecordId,
+      'giftInfo.fuserid': fuserid,
+    })
 
     this.getGiftReceive();
 
@@ -110,17 +123,64 @@ Page({
     var that = this;
     var currentTime = that.data.giftInfo.recordInfo.current_time;
     var endTime = that.data.giftInfo.recordInfo.end_time;
-    rUtils.timerDown.countDown(that, currentTime, endTime, function() {
+    var process = that.data.giftInfo.process
 
-      console.log("结束----")
-    });
+    if (process == '0') {
+      var date1 = new Date(currentTime),
+        date2 = new Date(endTime); //计算剩余的毫秒数
+
+      if (date2 < date1) {
+        /**超时未获知 */
+        that.setData({
+          'actionprocess': '1',
+        })
+
+        that.doProcessGift();
+      } else {
+        that.setData({
+          'actionprocess': '2',
+        })
+        that.doProcessGift();
+        rUtils.timerDown.countDown(that, currentTime, endTime, function() {
+          that.setData({
+            'actionprocess': '22',
+          })
+          that.doProcessGift();
+        });
+      }
+
+    }
+    if (process == '2') {
+      var date1 = new Date(currentTime),
+        date2 = new Date(endTime); //计算剩余的毫秒数
+
+      if (date2 < date1) {
+        /**超时未获知 */
+
+        that.setData({
+          'actionprocess': '22',
+        })
+        that.doProcessGift();
+      } else {
+
+        rUtils.timerDown.countDown(that, currentTime, endTime, function() {
+
+          that.setData({
+            'actionprocess': '22',
+          })
+          that.doProcessGift();
+        });
+      }
+
+    }
+
   },
 
   getGiftReceive: function() {
 
     var that = this
-    var giftRecordId = '1534237795080460';
-    var fu = '1527673151198212';
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+    var fu = that.data.giftInfo.fuserid;
     var url = config.requestUrl
     var data = {
       code_: 'x_getGiftReceive',
@@ -135,29 +195,74 @@ Page({
 
         that.setData({
           'giftInfo.recordInfo': rdata.info,
-          'giftInfo.process': rdata.info.process_status
+          'giftInfo.process': rdata.info.process_status,
+          'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid
         })
 
-        if (rdata.info.process_status == '0' || rdata.info.process_status == '2')
+        if (rdata.info.process_status == '0' || rdata.info.process_status == '2') {
           that.getTimerDown()
-         that.getConfigMsgInfo()
+        }
+
+        that.getConfigMsgInfo()
       }
     })
 
   },
+  /**操作 */
+  doProcessGift: function() {
+    var that = this
+
+    var url = config.requestUrl
+
+    var actionprocess = that.data.actionprocess;
+    if (actionprocess == '') {
+
+      wx.showToast({
+        title: '系统异常',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
+    }
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+
+    var fUserId = that.data.giftInfo.fuserid;
+    var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+    var tUserId = '';
+    var data = {
+      code_: 'x_doProcess',
+      "processStatus": actionprocess,
+      "giftRecordId": giftRecordId,
+      "fUserId": fUserId,
+      "newGiftRecordId": newGiftRecordId,
+      "tUserId": tUserId,
+      "fromLeaveMessage": fromLeaveMessage
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+
+      }
+    })
+
+  },
+
+
   /**获取配置描述 */
-  getConfigMsgInfo: function () {
+  getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
 
     var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.fusernickname);
     var values = [{
-      code: 'GIFT_ADR_MSG',
-      replace: [{
-        regexp: 'nickname',
-        replacement: fUserNickname
-      }]
-    } ,{
+        code: 'GIFT_ADR_MSG',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
         code: 'ACCEPT_GIFT',
         replace: [{
           regexp: 'nickname',
@@ -196,14 +301,14 @@ Page({
       }
 
     ];
-    
-    
+
+
     var data = {
       code_: 'x_getConfigMsgInfo',
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
       values: values
     }
-    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
 
         that.setData({
@@ -217,7 +322,7 @@ Page({
         WxParse.wxParse('GIFT_REJ_MSG', 'html', rdata.info.GIFT_REJ_MSG, that, 5);
         WxParse.wxParse('REJECT_GIFT', 'html', rdata.info.REJECT_GIFT, that, 5);
         WxParse.wxParse('REJECT_GIFT_1', 'html', rdata.info.REJECT_GIFT_1, that, 5);
-             
+
       }
 
     });
