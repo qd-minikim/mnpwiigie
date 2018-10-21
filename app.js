@@ -21,6 +21,7 @@ App({
 
 
     orderData: null,/**赋值在 pagexdd.js中 sureSelect //funtion */
+    giftData: null,/**赋值在 giftdetar.js中 receiveAddress //funtion */
     
     /** 底部按钮的高度*/
     bottomBtnHeight: 110, //flex-bottom  同步修改

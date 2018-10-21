@@ -229,6 +229,7 @@ Page({
 
     var fUserId = that.data.giftInfo.fuserid;
     var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+    var fromLeaveMessage = '';
     var tUserId = '';
     var data = {
       code_: 'x_doProcess',
@@ -237,14 +238,13 @@ Page({
       "fUserId": fUserId,
       "newGiftRecordId": newGiftRecordId,
       "tUserId": tUserId,
-      "fromLeaveMessage": fromLeaveMessage
+      "fromLeaveMessage": ''
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-      if (rdata.info) {
-
-
-      }
+      that.setData({
+        'giftInfo.process': actionprocess,
+      })
     })
 
   },
@@ -328,4 +328,16 @@ Page({
     });
 
   },
+  /**点击进入详情页 */
+  giftdetar: function(event) {
+    var that = this;
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+    var t = event.currentTarget.dataset.oper;
+     
+    wx.navigateTo({
+      url: '/page/component/pages/pagegift/giftdetar/giftdetar?gr=' + giftRecordId +'&t='+t,
+    })
+
+  }
+
 })

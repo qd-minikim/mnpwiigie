@@ -1,13 +1,47 @@
-<!--page/component/pages/pagegift/giftdeta/giftdeta.wxml-->
-<!-- 我送的礼详情 -->
+<!--page/component/pages/pagegift/giftdetar/giftdetar.wxml-->
+<!-- 我收的礼的详情 -->
+
 <import src="../../../../../wxParse/wxParse.wxml" />
 <!-- <import src="../../../../common/pages/pagesign/pagesign.wxml" /> -->
 <import src="../../../../common/pages/pagesku/pagesku.wxml" />
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
- 
- 
 
-<view class='container '   style='flex-direction:colum;display:flex; '>
+<!--转送给朋友的  留言信息 -->
+<!-- <modal hidden="{{fmodalhidden}}"  title="送礼留言" confirm-text="继续" cancel-text="取消" bindcancel="fmodalcancel" bindconfirm="fmodalsure"  >
+     <view style=' flex-direction: column;display: flex;'>
+     <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
+     <textarea class='font-size-4' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em'  maxlength='40' bindinput='fmodalWordLimit'
+     placeholder-class='font-size-5'
+     placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}' ></textarea>
+     </view>
+</modal> -->
+<view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
+<view class="modal-dialog" wx:if="{{!fmodalhidden}}">
+  <view class="modal-title">送礼留言</view>
+
+  <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
+    <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
+    <textarea class='font-size-4' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' placeholder-class='font-size-5'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
+  </view>
+  <view class="modal-footer">
+
+    <button catchtap='fmodalcancel' class='font-size-4' type="warn" style='width:60%;border-radius:0'>取消</button>
+    <block wx:if="{{nofmodalMsg}}">
+      <button class='font-size-4' type="primary" open-type="{{nofmodalMsg?'share':''}}" style='width:60%;border-radius:0' disabled='true'>{{nofmodalTip}}
+      </button>
+    </block>
+    <block wx:else>
+      <button class='font-size-4' type="primary" open-type="share" style='width:60%;border-radius:0'>{{nofmodalTip}}
+      </button>
+    </block>
+
+
+  </view>
+</view>
+
+<!--转送给朋友的  留言信息 -->
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
   <!-- 标题 -->
   <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
     <view class='align-r-center view-1 font-size-3 ' style=''>
@@ -34,7 +68,7 @@
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
         <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="*this">
           <swiper-item>
-              
+
             <image style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}' bindtap="imageYl" data-list="{{swiperArea.swiperImgUrlsArry}}" data-src="{{itemyl}}" wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:for-item="itemyl" src="{{item}}"></image>
           </swiper-item>
         </block>
@@ -255,7 +289,7 @@
       <view></view>
       <view></view>
     </view>
-     <!--<view class="gap-bg" style="flex-direction:column;"></view>
+    <!--<view class="gap-bg" style="flex-direction:column;"></view>
 
 
     <view class='view-8  font-size-4'>
@@ -361,11 +395,50 @@
         <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}" />
       </view>
     </block>
-    <block wx:elif="{{ panelPage.chooseType=='pagetop'}}">
+    <!-- <block wx:elif="{{ panelPage.chooseType=='pagetop'}}">
       <view class='align-r-center bg-6 font-color-2 font-size-3 ' style=' width: 100%;height: 100%;'>
           {{processMsg}}
       </view>
-    </block>
+    </block> -->
   </scroll-view>
- 
+
+
+  <view class='flex-bottom align-r-center bottom-v' style='height:110rpx '>
+    <block wx:if="{{ giftInfo.oper=='0'}}">
+      <view catchtap='pageback' class='align-c-center bottom-view' style='  width:100% '>
+         
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>返回</view>
+      </view>
+    </block>
+    <block wx:if="{{ giftInfo.oper=='1'}}">
+      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+      </view>
+      <view class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% ' catchtap='receiveAddress'>提交收货信息</view>
+    </block>
+    <block wx:if="{{giftInfo.oper=='2'}}">
+      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+      </view>
+      <view class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% ' catchtap='forwardfriend'>转送给其他朋友</view>
+    </block>
+    <block wx:if="{{giftInfo.oper=='3'}}">
+      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+      </view>
+      <view catchtap='reject' class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% '>拒绝</view>
+    </block>
+  </view>
+
+
+
 </view>

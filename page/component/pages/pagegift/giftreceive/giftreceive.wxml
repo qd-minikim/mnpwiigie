@@ -39,7 +39,7 @@
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
 
         <view class='gr-view-5-1'>
-          <button class='gr-view-5-1-btn font-size-4' type='default'>提交收货信息</button>
+          <button catchtap='giftdetar'data-oper='1' class='gr-view-5-1-btn font-size-4' type='default'>提交收货信息</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='23'}}">
@@ -74,7 +74,7 @@
 
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-7-1'>
-          <button class='gr-view-7-1-btn font-size-4' type='default'>转送给其他朋友</button>
+          <button catchtap='giftdetar' data-oper='2' class='gr-view-7-1-btn font-size-4' type='default'>转送给其他朋友</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
@@ -110,7 +110,7 @@
       </block>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-9-1'>
-          <button class='gr-view-9-1-btn font-size-4' type='default'>拒绝</button>
+          <button catchtap='giftdetar' data-oper='3' class='gr-view-9-1-btn font-size-4' type='default'>拒绝</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='21'}}">

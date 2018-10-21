@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -139,6 +139,12 @@
 					"name": "检索more",
 					"pathName": "page/component/pages/pageserch/serchmoref/serchmoref",
 					"query": "fu=1527673151198212&fn=冯冯段斌"
+				},
+				{
+					"id": 17,
+					"name": "我收礼-详情",
+					"pathName": "page/component/pages/pagegift/giftdetar/giftdetar",
+					"query": "gr=1534766566195646&t=1"
 				}
 			]
 		}

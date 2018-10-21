@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -15,7 +15,6 @@
         "pages/pagexdd/pagexdd",
         "pages/pagewait/pagewait",
         "pages/pageauth/pageauth",
-         
         "pages/pagedialog/pagedialog",
         "pages/pagegift/giftreceive/giftreceive",
         "pages/pagegift/giftreceivesucc/giftreceivesucc",
@@ -29,7 +28,9 @@
         "pages/pageserch/serchlist/serchlist",
         "pages/pageserch/serchmoref/serchmoref",
         "pages/pageopin/opinadd/opinadd",
-        "pages/pageopin/opinlist/opinlist"
+        "pages/pageopin/opinlist/opinlist",
+        "pages/pagegift/giftdetar/giftdetar",
+        "pages/pagegift/giftaddr/giftaddr"
       ]
     }
   ],
