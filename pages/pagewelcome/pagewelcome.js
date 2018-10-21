@@ -20,7 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.userLogin();
+    // this.userLogin();
   },
 
 
@@ -29,11 +29,6 @@ Page({
    */
   onReady: function() {
 
-    // setTimeout(function () {
-    //   wx.switchTab({
-    //     url: '/pages/pagehome/pagehome',
-    //   })
-    // }, 3000);
     wx.hideShareMenu();
   },
 
@@ -79,27 +74,27 @@ Page({
 
   },
 
-  //先登录
-  userLogin: function() {
-    var that = this;
-    wx.login({
-      success: res => {
-        var url = config.loginUrl;
-        var data = {
-          code: res.code
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
+  // //先登录
+  // userLogin: function() {
+  //   var that = this;
+  //   wx.login({
+  //     success: res => {
+  //       var url = config.loginUrl;
+  //       var data = {
+  //         code: res.code
+  //       }
+  //       rRequest.doRequest(url, data, that, function(rdata) {
 
-          if (rdata.info) {
+  //         if (rdata.info) {
 
-            app.globalData.loginInfo = rdata.info
-            that.getSettingInfo();
-          }
-        })
+  //           app.globalData.loginInfo = rdata.info
+  //           that.getSettingInfo();
+  //         }
+  //       })
 
-      }
-    })
-  },
+  //     }
+  //   })
+  // },
 
 
   getSettingInfo: function() { // 查看是否授权

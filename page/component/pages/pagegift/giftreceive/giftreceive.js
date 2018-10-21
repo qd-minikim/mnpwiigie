@@ -42,10 +42,14 @@ Page({
       height: app.globalData.systemInfo.windowHeight
     },
     tabbar: {}, //tabbar 信息
-    tabbarPage: '/pages/pagemy/pagemy' //当前页面属于哪个tabbar 默认是null
+    tabbarPage: '/pages/pagemy/pagemy', //当前页面属于哪个tabbar 默认是null
 
 
-
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
@@ -53,9 +57,17 @@ Page({
    */
   onLoad: function(options) {
 
-    /****调用函数设置tabbar及页面*****/
+
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      }) /****调用函数设置tabbar及页面*****/
+    
+    } 
     app.editTabBar();
-    /****调用函数设置tabbar及页面*****/
+    /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
     var giftRecordId = options.gr;
     var fuserid = options.fu;
 
@@ -65,7 +77,6 @@ Page({
     })
 
     this.getGiftReceive();
-
 
   },
 

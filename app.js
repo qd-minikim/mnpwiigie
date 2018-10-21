@@ -7,6 +7,8 @@ App({
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
+
+    this.userLogin();
   },
   globalData: {
     userInfo: null, //用户信息--wiigie
@@ -71,12 +73,45 @@ App({
 
   userInfoResetCallBak: function(res) {
     var that = this;
-    // that.setData({
-    //   'globalData.userInfo': res.userInfo,
-    //   'globalData.userIData ': true
-    // })
+ 
   },
+  //先登录
+  userLogin: function () {
+    var that = this;
+    wx.login({
+      success: res => {
+        var url = config.loginUrl;
+        var data = {
+          code: res.code
+        }
+        rRequest.doRequest(url, data, that, function (rdata) {
 
+          if (rdata.info) {
+
+            that.globalData.loginInfo = rdata.info
+            that.getSettingInfo();
+          }
+        })
+
+      }
+    })
+  },
+  getSettingInfo: function () { // 查看是否授权
+    var that = this;
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          that.getUsersInfo();
+        } else {
+          console.log("用户信息未授权--")
+        }
+      },
+      fail: function (res) {
+        console.log("授权失败--")
+      },
+    })
+  },
+ 
   getUsersInfo: function() {
     var that = this;
     wx.getUserInfo({
@@ -105,11 +140,32 @@ App({
           if (rdata.info) {
             that.globalData.userInfo = rdata.info;
             that.globalData.userIData = true;
-            wx.switchTab({
-              url: '/pages/pagehome/pagehome',
-            })
 
+            var pages = getCurrentPages() //获取加载的页面
+
+            var currentPage = pages[pages.length - 1] //获取当前页面的对象
+
+            var url = currentPage.route //当前页面url
+
+            if ("page/component/pages/pagegift/giftreceive/giftreceive"){
+              var options = currentPage.options
+              var giftRecordId = options.gr;
+              var fuserid = options.fu;
+              wx.switchTab({
+                url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '& fu=' + fuserid,
+              })
+
+             }
+
+            if ("pages/pagewelcome/pagewelcome" == url){
+              wx.switchTab({
+                url: '/pages/pagehome/pagehome',
+              })
+
+            }
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
+
+       
           }
 
 

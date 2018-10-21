@@ -14,7 +14,7 @@ Page({
       giftRecordId: '',
       process: '0',
       giftStatusImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png", //展示的图片路径
-
+      // newGiftRecordId: '',
       recordInfo: {}
     },
     /**用户信息 */
@@ -26,8 +26,9 @@ Page({
     configMsgInfo: {},
 
     /**分享时的title */
-    shareTitle:'',
-  
+    shareTitle: '',
+    fromLeaveMsg: '',
+    /**分享时的留言 如果为''(理论不会)时 用shareTitle  */
     /**转发蒙板 */
     pagemask: {
       isForward: false,
@@ -63,19 +64,18 @@ Page({
     var giftRecordId = options.gr;
     this.setData({
       'giftInfo.giftRecordId': giftRecordId,
-      'userInfo.id': '1528869953018820'
 
     })
     this.getGiveGiftRecordInfo()
- 
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-   
-     
+
+
   },
 
   /**
@@ -118,41 +118,73 @@ Page({
    */
   onShareAppMessage: function() {
     var that = this;
-    var title = that.data.shareTitle;
+    var fromLeaveMsg = that.data.fromLeaveMsg;
+    if (fromLeaveMsg == '') {
+
+      fromLeaveMsg = that.data.shareTitle;
+    }
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+    var userid = that.data.userInfo.id;
     var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
-    return {
-      title: title,
-      path: "/page/component/pages/pagexdd/pagexdd?m=" ,
+    var shareObj = {
+      title: fromLeaveMsg,
+      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid,
       imageUrl: imageUrl,
-      success: function () {
+      success: function() {
+      
+
+        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
+
+        var fromLeaveMessage = '';
+        var oper = that.data.giftInfo.oper;
+        var tUserId = '';
+        var url = config.requestUrl;
+        var data = {
+          code_: 'x_doProcess',
+          "processStatus": '0', //0已送
+          "giftRecordId": giftRecordId,
+          "fUserId": fUserId,
+          "newGiftRecordId": '',
+          "tUserId": '',
+          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+        }
+        rRequest.doRequest(url, data, that, function(rdata) {
+
+           that.setData({
+             'giftInfo.process':0
+           })
+
+        })
 
 
       },
-      fail: function () {
+      fail: function() {
 
       }
 
 
     }
+
+    return shareObj;
   },
 
   /**转发蒙板 */
   forwardfriend: function() {
     this.setData({
       'pagemask.isForward': true,
-     
+
     })
 
   },
   closeforwardfriend: function() {
     this.setData({
       'pagemask.isForward': false,
-       
+
     })
 
   },
 
- 
+
   showGiftRequirementDetail: function(event) {
 
       var id = event.currentTarget.dataset.id;
@@ -206,14 +238,16 @@ Page({
         if (process == '99') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
 
-           wx.showShareMenu();
-           
+          wx.showShareMenu();
+
           that.forwardfriend();
         }
         that.setData({
           'giftInfo.recordInfo': rdata.info,
           'giftInfo.process': process,
           'giftInfo.giftStatusImage': giftStatusImage,
+         
+          'fromLeaveMsg': rdata.info.from_leave_message,
         })
 
 
@@ -226,8 +260,8 @@ Page({
   getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
-    
-    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname) ;
+
+    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname);
     var values = [{
         code: 'PROCESS_0',
         replace: [{
@@ -271,15 +305,15 @@ Page({
           replacement: fUserNickname
         }]
       }, {
-        code: 'FORWARD_TIP',//模板信息
+        code: 'FORWARD_TIP', //模板信息
         replace: []
       }, {
-        code: 'GIFTWX_DESC',//转发默认信息 如果fromLeaveMessage没值时
+        code: 'GIFTWX_DESC', //转发默认信息 如果fromLeaveMessage没值时
         replace: []
-      },{
-        code:'GIFT_FORWARD_TIT',//分享时的title
+      }, {
+        code: 'GIFT_FORWARD_TIT', //分享时的title
         replace: [{
-          regexp:'nickname',
+          regexp: 'nickname',
           replacement: fUserNickname
         }]
       }
@@ -300,7 +334,7 @@ Page({
           'pagemask.msgTitle': rdata.info.FORWARD_TIP,
           'shareTitle': rdata.info.GIFT_FORWARD_TIT,
         })
-       
+
 
       }
 

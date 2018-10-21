@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -72,7 +72,7 @@
 					"id": 5,
 					"name": "送到礼品",
 					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
-					"query": "gr=1539954468851617"
+					"query": "gr=1534766566195646"
 				},
 				{
 					"id": 6,

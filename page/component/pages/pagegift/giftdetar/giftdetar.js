@@ -247,32 +247,29 @@ Page({
    */
   onShareAppMessage: function() {
     var that = this;
-    var title = '用户点击右上角分享';
-    var fm = '';
-    var r = '';
-
-
+  
     var fmodalMsg = that.data.fmodalMsg;
-
-
+    var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+    var userid = that.data.userInfo.id;
     that.setData({
       fmodalhidden: true,
     });
-
+ 
     var shareObj = {
-      title: title,
-      path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
-      imageUrl: '/image/goods-test.jpg',
+      title: fmodalMsg,
+      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
+      imageUrl: that.data.myOrderInfo.mySkuInfo.image_url,
       success: function() {
 
 
         var giftRecordId = that.data.giftInfo.giftRecordId;
 
         var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
-        var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+        
         var fromLeaveMessage = that.data.fmodalMsg;
         var oper = that.data.giftInfo.oper;
         var tUserId = '';
+        var url = config.requestUrl;
         var data = {
           code_: 'x_doProcess',
           "processStatus": '24',//24已转送
