@@ -1,5 +1,5 @@
 // page/component/pages/pagegift/giftaddr/giftaddr.js
- 
+
 var config = require('../../../../../config.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
@@ -26,7 +26,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
     var that = this;
     if (app.globalData.userWxInfo) {
@@ -44,7 +44,7 @@ Page({
     /** */
     wx.getStorage({
       key: 'userDefAddr',
-      success: function (res) {
+      success: function(res) {
         if (res.data) {
           that.setData({
             userDefAddr: res.data
@@ -62,18 +62,18 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     wx.hideShareMenu();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this;
     wx.getStorage({
       key: 'userDefAddr',
-      success: function (res) {
+      success: function(res) {
         if (res.data) {
           that.setData({
             userDefAddr: res.data
@@ -87,134 +87,111 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  selectUserAddr: function (event) {
+  selectUserAddr: function(event) {
 
     wx.navigateTo({
       url: '/page/component/pages/pageaddr/addrlist/addrlist',
     })
 
   },
-  acceptgift:function(){
+  acceptgift: function() {
 
-      wx.showModal({
-        title: '提示',
-        content: '收礼后表示您已接收该礼品，将会向您提供的地址进行发货',
-        success:function(){
-            
+    var that =this;
+    wx.showModal({
+      title: '提示',
+      content: '收礼后表示您已接收该礼品，将会向您提供的地址进行发货',
+      success: function() {
+
+        var url = config.requestUrl;
+
+      
+        var addressInfo = {
+          mobile_phone: that.data.userDefAddr.phone, //服务类型
+          address: encodeURIComponent(that.data.userDefAddr.address),
+          addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
+          city: that.data.userDefAddr.city,
+          province: that.data.userDefAddr.province,
+          district: that.data.userDefAddr.district,
+          phone: that.data.userDefAddr.phone,
+          orderUsername: encodeURIComponent(that.data.userDefAddr.orderUsername),
         }
-      })
-  },
+        
+        var buyId = that.data.giftData.buyId;
+        var userid = that.data.userInfo.id;
+        var giftRecordId = that.data.giftData.giftRecordId;
+        var fUserId = that.data.giftData.fUserId;
+        var newGiftRecordId = that.data.giftData.newGiftRecordId;
+        var tUserId = that.data.giftData.tUserId;
+        var oper = that.data.giftData.operd;
+        var data = {
+          code_: 'x_doAccept',
+          "buyId": buyId,
+          "userId": userid,
+          "processStatus": '23',
+          "giftRecordId": giftRecordId,
+          "fUserId": fUserId,
+          "newGiftRecordId": newGiftRecordId,
+          "tUserId": tUserId
 
-  /**提交订单 */
-  orderpay: function () {
+        }
+      
+        var recegiftInfo = Object.assign(data, addressInfo);
+       
+    
+ 
+        rRequest.doRequest(url, recegiftInfo, that, function(rdata) {
 
-    var that = this;
-    var url = config.orderPayUrl;
+          wx.showToast({
+            title: '收礼成功',
+            image: '/image/icon_ok.png',
+            duration: 2000,
+            success: function() {}
+          })
+          setTimeout(function () {
 
-    var userDefAddr = that.data.userDefAddr;
-    if (!userDefAddr) {
-      wx.showToast({
-        title: '请选择地址',
-        image: '/image/icon_warn.png',
-        duration: 1500,
-        success: function () { }
-      })
-      return false;
-    }
-
-
-    var addressInfo = {
-
-      mobile_phone: that.data.userDefAddr.phone, //服务类型
-
-      address: encodeURIComponent(that.data.userDefAddr.address),
-      addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
-      city: that.data.userDefAddr.city,
-      province: that.data.userDefAddr.province,
-      district: that.data.userDefAddr.district,
-
-      phone: that.data.userDefAddr.phone,
-      orderUsername: encodeURIComponent(that.data.userDefAddr.orderUsername),
-    }
-    var orderData = that.data.orderData;
-
-
-    var orderInfo = Object.assign(orderData, addressInfo);
-    orderInfo = {
-      ...orderInfo,
-      sku_desc: encodeURIComponent(orderInfo.sku_desc)
-    };
-
-    rRequest.doRequest(url, orderInfo, that, function (rdata) {
-
-      if (rdata.info) {
-
-        wx.requestPayment({
-          timeStamp: rdata.info.timeStamp, //时间戳
-          nonceStr: rdata.info.nonceStr, //随机字符串
-          package: rdata.info.package, //统一下单接口返回的 prepay_id 参数值
-          signType: rdata.info.signType, //签名算法
-          paySign: rdata.info.paySign, //签名
-          success: function (res) {
-
-            wx.showToast({
-              title: '下单成功',
-              image: '/image/icon_ok.png',
-              duration: 2000,
-              success: function () { }
+            wx.redirectTo({
+              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
             })
 
-            setTimeout(function () {
-
-              wx.navigateBack({
-                delta: 1,
-              })
-
-            }, 2000)
+          }, 1500)
 
 
-          },
-          fail: function (res) {
-            console.log("---------fail")
-          },
-          complete: function (res) {
-
-          }
         })
+
+
       }
     })
+  },
 
-
-  }
 })

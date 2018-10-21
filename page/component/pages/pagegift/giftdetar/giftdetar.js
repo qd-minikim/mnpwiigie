@@ -20,7 +20,9 @@ Page({
       fUserNickname: '',
       tUserNickname: '',
       skuinfo: null,
-      oper: '' /**当前是什么操作 1 提交收货 2 转发朋友 3 拒绝 */
+      oper: '',
+      /**当前是什么操作 1 提交收货 2 转发朋友 3 拒绝 */
+      newGiftRecordId: '' /**转送时使用 */
     },
 
     requirementInfo: {},
@@ -263,7 +265,37 @@ Page({
       imageUrl: '/image/goods-test.jpg',
       success: function() {
 
-        console.log('转发成功-----------------')
+
+        var giftRecordId = that.data.giftInfo.giftRecordId;
+
+        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
+        var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+        var fromLeaveMessage = that.data.fmodalMsg;
+        var oper = that.data.giftInfo.oper;
+        var tUserId = '';
+        var data = {
+          code_: 'x_doProcess',
+          "processStatus": '24',//24已转送
+          "giftRecordId": giftRecordId,
+          "fUserId": fUserId,
+          "newGiftRecordId": newGiftRecordId,
+          "tUserId": tUserId,
+          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+        }
+        rRequest.doRequest(url, data, that, function(rdata) {
+ 
+            wx.redirectTo({
+              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+            })
+ 
+        })
+
+
+
+
+
+
+
       },
       fail: function() {
 
@@ -304,9 +336,13 @@ Page({
           'giftInfo.fUserNickname': rdata.info.fUserNickname,
           'giftInfo.tUserNickname': rdata.info.tUserNickname,
           'giftInfo.skuinfo': rdata.info.skuinfo,
+          'giftInfo.newGiftRecordId': rdata.info.newGiftRecordId,
           'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
           'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
         })
+
+
+
 
 
         that.getRequirementKeepInfo()
@@ -836,20 +872,50 @@ Page({
       content: that.data.configMsgInfo.REJECT_TIP,
       success: function() {
 
-        console.log("-提示------")
+        var giftRecordId = that.data.giftInfo.giftRecordId;
+
+        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
+        var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+        var fromLeaveMessage = '';
+        var oper = that.data.giftInfo.oper;
+        var tUserId = '';
+        var data = {
+          code_: 'x_doProcess',
+          "processStatus": '21',//21人工拒绝
+          "giftRecordId": giftRecordId,
+          "fUserId": fUserId,
+          "newGiftRecordId": newGiftRecordId,
+          "tUserId": tUserId,
+          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+        }
+        rRequest.doRequest(url, data, that, function (rdata) {
+
+          wx.redirectTo({
+            url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+          })
+
+        })
 
       }
     })
   },
   /**提交收货 */
   receiveAddress: function() {
-var  that = this;
+    var that = this;
     var giftData = {
 
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc,
       buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
       buycopies: that.data.myOrderInfo.orderCopies,
       unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
+
+      oper: that.data.giftInfo.oper,
+
+      buyId: that.data.giftInfo.giftInfo.orderId,
+      giftRecordId: that.data.giftInfo.giftRecordId,
+      fUserId: that.data.giftInfo.giftRecordInfo.fromPerson,
+      newGiftRecordId: that.data.giftInfo.newGiftRecordId,
+      tUserId: that.data.giftInfo.giftRecordInfo.toPerson
     }
     app.globalData.giftData = giftData
     wx.navigateTo({
