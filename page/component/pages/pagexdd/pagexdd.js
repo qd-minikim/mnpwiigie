@@ -238,16 +238,37 @@ Page({
    */
   onShareAppMessage: function() {
 
-
+   
     var that = this;
     var title = that.data.requirementInfo.wxdescription;
     var fm = that.data.initDetail.fmarkid;;
     var r = that.data.requirementId;
-    return {
+    var swiperImgUrls =that.data.swiperArea.swiperImgUrls;
+    var shareObj = {
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
-      imageUrl: '/image/goods-test.jpg',
+      imageUrl: swiperImgUrls[0].imageUrl,
       success: function() {
+
+        var userid = that.data.userInfo.id;
+        var requirementId = that.data.requirementId;;
+     
+        var upmarkid = that.data.upmarkid;
+        var markid = that.data.initDetail.markid;
+        var url = config.requestUrl;
+ 
+        var data = {
+          code_: 'x_addForward',
+          "userid": userid,  
+          "requirement_id": requirementId,
+          "upmarkid": upmarkid,
+          "markid": markid
+        }
+        rRequest.doRequest(url, data, that, function (rdata) {
+
+          that.getProgressRouteInfo()
+
+        })
 
 
       },
@@ -257,6 +278,8 @@ Page({
 
 
     }
+
+    return shareObj;
 
   },
 

@@ -156,6 +156,16 @@ App({
               })
 
              }
+     
+            if ("/page/component/pages/pagexdd/pagexdd") {
+              var options = currentPage.options
+              var fm = options.m;
+              var r = options.r;
+              wx.switchTab({
+                url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
+              })
+
+            }
 
             if ("pages/pagewelcome/pagewelcome" == url){
               wx.switchTab({
