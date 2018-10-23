@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 19,
 			"list": [
 				{
 					"id": -1,
@@ -150,6 +150,12 @@
 					"id": 18,
 					"name": "账户余额",
 					"pathName": "page/component/pages/pagecount/counthome/counthome",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "账户提现",
+					"pathName": "page/component/pages/pagecount/countout/countout",
 					"query": ""
 				}
 			]

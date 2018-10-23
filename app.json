@@ -31,7 +31,8 @@
         "pages/pageopin/opinlist/opinlist",
         "pages/pagegift/giftdetar/giftdetar",
         "pages/pagegift/giftaddr/giftaddr",
-        "pages/pagecount/counthome/counthome"
+        "pages/pagecount/counthome/counthome",
+        "pages/pagecount/countout/countout"
       ]
     }
   ],

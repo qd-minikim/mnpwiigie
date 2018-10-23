@@ -1,0 +1,45 @@
+/* page/component/pages/pagecount/countout/countout.wxss */
+
+.countout-view-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 25rpx;
+}
+
+.countout-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 25rpx;
+}
+
+.countout-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 25rpx;
+  position: relative;
+}
+
+.countout-view-3-figure {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: 10rpx;
+  top: 20rpx;
+}
+
+.countout-view-3-input {
+  padding-left: 55rpx;
+  border-bottom: 1rpx solid #ccc;
+  /* border-radius: 15rpx; */
+  height: 80rpx;
+  width: 100%;
+}
+
+
+
+.countout-view-4 {
+  flex-direction: column;
+  display: flex;
+  margin: 15rpx 25rpx;
+  position: relative;
+}

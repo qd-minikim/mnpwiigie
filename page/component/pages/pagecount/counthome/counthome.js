@@ -10,7 +10,7 @@ Page({
   data: {
     accountInfo: {},
 
-     /**用户信息 */
+    /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
@@ -20,7 +20,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (app.globalData.userWxInfo) {
       this.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -36,74 +36,81 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  getAccount:function(){
+  getAccount: function() {
 
     var that = this;
     var url = config.requestUrl;
- 
+
     var userid = that.data.userInfo.id;
-     
+
     var data = {
       code_: 'x_getAccount',
-      
+
       userid: userid,
-       
+
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
-      if(rdata.info){
+      if (rdata.info) {
 
-       that.setData({
-         accountInfo:rdata.info
-       })
+        that.setData({
+          accountInfo: rdata.info
+        })
       }
- 
 
+
+    })
+  },
+  /**去提现 */
+  countoutPage: function() {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagecount/countout/countout',
     })
   }
 })
