@@ -15,7 +15,7 @@ Page({
     /**要提现的金额 */
     accountOut: '',
     istackout: false,
-    tipmsg:'提现',
+    tipmsg: '提现',
     /**配置信息 */
     configMsgInfo: {},
     /**用户信息 */
@@ -172,7 +172,7 @@ Page({
 
     that.setData({
 
-      accountOut: that.data.accountInfo.available_amount
+      accountOut: parseFloat(Number(that.data.accountInfo.available_amount)).toFixed(2)
     })
   },
 
@@ -186,37 +186,85 @@ Page({
       var lenl = value.split(".")[1].length
       if (lenl > 2) {
         value = parseFloat(Number(value)).toFixed(2)
-        that.setData({
-          accountOut: value,
-
-        })
+      
       }
-  
+
 
     }
-    if (Number(value) > Number(availableAmount)){
+    that.setData({
+      accountOut: value,
+
+    })
+    if (Number(value) > Number(availableAmount)) {
       that.setData({
         istackout: false,
         tipmsg: '提现超出可用余额',
       })
 
-    }else{
-      if (Number(value)==0) { 
+    } else {
+      if (Number(value) == 0) {
         that.setData({
           istackout: false,
           tipmsg: '提现金额不能为零',
         })
-      }else{
+      } else {
         that.setData({
           istackout: true,
           tipmsg: '提现',
         })
       }
-     
+
     }
 
-   
+  },
 
+
+ 
+
+
+  /**提现 */
+  takeOut: function() {
+
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = that.data.userInfo.id;
+    var accountOut = that.data.accountOut;
+    
+    var data = {
+      code_: 'x_merchantPay',
+
+      userid: userid,
+      amount: accountOut
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+    
+      console.log("--------------")
+      if (rdata.status == '1') {
+        wx.showToast({
+          title: '成功',
+          image: '/image/icon_ok.png',
+          duration: 2000,
+          success: function () { }
+        })
+
+        that.setData({
+          accountOut: '',
+          istackout: false,
+          tipmsg: '提现',
+        })
+        that.getAccount()
+
+      } else {
+        wx.showToast({
+          title: rdata.msg,
+          image: '/image/icon_warn.png',
+          duration: 2000,
+          success: function() {}
+        })
+      }
+
+    })
 
   }
 })

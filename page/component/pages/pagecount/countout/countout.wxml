@@ -3,7 +3,7 @@
 <view class='container' bindtap='cancleattach'>
   <view class='countout-view-1 font-size-4'>
     <view class='font-color-3'>当前账户可用余额￥{{filters.toFix(accountInfo.available_amount*1,2)}}</view>
-    <view catchtap='takeoutAll' class='font-color-8' style='flex:1;text-align:center'>全部提现</view>
+    <view catchtap='takeoutAll' class='font-color-8' style='flex:1;text-align:right'>全部提现</view>
   </view>
   <view  class='countout-view-2 font-size-4'>提现金额</view>
 
@@ -29,7 +29,7 @@
   <view></view>
   <view class='flex-bottom font-size-4'>
     <block wx:if="{{istackout}}">
-   <button class='align-center font-size-3 font-color-7' type='default' style='width:100%;height:100%;color:#ff5858'>提现</button>
+   <button catchtap='takeOut' class='align-center font-size-3 font-color-7' type='default' style='width:100%;height:100%;color:#ff5858'>提现</button>
     </block>
    <block wx:else>
    <button class='align-center font-size-3 font-color-3' disabled='true' type='default' style='width:100%;height:100%;color:#999'>{{tipmsg}}</button>
