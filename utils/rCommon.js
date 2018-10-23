@@ -57,12 +57,12 @@ var canvaProgressRoute = {
   drawImageInfo: function(i, id, that) {
 
     var this_ = this;
-    var image = config.routeCicleConfig.headImage;
+    var image = config.imageUrl +"/wiigie/background/icon/default_head.png";
     if (this_.headImage.url[i] != undefined) {
-
+      image = this_.headImage.url[i];
     }
 
-    this_.downloadImage(this_.headImage.url[i]).then(function(value) {
+    this_.downloadImage(image).then(function(value) {
 
       this_.headImage.resource[i] = value;
       this_.c++;
@@ -74,7 +74,7 @@ var canvaProgressRoute = {
       }
 
     }).catch(function() {});
-
+    
 
   },
 

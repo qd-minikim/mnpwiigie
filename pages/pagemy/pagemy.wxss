@@ -23,14 +23,21 @@ margin: 5rpx 10rpx;
 
 .pagemy-view-2{
 
-flex-direction: column;
+flex-direction: row;
 display: flex;
 margin: 5rpx 20rpx;
 
 }
 .pagemy-view-3{
 
-flex-direction: column;
+flex-direction: row;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+.pagemy-view-4{
+
+flex-direction: row;
 display: flex;
 margin: 5rpx 20rpx;
 
@@ -38,10 +45,14 @@ margin: 5rpx 20rpx;
 
 .pagemy-view-figure{
 
-  width: 50rpx;
-  height: 50rpx
+  width: 40rpx;
+  height: 40rpx
 }
+.pagemy-view-figure-35{
 
+  width: 52rpx;
+  height: 40rpx
+}
 .pagemy-view-6{
 
 flex-direction: column;

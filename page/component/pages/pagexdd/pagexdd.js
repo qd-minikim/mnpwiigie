@@ -284,10 +284,10 @@ Page({
   },
 
 
-  test: function() {
+  // test: function() {
 
-    rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
-  },
+  //   rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
+  // },
 
   clickView_7x: function(event) {
     /**
