@@ -2,7 +2,7 @@
 
  <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
       <view wx:if="{{indexG>0}}" class="gap-bg" style="flex-direction:column;"></view>
-      <view bindtap='goodShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view bindtap='goodShowDetail' data-upmarkid='{{itemG.upmarkid}}' data-requir='{{itemG.requirementid}}'>
         <view>
           <image style='width:{{imageSize}}px;height:{{imageSize}}px' lazy-load='true' mode='scaleToFill' src='{{itemG.richtextcover}}'></image>
         </view>

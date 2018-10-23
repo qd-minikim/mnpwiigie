@@ -1,9 +1,9 @@
 var pageGood = {
 
-  showDetail: function (m, r, u) {
+  showDetail: function (m, r) {
 
     wx.navigateTo({
-      url: "/page/component/pages/pagexdd/pagexdd?m=" + m + "&r=" + r + "&u=" + u,
+      url: "/page/component/pages/pagexdd/pagexdd?m=" + m + "&r=" + r ,
     })
 
   }

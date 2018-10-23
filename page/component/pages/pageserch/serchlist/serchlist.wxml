@@ -22,16 +22,16 @@
     </view>
   </block>
 
-  <block wx:if="{{serchListA.infolist.length >0 ||serchListF.infolist.length >0}}">
+  <block wx:if="{{serchListA.length >0 ||serchListF.length >0}}">
 
     <scroll-view class='serchlist-view-3' style='height:{{scrollView.height}}px'>
-      <block wx:if="{{serchListF.infolist.length >0}}">
+      <block wx:if="{{serchListF.length >0}}">
         <view>
           <view class='font-size-4' style='margin:8rpx 0'>搜索的好友</view>
           <view class="gap-line" style="flex-direction:column;"></view>
           <view class='serchlist-view-3-friend '>
 
-            <block wx:for="{{serchListF.infolist}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+            <block wx:for="{{serchListF}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
               <block wx:if="{{inde>0}}">
                 <view class="gap-line" style="flex-direction:column;"></view>
@@ -87,8 +87,8 @@
         </view>
 
       </block>
-      <block wx:if="{{serchListA.infolist.length >0}}">
-        <block wx:if="{{serchListF.infolist.length >0}}">
+      <block wx:if="{{serchListA.length >0}}">
+        <block wx:if="{{serchListF.length >0}}">
           <view class="gap-bg" style="flex-direction:column;"></view>
         </block>
         <view>

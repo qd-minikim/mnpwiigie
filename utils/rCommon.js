@@ -255,6 +255,10 @@ var canvaProgressRoute = {
 
         }
         if (node.isBuy) {
+          this_.context.beginPath();
+          this_.context.setStrokeStyle(node.buyColor)
+          this_.context.arc(x, y, r-2, Math.PI * 0, Math.PI *2)
+          this_.context.stroke()
           // canvasDraw.drawArcnew(
           //   id,
           //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
@@ -275,7 +279,14 @@ var canvaProgressRoute = {
       var childs = node.openChilds;
       if (childs && childs.length) {
         for (var i = 0; i < childs.length; i++) {
+          var rx = node.rightPoint[0] * config.routeCicleConfig.circleRM,
+            ry = node.rightPoint[1] * config.routeCicleConfig.circleRM,
+            lx = childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+            ly = childs[i].leftPoint[1] * config.routeCicleConfig.circleRM
+
+          this_.context.beginPath();
           if (!node.isColseToOpen) {
+            this_.context.setStrokeStyle(node.toOpenLineColor)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -285,7 +296,7 @@ var canvaProgressRoute = {
             //   node.toOpenLineColor,
             //   2);
           } else {
-
+            this_.context.setStrokeStyle(node.lineIsCloseToOpen)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -325,7 +336,14 @@ var canvaProgressRoute = {
       var childs = node.likePathChilds;
       if (childs && childs.length) {
         for (var i = 0; i < childs.length; i++) {
+          var rx = node.rightPoint[0] * config.routeCicleConfig.circleRM,
+            ry = node.rightPoint[1] * config.routeCicleConfig.circleRM,
+            lx = childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+            ly = childs[i].leftPoint[1] * config.routeCicleConfig.circleRM
+
+          this_.context.beginPath();
           if (!node.isColseToLikePath) {
+            this_.context.setStrokeStyle(node.toLikePathLineColor)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -334,6 +352,7 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   node.toLikePathLineColor, 2);
           } else {
+            this_.context.setStrokeStyle(node.lineIsCloseToLikePath)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -342,7 +361,10 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   lineIsCloseToLikePath, 2);
           }
-
+          this_.context.moveTo(rx, ry);
+          this_.context.lineTo(lx, ly);
+          this_.context.closePath();
+          this_.context.stroke();
           this_.readTree(childs[i], category, id);
         }
       }
@@ -352,7 +374,14 @@ var canvaProgressRoute = {
       var childs = node.friendChilds;
       if (childs && childs.length) {
         for (var i = 0; i < childs.length; i++) {
+          var rx = node.rightPoint[0] * config.routeCicleConfig.circleRM,
+            ry = node.rightPoint[1] * config.routeCicleConfig.circleRM,
+            lx = childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+            ly = childs[i].leftPoint[1] * config.routeCicleConfig.circleRM
+
+          this_.context.beginPath();
           if (!node.isColseToFriend) {
+            this_.context.setStrokeStyle(node.toFriendLineColor)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -361,7 +390,7 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   node.toFriendLineColor);
           } else {
-
+            this_.context.setStrokeStyle(node.lineIsCloseToFriend)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -370,7 +399,10 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   lineIsCloseToFriend);
           }
-
+          this_.context.moveTo(rx, ry);
+          this_.context.lineTo(lx, ly);
+          this_.context.closePath();
+          this_.context.stroke();
           this_.readTree(childs[i], category, id);
         }
 
@@ -380,8 +412,14 @@ var canvaProgressRoute = {
       var childs = node.shareChilds;
       if (childs && childs.length) {
         for (var i = 0; i < childs.length; i++) {
+          var rx = node.rightPoint[0] * config.routeCicleConfig.circleRM,
+            ry = node.rightPoint[1] * config.routeCicleConfig.circleRM,
+            lx = childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
+            ly = childs[i].leftPoint[1] * config.routeCicleConfig.circleRM
 
+          this_.context.beginPath();
           if (!node.isColseToShare) {
+            this_.context.setStrokeStyle(node.toShareLineColor)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -390,7 +428,7 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   node.toShareLineColor, 6);
           } else {
-
+            this_.context.setStrokeStyle(node.lineIsCloseToShare)
             // canvasDraw.drawLine(
             //   id,
             //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
@@ -399,7 +437,10 @@ var canvaProgressRoute = {
             //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
             //   lineIsCloseToShare, 6);
           }
-
+          this_.context.moveTo(rx, ry);
+          this_.context.lineTo(lx, ly);
+          this_.context.closePath();
+          this_.context.stroke();
           this_.readTree(childs[i], category, id);
         }
 
@@ -480,7 +521,7 @@ var userDefAddr = {
           key: 'userDefAddr',
           data: rdata.info.v_info,
         })
-      }else{
+      } else {
         wx.setStorage({
           key: 'userDefAddr',
           data: null,

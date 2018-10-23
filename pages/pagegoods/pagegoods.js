@@ -116,7 +116,7 @@ Page({
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
     var userid = that.data.userInfo.id;
-    pagegood.pageGood.showDetail(upmarkid, requirementid, userid);
+    pagegood.pageGood.showDetail(upmarkid, requirementid );
 
 
   },

@@ -7,7 +7,7 @@
     <block wx:if="{{inde>0}}">
       <view class="gap-line" style="flex-direction:column;"></view>
     </block>
-    <view class='pageserch-view-1'  catchtap='serchShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+    <view class='pageserch-view-1'  catchtap='showDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
       <view class='pageserch-view-1-1'>
         <view class='pageserch-view-1-1-1 '>
           <image style='width:60px;height:60px' mode='scaleToFill' src='{{item.theme_img_url}}'></image>

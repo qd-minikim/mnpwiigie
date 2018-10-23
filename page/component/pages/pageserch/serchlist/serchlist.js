@@ -141,7 +141,7 @@ Page({
     var userid = that.data.userInfo.id;
  
     wx.navigateTo({
-      url: "/page/component/pages/pagexdd/pagexdd?m" + upmarkid + "&r=" + requirementid + "&u=" + userid,
+      url: "/page/component/pages/pagexdd/pagexdd?m" + upmarkid + "&r=" + requirementid ,
     })
 
   }
@@ -195,9 +195,9 @@ Page({
         'isListMsg': '很抱歉没有检索到您要找的',
       })
     
-      if (rdata.info.serchListIdinfo_1) {
+      if (rdata.info.serchListIdinfo_1.infolist) {
         that.setData({
-          'serchListF': rdata.info.serchListIdinfo_1,
+          'serchListF': rdata.info.serchListIdinfo_1.infolist,
           'isList': true,
           'isListMsg': '',
         })
@@ -231,10 +231,10 @@ Page({
 
 
       }
-      if (rdata.info.serchListIdinfo_2) {
+      if (rdata.info.serchListIdinfo_2.infolist) {
         that.setData({
 
-          'serchListA': rdata.info.serchListIdinfo_2,
+          'serchListA': rdata.info.serchListIdinfo_2.infolist,
           'isList': true,
           'isListMsg': '',
         })
