@@ -238,8 +238,7 @@ Page({
       amount: accountOut
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-    
-      console.log("--------------")
+ 
       if (rdata.status == '1') {
         wx.showToast({
           title: '成功',

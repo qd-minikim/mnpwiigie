@@ -57,7 +57,7 @@
 
   <scroll-view style='height:{{scrollViewHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
-    <template is="pagegood" data="{{goodsArry}}"/>
+    <template is="pagegood" data="{{goodsArry,imageSize}}"/>
   </scroll-view>
 
 </view>
