@@ -1,5 +1,6 @@
-// pages/pagemy/pagemy.js
-
+// page/component/pages/pagecount/counthome/counthome.js
+var config = require('../../../../../config.js');
+var rRequest = require('../../../../../utils/rRequest.js');
 const app = getApp()
 Page({
 
@@ -7,7 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    /**用户信息 */
+    accountInfo: {},
+
+     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
@@ -25,13 +28,16 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
+
+    this.getAccount()
+    wx.hideShareMenu();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.hideShareMenu();
+
   },
 
   /**
@@ -75,23 +81,29 @@ Page({
   onShareAppMessage: function () {
 
   },
+  getAccount:function(){
 
-  onclick:function(event){
-    var ty = event.currentTarget.dataset.type;
-    if (ty =='giftgivelist'){
-      wx.navigateTo({
-        url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
-      })
+    var that = this;
+    var url = config.requestUrl;
+ 
+    var userid = that.data.userInfo.id;
+     
+    var data = {
+      code_: 'x_getAccount',
+      
+      userid: userid,
+       
     }
-   
-  },
+    rRequest.doRequest(url, data, that, function (rdata) {
 
+      if(rdata.info){
 
-  /**账户 */
-  accountPage:function(){
+       that.setData({
+         accountInfo:rdata.info
+       })
+      }
+ 
 
-     wx.navigateTo({
-       url: '/page/component/pages/pagecount/counthome/counthome',
-     })
+    })
   }
 })

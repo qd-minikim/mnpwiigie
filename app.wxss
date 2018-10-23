@@ -48,15 +48,15 @@
 }
 
 .font-size-3 {
-  font-size: 38rpx;
+  font-size: 35rpx;
 }
 
 .font-size-4 {
-  font-size: 34rpx;
+  font-size: 32rpx;
 }
 
 .font-size-5 {
-  font-size: 30rpx;
+  font-size: 29rpx;
 }
 
 .font-size-6 {
@@ -113,6 +113,24 @@
   color: #e36c09;
 }
 
+.bg-1{
+	border:1px solid #00c003;
+	background-color: #ffffff;
+}
+
+.bg-2{
+	background-color: #ffffff;
+}
+
+.bg-3{
+	background-color: #f4f5f6;
+}
+.bg-4{
+	background-color: #e4e5e4;
+}
+.bg-5{
+	background-color: #f9f9f9;
+}
 
 .bg-6{
 	border:1px solid #ed2847;
@@ -306,7 +324,24 @@
 .font_color_11 {
   color: #e36c09;
 }
+.bg_1{
+	border:1px solid #00c003;
+	background-color: #ffffff;
+}
 
+.bg_2{
+	background-color: #ffffff;
+}
+
+.bg_3{
+	background-color: #f4f5f6;
+}
+.bg_4{
+	background-color: #e4e5e4;
+}
+.bg_5{
+	background-color: #f9f9f9;
+}
 .bg_6{
 	border:1px solid #ed2847;
 	background-color: #ed2847;

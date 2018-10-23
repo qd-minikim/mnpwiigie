@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 18,
 			"list": [
 				{
 					"id": -1,
@@ -145,6 +145,12 @@
 					"name": "我收礼-详情",
 					"pathName": "page/component/pages/pagegift/giftdetar/giftdetar",
 					"query": "gr=1534766566195646&t=1"
+				},
+				{
+					"id": 18,
+					"name": "账户余额",
+					"pathName": "page/component/pages/pagecount/counthome/counthome",
+					"query": ""
 				}
 			]
 		}
