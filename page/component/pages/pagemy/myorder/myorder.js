@@ -56,7 +56,7 @@ Page({
 
     })
 
-    
+
   },
 
   /**
@@ -114,7 +114,7 @@ Page({
     if (currentTab == '0') {
       var orderbuysearched = that.data.orderbuysearched;
 
-      if (!orderbuysearched){
+      if (!orderbuysearched) {
         that.getOrdersInfo()
       }
     }
@@ -174,7 +174,7 @@ Page({
       allRows = that.data.ordergiftAllRows;
     }
 
- 
+
     var url = config.requestUrl;
 
     var userid = '1528869953018820'; //that.data.userInfo.id
@@ -195,7 +195,7 @@ Page({
 
         if (currentTab == '0') {
           that.setData({
-            orderbuysearched:true,
+            orderbuysearched: true,
             orderbuyEndRow: rdata.endRow,
             orderbuyAllRows: rdata.infocounts,
             orderbuyArray: rdata.infolist,
@@ -227,13 +227,24 @@ Page({
 
   /**物流信息 */
 
-  wayBill:function(event){
+  wayBill: function(event) {
 
-  
+
     var orderId = event.currentTarget.dataset.orderid;
     wx.navigateTo({
       url: '/page/component/pages/pagemy/waybill/waybill?o=' + orderId,
     })
+  },
+  /**评价晒单 */
+  evaladd: function(event) {
+
+    var evalid = event.currentTarget.dataset.evalid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/evaluate/evaladd/evaladd?e=' + evalid,
+    })
   }
+
+
+
 
 })

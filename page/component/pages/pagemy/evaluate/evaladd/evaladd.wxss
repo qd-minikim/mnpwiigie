@@ -1,0 +1,59 @@
+/* page/component/pages/pagemy/evaluate/evaladd/evaladd.wxss */
+
+.evaladd-view-0 {
+  width: 100%;
+}
+
+.evaladd-view-0-1 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+}
+
+.evaladd-view-0-image {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.evaladd-view-0-2 {
+  margin: 15rpx 15rpx;
+  flex-direction: column;
+  display: flex;
+}
+
+.evaladd-view-0-2-textarea {
+  width: 100%;
+  border: 1px solid #f7f7f7;
+  border-radius: 5rpx;
+  padding: 5rpx 3rpx;
+  height: 9em;
+  /* padding: 5rpx 15rpx; */
+}
+
+.evaladd-view-0-3 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.evaladd-view-0-3-figure {
+  /* width: 120rpx;
+  height: 120rpx; */
+}
+
+.star-image {
+  /* position: absolute; */
+  position: relative;
+  top: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+  src: "/image/normal.png";
+}
+
+.item {
+    position: absolute; 
+  top: 0rpx;
+  width: 30rpx;
+  height: 60rpx;
+}
