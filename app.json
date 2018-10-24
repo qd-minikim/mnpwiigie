@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -32,7 +32,8 @@
         "pages/pagegift/giftdetar/giftdetar",
         "pages/pagegift/giftaddr/giftaddr",
         "pages/pagecount/counthome/counthome",
-        "pages/pagecount/countout/countout"
+        "pages/pagecount/countout/countout",
+        "pages/pagemy/myorder/myorder"
       ]
     }
   ],

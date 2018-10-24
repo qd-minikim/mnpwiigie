@@ -1,0 +1,40 @@
+/* page/common/pages/pagemy/pagemy.wxss */
+
+.orderbuy-view {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 10rpx;
+}
+
+.orderbuy-view-1 {
+  text-align: left;
+  margin: 5rpx 5rpx;
+}
+
+.orderbuy-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+}
+
+.orderbuy-view-2-2 {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 5rpx;
+  position: relative
+}
+
+.orderbuy-view-2-1-image {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.orderbuy-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+   align-items:flex-end
+}
+
+.ordergift-view {
+}

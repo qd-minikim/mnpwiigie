@@ -1,31 +1,65 @@
-var filters  = {
-  toFix: function (value,num) {
-   
+var filters = {
+  toFix: function(value, num) {
+
     return value.toFixed(num)
   },
-  toContain:function(str,strR){
+  toContain: function(str, strR) {
 
+    if (str.indexOf(strR) != -1) {
 
-    if (str.indexOf(strR) != -1 ){
+      var strArry = str.split(",");
+      if (strArry.length = 1) {
+        /**只有一个时，自动选中 */
+        return '1'
+      } else {
+        /**超过一个时，允许选择， */
+        return '2'
+      }
 
-       var strArry= str.split(",");
-       if(strArry.length=1){
-         /**只有一个时，自动选中 */
-         return '1'
-       }else{
-          /**超过一个时，允许选择， */
-         return '2'
-       }
-       
-    }else{
+    } else {
 
       return '0'
     }
+  },
+  //我的订单的订单状态的背景色
+  matchBgcolor: function (dealtype, deliverytype, statuscode) {
+    if (dealtype == '1' || dealtype == '2') {
+      if (deliverytype == '1') {
+
+        if (statuscode == '0') {//0	未消费
+          return "bg-1 font-color-5";
+        }
+        if (statuscode == '1') {//1	已消费
+          return "bg-0 font-color-2";
+        }
+        if (statuscode == '2') {//2	过期作废
+          return "bg-11 font-color-2";
+        }
+
+      }
+      if (deliverytype == '2') {
+
+        if (statuscode == '0') {//0	待发货
+          return "bg-10 font-color-8";
+        }
+        if (statuscode == '1') {//1	已发货
+          return "bg-1 font-color-5";
+        }
+        if (statuscode == '2') {//2	已收货
+          return "bg-0 font-color-2";
+        }
+
+      }
+
+    }
+
+    return "bg-0 font-color-2";
+
   }
 }
 
 module.exports = {
   toFix: filters.toFix,
-  toContain: filters.toContain
+  toContain: filters.toContain,
+  matchBgcolor: filters.matchBgcolor
 }
-

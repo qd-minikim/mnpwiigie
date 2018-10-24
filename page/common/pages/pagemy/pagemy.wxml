@@ -1,0 +1,143 @@
+<!--page/common/pages/pagemy/pagemy.wxml-->
+ <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
+<!-- 我的订单--自购 -->
+<template name="orderbuy">
+ 
+  <block wx:for="{{orderbuyArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+
+    <block wx:if="{{inde>0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+
+    <view class='orderbuy-view'>
+      <view class='orderbuy-view-1 font-size-5' style='text-align: left;'>订单编号：{{item.id}}</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='orderbuy-view-2 align-center'>
+        <view class='orderbuy-view-2-1 align-center'>
+          <image class='orderbuy-view-2-1-image' src='{{item.cover_image_url}}'></image>
+        </view>
+        <view class='orderbuy-view-2-2' style='text-align: left;'>
+
+          <view class='view-ellipsis-1  font-size-4' style='flex:1;text-align: left;margin:5rpx 0rpx;'>{{item.title}}阿斯顿发</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>下单时间：{{item.buy_datetime}}</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>订单数量：{{item.buy_copies}}份</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>订单金额：￥{{filters.toFix(item.buy_cash*1,2)}}</view>
+        </view>
+
+
+        <view class='font-size-5 {{filters.matchBgcolor(item.deal_type, item.delivery_type, item.status_code)}}' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx'>{{item.status_code_name}}</view>
+
+      </view>
+
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='orderbuy-view-3 '>
+        <view style='flex:1'></view>
+
+        <block wx:if="{{item.delivery_type =='2'&& item.status_code=='1'}}">
+
+
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:32rpx;height:30rpx;' src='/image/figure_b_101.png'></image>
+              <view style='margin:0 5rpx;'>确认收货</view>
+            </button>
+          </view>
+        </block>
+
+        <block wx:if="{{item.status_code =='1'|| item.status_code=='2'||item.status_code=='3'}}">
+
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:30rpx;height:30rpx;' src='/image/figure_b_102.png'></image>
+              <view style='margin:0 5rpx;'>查看物流</view>
+            </button>
+          </view>
+
+        </block>
+        <block wx:if="{{item.evaluable =='0'}}">
+
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:30rpx;height:30rpx;' src='/image/figure_b_103.png'></image>
+              <view style='margin:0 5rpx;'>评价晒单</view>
+            </button>
+          </view>
+        </block>
+        <block wx:if="{{item.customer_service_status =='1'|| item.customer_service_status=='2'||item.customer_service_status=='9'}}">
+
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:30rpx;height:30rpx;' src='/image/figure_b_104.png'></image>
+              <view style='margin:0 5rpx;'>申请售后</view>
+            </button>
+          </view>
+        </block>
+        <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'}}">
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:30rpx;height:30rpx;' src='/image/figure_b_100.png'></image>
+              <view style='margin:0 5rpx;'>取消订单</view>
+            </button>
+          </view>
+        </block>
+
+      </view>
+
+    </view>
+
+
+  </block>
+</template>
+<!-- 我的订单--送礼 -->
+<template name="ordergift">
+  <block wx:for="{{ordergiftArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+
+    <block wx:if="{{inde>0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+
+    <view class='orderbuy-view'>
+      <view class='orderbuy-view-1 font-size-5' style='text-align: left;'>订单编号：{{item.id}}</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='orderbuy-view-2 align-center'>
+        <view class='orderbuy-view-2-1 align-center'>
+          <image class='orderbuy-view-2-1-image' src='{{item.cover_image_url}}'></image>
+        </view>
+        <view class='orderbuy-view-2-2' style='text-align: left;'>
+
+          <view class='view-ellipsis-1  font-size-4' style='flex:1;text-align: left;margin:5rpx 0rpx;'>{{item.title}}阿斯顿发</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>下单时间：{{item.buy_datetime}}</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>订单数量：{{item.buy_copies}}份</view>
+          <view class='font-size-5 font-color-4' style='text-align: left;'>订单金额：￥{{filters.toFix(item.buy_cash*1,2)}}</view>
+        </view>
+
+
+        <view class='font-size-5  bg-15 font-color-2' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx'>{{item.process_status_name}}</view>
+
+      </view>
+
+      <view class="gap-line" style="flex-direction:column;"></view>
+
+      <view class='orderbuy-view-3 '>
+        <view style='flex:1'></view>
+
+
+        <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'&&item.last_process_status=='99'}}">
+          <view style='margin:2rpx 5rpx'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:30rpx;height:30rpx;' src='/image/figure_b_100.png'></image>
+              <view style='margin:0 5rpx;'>取消订单</view>
+            </button>
+          </view>
+        </block>
+
+      </view>
+
+    </view>
+
+
+  </block>
+</template>
