@@ -1,8 +1,8 @@
 <!--page/common/pages/pagemy/pagemy.wxml-->
- <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
+<wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 <!-- 我的订单--自购 -->
 <template name="orderbuy">
- 
+
   <block wx:for="{{orderbuyArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
 
     <block wx:if="{{inde>0}}">
@@ -26,7 +26,7 @@
         </view>
 
 
-        <view class='font-size-5 {{filters.matchBgcolor(item.deal_type, item.delivery_type, item.status_code)}}' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx'>{{item.status_code_name}}</view>
+        <view class='font-size-5 {{filters.matchBgcolor(item.deal_type, item.delivery_type, item.status_code)}}' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx;bottom:10rpx'>{{item.status_code_name}}</view>
 
       </view>
 
@@ -89,6 +89,11 @@
 
 
   </block>
+  <block wx:if="{{searched && orderbuyArray.length==0}}">
+    <view class='ordergift-view font-size-4'>
+      还没有数据
+    </view>
+  </block>
 </template>
 <!-- 我的订单--送礼 -->
 <template name="ordergift">
@@ -98,15 +103,15 @@
       <view class="gap-bg" style="flex-direction:column;"></view>
     </block>
 
-    <view class='orderbuy-view'>
-      <view class='orderbuy-view-1 font-size-5' style='text-align: left;'>订单编号：{{item.id}}</view>
+    <view class='ordergift-view'>
+      <view class='ordergift-view-1 font-size-5' style='text-align: left;'>订单编号：{{item.id}}</view>
       <view class="gap-line" style="flex-direction:column;"></view>
 
-      <view class='orderbuy-view-2 align-center'>
-        <view class='orderbuy-view-2-1 align-center'>
-          <image class='orderbuy-view-2-1-image' src='{{item.cover_image_url}}'></image>
+      <view class='ordergift-view-2 align-center'>
+        <view class='ordergift-view-2-1 align-center'>
+          <image class='ordergift-view-2-1-image' src='{{item.cover_image_url}}'></image>
         </view>
-        <view class='orderbuy-view-2-2' style='text-align: left;'>
+        <view class='ordergift-view-2-2' style='text-align: left;'>
 
           <view class='view-ellipsis-1  font-size-4' style='flex:1;text-align: left;margin:5rpx 0rpx;'>{{item.title}}阿斯顿发</view>
           <view class='font-size-5 font-color-4' style='text-align: left;'>下单时间：{{item.buy_datetime}}</view>
@@ -115,13 +120,13 @@
         </view>
 
 
-        <view class='font-size-5  bg-15 font-color-2' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx'>{{item.process_status_name}}</view>
+        <view class='font-size-5  bg-15 font-color-2' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx;bottom:10rpx'>{{item.process_status_name}}</view>
 
       </view>
 
       <view class="gap-line" style="flex-direction:column;"></view>
 
-      <view class='orderbuy-view-3 '>
+      <view class='ordergift-view-3 '>
         <view style='flex:1'></view>
 
 
@@ -139,5 +144,10 @@
     </view>
 
 
+  </block>
+  <block wx:if="{{searched && ordergiftArray.length==0}}">
+    <view class='ordergift-view font-size-4'>
+      还没有数据
+    </view>
   </block>
 </template>
