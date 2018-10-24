@@ -36,7 +36,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getOrdersInfo()
+    wx.hideShareMenu();
   },
 
   /**
@@ -55,7 +56,7 @@ Page({
 
     })
 
-    this.getOrdersInfo()
+    
   },
 
   /**
@@ -173,10 +174,7 @@ Page({
       allRows = that.data.ordergiftAllRows;
     }
 
-
-    var url = config.orderPayUrl;
-
-    var that = this;
+ 
     var url = config.requestUrl;
 
     var userid = '1528869953018820'; //that.data.userInfo.id
@@ -225,6 +223,17 @@ Page({
 
 
 
+  },
+
+  /**物流信息 */
+
+  wayBill:function(event){
+
+  
+    var orderId = event.currentTarget.dataset.orderid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/waybill/waybill?o=' + orderId,
+    })
   }
 
 })

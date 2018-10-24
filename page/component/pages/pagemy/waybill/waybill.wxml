@@ -1,0 +1,56 @@
+<!--page/component/pages/pagemy/waybill/waybill.wxml-->
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <view class="waybill-view-1">
+
+    <view class='waybill-view-1-1 font-size-5 font-color-1'>
+      <view>运单号：</view>
+      <view style='flex:1'>{{wayBillInfo.num}}</view>
+    </view>
+    <view class=' waybill-view-1-1 font-size-5 font-color-1'>
+      <view>承运人：</view>
+      <view style='flex:1'>{{wayBillInfo.company}}</view>
+    </view>
+  </view>
+  <view class="gap-bg" style="flex-direction:column;"></view>
+  <block wx:if="{{wayBillInfo.waybilllist}}">
+    <scroll-view style='width:100%;height:{{scrollHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+      <block wx:for="{{wayBillInfo.waybilllist}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+        <view class='waybill-view-2'>
+          <!-- 列表 -->
+          <view class='list'>
+
+            <block wx:if="{{index ==0}}">
+              <image class='line_point' src='/image/figure_33.png'></image>
+            </block>
+            <block wx:else>
+              <image class='line_point' src='/image/figure_34.png'></image>
+            </block>
+
+            <block wx:if="{{index <list.length-1}}">
+              <view class='line'></view>
+            </block>
+            <view class='waybill-view-2-2'>
+              <!-- 列表名称 -->
+              <lable class='waybill-view-2-2-1'>{{item.context}}</lable>
+            </view>
+            <!-- 时间 -->
+            <view class='waybill-view-2-2-2'>{{item.ftime}}</view>
+
+          </view>
+          <!-- 列表底线 -->
+          <view class='botome_line'></view>
+
+
+        </view>
+      </block>
+    </scroll-view>
+  </block>
+  <block wx:if="{{!wayBillInfo.waybilllist}}">
+    <view class='waybill-view-3 font-size-4'> {{msg}}</view>
+  </block>
+
+
+</view>

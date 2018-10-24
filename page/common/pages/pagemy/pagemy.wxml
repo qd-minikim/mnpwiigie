@@ -49,7 +49,7 @@
         <block wx:if="{{item.status_code =='1'|| item.status_code=='2'||item.status_code=='3'}}">
 
           <view style='margin:2rpx 5rpx'>
-            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+            <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='wayBill'  data-orderid='{{item.id}}'>
               <image style='width:30rpx;height:30rpx;' src='/image/figure_b_102.png'></image>
               <view style='margin:0 5rpx;'>查看物流</view>
             </button>
@@ -123,13 +123,11 @@
         <view class='font-size-5  bg-15 font-color-2' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx;bottom:10rpx'>{{item.process_status_name}}</view>
 
       </view>
-
-      <view class="gap-line" style="flex-direction:column;"></view>
-
+      <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'&&item.last_process_status=='99'}}">
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
       <view class='ordergift-view-3 '>
         <view style='flex:1'></view>
-
-
         <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'&&item.last_process_status=='99'}}">
           <view style='margin:2rpx 5rpx'>
             <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
