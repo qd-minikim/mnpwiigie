@@ -10,7 +10,7 @@ Page({
    */
   data: {
     /**tab */
-    clickindex: -1,
+   
     currentTab: 0, // 0待评价 1待晒单 2 已评价
     refreshpage: '0', //0初始 1 刷新当前 2 追加
 
@@ -93,8 +93,8 @@ Page({
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
-      var index = that.data.clickindex;
-      if (value && value == '1' && index != '-1') {
+      
+      if (value && value == '1'  ) {
         that.setData({
           refreshpage: 1, //0初始 1 刷新当前 2 追加
 
@@ -354,16 +354,20 @@ Page({
   /**评价晒单 */
   evaladd: function(event) {
     var that = this
-
-    var index = event.currentTarget.dataset.index;
-    that.setData({
-      clickindex: index,
-
-    })
-
+ 
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({
       url: '/page/component/pages/pagemy/evaluate/evaladd/evaladd?e=' + evalid,
+    })
+  },
+  /**查看评论 */
+  evaldeta: function (event) {
+    var that = this
+
+    
+    var evalid = event.currentTarget.dataset.evalid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/evaluate/evaldeta/evaldeta?e=' + evalid,
     })
   }
 })

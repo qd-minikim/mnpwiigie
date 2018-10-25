@@ -35,7 +35,8 @@
         "pages/pagemy/myorder/myorder",
         "pages/pagemy/waybill/waybill",
         "pages/pagemy/evaluate/evaladd/evaladd",
-        "pages/pagemy/evaluate/evallist/evallist"
+        "pages/pagemy/evaluate/evallist/evallist",
+        "pages/pagemy/evaluate/evaldeta/evaldeta"
       ]
     }
   ],

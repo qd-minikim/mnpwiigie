@@ -253,7 +253,7 @@
 
             </block>
             <view style='margin:2rpx 5rpx'>
-              <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='evaladd' data-evalid='{{item.id}}' data-index='{{inde}}'>
+              <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='evaldeta' data-evalid='{{item.id}}' data-index='{{inde}}'>
                 <image style='width:30rpx;height:30rpx;' src='/image/figure_b_103.png'></image>
                 <view style='margin:0 5rpx;'>查看评论</view>
               </button>

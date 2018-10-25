@@ -1,0 +1,70 @@
+/* page/component/pages/pagemy/evaluate/evaldeta/evaldeta.wxss */
+
+.evaldeta-view-1 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.evaldeta-view-1-1{
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+.evaldeta-view-1-1-image{
+
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx
+}
+
+
+.evaldeta-view-2 {
+    width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.evaldeta-view-3 {
+     width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.evaldeta-view-5 {
+}
+.evaldeta-view-5-1 {
+  background-color: white;
+  width: 99%;
+  position: fixed;
+  bottom: 0rpx;
+  display: flex;
+  flex-direction: row;
+}
+.evaldeta-view-5-1-input {
+  width: 80%;
+  height: 40px;
+  background-color: white;
+  line-height: 40px;
+  font-size: 14px;
+  border: 1px solid #d0d0d0;
+  padding-left: 10px;
+}
+.evaldeta-view-5-1-button {
+  border: 1px solid white;
+  width: 18%;
+  height: 41px;
+  background: #fff;
+  color: #000;
+  line-height: 40px;
+  font-size: 14px;
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+}
+.star-image {
+  /* position: absolute; */
+  position: relative;
+  top: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+  src: "/image/normal.png";
+}
+ 
