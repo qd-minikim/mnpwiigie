@@ -5,37 +5,37 @@
    chooseType: '',
    chooseSize: false,
    //that 是调用时的页面对象
-   up: function (that, chooseType, chooseSize) {
-      var this_ = this;
-      chooseType = chooseType || this_.chooseType
+   up: function(that, chooseType, chooseSize) {
+     var this_ = this;
+     chooseType = chooseType || this_.chooseType
      chooseSize = chooseSize || this_.chooseSize
-      var animation = wx.createAnimation({
-        duration: this_.duration,
-        timingFunction: this_.timingFunction
-      })
-      // 将该变量赋值给当前动画
-      that.animation = animation
-      // 先在y轴偏移，然后用step()完成一个动画
-      animation.translateY(400).step()
-      // 用setData改变当前动画
-      that.setData({
-        // 通过export()方法导出数据
-        'panelPage.animationData': animation.export(),
-        // 改变view里面的Wx：if
-        'panelPage.chooseSize': chooseSize,
-        'panelPage.chooseType': chooseType,
-      })
-      // 设置setTimeout来改变y轴偏移量，实现有感觉的滑动
-      setTimeout(function() {
-        animation.translateY(0).step()
-        that.setData({
-          'panelPage.animationData': animation.export(),
+     var animation = wx.createAnimation({
+       duration: this_.duration,
+       timingFunction: this_.timingFunction
+     })
+     // 将该变量赋值给当前动画
+     that.animation = animation
+     // 先在y轴偏移，然后用step()完成一个动画
+     animation.translateY(400).step()
+     // 用setData改变当前动画
+     that.setData({
+       // 通过export()方法导出数据
+       'panelPage.animationData': animation.export(),
+       // 改变view里面的Wx：if
+       'panelPage.chooseSize': chooseSize,
+       'panelPage.chooseType': chooseType,
+     })
+     // 设置setTimeout来改变y轴偏移量，实现有感觉的滑动
+     setTimeout(function() {
+       animation.translateY(0).step()
+       that.setData({
+         'panelPage.animationData': animation.export(),
 
-        })
-      }, 10)
+       })
+     }, 10)
 
-    },
-   down: function (that, chooseType, chooseSize) {
+   },
+   down: function(that, chooseType, chooseSize) {
      var this_ = this;
      chooseSize = chooseSize || this_.chooseSize
      chooseType = chooseType || this_.chooseType
@@ -61,10 +61,10 @@
    }
 
  }
- 
+
  var timerDown = {
    timer: null,
-   countDown: function (that, currentTime, enddate, callback) {
+   countDown: function(that, currentTime, enddate, callback) {
 
      var this_ = this;
 
@@ -143,13 +143,12 @@
    }
 
  }
- 
 
  module.exports = {
    slideModal: slideModal,
- 
-   timerDown: timerDown,
 
+   timerDown: timerDown,
+ 
    // filters: filters,
    // toFix: filters.toFix
  }

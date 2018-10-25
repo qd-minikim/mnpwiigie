@@ -127,67 +127,73 @@ Page({
   },
   acceptgift: function() {
 
-    var that =this;
+    var that = this;
     wx.showModal({
       title: '提示',
       content: '收礼后表示您已接收该礼品，将会向您提供的地址进行发货',
-      success: function() {
+      success: function (res) {
 
-        var url = config.requestUrl;
+        if (res.confirm) {
+          var url = config.requestUrl;
 
-      
-        var addressInfo = {
-          mobile_phone: that.data.userDefAddr.phone, //服务类型
-          address: encodeURIComponent(that.data.userDefAddr.address),
-          addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
-          city: that.data.userDefAddr.city,
-          province: that.data.userDefAddr.province,
-          district: that.data.userDefAddr.district,
-          phone: that.data.userDefAddr.phone,
-          orderUsername: encodeURIComponent(that.data.userDefAddr.orderUsername),
-        }
-        
-        var buyId = that.data.giftData.buyId;
-        var userid = that.data.userInfo.id;
-        var giftRecordId = that.data.giftData.giftRecordId;
-        var fUserId = that.data.giftData.fUserId;
-        var newGiftRecordId = that.data.giftData.newGiftRecordId;
-        var tUserId = that.data.giftData.tUserId;
-        var oper = that.data.giftData.operd;
-        var data = {
-          code_: 'x_doAccept',
-          "buyId": buyId,
-          "userId": userid,
-          "processStatus": '23',
-          "giftRecordId": giftRecordId,
-          "fUserId": fUserId,
-          "newGiftRecordId": newGiftRecordId,
-          "tUserId": tUserId
 
-        }
-      
-        var recegiftInfo = Object.assign(data, addressInfo);
-       
-    
- 
-        rRequest.doRequest(url, recegiftInfo, that, function(rdata) {
+          var addressInfo = {
+            mobile_phone: that.data.userDefAddr.phone, //服务类型
+            address: encodeURIComponent(that.data.userDefAddr.address),
+            addressHouse: encodeURIComponent(that.data.userDefAddr.addressHouse),
+            city: that.data.userDefAddr.city,
+            province: that.data.userDefAddr.province,
+            district: that.data.userDefAddr.district,
+            phone: that.data.userDefAddr.phone,
+            orderUsername: encodeURIComponent(that.data.userDefAddr.orderUsername),
+          }
 
-          wx.showToast({
-            title: '收礼成功',
-            image: '/image/icon_ok.png',
-            duration: 2000,
-            success: function() {}
-          })
-          setTimeout(function () {
+          var buyId = that.data.giftData.buyId;
+          var userid = that.data.userInfo.id;
+          var giftRecordId = that.data.giftData.giftRecordId;
+          var fUserId = that.data.giftData.fUserId;
+          var newGiftRecordId = that.data.giftData.newGiftRecordId;
+          var tUserId = that.data.giftData.tUserId;
+          var oper = that.data.giftData.operd;
+          var data = {
+            code_: 'x_doAccept',
+            "buyId": buyId,
+            "userId": userid,
+            "processStatus": '23',
+            "giftRecordId": giftRecordId,
+            "fUserId": fUserId,
+            "newGiftRecordId": newGiftRecordId,
+            "tUserId": tUserId
 
-            wx.redirectTo({
-              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+          }
+
+          var recegiftInfo = Object.assign(data, addressInfo);
+
+
+
+          rRequest.doRequest(url, recegiftInfo, that, function(rdata) {
+
+            wx.showToast({
+              title: '收礼成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
             })
+            setTimeout(function() {
 
-          }, 1500)
+              wx.redirectTo({
+                url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+              })
+
+            }, 1500)
 
 
-        })
+          })
+        } else if (res.cancel) {
+
+        }
+
+
 
 
       }

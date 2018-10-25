@@ -1,6 +1,7 @@
 // page/component/pages/pagemy/myorder/myorder.js
 var config = require('../../../../../config.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+
 const app = getApp()
 Page({
 
@@ -10,6 +11,7 @@ Page({
   data: {
 
     /**tab */
+    clickindex:-1,
     currentTab: 0, // 0自购 1送礼
     /** */
     swiperHeight: 0,
@@ -30,12 +32,25 @@ Page({
 
     ordergiftEndRow: 0,
     ordergiftAllRows: 0,
+
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
     this.getOrdersInfo()
     wx.hideShareMenu();
   },
@@ -63,7 +78,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this;
+    try {
+      var value = wx.getStorageSync('refresh')
+      var currentTab = that.data.currentTab;
+      var index = that.data.clickindex;
+      if (value && value == '1' && index !='-1' ) {
+ 
+        if (currentTab == '0') {
+ 
+          var orderbuyArray = that.data.orderbuyArray;
+          orderbuyArray[index].evaluable = '1';
+          that.setData({
+            orderbuyArray: orderbuyArray,
+          })
+        }
+        if (currentTab == '1') {
+          // that.setData({
+          //   ordergiftArray: rdata.infolist,
+          // })
+        }
 
+
+      }
+    } catch (e) {
+     
+    }
+    wx.setStorage({
+      key: "refresh",
+      data: "0",
+    })
   },
 
   /**
@@ -131,19 +175,17 @@ Page({
    */
   swichNav: function(e) {
 
-      var that = this;
+    var that = this;
 
-      if (this.data.currentTab === e.target.dataset.current) {
-        return false;
-      } else {
-        that.setData({
-          currentTab: e.target.dataset.current,
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current,
 
-        })
-      }
+      })
     }
-
-    ,
+  },
 
   getOrdersInfo: function() {
 
@@ -157,7 +199,6 @@ Page({
       title: '请稍候...',
       mask: true,
     })
-
 
     var orderType = '2'
     //自购
@@ -177,7 +218,7 @@ Page({
 
     var url = config.requestUrl;
 
-    var userid = '1528869953018820'; //that.data.userInfo.id
+    var userid = that.data.userInfo.id
 
 
 
@@ -237,6 +278,13 @@ Page({
   },
   /**评价晒单 */
   evaladd: function(event) {
+    var that = this
+
+    var index = event.currentTarget.dataset.index;
+    that.setData({
+      clickindex: index,
+
+    })
 
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({

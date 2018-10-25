@@ -93,5 +93,12 @@ Page({
      wx.navigateTo({
        url: '/page/component/pages/pagecount/counthome/counthome',
      })
+  },
+    /**我的订单 */
+  myorderPage: function () {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/myorder/myorder',
+    })
   }
 })

@@ -247,14 +247,14 @@ Page({
    */
   onShareAppMessage: function() {
     var that = this;
-  
+
     var fmodalMsg = that.data.fmodalMsg;
     var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
     var userid = that.data.userInfo.id;
     that.setData({
       fmodalhidden: true,
     });
- 
+
     var shareObj = {
       title: fmodalMsg,
       path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
@@ -265,14 +265,14 @@ Page({
         var giftRecordId = that.data.giftInfo.giftRecordId;
 
         var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
-        
+
         var fromLeaveMessage = that.data.fmodalMsg;
         var oper = that.data.giftInfo.oper;
         var tUserId = '';
         var url = config.requestUrl;
         var data = {
           code_: 'x_doProcess',
-          "processStatus": '24',//24已转送
+          "processStatus": '24', //24已转送
           "giftRecordId": giftRecordId,
           "fUserId": fUserId,
           "newGiftRecordId": newGiftRecordId,
@@ -280,11 +280,11 @@ Page({
           "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
         }
         rRequest.doRequest(url, data, that, function(rdata) {
- 
-            wx.redirectTo({
-              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
-            })
- 
+
+          wx.redirectTo({
+            url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+          })
+
         })
 
 
@@ -867,31 +867,38 @@ Page({
     wx.showModal({
       title: '提示',
       content: that.data.configMsgInfo.REJECT_TIP,
-      success: function() {
+      success: function (res) {
 
-        var giftRecordId = that.data.giftInfo.giftRecordId;
+        if (res.confirm) {
+          var giftRecordId = that.data.giftInfo.giftRecordId;
 
-        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
-        var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
-        var fromLeaveMessage = '';
-        var oper = that.data.giftInfo.oper;
-        var tUserId = '';
-        var data = {
-          code_: 'x_doProcess',
-          "processStatus": '21',//21人工拒绝
-          "giftRecordId": giftRecordId,
-          "fUserId": fUserId,
-          "newGiftRecordId": newGiftRecordId,
-          "tUserId": tUserId,
-          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
-        }
-        rRequest.doRequest(url, data, that, function (rdata) {
+          var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
+          var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+          var fromLeaveMessage = '';
+          var oper = that.data.giftInfo.oper;
+          var tUserId = '';
+          var data = {
+            code_: 'x_doProcess',
+            "processStatus": '21', //21人工拒绝
+            "giftRecordId": giftRecordId,
+            "fUserId": fUserId,
+            "newGiftRecordId": newGiftRecordId,
+            "tUserId": tUserId,
+            "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+          }
+          rRequest.doRequest(url, data, that, function(rdata) {
 
-          wx.redirectTo({
-            url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+            wx.redirectTo({
+              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+            })
+
           })
+        } else if (res.cancel) {
 
-        })
+        }
+
+
+
 
       }
     })

@@ -290,20 +290,7 @@ Page({
 
         }
 
-        // imageFilePaths
-        // var dialogDetailList = that.data.dialogDetailList;
-
-        // for (var x = 0; x < res.tempFilePaths.length;x++){
-        //   var newInfo = {
-        //     dialog_type: 1,
-        //     content: '/image/loader.gif',
-        //     user_id: userId
-        //   }
-        //   dialogDetailList.push(newInfo);
-        // }
-       
-
-
+    
         rUpload.upload.uploadImage('upfile', 0, res.tempFilePaths.length, res.tempFilePaths, data, that, function (rdata) {
 
          var dialogDetailList = that.data.dialogDetailList;

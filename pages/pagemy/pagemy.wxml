@@ -22,7 +22,7 @@
  
  
   <view class='pagemy-view-2 '>
-    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx'>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' catchtap='myorderPage'>
       <view >
         <image src='/image/figure_105.png' class='pagemy-view-figure'></image>
       </view>

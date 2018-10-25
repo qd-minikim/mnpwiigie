@@ -149,28 +149,35 @@ Page({
       title: '提示',
       content: '确定要删除地址吗',
 
-      success: function() {
+      success: function (res) {
 
-        var url = config.requestUrl;
+        if (res.confirm) {
+          var url = config.requestUrl;
 
-        var id = event.currentTarget.dataset.id;
-        var data = {
-          code_: 'x_delAddress',
+          var id = event.currentTarget.dataset.id;
+          var data = {
+            code_: 'x_delAddress',
 
-          id: id
+            id: id
 
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
+          }
+          rRequest.doRequest(url, data, that, function (rdata) {
 
-          wx.showToast({
-            title: '删除成功',
-            image: '/image/icon_ok.png',
-            duration: 2000,
-            success: function() {}
+            wx.showToast({
+              title: '删除成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function () { }
+            })
+
+            that.getAddressInfo();
           })
 
-          that.getAddressInfo();
-        })
+        } else if (res.cancel) {
+          
+        }
+
+       
 
       }
 
