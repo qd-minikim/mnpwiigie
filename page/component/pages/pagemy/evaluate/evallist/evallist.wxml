@@ -1,0 +1,40 @@
+<!--page/component/pages/pagemy/evaluate/evallist/evallist.wxml-->
+
+<import src="../../../../../../page/common/pages/pagemy/pagemy.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class="evallist-view-1">
+    <view class="evallist-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">
+      <view>待评价</view>
+      <view class='font-size-6 '>{{evalAllRows_0}}</view>
+    </view>
+    <view class="evallist-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">
+      <view>待晒单</view>
+      <view class='font-size-6 '>{{evalAllRows_1}}</view>
+    </view>
+    <view class="evallist-view-1-1 {{currentTab==2 ? 'tab-on' : ''}}" data-current="2" bindtap="swichNav">
+      <view>已评价</view>
+      <view class='font-size-6 '>{{evalAllRows_2}}</view>
+    </view>
+  </view>
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
+   
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+         <template is="evalpage_0" data="{{evalArray_0,searched}}"/>
+      </scroll-view>
+    </swiper-item>
+    
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+         <template is="evalpage_1" data="{{evalArray_1,searched}}"/>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+          <template is="evalpage_2" data="{{evalArray_2,searched}}"/>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+
+</view>

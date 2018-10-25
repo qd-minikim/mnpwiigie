@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 23,
 			"list": [
 				{
 					"id": -1,
@@ -175,6 +175,12 @@
 					"name": "评价晒单",
 					"pathName": "page/component/pages/pagemy/evaluate/evaladd/evaladd",
 					"query": "e=1530850601618515"
+				},
+				{
+					"id": -1,
+					"name": "评价中心",
+					"pathName": "page/component/pages/pagemy/evaluate/evallist/evallist",
+					"query": ""
 				}
 			]
 		}

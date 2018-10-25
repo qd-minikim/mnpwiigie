@@ -6,7 +6,6 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
   ],
   "subPackages": [
     {
@@ -35,7 +34,8 @@
         "pages/pagecount/countout/countout",
         "pages/pagemy/myorder/myorder",
         "pages/pagemy/waybill/waybill",
-        "pages/pagemy/evaluate/evaladd/evaladd"
+        "pages/pagemy/evaluate/evaladd/evaladd",
+        "pages/pagemy/evaluate/evallist/evallist"
       ]
     }
   ],

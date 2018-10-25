@@ -76,3 +76,55 @@
   margin: 5rpx 5rpx;
    align-items:flex-end
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.eval-view {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 10rpx;
+}
+
+.eval-view-1 {
+  text-align: left;
+  margin: 5rpx 5rpx;
+}
+
+.eval-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+  position:relative;
+
+}
+
+.eval-view-2-2 {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 5rpx;
+  flex:1;
+  height: 180rpx;
+}
+
+.eval-view-2-1-image {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.eval-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+   align-items:flex-end
+}
