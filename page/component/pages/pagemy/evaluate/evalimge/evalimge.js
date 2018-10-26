@@ -1,8 +1,8 @@
-// page/component/pages/pagemy/evaluate/evaladd/evaladd.js
+// page/component/pages/pagemy/evaluate/evalimge/evalimge.js
 var config = require('../../../../../../config.js');
 var rRequest = require('../../../../../../utils/rRequest.js');
 var rUpload = require('../../../../../../utils/rUpload.js');
- 
+
 const app = getApp()
 Page({
 
@@ -10,30 +10,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    evalid: '',
+    /**添加配图的大小 */
+    picsize: 0,
+    pics: [],
+    isShowImage: '0', //默认0 没晒 1 已晒图
+    // isAddCommont: '1', //默认0 未评论 1已评论 2已追加评论 3
+    // commontTypeId: '0', //默认0 添加 1追加
 
-    evalinfo: {},
-    /**字数限制 */
-    textareaMaxLen: 200,
-    commontContent: '',
-
+    // 触摸开始时间
+    touchStartTime: 0,
+    // 触摸结束时间
+    touchEndTime: 0,
     /**星数量 */
     stars: [0, 1, 2, 3, 4],
     normalSrc: '/image/normal.png',
     selectedSrc: '/image/selected.png',
     halfSrc: '/image/half.png',
     key: 5, //评分
-    /**添加配图的大小 */
-    picsize: 0,
-    pics: [],
-    isShowImage: '0', //默认0 没晒 1 已晒图
-    isAddCommont: '1', //默认0 未评论 1已评论 2已追加评论 3
-    commontTypeId: '0', //默认0 添加 1追加
-
-    // 触摸开始时间
-    touchStartTime: 0,
-    // 触摸结束时间
-    touchEndTime: 0,
 
     /**用户信息 */
     userInfo: {},
@@ -61,7 +54,6 @@ Page({
     })
     this.getEval();
     wx.hideShareMenu();
-
   },
 
   /**
@@ -122,28 +114,6 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //字数限制
-  bindWordLimit: function(e) {
-    var value = e.detail.value,
-      len = parseInt(value.length);
-    if (len > this.data.noteMaxLen) return;
-    this.setData({
-      currentNoteLen: len, //当前字数
-      commontContent: e.detail.value
-    });
-  },
-  imageYl: function(event) {
-
-    var src = event.currentTarget.dataset.src; //获取data-src
-    var imgList = event.currentTarget.dataset.list; //获取data-list
-    //图片预览
-    wx.previewImage({
-      current: src, // 当前显示图片的http链接
-      urls: imgList // 需要预览的图片http链接列表
-
-    })
-  },
-
   touchStart: function(e) {
 
     this.setData({
@@ -192,86 +162,62 @@ Page({
 
   },
   selectImage: function(event) {
-      var that = this;
-      var index = event.currentTarget.dataset.index;
+    var that = this;
+    var index = event.currentTarget.dataset.index;
 
-      var s = that.data.touchEndTime - that.data.touchStartTime;
-      if (that.data.touchEndTime - that.data.touchStartTime < 300) {
+    var s = that.data.touchEndTime - that.data.touchStartTime;
+    if (that.data.touchEndTime - that.data.touchStartTime < 300) {
 
-        wx.showActionSheet({
-          itemList: ['相册', '相机'],
-          success(res) {
+      wx.showActionSheet({
+        itemList: ['相册', '相机'],
+        success(res) {
 
-            if (res.tapIndex == 0) {
-              wx.chooseImage({
-                count: 1,
-                sizeType: ['original', 'compressed'],
-                sourceType: ['album'],
-                success: function(res) {
-                  var pics = that.data.pics;
-                  if (index == -1) {
-                    pics.push(res.tempFilePaths[0]);
-                  } else {
+          if (res.tapIndex == 0) {
+            wx.chooseImage({
+              count: 1,
+              sizeType: ['original', 'compressed'],
+              sourceType: ['album'],
+              success: function(res) {
+                var pics = that.data.pics;
+                if (index == -1) {
+                  pics.push(res.tempFilePaths[0]);
+                } else {
 
-                    pics.splice(index, 1, res.tempFilePaths[0]);
-                  }
+                  pics.splice(index, 1, res.tempFilePaths[0]);
+                }
 
-                  that.setData({
-                    pics: pics,
-                    isShowImage: 1
-                  })
+                that.setData({
+                  pics: pics,
+                  isShowImage: 1
+                })
 
 
-                },
-              })
-            }
-            if (res.tapIndex == 1) {
-              wx.chooseImage({
-                count: 1,
-                sizeType: ['original', 'compressed'],
-                sourceType: ['camera'],
-                success: function(res) {
-                  var pics = that.data.pics;
+              },
+            })
+          }
+          if (res.tapIndex == 1) {
+            wx.chooseImage({
+              count: 1,
+              sizeType: ['original', 'compressed'],
+              sourceType: ['camera'],
+              success: function(res) {
+                var pics = that.data.pics;
 
-                  if (index == -1) {
-                    pics.push(res.tempFilePaths[0]);
-                  } else {
-                    pics.splice(index, 1, res.tempFilePaths[0]);
-                  }
-                  that.setData({
-                    pics: pics
-                  })
+                if (index == -1) {
+                  pics.push(res.tempFilePaths[0]);
+                } else {
+                  pics.splice(index, 1, res.tempFilePaths[0]);
+                }
+                that.setData({
+                  pics: pics
+                })
 
-                },
-              })
-            }
-          },
-        })
-      }
+              },
+            })
+          }
+        },
+      })
     }
-
-
-    ,
-  //点击右边,半颗星
-
-  selectLeft: function(e) {
-    var key = e.currentTarget.dataset.key
-    if (this.data.key == 0.5 && e.currentTarget.dataset.key == 0.5) {
-      key = 0.5;
-    }
-    this.setData({
-      key: key
-    })
-  },
-
-  //点击左边,整颗星
-
-  selectRight: function(e) {
-    var key = e.currentTarget.dataset.key
-    this.setData({
-      key: key
-    })
-
   },
   getEval: function() {
 
@@ -290,7 +236,8 @@ Page({
 
       if (rdata.info) {
         that.setData({
-          evalinfo: rdata.info
+          evalinfo: rdata.info,
+          key: rdata.info.score
         })
 
       }
@@ -300,45 +247,51 @@ Page({
 
 
   },
-
-
   submitEval: function() {
     var that = this;
-   
+
     wx.showLoading({
       title: '请稍候...',
       mask: true,
     })
 
+
     var url = config.requestUrl;
-    var userid = that.data.userInfo.id
+
+    var userid =that.data.userInfo.id
 
 
-    var score = that.data.key;
-    var commontContent = that.data.commontContent;
 
     var isShowImage = that.data.isShowImage;
-    var isAddCommont = that.data.isAddCommont;
-    var commontTypeId = that.data.commontTypeId;
+
+
+    if (isShowImage == '0') { // //默认0 没晒 1 已晒图
+
+      wx.showToast({
+        title: '请选择配图',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {
+
+
+        }
+      })
+
+      return false;
+    }
+    // var isAddCommont = that.data.isAddCommont;
+    // var commontTypeId = that.data.commontTypeId;
 
     var requirementId = that.data.evalinfo.requirement_id;
     var promotionId = that.data.evalinfo.promotion_id;
     var evaluationId = that.data.evalid;
-
+    var firstcommontid = that.data.evalinfo.firstcommontid;
     var data = {
-      code_: 'x_addEvaluation',
+      code_: 'x_addEvalImage',
 
-      images: '',
       evaluationId: evaluationId,
-      promotionId: promotionId,
-      userid: userid,
-      requirementId: requirementId,
-      isAddCommont: isAddCommont,
       isShowImage: isShowImage,
-      score: score,
-      commontContent: encodeURIComponent(commontContent),
-      commontType: commontTypeId,
-      commontId: '',
+
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -347,21 +300,21 @@ Page({
         userid: userid,
         promotionId: requirementId,
         evaluationId: evaluationId,
-        commontId: rdata.info.commontId,
+        commontId: firstcommontid,
       }
       if (that.data.pics.length > 0) {
 
         rUpload.upload.uploadImage('upfile', 0, that.data.pics.length, that.data.pics, data, that, function(rdata) {
           wx.showToast({
-            title: '评价成功',
+            title: '添图成功',
             image: '/image/icon_ok.png',
             duration: 2000,
             success: function() {}
           })
           /**缓存 */
-      
+
           wx.setStorage({
-            key: "refresh",  
+            key: "refresh",
             data: "1",
           })
 
@@ -373,11 +326,11 @@ Page({
 
           }, 1500)
 
-       
+
         });
       } else {
         /**缓存 */
-       
+
         wx.setStorage({
           key: "refresh",
           data: "1",
@@ -390,7 +343,7 @@ Page({
 
         }, 1500)
 
-        
+
 
       }
 

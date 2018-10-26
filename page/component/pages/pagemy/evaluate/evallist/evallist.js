@@ -369,5 +369,16 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pagemy/evaluate/evaldeta/evaldeta?e=' + evalid,
     })
-  }
+  },
+  /**添加晒图 */
+  evalimge: function (event) {
+    var that = this
+
+
+    var evalid = event.currentTarget.dataset.evalid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/evaluate/evalimge/evalimge?e=' + evalid,
+    })
+  },
+  
 })
