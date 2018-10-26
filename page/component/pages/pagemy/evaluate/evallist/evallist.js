@@ -380,5 +380,17 @@ Page({
       url: '/page/component/pages/pagemy/evaluate/evalimge/evalimge?e=' + evalid,
     })
   },
+  /**追加评论 */
+  evaladdmore: function (event) {
+    var that = this
+
+
+    var evalid = event.currentTarget.dataset.evalid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/evaluate/evaladdm/evaladdm?e=' + evalid,
+    })
+  },
+
+
   
 })

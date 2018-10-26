@@ -6,8 +6,6 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
-    
   ],
   "subPackages": [
     {
@@ -39,7 +37,8 @@
         "pages/pagemy/evaluate/evaladd/evaladd",
         "pages/pagemy/evaluate/evallist/evallist",
         "pages/pagemy/evaluate/evaldeta/evaldeta",
-        "pages/pagemy/evaluate/evalimge/evalimge"
+        "pages/pagemy/evaluate/evalimge/evalimge",
+        "pages/pagemy/evaluate/evaladdm/evaladdm"
       ]
     }
   ],
