@@ -242,15 +242,15 @@
           <view class='font-size-4 ' style='flex:1'></view>
           <view class='eval-view-3 '>
             <view style='flex:1'></view>
-            
 
+            <block wx:if="{{item.evaluableagain =='0'}}">
               <view style='margin:2rpx 5rpx'>
                 <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='evaladdmore' data-evalid='{{item.id}}' data-index='{{inde}}'>
                   <image style='width:30rpx;height:30rpx;' src='/image/figure_b_103.png'></image>
                   <view style='margin:0 5rpx;'>追加评论</view>
                 </button>
               </view>
-<block wx:if="{{item.evaluableagain =='0'}}">
+
             </block>
             <view style='margin:2rpx 5rpx'>
               <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='evaldeta' data-evalid='{{item.id}}' data-index='{{inde}}'>

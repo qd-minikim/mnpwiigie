@@ -209,7 +209,7 @@ Page({
     var that = this;
 
     var url = config.requestUrl;
-    var userid = '1528869953018820'; //that.data.userInfo.id
+    var userid =that.data.userInfo.id
     var data = {
       code_: 'x_getEvalNum',
       userid: userid
@@ -280,7 +280,7 @@ Page({
 
     var url = config.requestUrl;
 
-    var userid = '1528869953018820'; //that.data.userInfo.id
+    var userid =that.data.userInfo.id
 
     var data = {
       code_: 'x_getMyEvaluations',

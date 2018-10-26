@@ -100,5 +100,13 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pagemy/myorder/myorder',
     })
-  }
+  },
+  /**消费评价 */
+  evalPage: function () {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/evaluate/evallist/evallist',
+    })
+  },
+
 })

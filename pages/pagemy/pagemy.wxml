@@ -31,7 +31,7 @@
         <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
       </view> -->
     </view>
-    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx'>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' catchtap='evalPage'>
       <view >
         <image src='/image/figure_105.png' class='pagemy-view-figure'></image>
       </view>
