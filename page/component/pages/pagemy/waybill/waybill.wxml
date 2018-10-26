@@ -29,7 +29,7 @@
               <image class='line_point' src='/image/figure_34.png'></image>
             </block>
 
-            <block wx:if="{{index <list.length-1}}">
+            <block wx:if="{{index <wayBillInfo.waybilllist.length-1}}">
               <view class='line'></view>
             </block>
             <view class='waybill-view-2-2'>

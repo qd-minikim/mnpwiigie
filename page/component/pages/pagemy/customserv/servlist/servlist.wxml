@@ -1,0 +1,26 @@
+<!--page/component/pages/pagemy/customserv/servlist/servlist.wxml-->
+<import src="../../../../../../page/common/pages/pagemy/pagemy.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class="myorder-view-1">
+    <view class="myorder-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">售后申请</view>
+    <view class="myorder-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">申请记录</view>
+
+  </view>
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
+    <!-- 自购-->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+          <template is="servlist_0" data=""/>
+      </scroll-view>
+    </swiper-item>
+    <!-- 送礼 -->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+         <template is="servlist_1" data=""/>
+      </scroll-view>
+    </swiper-item>
+
+  </swiper>
+
+</view>

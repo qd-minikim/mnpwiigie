@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 26,
+			"current": 28,
 			"list": [
 				{
 					"id": -1,
@@ -199,6 +199,24 @@
 					"name": "追加评论",
 					"pathName": "page/component/pages/pagemy/evaluate/evaladdm/evaladdm",
 					"query": "e=1530850597742827"
+				},
+				{
+					"id": -1,
+					"name": "售后申请",
+					"pathName": "page/component/pages/pagemy/customserv/servlist/servlist",
+					"query": ""
+				},
+				{
+					"id": 28,
+					"name": "服务单详情",
+					"pathName": "page/component/pages/pagemy/customserv/servdeta/servdeta",
+					"query": "s=1534483046682653"
+				},
+				{
+					"id": 29,
+					"name": "审核进度",
+					"pathName": "page/component/pages/pagemy/customserv/servjd/servjd",
+					"query": "s=1534483046682653"
 				}
 			]
 		}

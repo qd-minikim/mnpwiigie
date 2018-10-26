@@ -1,0 +1,82 @@
+/* page/component/pages/pagemy/customserv/servdeta/servdeta.wxss */
+
+.servdeta-view-1 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.servdeta-view-1-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-1-2 {
+  text-align: center;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-1-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-2 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.servdeta-view-2-1 {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-4 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.servdeta-view-4-1{
+    flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+
+.servdeta-view-5 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.servdeta-view-5-1{
+    flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-6 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.servdeta-view-6-1{
+    flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+
+.servdeta-view-8{
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.servdeta-view-8-1{
+    flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}

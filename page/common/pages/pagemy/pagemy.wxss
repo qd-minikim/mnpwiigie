@@ -128,3 +128,50 @@
   margin: 5rpx 5rpx;
    align-items:flex-end
 }
+
+/* 售后申请 */
+
+.customer-view{
+
+ 
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 10rpx;
+}
+ 
+
+
+.customer-view-1 {
+   flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+  position:relative;
+}
+ 
+.customer-view-2 {
+
+   flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+  position:relative;
+}
+
+.customer-view-2-1-image {
+  width: 180rpx;
+  height: 180rpx;
+}
+ 
+.customer-view-2-2 {
+  flex-direction: column;
+  display: flex;
+  padding: 0rpx 10rpx;
+  flex:1;
+ 
+}
+ 
+.customer-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+  position:relative;
+}

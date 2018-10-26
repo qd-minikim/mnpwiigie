@@ -10,6 +10,8 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
   font-family: Microsoft YaHei;
+  
+
 }
 
 /* 区块的间隔背景色  */
