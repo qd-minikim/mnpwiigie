@@ -7,12 +7,17 @@
       <view style='flex:1;text-align:left'>服务号：{{servdetaInfo.customerServiceInfo.id}}</view>
       <view style='flex:1;text-align:right'>申请时间：{{servdetaInfo.customerServiceInfo.apply_datetime}}</view>
     </view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-    <view class='servdeta-view-1-2 font-size-4'>已退款：￥258.00</view>
-    <view class='servdeta-view-1-3 font-size-5'>
-      <view style='flex:1;text-align:left'>原路已退款金额</view>
-      <view style='flex:1;text-align:right'>￥258.00</view>
-    </view>
+    <block wx:if="{{ servdetaInfo.customerServiceInfo.service_type =='1' }}">
+      <block wx:if="{{servdetaInfo.customerServiceInfo.service_status =='31' || servdetaInfo.customerServiceInfo.service_status =='41' || servdetaInfo.customerServiceInfo.service_status =='100'}}">
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='servdeta-view-1-2 font-size-4'>{{servdetaInfo.service_status_show_des}}：￥{{servdetaInfo.customerServiceInfo.buy_cash }}</view>
+        <view class='servdeta-view-1-3 font-size-5'>
+          <view style='flex:1;text-align:left'>{{servdetaInfo.service_status_show_msg}}</view>
+          <view style='flex:1;text-align:right'>￥{{servdetaInfo.customerServiceInfo.buy_cash}}</view>
+        </view>
+      </block>
+    </block>
+
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
 
@@ -22,9 +27,9 @@
       <view class="gap-line" style="flex-direction:column;"></view>
       <view></view>
       <view class='align-center' style='flex-direction:row;display:flex;'>
-        <view class='font-size-7' style='flex:1;text-align:left'>进度完成</view>
+        <view class='font-size-7' style='flex:1;text-align:left'>{{servdetaInfo.customerServiceCurrentProcedure.operate_comment}}</view>
         <view style=''>
-          <button catchtap='servjdPage' class='font-size-7' style='line-height:1.8;padding:2rpx 10rpx' data-serviceid=''>进度详情</button>
+          <button catchtap='servjdPage' class='font-size-7' style='line-height:1.8;padding:2rpx 10rpx' data-serviceid='{{servdetaInfo.customerServiceInfo.id}}'>进度详情</button>
         </view>
       </view>
 
@@ -33,22 +38,28 @@
 
 
   </view>
+  <block wx:if="{{servdetaInfo.customerServiceCheckDes}}">
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='servdeta-view-4'>
+      <view class='servdeta-view-4-1'>
+        <view class='font-size-5'>审核留言:</view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <block wx:for="{{servdetaInfo.customerServiceCheckDes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+          <view class='font-size-6'>{{item.check_des}}</view>
+        </block>
 
-  <view class="gap-bg" style="flex-direction:column;"></view>
-  <view class='servdeta-view-4'>
-    <view class='servdeta-view-4-1'>
-      <view class='font-size-5'>审核留言:</view>
-      <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='font-size-6'>审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言审核留言</view>
 
+      </view>
     </view>
-  </view>
+  </block>
+
+
   <view class="gap-bg" style="flex-direction:column;"></view>
   <view class='servdeta-view-5'>
     <view class='servdeta-view-5-1'>
       <view class='font-size-5'>售后原因:</view>
       <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='font-size-6'>售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因</view>
+      <view class='font-size-6'>{{servdetaInfo.customerServiceInfo.service_type_destypeinfo}}</view>
 
     </view>
   </view>
@@ -57,82 +68,150 @@
     <view class='servdeta-view-6-1'>
       <view class='font-size-5'>问题描述:</view>
       <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='font-size-6'>售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因售后原因</view>
-
-    </view>
-  </view>
-
-  <view class="gap-bg" style="flex-direction:column;"></view>
-
-  <view class='servdeta-view-8'>
-    <view class='servdeta-view-8-1'>
-      <view class='font-size-5'>服务单信息:</view>
-      <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right'  >收货人地址：</view>
-        <view style='flex:1'>撒旦法师打发是的发送到发</view>
-      </view>
-     <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view style='width:6em;text-align:right' >收货人姓名：</view>
-        <view style='flex:1'>撒旦法</view>
-      </view>
+      <block wx:for="{{servdetaInfo.customerServiceDes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view class='font-size-6'>{{item.service_des}}</view>
+        <view class='font-size-6'>{{item.create_datetime}}</view>
 
 
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right'  >收货人电话：</view>
-        <view style='flex:1'>123123123</view>
-      </view>
+        <view style=' flex-direction: row; display: flex; flex-wrap: wrap'>
+          <block wx:for="{{item.desimgeurl}}" wx:for-index="indexI" wx:for-item="itemI" wx:key="*this">
+            <view style='width:{{picsize}}px;height:{{picsize}}px'>
+              <image style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{rootPath}}{{itemI.imge_url}}' catchtap='imageYl' data-src='{{itemI.imge_url}}' data-list='{{item.desimgeurl}}'></image>
+            </view>
+          </block>
 
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right'  >服务类型：</view>
-        <view style='flex:1'>退货-无理由（普通退货）</view>
-      </view>
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right'  >退款方式：</view>
-        <view style='flex:1'>原路返还</view>
-      </view>
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >联系人：</view>
-        <view style='flex:1'>冯先生</view>
-      </view>
 
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >联系电话：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
+        </view>
 
-<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >物流单号：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
-      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >物流公司：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
-      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >发货时间：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
-
-     <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >回寄单号：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
-
-           <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >回寄物流：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
-
-           <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
-        <view  style='width:6em;text-align:right' >回寄时间：</view>
-        <view style='flex:1'>12313123123</view>
-      </view>
+      </block>
 
 
     </view>
   </view>
 
+
+  <block wx:if="{{servdetaInfo.customerServiceInfo.service_status== '0'}}">
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='servdeta-view-7 align-center'>
+
+
+      <button class='font-size-5'>我要取消申请</button>
+    </view>
+
+  </block>
+  <!-- 审核通过时 -->
+  <block wx:if="{{servdetaInfo.customerServiceInfo.service_status== '11'}}">
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='servdeta-view-8'>
+      <view class='servdeta-view-8-1'>
+        <view class='font-size-5'>回寄地址信息:</view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收件人地址：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_full_address}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收件人姓名：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_name}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收件人电话：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_mobile}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>服务类型：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceInfo.service_type_name}}{{servdetaInfo.customerServiceLogistic.back_carrier_name}}
+            <block wx:if="{{servdetaInfo.customerServiceLogistic.back_carrier_name !=null && servdetaInfo.customerServiceLogistic.back_carrier_name !=''}}">-{{servdetaInfo.customerServiceLogistic.back_carrier_name}}</block>
+          </view>
+        </view>
+
+
+      </view>
+    </view>
+
+  </block>
+
+  <block wx:if="{{servdetaInfo.customerServiceLogistic.logistics_no !='' &&servdetaInfo.customerServiceLogistic.logistics_no !=null }}">
+
+
+
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='servdeta-view-11'>
+      <view class='servdeta-view-11-1'>
+        <view class='font-size-5'>服务单信息:</view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收货人地址：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_full_address}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收货人姓名：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_name}}</view>
+        </view>
+
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>收货人电话：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.m_mobile}}</view>
+        </view>
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>服务类型：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceInfo.service_type_name}}{{servdetaInfo.customerServiceLogistic.back_carrier_name}}
+            <block wx:if="{{servdetaInfo.customerServiceLogistic.back_carrier_name !=null && servdetaInfo.customerServiceLogistic.back_carrier_name !=''}}">-{{servdetaInfo.customerServiceLogistic.back_carrier_name}}</block></view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>退款方式：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceInfo.refund_type}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>联系人：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.person_name}}</view>
+        </view>
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>联系电话：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.person_phone}}</view>
+        </view>
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>物流单号：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.logistics_no}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>物流公司：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.logistics_com}}</view>
+        </view>
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>发货时间：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.logistics_datetime}}</view>
+        </view>
+ <block wx:if="{{servdetaInfo.customerServiceLogistic.back_logistics_no !='' &&servdetaInfo.customerServiceLogistic.back_logistics_no !=null }}">
+<view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>回寄单号：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.back_logistics_no}}</view>
+        </view>
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>回寄物流：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.back_logistics_com}}</view>
+        </view>
+
+        <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+          <view style='width:6em;text-align:right'>回寄时间：</view>
+          <view style='flex:1'>{{servdetaInfo.customerServiceLogistic.back_logistics_datetime}}</view>
+        </view>
+
+ </block>
+        
+
+
+      </view>
+    </view>
+  </block>
   <view></view>
 
 

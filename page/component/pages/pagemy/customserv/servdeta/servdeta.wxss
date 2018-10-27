@@ -69,13 +69,29 @@
   margin: 5rpx 15rpx;
 }
 
-
+.servdeta-view-7{
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  padding: 20rpx 0
+}
 .servdeta-view-8{
   width: 100%;
   flex-direction: column;
   display: flex;
 }
 .servdeta-view-8-1{
+    flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.servdeta-view-11{
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+.servdeta-view-11-1{
     flex-direction: column;
   display: flex;
   margin: 5rpx 15rpx;

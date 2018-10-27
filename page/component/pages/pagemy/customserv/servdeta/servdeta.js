@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    rootPath: config.imageUrl,
+    picsize: 0,
     serviceId: '',
 
     servdetaInfo: {},//customerServiceInfo,
@@ -32,7 +34,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
 
+    var percent = windowWidth / 750
+
+    var picsize = (windowWidth - 30 * percent) / 6
+    var scrollHeight = windowHeight - app.globalData.bottomBtnHeight * percent
+    this.setData({
+
+      picsize: picsize,
+      scrollHeight: scrollHeight
+    })
   },
 
   /**
@@ -75,6 +88,26 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+
+  imageYl: function (event) {
+    var that = this;
+    var rootPath = that.data.rootPath;
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    var imageUrlArry = new Array();
+    for (var n = 0; n < imgList.length; n++) {
+
+      var imageUrl = imgList[n].relativeurl
+      imageUrlArry.push(rootPath+imageUrl)
+    }
+
+    //图片预览
+    wx.previewImage({
+      current: rootPath+src, // 当前显示图片的http链接
+      urls: imageUrlArry // 需要预览的图片http链接列表
+
+    })
   },
   /**进度详情 */
   servjdPage: function(event) {
