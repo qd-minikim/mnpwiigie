@@ -94,10 +94,10 @@
       <view class='font-size-5'>问题描述:</view>
       <view class="gap-line" style="flex-direction:column;"></view>
       <block wx:for="{{servdetaInfo.customerServiceDes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+  
         <view class='font-size-6'>{{item.service_des}}</view>
-        <view class='font-size-6'>{{item.create_datetime}}</view>
-
-
+ 
         <view style=' flex-direction: row; display: flex; flex-wrap: wrap'>
           <block wx:for="{{item.desimgeurl}}" wx:for-index="indexI" wx:for-item="itemI" wx:key="*this">
             <view style='width:{{picsize}}px;height:{{picsize}}px'>
@@ -107,7 +107,7 @@
 
 
         </view>
-
+        <view class='font-size-6' style='text-align:right'>{{item.create_datetime}}</view>
       </block>
 
 

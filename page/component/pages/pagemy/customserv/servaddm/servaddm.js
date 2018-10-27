@@ -1,4 +1,4 @@
-// page/component/pages/pagemy/evaluate/evaladdm/evaladdm.js
+// page/component/pages/pagemy/customserv/servaddm/servaddm.js
  
 var config = require('../../../../../../config.js');
 var rRequest = require('../../../../../../utils/rRequest.js');
@@ -11,25 +11,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    evalid: '',
-
-    evalinfo: {},
+    serviceId: '',
+    orderId: '',
+    servdetaInfo: {},
     /**字数限制 */
     textareaMaxLen: 200,
     commontContent: '',
 
-    /**星数量 */
-    stars: [0, 1, 2, 3, 4],
-    normalSrc: '/image/normal.png',
-    selectedSrc: '/image/selected.png',
-    halfSrc: '/image/half.png',
-    key: 5, //评分
+
     /**添加配图的大小 */
     picsize: 0,
     pics: [],
-    isShowImage: '0', //默认0 没晒 1 已晒图
-    isAddCommont: '1', //默认0 未评论 1已评论 2已追加评论 3
-    commontTypeId: '1', //默认0 添加 1追加
+
 
     // 触摸开始时间
     touchStartTime: 0,
@@ -54,13 +47,14 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
-    var evalid = options.e;
-
+    var orderId = options.o;
+    var serviceId = options.s
     this.setData({
 
-      evalid: evalid
+      orderId: orderId,
+      serviceId: serviceId
     })
-    this.getEval();
+    this.getCusServAddM();
     wx.hideShareMenu();
 
   },
@@ -253,47 +247,26 @@ Page({
 
 
     ,
-  //点击右边,半颗星
 
-  selectLeft: function(e) {
-    var key = e.currentTarget.dataset.key
-    if (this.data.key == 0.5 && e.currentTarget.dataset.key == 0.5) {
-      key = 0.5;
-    }
-    this.setData({
-      key: key
-    })
-  },
-
-  //点击左边,整颗星
-
-  selectRight: function(e) {
-    var key = e.currentTarget.dataset.key
-    this.setData({
-      key: key
-    })
-
-  },
-  getEval: function() {
+  getCusServAddM: function() {
 
     var that = this;
     // var userid = that.data.userInfo.id
     var userid = that.data.userInfo.id
-    var evaluationId = that.data.evalid
+    var orderId = that.data.orderId
     var url = config.requestUrl;
 
     var data = {
-      code_: 'x_getEvaluation',
-      evaluationId: evaluationId,
+      code_: 'x_getCusServAddM',
+      orderId: orderId,
       userid: userid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
         that.setData({
-          evalinfo: rdata.info,
+          servdetaInfo: rdata.info,
 
-          key: rdata.info.score
         })
 
       }
@@ -305,7 +278,7 @@ Page({
   },
 
 
-  submitEval: function() {
+  submitCusServMore: function() {
     var that = this;
 
     wx.showLoading({
@@ -335,42 +308,33 @@ Page({
       return false;
     }
 
-    // var isShowImage = that.data.isShowImage;
-    // var isAddCommont = that.data.isAddCommont;
-    var commontTypeId = that.data.commontTypeId;
+   
+    var customerServiceId = that.data.serviceId;
 
-    var requirementId = that.data.evalinfo.requirement_id;
-    var promotionId = that.data.evalinfo.promotion_id;
-    var evaluationId = that.data.evalid;
-    var commontId = '';
+    var serviceDes = that.data.commontContent;
     var data = {
-      code_: 'x_addEvaluationMore',
+      code_: 'x_addCusServAddM', 
 
-      evaluationId: evaluationId,
-      // promotionId: promotionId,
+      customerServiceId: customerServiceId,
+      
       userid: userid,
-      // requirementId: requirementId,
-      // isAddCommont: isAddCommont,
-      // isShowImage: isShowImage,
-      // score: score,
-      commontContent: encodeURIComponent(commontContent),
-      commontType: commontTypeId,
-      commontId: commontId,
+     
+      service_des: encodeURIComponent(serviceDes),
+      
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       var data = {
-        service_: 'addevalimage',
-        userid: userid,
-        promotionId: requirementId,
-        evaluationId: evaluationId,
-        commontId: rdata.info.commontId,
+        service_: 'addcustimage',
+        customerServiceId: customerServiceId,
+        serviceDesId: rdata.info.serviceDesId,
+       
       }
       if (that.data.pics.length > 0) {
 
         rUpload.upload.uploadImage('upfile', 0, that.data.pics.length, that.data.pics, data, that, function(rdata) {
           wx.showToast({
-            title: '追评成功',
+            title: '补充成功',
             image: '/image/icon_ok.png',
             duration: 2000,
             success: function() {}
@@ -394,7 +358,7 @@ Page({
         });
       } else {
         wx.showToast({
-          title: '追评成功',
+          title: '补充成功',
           image: '/image/icon_ok.png',
           duration: 2000,
           success: function() {}

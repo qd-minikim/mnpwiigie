@@ -1,0 +1,103 @@
+<!--page/component/pages/pagemy/customserv/servadd/servadd.wxml-->
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <scroll-view scroll-y="true"   style='height:{{scrollHeight}}px' class="view-1-2-scoll" wx:key='' scroll-into-view="target" scroll-with-animation="true">
+  <view class='view-0'>
+
+    <view class='view-1 font-size-5'>服务类型:</view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='view-2' style='display:flex;flex-direction:row; '>
+
+      <block wx:for="{{initServPageInfo.configCodeInfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view catchtap='selectCode' class="{{serviceType==item.code?'view-2-1-select':''}} view-2-1 font-size-4" data-code='{{item.code}}'>{{item.codeName}}</view>
+
+      </block>
+
+    </view>
+
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+    <view class='view-3'>
+      <view class='view-3-1'>
+        <image class='view-3-1-image' src='{{initServPageInfo.image_url}}'></image>
+      </view>
+      <view class='view-3-2 '>
+        <view class='font-size-5 view-ellipsis-2' style='width:100%'>{{initServPageInfo.title}}</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;'>
+          <view class='font-size-6 font-color-4 ' style='flex:1'>价格：￥{{initServPageInfo.unit_price}}</view>
+          <view class='font-size-6 font-color-4' style='flex:1'>数量：{{initServPageInfo.buy_copies}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='view-1 font-size-5'>售后原因:</view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='view-2' style='display:flex;flex-direction:column; '>
+      <radio-group bindchange="radioChange">
+
+        <block wx:if="{{serviceType =='1'}}">
+          <block wx:for="{{initServPageInfo.SER_TYPE_1}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+            <label class='align-r-center' style='flex-direction:row;display:flex'>
+
+              <view class=" ">
+                <radio value="{{item.code}}" checked="{{chooseReason == item.code?'true':''}}" />
+              </view>
+              <view class="font-size-5">{{item.code_name}}</view>
+            </label>
+          </block>
+        </block>
+        <block wx:if="{{serviceType =='2'}}">
+          <block wx:for="{{initServPageInfo.SER_TYPE_2}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+            <label class='align-r-center' style='flex-direction:row;display:flex'>
+
+              <view class=" ">
+                <radio value="{{item.code}}" checked="{{chooseReason == item.code?'true':''}}"  />
+              </view>
+              <view class="font-size-5">{{item.code_name}}</view>
+            </label>
+          </block>
+        </block>
+      </radio-group>
+
+    </view>
+
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='view-4 '>
+      <view class='view-4-1 font-size-4'>
+        <view>问题描述</view>
+        <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
+      </view>
+      <view class='view-4-2 font-size-4 align-center'>
+        <textarea class='view-4-2-textarea font-size-4' placeholder='问题描述' placeholder-style=' ' placeholder-class='font-size-4' maxlength='200' bindinput='bindWordLimit'></textarea>
+      </view>
+
+    </view>
+
+
+    <view class='view-5'>
+      <block wx:for="{{pics}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+          <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{item}}' bindtap='selectImage' bindlongtap='deleimage' bindtouchstart="touchStart" bindtouchend="touchEnd" data-index="{{index}}"></image>
+
+        </view>
+      </block>
+
+      <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+        <image class='servaddm-view-0-3-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='/image/figure_21.png' data-index="-1" catchtap='selectImage'></image>
+      </view>
+
+
+
+    </view>
+  </view>
+
+</scroll-view>
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-4 align-center' type="primary" catchtap='addCusServ' style='width:100%'>提交</button>
+  </view>
+</view>

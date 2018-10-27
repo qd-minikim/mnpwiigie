@@ -12,7 +12,7 @@ Page({
     picsize: 0,
     serviceId: '',
 
-    servdetaInfo: {},//customerServiceInfo,
+    servdetaInfo: {}, //customerServiceInfo,
   },
 
   /**
@@ -52,6 +52,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this;
+    try {
+      var value = wx.getStorageSync('refresh')
+      var currentTab = that.data.currentTab;
+
+      if (value && value == '1') {
+
+        this.getServDetaInfo()
+
+      }
+    } catch (e) {
+
+    }
+    wx.setStorage({
+      key: "refresh",
+      data: "0",
+    })
+
 
   },
 
@@ -90,7 +108,7 @@ Page({
 
   },
 
-  imageYl: function (event) {
+  imageYl: function(event) {
     var that = this;
     var rootPath = that.data.rootPath;
     var src = event.currentTarget.dataset.src; //获取data-src
@@ -98,13 +116,13 @@ Page({
     var imageUrlArry = new Array();
     for (var n = 0; n < imgList.length; n++) {
 
-      var imageUrl = imgList[n].relativeurl
-      imageUrlArry.push(rootPath+imageUrl)
+      var imageUrl = imgList[n].imge_url
+      imageUrlArry.push(rootPath + imageUrl)
     }
 
     //图片预览
     wx.previewImage({
-      current: rootPath+src, // 当前显示图片的http链接
+      current: rootPath + src, // 当前显示图片的http链接
       urls: imageUrlArry // 需要预览的图片http链接列表
 
     })
@@ -117,26 +135,36 @@ Page({
     })
 
   },
-  getServDetaInfo:function(){
+  servaddmore: function(event) {
+
+
+    var orderId = event.currentTarget.dataset.orderid;
+    var serviceId = event.currentTarget.dataset.serviceid;
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/customserv/servaddm/servaddm?o=' + orderId + '&s=' + serviceId,
+    })
+  },
+  getServDetaInfo: function() {
 
     var that = this;
-    
+
     wx.showLoading({
       title: '请稍候...',
       mask: true,
     })
     var url = config.requestUrl;
-    var userid = '1528869953018820'//that.data.userInfo.id//
+    var userid = '1528869953018820' //that.data.userInfo.id//
     var serviceId = that.data.serviceId;
     var data = {
       code_: 'x_getServDeta',
       serviceId: serviceId,
       userId: userid,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
 
-      if(rdata.info){
+      if (rdata.info) {
 
         that.setData({
           servdetaInfo: rdata.info

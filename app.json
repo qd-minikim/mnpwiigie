@@ -6,8 +6,6 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-     
-   
   ],
   "subPackages": [
     {
@@ -43,7 +41,9 @@
         "pages/pagemy/evaluate/evaladdm/evaladdm",
         "pages/pagemy/customserv/servlist/servlist",
         "pages/pagemy/customserv/servdeta/servdeta",
-        "pages/pagemy/customserv/servjd/servjd"
+        "pages/pagemy/customserv/servjd/servjd",
+        "pages/pagemy/customserv/servaddm/servaddm",
+        "pages/pagemy/customserv/servadd/servadd"
       ]
     }
   ],

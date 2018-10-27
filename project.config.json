@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 28,
+			"current": 31,
 			"list": [
 				{
 					"id": -1,
@@ -217,6 +217,18 @@
 					"name": "审核进度",
 					"pathName": "page/component/pages/pagemy/customserv/servjd/servjd",
 					"query": "s=1534483046682653"
+				},
+				{
+					"id": -1,
+					"name": "补充描述",
+					"pathName": "page/component/pages/pagemy/customserv/servaddm/servaddm",
+					"query": ""
+				},
+				{
+					"id": 31,
+					"name": "售后申请",
+					"pathName": "page/component/pages/pagemy/customserv/servadd/servadd",
+					"query": "o=1539954468803111"
 				}
 			]
 		}
