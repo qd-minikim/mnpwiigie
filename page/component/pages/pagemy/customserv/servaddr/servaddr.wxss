@@ -1,0 +1,13 @@
+/* page/component/pages/pagemy/customserv/servaddr/servaddr.wxss */
+
+.view-1 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.view-1-1 {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
