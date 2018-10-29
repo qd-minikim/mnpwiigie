@@ -35,8 +35,8 @@
         <view class='font-size-6 font-color-4' style='flex-direction:row;display:flex;flex:1'>
           <block wx:for="{{item.my_friends}}" wx:key="" wx:for-index="indexf" wx:for-item="itemf">
 
-            <image class="pageserch-view-1-1-1-f-image" src='{{itemf.friend_image_url}}'></image>({{item.my_friends_num}}人)
-          </block>
+            <image class="pageserch-view-1-1-1-f-image" src='{{itemf.friend_image_url}}'></image>
+          </block>({{item.my_friends_num}}人)
         </view>
       </view>
       <view class='pageserch-view-1-4 '>

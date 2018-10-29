@@ -59,9 +59,10 @@ margin: 5rpx 20rpx;
   width: 52rpx;
   height: 40rpx
 }
-.pagemy-view-6{
+ 
+ .pagemy-view-5{
 
-flex-direction: column;
+flex-direction: row;
 display: flex;
 margin: 5rpx 20rpx;
 

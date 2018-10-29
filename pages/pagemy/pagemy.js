@@ -17,7 +17,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (app.globalData.userWxInfo) {
       this.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -30,91 +30,106 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     wx.hideShareMenu();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
-  onclick:function(event){
+  onclick: function(event) {
     var ty = event.currentTarget.dataset.type;
-    if (ty =='giftgivelist'){
+    if (ty == 'giftgivelist') {
       wx.navigateTo({
         url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
       })
     }
-   
+
   },
 
 
   /**账户 */
-  accountPage:function(){
+  accountPage: function() {
 
-     wx.navigateTo({
-       url: '/page/component/pages/pagecount/counthome/counthome',
-     })
+    wx.navigateTo({
+      url: '/page/component/pages/pagecount/counthome/counthome',
+    })
   },
-    /**我的订单 */
-  myorderPage: function () {
+  /**我的订单 */
+  myorderPage: function() {
 
     wx.navigateTo({
       url: '/page/component/pages/pagemy/myorder/myorder',
     })
   },
   /**消费评价 */
-  evalPage: function () {
+  evalPage: function() {
 
     wx.navigateTo({
       url: '/page/component/pages/pagemy/evaluate/evallist/evallist',
     })
   },
   /**我的好友 */
-  myfriendsPage: function () {
+  myfriendsPage: function() {
 
     wx.navigateTo({
       url: '/page/component/pages/pagemy/friends/myfriends/myfriends',
     })
   },
 
-  
+  /**我的收藏 */
+  mykeepsPage: function() {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/keeps/keeps',
+    })
+  },
+
+
+  /**我的足迹 */
+  myhelpsPage: function () {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/myhelps/myhelps',
+    })
+  },
 })

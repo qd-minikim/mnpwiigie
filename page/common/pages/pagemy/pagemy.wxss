@@ -175,3 +175,83 @@
   margin: 5rpx 5rpx;
   position:relative;
 }
+
+
+/* 我的收藏 */
+.keeps-view-1 {
+  flex-direction: column;
+  display: flex;
+  margin-top:5rpx;
+  margin-bottom: 5rpx;
+}
+
+.keeps-view-1-1 {
+  flex-direction: row;
+  display: flex;
+}
+.keeps-view-1-1-1 {
+  width:60px;height:60px
+}
+.keeps-view-1-1-2 {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  margin: 5rpx 10rpx;
+}
+
+.keeps-view-1-4 {
+  flex-direction: row;
+  display: flex;
+}
+
+.keeps-view-1-4-figure {
+  width: 30rpx;
+  height: 30rpx;
+}
+.keeps-view-1-1-1-f-image{
+
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+
+
+/* 我的足迹 */
+.helps-view-1 {
+  flex-direction: column;
+  display: flex;
+  margin-top:5rpx;
+  margin-bottom: 5rpx;
+}
+
+.helps-view-1-1 {
+  flex-direction: row;
+  display: flex;
+}
+.helps-view-1-1-1 {
+  width:60px;height:60px
+}
+.helps-view-1-1-2 {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  margin: 5rpx 10rpx;
+}
+
+.helps-view-1-4 {
+  flex-direction: row;
+  display: flex;
+}
+
+.helps-view-1-4-figure {
+  width: 30rpx;
+  height: 30rpx;
+}
+.helps-view-1-1-1-f-image{
+
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}

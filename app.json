@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-   
+    
   ],
   "subPackages": [
     {
@@ -47,7 +47,10 @@
         "pages/pagemy/customserv/servadd/servadd",
         "pages/pagemy/customserv/servaddr/servaddr",
         "pages/pagemy/friends/myfriends/myfriends",
-        "pages/pagemy/friends/friendset/friendset"
+        "pages/pagemy/friends/friendset/friendset",
+        "pages/pagemy/keeps/keeps",
+        "pages/pagemy/myhelps/myhelps",
+        "pages/pagebing/pagebing"
       ]
     }
   ],
