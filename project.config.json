@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 32,
+			"current": 34,
 			"list": [
 				{
 					"id": -1,
@@ -235,6 +235,18 @@
 					"name": "售后服务-回填地址",
 					"pathName": "page/component/pages/pagemy/customserv/servaddr/servaddr",
 					"query": "o=1534429920223639&s="
+				},
+				{
+					"id": 33,
+					"name": "分享状态设置",
+					"pathName": "page/component/pages/pagemy/friends/friendset/friendset",
+					"query": "f=1540177295455721"
+				},
+				{
+					"id": -1,
+					"name": "我的朋友",
+					"pathName": "page/component/pages/pagemy/friends/myfriends/myfriends",
+					"query": ""
 				}
 			]
 		}

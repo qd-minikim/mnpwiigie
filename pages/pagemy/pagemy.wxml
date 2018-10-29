@@ -55,7 +55,7 @@
   <view class="gap-bg" style="flex-direction:column;"></view>
  <view class='pagemy-view-3'>
 
-  <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx'>
+  <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' catchtap='myfriendsPage'>
       <view >
         <image src='/image/figure_109.png' class='pagemy-view-figure-35'></image>
       </view>

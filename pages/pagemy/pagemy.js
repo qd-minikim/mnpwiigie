@@ -108,5 +108,13 @@ Page({
       url: '/page/component/pages/pagemy/evaluate/evallist/evallist',
     })
   },
+  /**我的好友 */
+  myfriendsPage: function () {
 
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/friends/myfriends/myfriends',
+    })
+  },
+
+  
 })

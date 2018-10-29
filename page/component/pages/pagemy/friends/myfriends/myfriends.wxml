@@ -1,0 +1,37 @@
+<!--page/component/pages/pagemy/friends/myfriends/myfriends.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='view-1 bg-4 '>
+    <view class='view-1-1 font-color-4'>
+      <view class='font-size-5 align-c-center' style='flex:1'>朋友（{{allRows}}人）</view>
+      <view class='font-size-5 align-c-center' style='width:5em'>关系强度</view>
+      <view class='font-size-5 align-c-center' style='width:5em'>分享状态</view>
+      <view class='font-size-5 align-c-center' style='width:1em'></view>
+    </view>
+  </view>
+
+  <scroll-view style='max-height:{{scrollHeight}};width: 100%;' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+
+    <block wx:for="{{myFriends}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+      <block wx:if="{{inde>0}}">
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+      <view class='view-1-1 align-center' catchtap='friendset' data-friendid='{{item.id}}'>
+        <view class='font-size-5 align-center' style='flex:1;flex-direction:row;display:flex'>
+          <view>
+            <image style='width:100rpx;height:100rpx;border-radius:50%' src='{{item.imagurl}}'></image>
+          </view>
+          <view class='font-color-4' style='flex:1;margin:2rpx 5rpx'>{{item.nickname}}</view>
+        </view>
+        <view class='font-color-4 font-size-5 align-c-center' style='width:5em'>{{item.friend_strength}}</view>
+        <view class='font-color-4 font-size-5 align-c-center' style='width:5em'>{{item.share_status_des}}</view>
+        <view class='font-size-5 align-c-center' style='width:1em'>
+          <image src='/image/arrow_right_1.png' style='width:40rpx;height:40rpx'></image>
+        </view>
+      </view>
+    </block>
+
+
+  </scroll-view>
+
+</view>
