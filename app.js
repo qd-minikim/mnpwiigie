@@ -4,21 +4,7 @@ var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
 App({
-  /**现在的缓存内容 */
-  // wx.setStorage({
-  //   key: 'userDefAddr',
-  //   data: null,
-  // })
-  // var sData = {
-  //   'page': 'myorder',/**myorder:我的订单页 */
-  //   'otype': 'eval',
-  //   'operator': '1',/**默认 0或'',1代表需要更新 */
-  //   'index': '0',/**默认 0或'',1代表需要更新 */
-  // }
-  //       wx.setStorage({
-  //   key: 'refresh',//从我的订单的操作
-  //   data: sData,
-  // })
+  
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
@@ -34,6 +20,8 @@ App({
     loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
+
+    
     },
 
 

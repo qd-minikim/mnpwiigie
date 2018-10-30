@@ -6,6 +6,10 @@ var rSocket = require('../../../../../utils/rSocket.js');
 var rUtils = require('../../../../../utils/rUtils.js');
 var rUpload = require('../../../../../utils/rUpload.js');
 const app = getApp()
+
+var socketOpen =false;
+
+var SocketTask;
 Page({
 
   /**
@@ -14,8 +18,8 @@ Page({
   data: {
     /**传递参数 */
     requirementId: '',
-    userType: 1,//1:消费者 0：商户
-
+    userType: 1, //1:消费者 0：商户
+    customDialogId: '',
 
 
     dialogInfoId: '',
@@ -32,7 +36,7 @@ Page({
     /**图片文件 */
 
     dialogDetailList: [],
-   
+
     dialogCofig: {
       width: 0
     },
@@ -62,6 +66,7 @@ Page({
       isHtml: false
     },
 
+   
   },
 
   /**
@@ -76,16 +81,15 @@ Page({
       })
     }
 
-  
+
     this.setData({
+      'customDialogId': options.d,
+      'requirementId': options.r,
+      'userType': options.t,
+        // 'userInfo.id': '1529295282828524'
 
-        'requirementId': options.r,
-         'userType': options.type,
-    })
-
-    this.createSocket()
+    })   
  
-
     this.getDialogInfo()
 
 
@@ -112,7 +116,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!SocketTask){
+      
 
+      this.webSocket()
+    }else{
+
+      if (SocketTask.readyState !== 0 && SocketTask.readyState !== 1) {
+
+        this.webSocket()
+      }
+    }
+    
   },
 
   /**
@@ -150,16 +165,16 @@ Page({
 
   },
 
- 
+
   getDialogInfo: function() {
 
     var that = this;
     var url = config.requestUrl;
     var userId = that.data.userInfo.id;
- 
+
     var requirementId = that.data.requirementId;
-    
-    var customDialogId = '1533134875012282'; //商户时 存在
+
+    var customDialogId = that.data.customDialogId; //商户时 存在
     var userType = that.data.userType;
     var data = {
       code_: 'x_getDialogInfo',
@@ -209,7 +224,7 @@ Page({
 
         })
         that.setData({
-          scrollTop: 1000 * rdata.infolist.length 
+          scrollTop: 1000 * rdata.infolist.length
         });
 
       }
@@ -225,15 +240,14 @@ Page({
 
   },
 
-  cancleattach:function(){
-  var that = this;
-  rUtils.slideModal.down(that, null, false);
-}
-  ,
-  photos: function (event) {
+  cancleattach: function() {
+    var that = this;
+    rUtils.slideModal.down(that, null, false);
+  },
+  photos: function(event) {
     var that = this;
     var sourcetype = event.currentTarget.dataset.sourcetype;
- 
+
     wx.chooseImage({
       count: 9,
       sizeType: ['original', 'compressed'],
@@ -244,7 +258,7 @@ Page({
         })
 
         var requirementId = that.data.requirementId;
-        
+
         var timestamp = that.data.timestamp;
         var userType = that.data.userType;
 
@@ -285,15 +299,15 @@ Page({
           spu_id: spuId,
           promotion_id: promotionId,
 
-          service_:'dialogimage'
+          service_: 'dialogimage'
 
 
         }
 
-    
-        rUpload.upload.uploadImage('upfile', 0, res.tempFilePaths.length, res.tempFilePaths, data, that, function (rdata) {
 
-         var dialogDetailList = that.data.dialogDetailList;
+        rUpload.upload.uploadImage('upfile', 0, res.tempFilePaths.length, res.tempFilePaths, data, that, function(rdata) {
+
+          var dialogDetailList = that.data.dialogDetailList;
 
           var newInfo = {
             dialog_type: 1,
@@ -359,13 +373,13 @@ Page({
 
     var content = that.data.inputValue;
 
-    if(content == ''){
- 
+    if (content == '') {
+
       wx.showToast({
         title: '发送信息不能为空',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -433,6 +447,14 @@ Page({
             scrollTop: 1000 * dialogDetailList.length
           });
 
+          // var sendData = { "relationId": timestamp + "_" + that.data.ouserid}
+          // sendMsg(sendData);
+
+          wx.setStorage({
+            key: "refresh",
+            data: "1",
+          })
+
         }
       }
     })
@@ -472,17 +494,46 @@ Page({
 
     })
   },
-  createSocket: function() {
+
+
+
+
+
+  /** */
+  webSocket: function () {
 
     var that = this;
+   
+    var userType = that.data.userType;
+    var userId = that.data.userInfo.id;
+    var relationId = '';
 
-    var relationId = '22';
-    var url = config.socketUrl + relationId;
+    relationId = "dialog_" + userId
+    var url = config.socketUrl + "/" + relationId
     var data = {}
-    rSocket.connectSocket(url, data, that, function(rdata) {
-
-
+    SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
+      console.log('WebSocket连接创建--', rdata)
+ 
+    })
+ 
+    SocketTask.onOpen(function (res) {
+      console.log('WebSocket连接已打开！readyState=' + SocketTask.readyState)
+ 
+    })
+    SocketTask.onMessage(function (res) {
+      that.getDialogInfo()
+      // console.log('WebSocketonMessage！readyState=' + res)
+    })
+    SocketTask.onError(function (res) {
+      // console.log('onError====readyState=')
+    })
+    SocketTask.onClose(function (res) {
+      // console.log('WebSocket连接已关闭！readyState=')
+      that.webSocket()
     })
 
-  }
+  },
+ 
+   
 })
+ 

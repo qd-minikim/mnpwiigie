@@ -902,10 +902,11 @@ Page({
   /**客服聊天 */
   customerpage: function() {
     var r = this.data.requirementId;
-    /**type = 1:消费者 0：商户 */
+    /**type = 1:消费者 0：商户  t == 1时 c =''*/
     wx.navigateTo({
-     // url: '/page/component/pages/pagedialog/pagedialog?type=1&r=' + r,
-      url: '/page/component/pages/pagedialog/dialog/dialog?type=1&r=' + r,
+    
+      url: '/page/component/pages/pagedialog/dialog/dialog?t=1&r=' + r + '&d=',
+      
     })
 
   },

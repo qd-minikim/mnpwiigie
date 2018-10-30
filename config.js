@@ -19,7 +19,7 @@ var config = {
   
   orderPayUrl: `https://${host}/wiigie/xcx/prePayOrder`,
  
-  socketUrl: `wss://${host}/wiigie/ws/`,
+  socketUrl: `wss://${host}/wiigie/ws`,
 
   // 上传文件接口
   uploadFileUrl: `https://${host}/wiigie/xcx/upload`,

@@ -20,7 +20,7 @@
               </block>
             </block>
  
-            <view style='flex-direction:column;display:flex'>
+            <view style='flex-direction:column;display:flex' catchtap='dialogpage' data-require='{{item.requirement_id}}' data-dialogid='{{item.id}}'>
 
 
               <block wx:if="{{item.requirement_group !=''}}">
@@ -39,12 +39,12 @@
 
               <view class='align-center' style='flex-direction:row;display:flex; margin:1rpx 15rpx'>
                 <view class='align-center' style='margin:1rpx 5rpx'>
-                  <image style='width:80rpx;height:80rpx;border-radius:50%' src='{{item.head_image_url}}'></image>
+                  <image style='width:80rpx;height:80rpx;border-radius:50%' src='{{item.new_head_image_url}}'></image>
                 </view>
                 <view class='font-size-5' style='flex:1'>{{item.newest_dialog}}</view>
                 <view><image style='width:40rpx;height:40rpx;' src='/image/arrow_right_1.png'></image></view>
               </view>
-              <view class='font-size-5' style='text-align:right'> {{item.update_time}}</view>
+              <view class='font-size-6 font-color-4' style='text-align:right'> {{item.update_time}}</view>
             </view>
 
 

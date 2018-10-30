@@ -3,16 +3,25 @@ var config = require('../config.js')
 function connectSocket(url, paramdata, that, callback) {
   url = url || config.requestUrl;
 
-  wx.connectSocket({
+  var socketTask = wx.connectSocket({
     url: url, //对外地址
     data: paramdata,
     header: {
       'content-type': 'application/json'
     },
+    method: 'post',
     success: res => {
-      typeof callback == "function" && callback(res.data)
+       typeof callback == "function" && callback(res)
+    },
+    fail:err=>{
+      wx.showToast({
+        title: '网络异常！',
+      })
     }
   })
+
+  return socketTask;
+
 }
  
 module.exports = {
