@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -15,7 +15,7 @@
         "pages/pagexdd/pagexdd",
         "pages/pagewait/pagewait",
         "pages/pageauth/pageauth",
-        "pages/pagedialog/pagedialog",
+        "pages/pagedialog/dialog/dialog",
         "pages/pagegift/giftreceive/giftreceive",
         "pages/pagegift/giftreceivesucc/giftreceivesucc",
         "pages/pagegift/giftgivesucc/giftgivesucc",
@@ -50,7 +50,8 @@
         "pages/pagemy/friends/friendset/friendset",
         "pages/pagemy/keeps/keeps",
         "pages/pagemy/myhelps/myhelps",
-        "pages/pagebing/pagebing"
+        "pages/pagebing/pagebing",
+        "pages/pagedialog/dialoglist/dialoglist"
       ]
     }
   ],

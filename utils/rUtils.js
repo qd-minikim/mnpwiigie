@@ -144,11 +144,62 @@
 
  }
 
+ var countDown = {
+   timer: null,
+
+   countStart: 120,
+   countDown: function(that, showTipMsg, clickTip) {
+     var this_ = this;
+
+     if (this_.countStart == 0) {
+       this_.countStart = 120
+ 
+       that.setData({
+         showTipMsg: '重新发送',
+         clickTip: true
+       })
+
+       clearTimeout(this_.timer)
+     } else {
+
+
+       that.setData({
+         showTipMsg: this_.countStart + 's',
+         clickTip: false
+       })
+       this_.countStart--;
+       this_.timer = setTimeout(function() {
+         this_.countDown(that, showTipMsg, clickTip);
+       }, 1000);
+     }
+
+   },
+   shutdown: function (that, showTipMsg, clickTip){
+
+     var this_ = this;
+     if (this_.timer){
+       clearTimeout(this_.timer)
+
+       this_.countStart = 120
+
+       that.setData({
+         showTipMsg: '重新发送',
+         clickTip: true
+       })
+     }
+
+   }
+
+
+
+ }
+
  module.exports = {
    slideModal: slideModal,
 
    timerDown: timerDown,
- 
+   countDown: countDown,
+
    // filters: filters,
    // toFix: filters.toFix
  }

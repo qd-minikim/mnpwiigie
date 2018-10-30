@@ -200,7 +200,7 @@ Page({
       })
 
       setTimeout(function() {
-        wx.hideLoading();
+         
         wx.navigateBack({
           delta: 1,
         })

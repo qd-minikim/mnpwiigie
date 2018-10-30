@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 37,
+			"current": 38,
 			"list": [
 				{
 					"id": -1,
@@ -59,7 +59,7 @@
 				{
 					"id": 3,
 					"name": "对话",
-					"pathName": "page/component/pages/pagedialog/pagedialog",
+					"pathName": "page/component/pages/pagedialog/dialog/dialog",
 					"query": "type=1"
 				},
 				{
@@ -265,6 +265,12 @@
 					"name": "手机绑定",
 					"pathName": "page/component/pages/pagebing/pagebing",
 					"query": ""
+				},
+				{
+					"id": 38,
+					"name": "对话列表",
+					"pathName": "page/component/pages/pagedialog/dialoglist/dialoglist",
+					"query": "r="
 				}
 			]
 		}

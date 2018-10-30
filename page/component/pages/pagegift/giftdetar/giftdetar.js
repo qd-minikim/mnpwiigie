@@ -817,7 +817,8 @@ Page({
     var r = that.data.giftInfo.giftInfo.requirementId;
     /**type = 1:消费者 0：商户 */
     wx.navigateTo({
-      url: '/page/component/pages/pagedialog/pagedialog?type=1&r=' + r,
+     // url: '/page/component/pages/pagedialog/pagedialog?type=1&r=' + r,
+       url: '/page/component/pages/pagedialog/dialog/dialog?type=1&r=' + r,
     })
 
   },

@@ -7,11 +7,11 @@
     </view>
 
     <view class='pagemy-view-1-2 align-c-center'>
-      <view class='font-size-2'>{{userWxInfo.nickName}}</view>
+      <view class='font-size-4'>{{userWxInfo.nickName}}</view>
       <!-- <view class='font-size-4'>行为积分：142</view> -->
     </view>
     <view class='pagemy-view-1-3 align-center'>
-       <view catchtap='accountPage' class='bg-4 font-size-4' style='padding:10rpx 25rpx ;border:1rpx solid #cac7c7 ;border-radius:40rpx;' >账户余额</view> 
+       <view catchtap='accountPage' class='bg-4 font-size-5' style='padding:10rpx 25rpx ;border:1rpx solid #cac7c7 ;border-radius:40rpx;' >账户余额</view> 
     </view>
 
   </view>
@@ -109,14 +109,15 @@
     </view>
   </view>
 <view class="gap-bg" style="flex-direction:column;"></view>
-
+<block wx:if="{{initPagaInfo.isbunding =='0'}}">
+ 
  <view class='font-size-4 align-center' style='margin:10rpx 5rpx'>商户专用入口</view>
 <view class="gap-line" style="flex-direction:column;"></view>
 <view class='pagemy-view-5'>
 
 
 
-  <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='onclick' data-type='giftgivelist'>
+  <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='mydialogsPage' data-type='giftgivelist'>
       <view >
         <image src='/image/figure_114.png' class='pagemy-view-figure'></image>
       </view>
@@ -132,9 +133,13 @@
      
     </view>
   </view>
+</block>
+<block wx:else>
+<view class='font-size-4 align-center' style='margin:10rpx 5rpx'>
+  <button catchtap='bundingPage' class='font-size-5' type='default'>商户绑定</button>
+</view>
 
-
-
+</block>
   <!-- <view class="gap-bg" style="flex-direction:column;"></view>
 
   <view class='pagemy-view-6'>

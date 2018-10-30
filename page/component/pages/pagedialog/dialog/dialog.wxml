@@ -1,6 +1,6 @@
-<!--page/component/pages/pagedialog/pagedialog.wxml-->
+<!--page/component/pages/pagedialog/dialog/dialog.wxml-->
 
-<import src="../../../common/pages/pageattach/pageattach.wxml" />
+<import src="../../../../common/pages/pageattach/pageattach.wxml" />
 
 
 <view class='container' bindtap='cancleattach'>
