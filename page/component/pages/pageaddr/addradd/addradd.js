@@ -384,7 +384,7 @@ Page({
     // that.data.addrInfo.districtInfo.district[that.data.addrInfo.districtInfo.index].code;
 
     var useraddressid = that.data.useraddressid,
-      userid = '1528869953018820',
+      userid = that.data.userInfo.id,
       orderUsername = formObj.order_username,
       phone = formObj.phone,
       province = that.data.addrInfo.provinceInfo.provice[that.data.addrInfo.provinceInfo.index].code,

@@ -102,8 +102,8 @@ Page({
     
     var url = config.requestUrl;
 
-    // var userid = that.data.userInfo.id;
-    var userid = '1528869953018820';
+    var userid = that.data.userInfo.id;
+   
     var fuserid = that.data.friendUserId;
     // var search = '冯';
     var data = {

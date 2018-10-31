@@ -18,14 +18,26 @@ Page({
     serviceid: '',
     initPageInfo: {},
 
-    logisticsNo: ''
+    logisticsNo: '',
+
+        /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
     var orderid = options.o;
     var serviceid = options.s;
     this.setData({
@@ -107,7 +119,7 @@ Page({
     var that = this;
 
     var url = config.requestUrl;
-    var userid = '1528869953018820' //that.data.userInfo.id//
+    var userid = that.data.userInfo.id//
     var orderid = that.data.orderid
     var data = {
       code_: 'x_getCusServAddr',
@@ -135,7 +147,7 @@ Page({
 
     var url = config.requestUrl;
     var index = that.data.index
-    var userid = '1528869953018820' //that.data.userInfo.id//
+    var userid = that.data.userInfo.id//
     var logisticsCom = that.data.companysArray[index]
     var logisticsNo = that.data.logisticsNo
     var personAddr = that.data.initPageInfo.addr

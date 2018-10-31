@@ -124,7 +124,7 @@ Page({
 
     var url = config.requestUrl;
     var evaluationId = that.data.evalid;
-    var userid = that.data.userInfo.id//1528869953018820
+    var userid = that.data.userInfo.id
     var data = {
       code_: 'x_getEvalDet',
       userid: userid,
@@ -150,7 +150,7 @@ Page({
 
     var url = config.requestUrl;
     var evaluateId = that.data.evalid;
-    var userid =  that.data.userInfo.id//1528869953018820
+    var userid =  that.data.userInfo.id
     var data = {
       code_: 'x_getEvalDiscuss',
       endRow: 0,
@@ -215,7 +215,7 @@ Page({
 
     var url = config.requestUrl;
     var evaluationId = that.data.evalid;
-    var userid = that.data.userInfo.id//1528869953018820
+    var userid = that.data.userInfo.id
     var discuss = that.data.inputValue;
 
     if (discuss==''){

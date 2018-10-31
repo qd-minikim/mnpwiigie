@@ -57,7 +57,7 @@ var canvaProgressRoute = {
   drawImageInfo: function(i, id, that) {
 
     var this_ = this;
-    var image = config.imageUrl +"/wiigie/background/icon/default_head.png";
+    var image = config.imageUrl + "/wiigie/background/icon/default_head.png";
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
@@ -74,7 +74,7 @@ var canvaProgressRoute = {
       }
 
     }).catch(function() {});
-    
+
 
   },
 
@@ -257,7 +257,7 @@ var canvaProgressRoute = {
         if (node.isBuy) {
           this_.context.beginPath();
           this_.context.setStrokeStyle(node.buyColor)
-          this_.context.arc(x, y, r-2, Math.PI * 0, Math.PI *2)
+          this_.context.arc(x, y, r - 2, Math.PI * 0, Math.PI * 2)
           this_.context.stroke()
           // canvasDraw.drawArcnew(
           //   id,
@@ -557,7 +557,6 @@ var requirementMarkAction = {
   markAction: function(url, data, actionType, that, callback) {
     var this_ = this;
     actionType = actionType || this_.actionType;
-
     data = { ...data,
       actionType: actionType
     };
@@ -569,7 +568,21 @@ var requirementMarkAction = {
 
 }
 
+var doOrder = {
+  /**订单操作--(确认收货、取消订单) */
+  orderAction: function (that, data, callback) {
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+    var url = config.requestUrl;
+    rRequest.doRequest(url, data, that, function(rdata) {
+      wx.hideLoading();
+      typeof callback == "function" && callback(rdata)
+    })
 
+  }
+}
 
 module.exports = {
   // doProgressRouteInfoImpl: doProgressRouteInfoImpl,
@@ -578,5 +591,5 @@ module.exports = {
   requirementMarkAction: requirementMarkAction,
   configMsgInfo: configMsgInfo,
   userDefAddr: userDefAddr,
-
+  doOrder: doOrder,
 }

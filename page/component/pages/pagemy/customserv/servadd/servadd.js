@@ -124,7 +124,7 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var userid = '1528869953018820'//that.data.userInfo.id;
+    var userid = that.data.userInfo.id;
     var orderId = that.data.orderId;
 
     var data = {
@@ -187,7 +187,7 @@ Page({
       return false;
     }
 
-    var userid = '1528869953018820'//that.data.userInfo.id;
+    var userid =that.data.userInfo.id;
  
     var merchantId = that.data.initServPageInfo.merchant_id;
     var orderId = that.data.orderId;

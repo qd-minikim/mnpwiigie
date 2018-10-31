@@ -95,9 +95,9 @@
       <view class="gap-line" style="flex-direction:column;"></view>
       <block wx:for="{{servdetaInfo.customerServiceDes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
-  
+
         <view class='font-size-6'>{{item.service_des}}</view>
- 
+
         <view style=' flex-direction: row; display: flex; flex-wrap: wrap'>
           <block wx:for="{{item.desimgeurl}}" wx:for-index="indexI" wx:for-item="itemI" wx:key="*this">
             <view style='width:{{picsize}}px;height:{{picsize}}px'>
@@ -134,7 +134,7 @@
     <view class='servdeta-view-7 align-center'>
 
 
-      <button class='font-size-5'>我要取消申请</button>
+      <button class='font-size-5' data-serviceid='{{servdetaInfo.customerServiceInfo.id}}' data-orderid='{{servdetaInfo.customerServiceInfo.order_id}}' catchtap='cancelServ'>我要取消申请</button>
     </view>
 
   </block>
@@ -167,13 +167,14 @@
 
       </view>
     </view>
-
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='servdeta-view-8-1 align-center'>
+      <button class='font-size-5' catchtap='rebackPage' data-serviceid='{{servdetaInfo.customerServiceInfo.id}}' data-orderid='{{servdetaInfo.customerServiceInfo.order_id}}'>我要回寄</button>
+    </view>
   </block>
 
+
   <block wx:if="{{servdetaInfo.customerServiceLogistic.logistics_no !='' &&servdetaInfo.customerServiceLogistic.logistics_no !=null }}">
-
-
-
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
@@ -202,6 +203,8 @@
             <block wx:if="{{servdetaInfo.customerServiceLogistic.back_carrier_name !=null && servdetaInfo.customerServiceLogistic.back_carrier_name !=''}}">-{{servdetaInfo.customerServiceLogistic.back_carrier_name}}</block>
           </view>
         </view>
+
+
         <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
           <view style='width:6em;text-align:right'>退款方式：</view>
           <view style='flex:1'>{{servdetaInfo.customerServiceInfo.refund_type}}</view>

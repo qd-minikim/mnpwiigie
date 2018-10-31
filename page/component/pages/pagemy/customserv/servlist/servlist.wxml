@@ -8,16 +8,17 @@
 
   </view>
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
-    <!-- 自购-->
+   
     <swiper-item>
       <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
-          <template is="servlist_0" data=""/>
+          <template is="servlist_0" data="{{servlistArray_0,servlistsearched_0}}"/>
       </scroll-view>
+    
     </swiper-item>
-    <!-- 送礼 -->
+ 
     <swiper-item>
       <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
-         <template is="servlist_1" data=""/>
+         <template is="servlist_1" data="{{servlistArray_1,servlistsearched_1}}"/>
       </scroll-view>
     </swiper-item>
 

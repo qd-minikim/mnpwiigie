@@ -250,7 +250,7 @@ Page({
       mask: true,
     })
     var url = config.requestUrl;
-    var userid = that.data.userInfo.id // that.data.userInfo.id//1528869953018820
+    var userid = that.data.userInfo.id  
     var data = {
       code_: 'x_dobing',
       "phone": phone,

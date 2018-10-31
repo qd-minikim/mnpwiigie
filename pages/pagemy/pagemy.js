@@ -131,6 +131,13 @@ Page({
       url: '/page/component/pages/pagemy/evaluate/evallist/evallist',
     })
   },
+  /**售后申请 */
+  mycusservPage: function () {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/customserv/servlist/servlist',
+    })
+  },
   /**我的好友 */
   myfriendsPage: function() {
 
@@ -164,6 +171,8 @@ Page({
     })
   },
 
+
+
   /**商户绑定 */
   bundingPage: function () {
 
@@ -179,7 +188,7 @@ Page({
 
 
     var url = config.requestUrl;
-    var userid = that.data.userInfo.id //1528869953018820
+    var userid = that.data.userInfo.id 
     var data = {
       code_: 'x_initMyPaga',
       userid:userid

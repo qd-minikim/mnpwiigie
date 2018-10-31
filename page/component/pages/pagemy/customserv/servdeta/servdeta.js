@@ -13,13 +13,24 @@ Page({
     serviceId: '',
 
     servdetaInfo: {}, //customerServiceInfo,
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
     var serviceId = options.s;
     this.setData({
 
@@ -59,7 +70,7 @@ Page({
 
       if (value && value == '1') {
 
-        this.getServDetaInfo()
+        that.getServDetaInfo()
 
       }
     } catch (e) {
@@ -135,6 +146,60 @@ Page({
     })
 
   },
+  /**我要回寄 */
+  rebackPage: function(event) {
+    var serviceId = event.currentTarget.dataset.serviceid;
+    var orderid = event.currentTarget.dataset.orderid;
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/customserv/servaddr/servaddr?o=' + orderid + '&s=' + serviceId,
+    })
+
+  },
+  /**我要取消 */
+
+  cancelServ: function(event) {
+    var that = this;
+    var serviceId = event.currentTarget.dataset.serviceid;
+    var orderid = event.currentTarget.dataset.orderid;
+    var userid = that.data.userInfo.id
+    wx.showModal({
+      title: '提示',
+      content: '您确定要取消您的售后服务申请？',
+      success: function() {
+        if (res.confirm) {
+
+
+          var url = config.requestUrl;
+          
+          var data = {
+            code_: 'x_doCancelSer',
+            "serviceid": serviceId,
+            "orderid": orderId,
+            "userid": userid
+          }
+          rRequest.doRequest(url, data, that, function(rdata) {
+            wx.showToast({
+              title: '取消成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function () {
+
+
+              }
+            })
+            that.getServDetaInfo();
+
+          })
+
+        } else if (res.cancel) {
+
+        }
+      }
+    })
+
+
+  },
   servaddmore: function(event) {
 
 
@@ -154,7 +219,7 @@ Page({
       mask: true,
     })
     var url = config.requestUrl;
-    var userid = '1528869953018820' //that.data.userInfo.id//
+    var userid =that.data.userInfo.id//
     var serviceId = that.data.serviceId;
     var data = {
       code_: 'x_getServDeta',
