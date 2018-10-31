@@ -170,9 +170,27 @@ Page({
       url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=',
     })
   },
+/**我收到的礼 */
+  giftgivelist: function (event) {
+    var ty = event.currentTarget.dataset.type;
+     
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
+      })
+     
+
+  },
+
+  /**我送的礼-list */
+  giftrecelist: function(event) {
+    var ty = event.currentTarget.dataset.type;
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
+    })
 
 
-
+  },
   /**商户绑定 */
   bundingPage: function () {
 

@@ -1,0 +1,36 @@
+/* page/component/pages/pagegift/giftreceivelist/giftreceivelist.wxss */
+ 
+.grlist-view-1{
+
+flex-direction: row;
+display: flex;
+ 
+margin: 5rpx 15rpx;
+}
+
+.grlist-view-2{
+flex-direction: row;
+display: flex;
+margin: 5rpx 15rpx;
+}
+.grlist-view-2-image{
+
+  width:160rpx;
+  height: 160rpx;
+  margin: 10rpx
+}
+.grlist-view-2-2{
+
+  flex-direction: column;
+}
+.grlist-view-2-2-2{
+flex-direction: column;
+
+}
+
+.grlist-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 5rpx;
+   align-items:flex-end
+}

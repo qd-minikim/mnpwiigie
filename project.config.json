@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 38,
+			"current": 39,
 			"list": [
 				{
 					"id": -1,
@@ -271,6 +271,12 @@
 					"name": "对话列表",
 					"pathName": "page/component/pages/pagedialog/dialoglist/dialoglist",
 					"query": "r="
+				},
+				{
+					"id": 39,
+					"name": "我收的礼-list",
+					"pathName": "page/component/pages/pagegift/giftreceivelist/giftreceivelist",
+					"query": ""
 				}
 			]
 		}

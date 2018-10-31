@@ -1,0 +1,100 @@
+<!--page/component/pages/pagegift/giftreceivelist/giftreceivelist.wxml-->
+
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+
+  <block wx:for="{{giftreceivelist}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+    <block wx:if="{{index>0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+    <view bindtap='showGiftDetail' data-id='{{item.id}}' style='width:100%'>
+      <view class='grlist-view-1 font-size-6  '>
+        <view>订单编号：</view>
+        <view style='flex:1'>{{item.order_id}}</view>
+        <view class='bg-15 font-color-2' style='border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
+      </view>
+
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='grlist-view-2'>
+        <view class='grlist-view-2-1'>
+          <image class='grlist-view-2-image' src='{{item.cover_image_url}}'></image>
+        </view>
+        <view class='grlist-view-2-2 align-c-center' style="flex:1;position: relative;">
+          <view class='view-ellipsis-1 font-size-5' style=' '>{{item.title}}</view>
+          <view class='grlist-view-2-2-2 align-c-center' style='flex:1'>
+            <view class='font-size-6 font-color-4' style='height:30%'>下单时间：{{item.buy_datetime}}</view>
+            <view class='font-size-6 font-color-4' style='height:30%'>订单数量：{{item.buy_copies}}</view>
+            <view class='font-size-6 font-color-4' style='height:30%'>订单金额：￥{{filters.toFix(item.buy_cash,2)}}</view>
+          </view>
+
+        </view>
+
+      </view>
+      <block wx:if="{{item.process_status =='23'}}">
+        <view class='gap-line'></view>
+        <view class='grlist-view-3  '>
+          <view style='flex:1'></view>
+ 
+          <block wx:if="{{item.status_code =='1' || item.status_code =='2'|| item.status_code =='3'}}">
+            <view style='margin:2rpx 5rpx'>
+              <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='wayBill' data-orderid='{{item.order_id}}'>
+                <image style='width:32rpx;height:30rpx;' src='/image/figure_b_102.png'></image>
+                <view style='margin:0 5rpx;'>查看物流</view>
+              </button>
+            </view>
+          </block>
+
+          <block wx:if="{{item.evaluable =='0'}}">
+            <view style='margin:2rpx 5rpx'>
+              <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='evaladd' data-evalid='{{item.evaluation_id}}' data-index='{{inde}}'>
+                <image style='width:30rpx;height:30rpx;' src='/image/figure_b_103.png'></image>
+                <view style='margin:0 5rpx;'>评价晒单</view>
+              </button>
+            </view>
+
+          </block>
+
+
+          <block wx:if="{{item.customer_service_status =='1'|| item.customer_service_status=='2'||item.customer_service_status=='9'}}">
+
+            <view style='margin:2rpx 5rpx'>
+              <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;' catchtap='serviceApply' data-orderid='{{item.order_id}}'>
+                <image style='width:30rpx;height:30rpx;' src='/image/figure_b_104.png'></image>
+                <view style='margin:0 5rpx;'>申请售后</view>
+              </button>
+            </view>
+          </block>
+
+          <block wx:if="{{item.delivery_type =='2'}}">
+            <block wx:if="{{item.status_code =='1'}}">
+
+
+              <view style='margin:2rpx 5rpx'>
+                <button class='font-size-7 align-center' 
+                style='padding:0 20rpx;line-height:2.2;'
+                 catchtap='surereceve' data-orderid='{{item.order_id}}' 
+                data-proid='{{item.promotion_id}}' 
+                data-reqid='{{item.requirement_id}}' 
+                data-recs='receiveSuccessL' data-detype='{{item.deal_type}}'
+              data-deltype='{{item.delivery_type}}' data-lstatus='{{item.status_code}}'>
+                  <image style='width:32rpx;height:30rpx;' src='/image/figure_b_101.png'></image>
+                  <view style='margin:0 5rpx;'>确认收货</view>
+                </button>
+              </view>
+            </block>
+          </block>
+
+
+          <!-- <view style='margin:2rpx 5rpx'>
+          <button class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;color:#f6f4f4;border-color:#f6f4f4;background:#62b900 '>
+
+            <view style='margin:0 5rpx;'>{{item.status_code_name}}</view>
+          </button>
+        </view> -->
+
+        </view>
+      </block>
+    </view>
+  </block>
+</view>
