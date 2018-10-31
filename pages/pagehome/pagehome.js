@@ -77,7 +77,7 @@ Page({
 
 
   },
-  onReady: function () {
+  onReady: function() {
 
     wx.hideShareMenu()
 
@@ -88,7 +88,7 @@ Page({
     wx.navigateTo({
       url: "/page/component/pages/pageserch/serchlist/serchlist"
     })
-    
+
   },
   //通知
   homeNotice: function() {
@@ -102,16 +102,16 @@ Page({
   homePerson: function() {
 
     wx.navigateTo({
-      url: "/page/component/pages/pagewait/pagewait"
+      url: "/page/component/pages/pagemy/friends/myfriends/myfriends"
     })
 
   },
   //物以类聚
   homeGoods: function() {
-
-    wx.navigateTo({
-      url: "/page/component/pages/pagewait/pagewait"
+    wx.switchTab({
+      url: '/pages/pagegoods/pagegoods',
     })
+  
 
   },
   //获取好友动态
@@ -197,5 +197,5 @@ Page({
 
   //人气推荐-详情
 
-
+  
 })

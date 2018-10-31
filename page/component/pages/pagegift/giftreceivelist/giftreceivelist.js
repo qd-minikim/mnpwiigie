@@ -203,12 +203,13 @@ Page({
     }
   },
 
-
-  showGiftDetail: function (event) {
+  /** */
+  showReceiveDetail: function (event) {
    
     var id = event.currentTarget.dataset.id;
+    var fu = event.currentTarget.dataset.fu;
     wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + id,
+      url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + id + '&fu=' + fu,
     })
 
 

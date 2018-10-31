@@ -8,7 +8,7 @@
     <block wx:if="{{index>0}}">
       <view class="gap-bg" style="flex-direction:column;"></view>
     </block>
-    <view bindtap='showGiftDetail' data-id='{{item.id}}' style='width:100%'>
+    <view bindtap='showReceiveDetail' data-id='{{item.id}}' data-fu='{{item.from_person}}' style='width:100%'>
       <view class='grlist-view-1 font-size-6  '>
         <view>订单编号：</view>
         <view style='flex:1'>{{item.order_id}}</view>
