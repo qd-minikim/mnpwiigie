@@ -49,7 +49,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    
   },
 
   /**
@@ -250,7 +250,7 @@ Page({
       mask: true,
     })
     var url = config.requestUrl;
-    var userid = '1528869953018820' // that.data.userInfo.id//1528869953018820
+    var userid = that.data.userInfo.id // that.data.userInfo.id//1528869953018820
     var data = {
       code_: 'x_dobing',
       "phone": phone,

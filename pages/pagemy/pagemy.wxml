@@ -140,40 +140,6 @@
 </view>
 
 </block>
-  <!-- <view class="gap-bg" style="flex-direction:column;"></view>
-
-  <view class='pagemy-view-6'>
-    <view class='align-c-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx' bindtap='onclick' data-type='giftgivelist'>
-      <view style='margin-right:20rpx'>
-        <image src='/image/figure_24.png' class='pagemy-view-figure'></image>
-      </view>
-      <view class='font-size-4' style='flex:1'>我的订单</view>
-      <view>
-        <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
-      </view>
-    </view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-
-    <view class='align-c-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
-      <view style='margin-right:20rpx'>
-        <image src='/image/figure_25.png' class='pagemy-view-figure'></image>
-      </view>
-      <view class='font-size-4' style='flex:1'>消费评价</view>
-      <view>
-        <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
-      </view>
-    </view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-
-    <view class='align-c-center' style='flex-direction: row;display: flex;padding:5rpx 15rpx'>
-      <view style='margin-right:20rpx'>
-        <image src='/image/figure_26.png' class='pagemy-view-figure'></image>
-      </view>
-      <view class='font-size-4' style='flex:1'>售后申请</view>
-      <view>
-        <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
-      </view>
-    </view>
-  </view> -->
+   
 
 </view>

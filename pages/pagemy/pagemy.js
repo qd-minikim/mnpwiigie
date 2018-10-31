@@ -49,7 +49,6 @@ Page({
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
-      
       if (value && value == '1'  ) {
   
         that.initPaga();
