@@ -321,11 +321,42 @@
           <view class='font-color-5 font-size-4'>对话展示</view> -->
         </view>
       </view>
+      <block wx:if="{{requirementInfo.dealtype =='2'}}">
+        <block wx:if="{{initDetail.role =='XQ'}}">
+          <view class='view-9' style=';border :1px solid  #ff8400;'>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
 
-      <view class='view-9-1'>
-        <view></view>
-        <view></view>
-      </view>
+              <view class='font-size-6 ' style='flex:1;text-align:center'>我的份数/订单数/链团份数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>当前折扣/当前返款额(元)</view>
+            </view>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+
+              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies}}/{{pcPromotionGroupOrderInfo.myOrders}}/{{pcPromotionGroupOrderInfo.combinedCopies}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund*1,2)}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- 需求 -->
+        <block wx:if="{{initDetail.role =='TW'}}">
+          <view class='view-9' style=';border :1px solid  #ff8400;'>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+
+              <view class='font-size-6 ' style='flex:1;text-align:center'>总用户</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>总单数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>总份数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>动态折扣</view>
+            </view>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalDealers}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalOrders}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalCopies}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.discountLeave}}</view>
+
+
+            </view>
+          </view>
+        </block>
+      </block>
       <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
         <image style="width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
 
@@ -425,7 +456,7 @@
         <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
       </view>
 
-      <view class='align-center {{fixedBottom.slClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage' >
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
         <view class='font-size-4'>库存:{{requirementInfo.keep_storage}}</view>
         <view class='font-size-4'>补库存</view>
       </view>

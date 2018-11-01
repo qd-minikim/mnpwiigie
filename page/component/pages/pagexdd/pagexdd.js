@@ -61,6 +61,10 @@ Page({
       selectSkuId: []
     },
 
+    pcPromotionGroupOrderInfo:{},
+
+    pcPromotionGroupsummaryInfo: {},
+
     opinionInfo: {
       dataInfo: [],
       pageSize: 5,
@@ -469,6 +473,62 @@ Page({
     });
 
   },
+  getPcPromotionGroupOrderInfo: function() {
+
+    var that = this;
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+
+    var promotionId = that.data.requirementInfo.promotionid;
+    var data = {
+      code_: 'x_getPcPromotionGroupOrderInfo',
+      "promotionid": promotionId,
+      "userid": userid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+        if(rdata.info){
+
+
+          that.setData({
+
+            pcPromotionGroupOrderInfo: rdata.info
+          })
+        }
+
+
+    })
+
+  },
+  getPcPromotionGroupsummaryInfo: function () {
+
+    var that = this;
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+
+    var promotionId = that.data.requirementInfo.promotionid;
+    var data = {
+      code_: 'x_getPcPromotionGroupSummaryInfo',
+      "promotionid": promotionId,
+      "userid": userid
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+      if (rdata.info) {
+
+
+        that.setData({
+
+          pcPromotionGroupsummaryInfo: rdata.info
+        })
+      }
+
+
+    })
+
+  },
+  
+
   /**获取SpuCoverImage*/
   getSpuCoverImageInfo: function() {
     var that = this
@@ -647,7 +707,15 @@ Page({
         that.getSpuInfo()
         that.getRequirementRichtext()
 
+        if (rdata.info.requirement_person != usreId){
 
+          that.getPcPromotionGroupOrderInfo()
+        }
+        if (rdata.info.requirement_person == usreId) {
+
+          that.getPcPromotionGroupsummaryInfo()
+        }
+        
       }
 
 
