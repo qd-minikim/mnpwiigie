@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 40,
 			"list": [
 				{
 					"id": -1,
@@ -277,6 +277,12 @@
 					"name": "我收的礼-list",
 					"pathName": "page/component/pages/pagegift/giftreceivelist/giftreceivelist",
 					"query": ""
+				},
+				{
+					"id": 40,
+					"name": "补库存",
+					"pathName": "page/component/pages/pagespu/storage/storage",
+					"query": "spuid=1529215126697316"
 				}
 			]
 		}

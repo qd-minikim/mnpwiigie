@@ -1,0 +1,70 @@
+<!--page/component/pages/pagespu/storage/storage.wxml-->
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" >
+
+  <view class='view-modal-content'>
+   
+
+<!--  -->
+
+
+<view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+  
+    <view class='font-size-5' style='margin-left:10rpx;flex:1'>修改库存</view> 
+    <view class='align-right'style="margin-right:10rpx;" bindtap='closeModal' ><image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image></view>      
+    </view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <input class='font-size-5' placeholder='库存' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputStorage' type='number' maxlength='8' value='{{storage}}'></input>
+     
+    </view>
+
+    <view style='flex-direction:row;display:flex;margin:5rpx;'>
+      <button class='font-size-5  align-center' type="warn" bindtap='uppStorage' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>确定</button>
+      <button class='font-size-5 align-center' type="default" bindtap='closeModal' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>取消</button>
+    </view>
+
+
+
+
+
+
+   <!--  -->
+
+  </view>
+
+</view>
+
+
+<view class="container" style="flex-direction:column;">
+
+  <view class='view-1'>
+    <view style="flex-direction:column;">
+      <block wx:for="{{skuListInfo}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+        <block wx:if="{{index>0}}">
+          <view class="gap-line" style="flex-direction:column;"></view>
+        </block>
+        <view class='view-1-1'>
+          <view>
+            <image style='width:150rpx;height:150rpx' src='{{item.image_url}}'></image>
+          </view>
+
+          <view class='font-size-6' style='flex:1;flex-direction:column;display:flex;margin:0 10rpx'>
+            <view style='flex:1'>{{item.sku_desc}}</view>
+            <view style='flex:1'>价格：￥{{filters.toFix(item.list_price*1,2)}}</view>
+            <view style='flex:1;flex-direction:row;display:flex'>
+              <view style='flex:1'>库存：{{item.storage}}</view>
+              <view class='font-color-8' style='' catchtap='openModal' data-id='{{item.id}}' data-storage='{{item.storage}}' data-index='{{index}}'>修改库存</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+
+    </view>
+  </view>
+
+
+</view>

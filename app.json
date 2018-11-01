@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -52,7 +52,8 @@
         "pages/pagemy/myhelps/myhelps",
         "pages/pagebing/pagebing",
         "pages/pagedialog/dialoglist/dialoglist",
-        "pages/pagegift/giftreceivelist/giftreceivelist"
+        "pages/pagegift/giftreceivelist/giftreceivelist",
+        "pages/pagespu/storage/storage"
       ]
     }
   ],

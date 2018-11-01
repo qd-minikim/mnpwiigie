@@ -1,17 +1,14 @@
 <!--page/component/pages/pagexdd/pagexdd.wxml-->
-
 <import src="../../../../wxParse/wxParse.wxml" />
-
 <import src="../../../common/pages/pagesign/pagesign.wxml" />
 <import src="../../../common/pages/pagesku/pagesku.wxml" />
 <import src="../../../common/pages/pagemask/pagemask.wxml" />
 <import src="../../../common/pages/pageopins/pageopins.wxml" />
 <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
-
 <!-- 消费者详情 -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
 <!-- 蒙板 -->
- <template is="pagemask" data="{{pagemask}}" />
+<template is="pagemask" data="{{pagemask}}" />
 <!-- 蒙板 -->
 
 <view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
@@ -58,13 +55,13 @@
         </block>
       </swiper>
     </view>
-     <!-- 描述 -->
+    <!-- 描述 -->
     <view class='view-4 align-center'>
       <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
-     <!--微信传播描述 -->
+    <!--微信传播描述 -->
     <view class='view-5 align-center'>
       <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
     </view>
@@ -291,18 +288,18 @@
         </view>
 
       </view>
-      <view class="gap-line"  style="flex-direction:column;"></view>
+      <view class="gap-line" style="flex-direction:column;"></view>
       <view class='view-8-2 align-c-center'>
 
         <template is="pageopins" data="{{opinionInfo}}" />
- 
+
       </view>
 
-      <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center' >
+      <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
         <view style='padding:10rpx 2rpx'>还没有朋友说</view>
       </view>
       <view wx:if="{{opinionInfo.allrows>opinionInfo.pageSize}}" class='view-8-3 align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
-       
+
         <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
       </view>
     </view>
@@ -318,11 +315,16 @@
         </view>
         <view class='align-center font-size-2' style='flex:1'>活动中</view>
         <view class='align-center view-9-1-3' style='flex:1'>
-          <view class='align-center '>
+          <!-- <view class='align-center '>
             <image class='view-9-1-figure' src='/image/figure_11.png'></image>
           </view>
-          <view class='font-color-5 font-size-4'>对话展示</view>
+          <view class='font-color-5 font-size-4'>对话展示</view> -->
         </view>
+      </view>
+
+      <view class='view-9-1'>
+        <view></view>
+        <view></view>
       </view>
       <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
         <image style="width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
@@ -375,39 +377,66 @@
 
   </scroll-view>
 
-  <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
-    <view catchtap='homepage' class='align-c-center bottom-view' style=' width:{{oneGridWidth}}; '>
-      <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
-        <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+
+  <block wx:if="{{initDetail.role =='XQ'}}">
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>首页</view>
       </view>
-      <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>首页</view>
-    </view>
-
-    <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
-      <view class='bottom-view-1 align-c-center'>
-        <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+      <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
       </view>
-      <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
-    </view>
-    <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'>
-
-      <view class='font-size-3'>下单</view>
-    </view>
-    <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
-
-      <view class='font-size-3'>送礼</view>
-    </view>
-    <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
-
-      <view class='bottom-view-1 align-c-center'>
-        <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+      <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:colum;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'>
+        <view class='font-size-3'>下单</view>
       </view>
-      <view class='bottom-view-1 align-c-center font-size-4'>推荐给
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
+        <view class='font-size-3'>送礼</view>
+      </view>
+      <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4'>推荐给
+        </view>
+      </view>
+    </view>
+
+  </block>
+  <block wx:if="{{initDetail.role =='TW'}}">
+
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>首页</view>
       </view>
 
+      <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4'>客服</view>
+      </view>
+
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage' >
+        <view class='font-size-4'>库存:{{requirementInfo.keep_storage}}</view>
+        <view class='font-size-4'>补库存</view>
+      </view>
+      <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style='flex:1; width:{{twoGridWidth}}'>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-4'>推荐给
+        </view>
+      </view>
     </view>
-  </view>
 
-
-
+  </block>
 </view>

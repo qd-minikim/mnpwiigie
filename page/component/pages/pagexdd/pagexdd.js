@@ -141,9 +141,9 @@ Page({
         userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
-      
+
       })
- 
+
       this.getInitDetail()
 
       this.getRequirementKeepInfo()
@@ -155,11 +155,13 @@ Page({
 
       this.getConfigMsgInfo()
       this.getOpinionInfo()
-    }else{
-      
+
+
+    } else {
+
       app.userLogin();
     }
-   
+
   },
 
   /**
@@ -197,16 +199,33 @@ Page({
    */
   onShow: function() {
 
-
+    var that = this;
     var backpage = this.data.backpage;
 
     if (backpage == 'opinion') {
 
-      this.getOpinionInfo()
+      that.getOpinionInfo()
+    }
+    if (backpage == 'storage') {
+
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '1') {
+          that.getRequirementDetail()
+        }
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
     }
 
-    this.setData({
-      'backpage': 'opinion',
+
+    that.setData({
+      'backpage': '',
     })
     //
   },
@@ -244,12 +263,12 @@ Page({
    */
   onShareAppMessage: function() {
 
-   
+
     var that = this;
     var title = that.data.requirementInfo.wxdescription;
     var fm = that.data.initDetail.fmarkid;;
     var r = that.data.requirementId;
-    var swiperImgUrls =that.data.swiperArea.swiperImgUrls;
+    var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
     var shareObj = {
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
@@ -258,19 +277,19 @@ Page({
 
         var userid = that.data.userInfo.id;
         var requirementId = that.data.requirementId;;
-     
+
         var upmarkid = that.data.upmarkid;
         var markid = that.data.initDetail.markid;
         var url = config.requestUrl;
- 
+
         var data = {
           code_: 'x_addForward',
-          "userid": userid,  
+          "userid": userid,
           "requirement_id": requirementId,
           "upmarkid": upmarkid,
           "markid": markid
         }
-        rRequest.doRequest(url, data, that, function (rdata) {
+        rRequest.doRequest(url, data, that, function(rdata) {
 
           that.getProgressRouteInfo()
 
@@ -507,7 +526,7 @@ Page({
       ordertype: orderType,
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
     }
-  
+
     if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       app.globalData.orderData = orderData
 
@@ -627,6 +646,8 @@ Page({
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
+
+
       }
 
 
@@ -734,7 +755,7 @@ Page({
 
         if (rdata.info) {
           that.setData({
-            'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:''} */
+            'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'} */
           })
 
         }
@@ -910,13 +931,37 @@ Page({
     var r = this.data.requirementId;
     /**type = 1:消费者 0：商户  t == 1时 c =''*/
     wx.navigateTo({
-    
+
       url: '/page/component/pages/pagedialog/dialog/dialog?t=1&r=' + r + '&d=',
-      
+
     })
 
   },
 
+  /**客服聊天--需求者 */
+  customerpagelist: function() {
+    var r = this.data.requirementId;
+
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=' + r,
+
+    })
+
+  },
+  /**添加库存 */
+  addstorage: function() {
+    var spuid = this.data.requirementInfo.spuid;
+
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagespu/storage/storage?spuid=' + spuid,
+
+    })
+    this.setData({
+      'backpage': 'storage',
+    })
+  },
   /**转发成功 */
   forwardSuccess: function() {
     var that = this;
