@@ -131,29 +131,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (app.globalData.userWxInfo) {
-      this.setData({
-        userWxInfo: app.globalData.userWxInfo,
-        userIData: app.globalData.userIData,
-        userInfo: app.globalData.userInfo,
-      })
-    }
     this.setData({
       'requirementId': options.r,
       'upmarkid': options.m
     })
 
-    this.getInitDetail()
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      
+      })
+ 
+      this.getInitDetail()
 
-    this.getRequirementKeepInfo()
-    this.getProgressRouteInfo()
+      this.getRequirementKeepInfo()
+      this.getProgressRouteInfo()
 
-    this.getRequirementDetail()
+      this.getRequirementDetail()
 
-    //this.getSkuInfo()
+      //this.getSkuInfo()
 
-    this.getConfigMsgInfo()
-    this.getOpinionInfo()
+      this.getConfigMsgInfo()
+      this.getOpinionInfo()
+    }else{
+      
+      app.userLogin();
+    }
+   
   },
 
   /**

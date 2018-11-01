@@ -49,9 +49,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.hideShareMenu();
+   
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
+    var giftRecordId = options.gr;
+    this.setData({
+      'giftInfo.giftRecordId': giftRecordId,
+
+    })
     /****调用函数设置tabbar及页面*****/
     if (app.globalData.userWxInfo) {
       this.setData({
@@ -59,14 +64,15 @@ Page({
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
+
+      this.getGiveGiftRecordInfo()
+    }else{
+
+      app.userLogin();
     }
 
-    var giftRecordId = options.gr;
-    this.setData({
-      'giftInfo.giftRecordId': giftRecordId,
-
-    })
-    this.getGiveGiftRecordInfo()
+   
+    wx.hideShareMenu();
 
   },
 

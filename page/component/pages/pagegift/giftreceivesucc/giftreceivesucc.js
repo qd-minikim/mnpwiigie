@@ -24,7 +24,9 @@ Page({
       height: app.globalData.systemInfo.windowHeight
     },
     tabbar: {}, //tabbar 信息
-    tabbarPage: '/pages/pagemy/pagemy' //当前页面属于哪个tabbar 默认是null
+    tabbarPage: '/pages/pagemy/pagemy', //当前页面属于哪个tabbar 默认是null
+
+     
   },
 
   /**
@@ -57,7 +59,12 @@ Page({
       'giftInfo.process': process,
       'giftInfo.giftStatusImage': giftStatusImage,
     })
-    this. getGiveGiftRecordInfo()
+
+ 
+    this.getGiveGiftRecordInfo()
+ 
+
+
     
   },
 
@@ -113,7 +120,7 @@ Page({
   getGiveGiftRecordInfo:function(){
 
     var that = this
-    var giftRecordId = '1537842834692515';
+    var giftRecordId = that.data.giftInfo.giftRecordId;
   
     var url = config.requestUrl
     var data = {
@@ -130,7 +137,6 @@ Page({
         
         })
  
-
         that.getConfigMsgInfo()
       }
     })

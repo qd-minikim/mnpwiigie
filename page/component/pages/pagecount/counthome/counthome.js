@@ -27,9 +27,13 @@ Page({
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
+      this.getAccount()
+    } else {
+
+      app.userLogin();
     }
 
-    this.getAccount()
+   
     wx.hideShareMenu();
   },
 

@@ -56,18 +56,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-
-    if (app.globalData.userWxInfo) {
-      this.setData({
-        userWxInfo: app.globalData.userWxInfo,
-        userIData: app.globalData.userIData,
-        userInfo: app.globalData.userInfo,
-      }) /****调用函数设置tabbar及页面*****/
-    
-    } 
+     /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
     app.editTabBar();
-    /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
     var giftRecordId = options.gr;
     var fuserid = options.fu;
 
@@ -76,7 +66,21 @@ Page({
       'giftInfo.fuserid': fuserid,
     })
 
-    this.getGiftReceive();
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      }) /****调用函数设置tabbar及页面*****/
+      this.getGiftReceive();
+    } 
+    else {
+
+      app.userLogin();
+    }
+  
+   
+    
 
   },
 

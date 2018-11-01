@@ -4,7 +4,7 @@ var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
 App({
-  
+
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
@@ -21,13 +21,15 @@ App({
     cacheInfo: {
       pagexdd_p_1: null,
 
-    
+
     },
 
 
-    orderData: null,/**赋值在 pagexdd.js中 sureSelect //funtion */
-    giftData: null,/**赋值在 giftdetar.js中 receiveAddress //funtion */
-    
+    orderData: null,
+    /**赋值在 pagexdd.js中 sureSelect //funtion */
+    giftData: null,
+    /**赋值在 giftdetar.js中 receiveAddress //funtion */
+
     /** 底部按钮的高度*/
     bottomBtnHeight: 110, //flex-bottom  同步修改
     /** */
@@ -76,10 +78,10 @@ App({
 
   userInfoResetCallBak: function(res) {
     var that = this;
- 
+
   },
   //先登录
-  userLogin: function () {
+  userLogin: function() {
     var that = this;
     wx.login({
       success: res => {
@@ -87,7 +89,7 @@ App({
         var data = {
           code: res.code
         }
-        rRequest.doRequest(url, data, that, function (rdata) {
+        rRequest.doRequest(url, data, that, function(rdata) {
 
           if (rdata.info) {
 
@@ -99,22 +101,22 @@ App({
       }
     })
   },
-  getSettingInfo: function () { // 查看是否授权
+  getSettingInfo: function() { // 查看是否授权
     var that = this;
     wx.getSetting({
-      success: function (res) {
+      success: function(res) {
         if (res.authSetting['scope.userInfo']) {
           that.getUsersInfo();
         } else {
           console.log("用户信息未授权--")
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("授权失败--")
       },
     })
   },
- 
+
   getUsersInfo: function() {
     var that = this;
     wx.getUserInfo({
@@ -150,27 +152,41 @@ App({
 
             var url = currentPage.route //当前页面url
 
-            if ("page/component/pages/pagegift/giftreceive/giftreceive"){
+            if ("page/component/pages/pagegift/giftreceive/giftreceive" == url) {
               var options = currentPage.options
               var giftRecordId = options.gr;
               var fuserid = options.fu;
-              wx.switchTab({
+              wx.reLaunch({
                 url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '& fu=' + fuserid,
               })
 
-             }
-     
-            if ("/page/component/pages/pagexdd/pagexdd") {
+            }
+            /**详情 */
+            if ("page/component/pages/pagexdd/pagexdd" == url) {
               var options = currentPage.options
               var fm = options.m;
               var r = options.r;
-              wx.switchTab({
+              wx.navigateTo({
                 url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
+              })
+            }
+            if ("page/component/pages/pagecount/counthome/counthome" == url) {
+
+              wx.reLaunch({
+                url: "/page/component/pages/pagecount/counthome/counthome",
+              })
+
+            }
+            if ("page/component/pages/pagegift/giftgivesucc/giftgivesucc" == url) {
+              var options = currentPage.options
+              var gr = options.gr;
+              wx.reLaunch({
+                url: "/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=" + gr,
               })
 
             }
 
-            if ("pages/pagewelcome/pagewelcome" == url){
+            if ("pages/pagewelcome/pagewelcome" == url) {
               wx.switchTab({
                 url: '/pages/pagehome/pagehome',
               })
@@ -178,12 +194,20 @@ App({
             }
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
 
-       
+
           }
 
 
         })
 
+      },
+      fail: function(e) {
+
+        console.log("--------fail---------" + e)
+      },
+      complete: function(e) {
+
+        console.log("--------complete---------")
       }
     })
   },
