@@ -9,7 +9,7 @@ Page({
    */
   data: {
     accountInfo: {},
-
+    creditInfo: {},
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -28,6 +28,8 @@ Page({
         userInfo: app.globalData.userInfo,
       })
       this.getAccount()
+      this.getCredit()
+
     } else {
 
       app.userLogin();
@@ -110,6 +112,34 @@ Page({
 
     })
   },
+/**获取行为积分 */
+  getCredit: function () {
+
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = that.data.userInfo.id;
+
+    var data = {
+      code_: 'x_getCredit',
+
+      userid: userid,
+
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          creditInfo: rdata.info
+        })
+        //$("#action_point_id").text(info.actionPoint);
+      }
+
+
+    })
+  },
+  
   /**去提现 */
   countoutPage: function() {
 

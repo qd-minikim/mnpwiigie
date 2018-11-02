@@ -6,7 +6,11 @@
 <import src="../../../common/pages/pageopins/pageopins.wxml" />
 <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 <!-- 消费者详情 -->
+<!-- position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; -->
 <canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
+<canvas style="position:absolute;transform: translateX(-200%); width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};left:{{nolinkCanvasViewInfo.canvasTop1}};top:{{nolinkCanvasViewInfo.canvasLeft1}}; " canvas-id="no_route_canvas_id"
+/>
+
 <!-- 蒙板 -->
 <template is="pagemask" data="{{pagemask}}" />
 <!-- 蒙板 -->
@@ -382,6 +386,12 @@
         <image style="width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
 
       </scroll-view>
+
+      <view class='gap-line'></view>
+      <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（2份/4人）</view>
+      <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+        <image style="width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
+      </scroll-view>
       <view></view>
     </view>
 
@@ -478,7 +488,7 @@
       </view>
 
       <view class='align-center {{fixedBottom.slClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
-        <view class='font-size-4'>库存:{{requirementInfo.keep_storage}}</view>
+        <view class='font-size-6'>库存:{{requirementInfo.keep_storage}}</view>
         <view class='font-size-4'>补库存</view>
       </view>
       <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style='flex:1; width:{{twoGridWidth}}'>

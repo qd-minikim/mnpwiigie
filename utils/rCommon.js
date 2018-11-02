@@ -33,6 +33,8 @@ var canvaProgressRoute = {
     }
 
   },
+
+  /**下载图 */
   downloadImage: function(url) {
     return new Promise(function(resolve, reject) {
       wx.downloadFile({
@@ -41,19 +43,17 @@ var canvaProgressRoute = {
           if (res.statusCode === 200) {
             resolve(res.tempFilePath);
           } else {
-            console.log('出错1');
+
           }
         },
-        fail: function() {
-
-        }
+        fail: function() {}
 
       })
 
     });
 
   },
-
+  /**画图 */
   drawImageInfo: function(i, id, that) {
 
     var this_ = this;
@@ -89,12 +89,18 @@ var canvaProgressRoute = {
 
       this_.context.save();
 
-      this_.context.beginPath()
-      this_.context.arc(this_.headImage.x[n], this_.headImage.y[n], r, 0, 2 * Math.PI);
-      this_.context.stroke();
-      this_.context.clip();
-      this_.context.drawImage(this_.headImage.resource[n], this_.headImage.x[n] - r, this_.headImage.y[n] - r, 2 * r, 2 * r);
 
+      if (this_.headImage.t[n] == '0') {
+        this_.context.beginPath()
+        this_.context.arc(this_.headImage.x[n], this_.headImage.y[n], r, 0, 2 * Math.PI);
+        this_.context.stroke();
+        this_.context.clip();
+        this_.context.drawImage(this_.headImage.resource[n], this_.headImage.x[n] - r, this_.headImage.y[n] - r, 2 * r, 2 * r);
+      } else {
+
+        this_.context.drawImage(this_.headImage.resource[n], this_.headImage.x[n] - (r + 5) + 2, this_.headImage.y[n] - (r + 5) + 2, 2 * (r + 5) - 4, 2 * (r + 5) - 4);
+      }
+ 
       this_.context.restore();
 
     }
@@ -114,21 +120,36 @@ var canvaProgressRoute = {
 
     });
   },
+
+  // readTree: function (node, category, id) {
+
+  // },
+
+  /**读取树 */
   readTree: function(node, category, id) {
     var this_ = this;
     if (node.isRequirement) {
 
       if (category == 'content_12') {
+ 
+        var x = node.circlePoint[0] * config.routeCicleConfig.circleRM;
+        var y = node.circlePoint[1] * config.routeCicleConfig.circleRM;
+        var r = node.forwardRadius * config.routeCicleConfig.circleRM;
+        var url = node.userHeadUrl;
 
-        // canvasDraw.drawRect(
-        //   id,
-        //   node.circlePoint[0] - node.forwardRadius - 1,
-        //   node.circlePoint[1] - node.forwardRadius - 1,
-        //   2 * (node.forwardRadius) - 4,
-        //   2 * (node.forwardRadius) - 4,
-        //   node.requirementColor);
-
+        this_.headImage.url.push(url);
+        this_.headImage.x.push(x);
+        this_.headImage.y.push(y);
+        this_.headImage.r.push(r);
         this_.headImage.t.push(1);
+
+        this_.context.beginPath();
+        this_.context.setStrokeStyle(config.routeCicleConfig.requirementColor)
+        // this_.context.arc(x, y, r, Math.PI * 0, Math.PI * 2)
+        this_.context.rect(x - r, y - r, 2 * r, 2 * r)
+        this_.context.stroke()
+
+
       } else {
 
         this_.headImage.t.push(0);
@@ -259,11 +280,7 @@ var canvaProgressRoute = {
           this_.context.setStrokeStyle(node.buyColor)
           this_.context.arc(x, y, r - 2, Math.PI * 0, Math.PI * 2)
           this_.context.stroke()
-          // canvasDraw.drawArcnew(
-          //   id,
-          //   node.circlePoint[0] * config.routeCicleConfig.circleRM,
-          //   node.circlePoint[1] * config.routeCicleConfig.circleRM,
-          //   node.forwardRadius * config.routeCicleConfig.circleRM - 5 * config.routeCicleConfig.circleRM, node.buyColor, 0, 2);
+ 
         }
 
       }
@@ -287,25 +304,15 @@ var canvaProgressRoute = {
           this_.context.beginPath();
           if (!node.isColseToOpen) {
             this_.context.setStrokeStyle(node.toOpenLineColor)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   node.toOpenLineColor,
-            //   2);
+            
           } else {
             this_.context.setStrokeStyle(node.lineIsCloseToOpen)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   lineIsCloseToOpen, 2);
+      
           }
-
+          this_.context.moveTo(rx, ry);
+          this_.context.lineTo(lx, ly);
+          this_.context.closePath();
+          this_.context.stroke();
           this_.readTree(childs[i], category, id);
 
         }
@@ -344,22 +351,10 @@ var canvaProgressRoute = {
           this_.context.beginPath();
           if (!node.isColseToLikePath) {
             this_.context.setStrokeStyle(node.toLikePathLineColor)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   node.toLikePathLineColor, 2);
+            
           } else {
             this_.context.setStrokeStyle(node.lineIsCloseToLikePath)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   lineIsCloseToLikePath, 2);
+        
           }
           this_.context.moveTo(rx, ry);
           this_.context.lineTo(lx, ly);
@@ -382,22 +377,10 @@ var canvaProgressRoute = {
           this_.context.beginPath();
           if (!node.isColseToFriend) {
             this_.context.setStrokeStyle(node.toFriendLineColor)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   node.toFriendLineColor);
+           
           } else {
             this_.context.setStrokeStyle(node.lineIsCloseToFriend)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   lineIsCloseToFriend);
+           
           }
           this_.context.moveTo(rx, ry);
           this_.context.lineTo(lx, ly);
@@ -420,22 +403,10 @@ var canvaProgressRoute = {
           this_.context.beginPath();
           if (!node.isColseToShare) {
             this_.context.setStrokeStyle(node.toShareLineColor)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   node.toShareLineColor, 6);
+           
           } else {
             this_.context.setStrokeStyle(node.lineIsCloseToShare)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   lineIsCloseToShare, 6);
+           
           }
           this_.context.moveTo(rx, ry);
           this_.context.lineTo(lx, ly);
@@ -460,23 +431,10 @@ var canvaProgressRoute = {
           if (!node.isColseToOpen2) {
 
             this_.context.setStrokeStyle(node.toOpen2LineColor)
-
-
-            // canvasDraw.drawLine(
-            //   id, node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   node.toOpen2LineColor);
+ 
           } else {
             this_.context.setStrokeStyle(config.routeCicleConfig.L_ISCLOSE_TOOPEN2)
-            // canvasDraw.drawLine(
-            //   id,
-            //   node.rightPoint[0] * config.routeCicleConfig.circleRM,
-            //   node.rightPoint[1] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[0] * config.routeCicleConfig.circleRM,
-            //   childs[i].leftPoint[1] * config.routeCicleConfig.circleRM,
-            //   lineIsCloseToOpen2);
+       
           }
           this_.context.moveTo(rx, ry);
           this_.context.lineTo(lx, ly);
@@ -494,6 +452,119 @@ var canvaProgressRoute = {
 
 
 }
+
+var nolinkCanvaProgressRoute = {
+
+  headImage: null,
+  context: null,
+  c: 0,
+  doProgressRouteInfoImplNolink: function(data, category, id, that) {
+    var info_ = data.rInfo_
+    var this_ = this;
+    this_.headImage = {
+      url: [],
+      x: [],
+      y: [],
+      r: [],
+      t: [],
+      resource: []
+    };
+    this_.context = wx.createCanvasContext(id)
+    this_.context.save()
+    for (var i = 0; i < info_.length; i++) {
+      var node = info_[i];
+      this_.readInfo(node, category, id);
+    }
+    var len = this_.headImage.url.length
+    this_.c = 0;
+    for (var n = 0; n < len; n++) {
+
+      this_.drawImageInfo(n, id, that);
+    }
+
+  },
+  readInfo: function(node, category, id) {
+    var x = node.circlepoint[0] * config.routeCicleConfig.circleRM;
+    var y = node.circlepoint[1] * config.routeCicleConfig.circleRM;
+    var r = node.forwardRadius * config.routeCicleConfig.circleRM;
+    var url = node.imagurl;
+
+
+    this_.headImage.url.push(url);
+    this_.headImage.x.push(x);
+    this_.headImage.y.push(y);
+    this_.headImage.r.push(r);
+
+
+    this_.context.beginPath();
+    this_.context.setStrokeStyle(config.routeCicleConfig.circleHf)
+    this_.context.arc(x, y, r, Math.PI * 0, Math.PI * 2)
+    this_.context.stroke()
+  },
+
+  /**画图 */
+  drawImageInfo: function(i, id, that) {
+
+    var this_ = this;
+    var image = config.imageUrl + "/wiigie/background/icon/default_head.png";
+    if (this_.headImage.url[i] != undefined) {
+      image = this_.headImage.url[i];
+    }
+
+    this_.downloadImage(image).then(function(value) {
+
+      this_.headImage.resource[i] = value;
+      this_.c++;
+
+      if (this_.c == this_.headImage.url.length) {
+
+        this_.drawHeadImage(id, that);
+
+      }
+
+    }).catch(function() {});
+
+
+  },
+  drawHeadImage: function(id, that) {
+    var this_ = this;
+    var leng = this_.headImage.resource.length;
+
+    for (var n = 0; n < leng; n++) {
+
+
+      var r = this_.headImage.r[n] - 5;
+
+      this_.context.save();
+
+      this_.context.beginPath()
+      this_.context.arc(this_.headImage.x[n], this_.headImage.y[n], r, 0, 2 * Math.PI);
+      this_.context.stroke();
+      this_.context.clip();
+      this_.context.drawImage(this_.headImage.resource[n], this_.headImage.x[n] - r, this_.headImage.y[n] - r, 2 * r, 2 * r);
+
+      this_.context.restore();
+
+    }
+
+    this_.context.draw(false, function() {
+
+      wx.canvasToTempFilePath({
+        canvasId: id, //canvasId和标签里面的id对应
+        success: (res) => {
+
+          that.setData({
+            'nolinkCanvasViewInfo.canvasSaveImage': res.tempFilePath,
+
+          })
+        }
+      })
+
+    });
+  },
+}
+
+
 //收藏
 var requirementKeep = {
 
@@ -570,7 +641,7 @@ var requirementMarkAction = {
 
 var doOrder = {
   /**订单操作--(确认收货、取消订单) */
-  orderAction: function (that, data, callback) {
+  orderAction: function(that, data, callback) {
     wx.showLoading({
       title: '请稍候...',
       mask: true,
@@ -587,6 +658,7 @@ var doOrder = {
 module.exports = {
   // doProgressRouteInfoImpl: doProgressRouteInfoImpl,
   canvaProgressRoute: canvaProgressRoute,
+  nolinkCanvaProgressRoute: nolinkCanvaProgressRoute,
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
   configMsgInfo: configMsgInfo,

@@ -3,6 +3,23 @@
 
 <view class='container' bindtap='cancleattach'>
 
+
+ <view class='counthome-view-0 align-center bg-9' >
+   
+
+    <view class='counthome-view-0-2 align-c-center'>
+      <view class='font-size-5' style='text-align:center'>{{userWxInfo.nickName}}</view>
+       <view class='font-size-7' style='text-align:center'>行为积分：{{creditInfo.actionPoint?creditInfo.actionPoint:0}}</view> 
+    </view>
+    <view class='counthome-view-0-1 align-center'>
+
+      <image class='counthome-view-0-1-image' src='{{userWxInfo.avatarUrl}}'></image>
+    
+    
+    </view>
+
+  </view>
+
   <view class='counthome-view-1 align-r-center font_color_4'>
     <view style='margin-right:20rpx'>
       <image src='/image/figure_110.png' class='counthome-view-figure'></image>

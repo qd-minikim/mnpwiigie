@@ -124,12 +124,23 @@ Page({
       canvasTop: '0px',
       canvasLeft: '0px'
     },
+    /**不在链购的朋友 */
+    nolinkCanvasViewInfo: {
+      canvasSaveImage: null,
+      canvasWidth: '0px',
+      canvasHeight: '0px',
+      canvasTop: '0px',
+      canvasLeft: '0px'
+    },
+
     configMsgInfo: {},
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
     userWxInfo: {},
+
+    treetype:'ZFC12_1'
   },
 
   /**
@@ -154,9 +165,8 @@ Page({
       this.getRequirementDetail()
 
       this.getRequirementKeepInfo()
-      this.getProgressRouteInfo()
-      //this.getSkuInfo()
-
+      // this.getProgressRouteInfo()
+    
       this.getConfigMsgInfo()
       this.getOpinionInfo()
 
@@ -703,20 +713,29 @@ Page({
           requirementInfo: rdata.info
 
         })
-        that.getSpuCoverImageInfo()
-        that.getSpuInfo()
-        that.getRequirementRichtext()
-        that.getAttribute()
-
-
+ 
         if (rdata.info.requirement_person != usreId){
 
           that.getPcPromotionGroupOrderInfo()
+ 
         }
         if (rdata.info.requirement_person == usreId) {
 
           that.getPcPromotionGroupsummaryInfo()
+
+          that.setData({
+            treetype: 'TW'
+
+          })
         }
+
+        that.getProgressRouteInfo()
+
+        that.getSpuCoverImageInfo()
+        that.getSpuInfo()
+        that.getRequirementRichtext()
+        that.getAttribute()
+       
         
       }
 
@@ -890,8 +909,8 @@ Page({
     var that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.requirementId;
-    var treetype = 'ZFC12_1';
-
+    var treetype = that.data.treetype;
+    
 
     var url = config.requestUrl
     var data = {
@@ -917,7 +936,31 @@ Page({
 
       })
       rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
-      //rCommon.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+       
+     
+      if (that.data.requirementInfo.dealtype == '2'){
+
+        that.setData({
+
+          'nolinkCanvasViewInfo.canvasWidth':
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) + "px",
+          'nolinkCanvasViewInfo.canvasHeight':
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) + "px",
+
+          'nolinkCanvasViewInfo.canvasTop':
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) + "px",
+          'nolinkCanvasViewInfo.canvasLeft':
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) + "px",
+
+        })
+
+        rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+
+
+      }
+
+
+      //nolinkCanvasViewInfo
 
     });
   },
