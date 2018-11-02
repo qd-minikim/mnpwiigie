@@ -149,6 +149,15 @@ Page({
 
 
   },
+  //点击头像进入 我的
+  mypage: function (e) {
+ 
+    wx.switchTab({
+      url: '/pages/pagemy/pagemy',
+    })
+
+
+  },
   //获取好友动态
   getFriendsActive: function() {
 
@@ -231,6 +240,7 @@ Page({
   },
 
   //人气推荐-详情
+
 
   
 })

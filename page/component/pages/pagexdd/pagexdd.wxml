@@ -388,7 +388,7 @@
       </scroll-view>
 
       <view class='gap-line'></view>
-      <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（2份/4人）</view>
+      <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
       <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
         <image style="width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
       </scroll-view>

@@ -484,9 +484,10 @@ var nolinkCanvaProgressRoute = {
 
   },
   readInfo: function(node, category, id) {
+    var this_ = this;
     var x = node.circlepoint[0] * config.routeCicleConfig.circleRM;
     var y = node.circlepoint[1] * config.routeCicleConfig.circleRM;
-    var r = node.forwardRadius * config.routeCicleConfig.circleRM;
+    var r = 48 * config.routeCicleConfig.circleRM;
     var url = node.imagurl;
 
 
@@ -501,7 +502,25 @@ var nolinkCanvaProgressRoute = {
     this_.context.arc(x, y, r, Math.PI * 0, Math.PI * 2)
     this_.context.stroke()
   },
+  /**下载图 */
+  downloadImage: function (url) {
+    return new Promise(function (resolve, reject) {
+      wx.downloadFile({
+        url: url,
+        success: res => {
+          if (res.statusCode === 200) {
+            resolve(res.tempFilePath);
+          } else {
 
+          }
+        },
+        fail: function () { }
+
+      })
+
+    });
+
+  },
   /**画图 */
   drawImageInfo: function(i, id, that) {
 

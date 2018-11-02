@@ -130,7 +130,10 @@ Page({
       canvasWidth: '0px',
       canvasHeight: '0px',
       canvasTop: '0px',
-      canvasLeft: '0px'
+      canvasLeft: '0px',
+      copies: '0',
+      orders: '0'
+               
     },
 
     configMsgInfo: {},
@@ -951,10 +954,14 @@ Page({
             (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) + "px",
           'nolinkCanvasViewInfo.canvasLeft':
             (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) + "px",
+          'nolinkCanvasViewInfo.copies': rdata.copies,
+          'nolinkCanvasViewInfo.orders': rdata.orders,
 
         })
 
         rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+
+
 
 
       }
