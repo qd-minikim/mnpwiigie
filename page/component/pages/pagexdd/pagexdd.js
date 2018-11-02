@@ -70,7 +70,8 @@ Page({
       pageSize: 5,
       allrows: 0
     },
-
+    
+    attributeInfo:{},
     pagePard: {
       headHeight: '110',
       footHeight: '110',
@@ -149,12 +150,11 @@ Page({
       })
 
       this.getInitDetail()
+ 
+      this.getRequirementDetail()
 
       this.getRequirementKeepInfo()
       this.getProgressRouteInfo()
-
-      this.getRequirementDetail()
-
       //this.getSkuInfo()
 
       this.getConfigMsgInfo()
@@ -706,6 +706,8 @@ Page({
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
+        that.getAttribute()
+
 
         if (rdata.info.requirement_person != usreId){
 
@@ -730,6 +732,31 @@ Page({
     })
 
   },
+  /**获取展开详情信息 */
+  getAttribute:function(){
+    var that = this
+    
+    var spuid = that.data.requirementInfo.spuid;;
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getAttribute',
+      spuid: spuid,
+
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+       
+      if(rdata.info){
+
+        that.setData({
+          attributeInfo: rdata.info
+        })
+      }
+
+    })
+
+  },
+
 
   /**获取展开详情信息 */
   getRequirementRichtext: function() {

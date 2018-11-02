@@ -53,7 +53,8 @@
         "pages/pagebing/pagebing",
         "pages/pagedialog/dialoglist/dialoglist",
         "pages/pagegift/giftreceivelist/giftreceivelist",
-        "pages/pagespu/storage/storage"
+        "pages/pagespu/storage/storage",
+        "pages/pageweb/pageweb"
       ]
     }
   ],

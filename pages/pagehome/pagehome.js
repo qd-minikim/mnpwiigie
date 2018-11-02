@@ -17,7 +17,7 @@ Page({
       askText: '通知',
       askIcon: '/image/ask_0.png',
       // swiper属性
-      swiperImgUrls: ['/image/home_swiper_1.jpg', '/image/home_swiper_2.jpg'],
+      swiperImgUrls: ['/image/home_swiper_1.jpg'],
       swiperIndicatorDots: true, //是否显示指示点   
       swiperAutoplay: true, //是否自动切换
       swiperInterval: 2000, //自动切换时间间隔
@@ -66,6 +66,8 @@ Page({
         userInfo: app.globalData.userInfo,
       })
 
+
+      this.homepageCarousel();
       //好友动态
       this.getFriendsActive();
       //人气推荐
@@ -112,6 +114,39 @@ Page({
       url: '/pages/pagegoods/pagegoods',
     })
   
+
+  },
+
+  //获取swiper 图片
+  homepageCarousel: function () {
+    var that = this;
+   
+    var url = config.requestUrl;
+    
+    var data = {
+      code_: 'x_getImageInfo',
+      "imagetype":"homepage_carousel"
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.infolist){
+          that.setData({
+
+            'defaultInfo.swiperImgUrls': rdata.infolist
+          })
+        }
+
+    })
+
+  },
+  //点击banner进入web-view页面
+  webPage: function (e) {
+
+    var  path = e.currentTarget.dataset.webpath
+    wx.navigateTo({
+      url: '/page/component/pages/pageweb/pageweb?webpath=' + path,
+    }) 
+
 
   },
   //获取好友动态

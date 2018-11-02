@@ -76,10 +76,31 @@
           <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
         </view>
       </view>
-      <view wx:if="{{richtextInfo.richtextShow}}">
-        <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+      <block wx:if="{{richtextInfo.richtextShow}}">
+        <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
+          <view style='width:100%'>
+            <view class='font-size-5' style='margin:10rpx 15rpx;'>商品参数</view>
+            <view class='gap-dashed'></view>
+            <view class='font-size-5 font_color_4' style='flex-direction:column;display:flex; '>
 
-      </view>
+              <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+                <block wx:if="{{index>0}}">
+                  <view class='gap-dashed'></view>
+                </block>
+                <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+                  <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
+                  <view style='flex:1'>{{item.attribute_value}}</view>
+                </view>
+
+              </block>
+            </view>
+          </view>
+        </block>
+        <view>
+          <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+        </view>
+
+      </block>
     </view>
 
     <view class="gap-bg" style="flex-direction:column;"></view>

@@ -166,7 +166,7 @@ App({
               var options = currentPage.options
               var fm = options.m;
               var r = options.r;
-              wx.navigateTo({
+              wx.reLaunch({
                 url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
               })
             }
