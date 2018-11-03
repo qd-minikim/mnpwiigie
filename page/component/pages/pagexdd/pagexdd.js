@@ -135,7 +135,7 @@ Page({
       orders: '0'
                
     },
-
+    downSucces:false,
     configMsgInfo: {},
     /**用户信息 */
     userInfo: {},
@@ -958,16 +958,15 @@ Page({
           'nolinkCanvasViewInfo.orders': rdata.orders,
 
         })
-
-        rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
-
+ 
+    rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+ 
 
 
 
       }
 
-
-      //nolinkCanvasViewInfo
+ 
 
     });
   },

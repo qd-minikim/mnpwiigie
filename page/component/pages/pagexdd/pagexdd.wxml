@@ -6,10 +6,9 @@
 <import src="../../../common/pages/pageopins/pageopins.wxml" />
 <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 <!-- 消费者详情 -->
-<!-- position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; -->
-<canvas style="position:absolute;transform: translateX(-200%); width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
-<canvas style="position:absolute;transform: translateX(-200%); width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};left:{{nolinkCanvasViewInfo.canvasTop1}};top:{{nolinkCanvasViewInfo.canvasLeft1}}; " canvas-id="no_route_canvas_id"
-/>
+<!--position:absolute;transform: translateX(-200%);   -->
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};left:{{canvasViewInfo.canvasTop1}};top:{{canvasViewInfo.canvasLeft1}}; " canvas-id="route_canvas_id" />
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};left:{{nolinkCanvasViewInfo.canvasTop1}};top:{{nolinkCanvasViewInfo.canvasLeft1}}; " canvas-id="no_route_canvas_id" />
 
 <!-- 蒙板 -->
 <template is="pagemask" data="{{pagemask}}" />
@@ -50,9 +49,8 @@
     <!-- 滚动图 -->
     <view class='view-3'>
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
-        <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="*this">
+        <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="key">
           <swiper-item>
-            <!-- <image src='{{item.imageUrl}}' style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'></image> -->
 
             <image style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}' bindtap="imageYl" data-list="{{swiperArea.swiperImgUrlsArry}}" data-src="{{itemyl}}" wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:for-item="itemyl" src="{{item}}"></image>
           </swiper-item>
@@ -382,6 +380,9 @@
           </view>
         </block>
       </block>
+    </view>
+    <view class='view-9' style='position:relative;'>
+
       <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
         <image style="width:{{canvasViewInfo.canvasWidth}};height:{{canvasViewInfo.canvasHeight}};  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
 
@@ -393,6 +394,12 @@
         <image style="width:{{nolinkCanvasViewInfo.canvasWidth}};height:{{nolinkCanvasViewInfo.canvasHeight}};  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
       </scroll-view>
       <view></view>
+      <block wx:if="{{!downSucces}}">
+      <view style='position:absolute;width:100%;top:45%' class='align-center'>
+        <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+      </view>
+
+      </block>
     </view>
 
 

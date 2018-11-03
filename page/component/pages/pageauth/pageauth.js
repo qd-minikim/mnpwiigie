@@ -70,18 +70,28 @@ Page({
    * 
    */
   doauthor:function(){
-    wx.openSetting({
-      success: (res) => {
-        /*
-         * res.authSetting = {
-         *   "scope.userInfo": true,
-         *   "scope.userLocation": true
-         * }
-         */
-        app.getUsersInfo();
+    
+    if (wx.openSetting) {
+      wx.openSetting({
+        success: (res) => {
+          /*
+           * res.authSetting = {
+           *   "scope.userInfo": true,
+           *   "scope.userLocation": true
+           * }
+           */
+          app.getUsersInfo();
+         // app.userLogin();
+        }
+      })
 
-      }
-    })
+    } else {
+      wx.showModal({
+        title: '授权提示',
+        content: '小程序需要您的微信授权才能使用哦~ 错过授权页面的处理方法：删除小程序->重新搜索进入->点击授权按钮'
+      })
+    }
+  
 
   }
 })

@@ -73,30 +73,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-
-  // //先登录
-  // userLogin: function() {
-  //   var that = this;
-  //   wx.login({
-  //     success: res => {
-  //       var url = config.loginUrl;
-  //       var data = {
-  //         code: res.code
-  //       }
-  //       rRequest.doRequest(url, data, that, function(rdata) {
-
-  //         if (rdata.info) {
-
-  //           app.globalData.loginInfo = rdata.info
-  //           that.getSettingInfo();
-  //         }
-  //       })
-
-  //     }
-  //   })
-  // },
-
-
+ 
   getSettingInfo: function() { // 查看是否授权
     var that = this;
     wx.getSetting({

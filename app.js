@@ -109,6 +109,10 @@ App({
           that.getUsersInfo();
         } else {
           console.log("用户信息未授权--")
+          wx.reLaunch({ ///pages/pagehome/pagehome
+            url: '/pages/pagewelcome/pagewelcome',
+          })
+         
         }
       },
       fail: function(res) {

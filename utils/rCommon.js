@@ -8,6 +8,7 @@ var canvaProgressRoute = {
   headImage: null,
   context: null,
   c: 0,
+  n:0,
   doProgressRouteInfoImpl: function(data, category, id, that) {
     var info_ = data.info_
     var this_ = this;
@@ -27,20 +28,24 @@ var canvaProgressRoute = {
     }
     var len = this_.headImage.url.length
     this_.c = 0;
-    for (var n = 0; n < len; n++) {
-
-      this_.drawImageInfo(n, id, that);
+    for (var i = 0, j = 1; i < len; i++ , j++) {
+      this_.drawImageInfo(i, id, that);
+ 
     }
 
   },
+ 
 
   /**下载图 */
   downloadImage: function(url) {
+   
     return new Promise(function(resolve, reject) {
+ 
       wx.downloadFile({
         url: url,
         success: res => {
           if (res.statusCode === 200) {
+          
             resolve(res.tempFilePath);
           } else {
 
@@ -61,13 +66,14 @@ var canvaProgressRoute = {
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
-
+    image = image.replace('http:', 'https:')
+  
     this_.downloadImage(image).then(function(value) {
-
+     
       this_.headImage.resource[i] = value;
-      this_.c++;
-
-      if (this_.c == this_.headImage.url.length) {
+      this_.c = this_.c+1;
+       
+      if (this_.c === this_.headImage.url.length) {
 
         this_.drawHeadImage(id, that);
 
@@ -75,13 +81,12 @@ var canvaProgressRoute = {
 
     }).catch(function() {});
 
-
   },
 
   drawHeadImage: function(id, that) {
     var this_ = this;
     var leng = this_.headImage.resource.length;
-
+   
     for (var n = 0; n < leng; n++) {
 
 
@@ -104,7 +109,9 @@ var canvaProgressRoute = {
       this_.context.restore();
 
     }
+   
 
+    
     this_.context.draw(false, function() {
 
       wx.canvasToTempFilePath({
@@ -113,18 +120,14 @@ var canvaProgressRoute = {
 
           that.setData({
             'canvasViewInfo.canvasSaveImage': res.tempFilePath,
-
+            'downSucces':true
           })
         }
       })
 
     });
   },
-
-  // readTree: function (node, category, id) {
-
-  // },
-
+ 
   /**读取树 */
   readTree: function(node, category, id) {
     var this_ = this;
@@ -529,7 +532,7 @@ var nolinkCanvaProgressRoute = {
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
-
+    image = image.replace('http:', 'https:')
     this_.downloadImage(image).then(function(value) {
 
       this_.headImage.resource[i] = value;
