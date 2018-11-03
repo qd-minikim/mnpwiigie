@@ -120,8 +120,10 @@ var canvaProgressRoute = {
 
           that.setData({
             'canvasViewInfo.canvasSaveImage': res.tempFilePath,
-            'downSucces':true
+            'downSuccess':true
           })
+
+           
         }
       })
 
@@ -574,10 +576,10 @@ var nolinkCanvaProgressRoute = {
       wx.canvasToTempFilePath({
         canvasId: id, //canvasId和标签里面的id对应
         success: (res) => {
-
+        
           that.setData({
             'nolinkCanvasViewInfo.canvasSaveImage': res.tempFilePath,
-
+            'downNoLinkSuccess': true
           })
         }
       })

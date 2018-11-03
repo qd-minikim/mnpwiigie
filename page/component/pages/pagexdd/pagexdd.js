@@ -119,23 +119,27 @@ Page({
     //画布信息
     canvasViewInfo: {
       canvasSaveImage: null,
-      canvasWidth: '0px',
-      canvasHeight: '0px',
-      canvasTop: '0px',
-      canvasLeft: '0px'
+      canvasWidth: '0',
+      canvasHeight: '0',
+      canvasTop: '0',
+      canvasLeft: '0'
     },
     /**不在链购的朋友 */
     nolinkCanvasViewInfo: {
       canvasSaveImage: null,
-      canvasWidth: '0px',
-      canvasHeight: '0px',
-      canvasTop: '0px',
-      canvasLeft: '0px',
+      canvasWidth: '0',
+      canvasHeight: '0',
+      canvasTop: '0',
+      canvasLeft: '0',
       copies: '0',
       orders: '0'
                
     },
-    downSucces:false,
+    percent: 1,//rpx 和px的转化比例
+    
+    downSuccess:false,
+    downNoLinkSuccess: false,
+
     configMsgInfo: {},
     /**用户信息 */
     userInfo: {},
@@ -207,6 +211,8 @@ Page({
 
       'swiperArea.swiperWidth': windowWidth + "px",
       'swiperArea.swiperHeight': windowWidth + "px",
+
+      'percent': percent
     })
 
   },
@@ -928,17 +934,17 @@ Page({
       that.setData({
 
         'canvasViewInfo.canvasWidth':
-          (rdata.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM) ,
         'canvasViewInfo.canvasHeight':
-          (rdata.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM) ,
 
         'canvasInfo.canvasTop':
-          (rdata.boder.max_height * config.routeCicleConfig.circleRM) + "px",
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM) ,
         'canvasInfo.canvasLeft':
-          (rdata.boder.max_width * config.routeCicleConfig.circleRM) + "px",
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM) ,
 
       })
-      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+       rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
        
      
       if (that.data.requirementInfo.dealtype == '2'){
@@ -946,14 +952,14 @@ Page({
         that.setData({
 
           'nolinkCanvasViewInfo.canvasWidth':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) + "px",
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
           'nolinkCanvasViewInfo.canvasHeight':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) + "px",
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
 
           'nolinkCanvasViewInfo.canvasTop':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) + "px",
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM) ,
           'nolinkCanvasViewInfo.canvasLeft':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) + "px",
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM) ,
           'nolinkCanvasViewInfo.copies': rdata.copies,
           'nolinkCanvasViewInfo.orders': rdata.orders,
 
@@ -984,42 +990,7 @@ Page({
       pagekskujs.uppdateCopies.subCopies(that);
     }
   },
-  /**获取进展区信息 */
-
-  getProgressRouteInfo1: function() {
-    var that = this;
-    var usreId = that.data.userInfo.id;
-    var requirementid = that.data.requirementId;
-    var treetype = 'ZFC12_1';
-    wx.request({
-      url: config.requestUrl, //仅为示例，并非真实的接口地址
-      data: {
-        code_: 'x_getRelateTree',
-        id: requirementid,
-        userid: usreId,
-        role: treetype,
-
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: res => {
-
-        that.setData({
-
-          'canvasViewInfo.canvasWidth': (res.data.boder.max_width * config.routeCicleConfig.circleRM) + "px",
-          'canvasViewInfo.canvasHeight': (res.data.boder.max_height * config.routeCicleConfig.circleRM) + "px",
-
-          'canvasInfo.canvasTop': (res.data.boder.max_height * config.routeCicleConfig.circleRM) + "px",
-          'canvasInfo.canvasLeft': (res.data.boder.max_width * config.routeCicleConfig.circleRM) + "px",
-
-        })
-        rCommon.doProgressRouteInfoImpl(res.data, 'content_12', 'route_canvas_id', this);
-
-
-      }
-    })
-  },
+  
 
   order: function() {
 
