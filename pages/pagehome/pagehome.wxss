@@ -29,7 +29,7 @@
    
   padding-left: 30rpx;
   vertical-align: middle;
-  line-height: 80rpx;
+  /* line-height: 80rpx; */
 }
 
 .home-1-a {
@@ -74,16 +74,16 @@
 }
 
 .home-3-image {
-  width: 35rpx;
-  height: 35rpx;
+  width: 28rpx;
+  height: 28rpx;
 }
 
 /* 人以群分等 */
 
 .home-4 {
   display: flex;
-  padding-top: 5rpx;
-  padding-bottom: 5rpx;
+  /* padding-top: 5rpx;
+  padding-bottom: 5rpx; */
 }
 
 .home-4-1 {
@@ -94,10 +94,13 @@
   height: 110rpx;
   vertical-align: middle;
   padding-top: 20rpx;
+  padding-left: 5rpx;
+  padding-right:5rpx
 }
 
 .home-4-1-1-1 {
-   
+   flex-direction:row;
+   display: flex
 }
 
 .home-4-1-1-2 {
@@ -115,10 +118,13 @@
   /* width: 100rpx; */
   height: 110rpx;
   padding-top: 20rpx;
+    padding-left: 5rpx;
+  padding-right:5rpx
 }
 
 .home-4-2-1-1 {
-   
+      flex-direction:row;
+   display: flex
 }
 
 .home-4-2-1-2 {
@@ -126,12 +132,12 @@
 }
 
 .home-4-2-2 {
-  width: 120rpx;
+  width: 95rpx;
 }
 
 .home-4-figure2 {
-  width: 120rpx;
-  height: 120rpx;
+  width: 95rpx;
+  height: 95rpx;
 }
 
 /* 好友动态 */
@@ -146,6 +152,8 @@
    
   width: 100%;
   text-align: center;
+  margin:10rpx 0;
+
 }
 
 .home-5-2 {
@@ -211,6 +219,8 @@
 
 .home-5-2-4-2 {
    
+  flex-direction: row;
+  display: flex
 }
 
 .home-5-2-4-3 {
@@ -246,15 +256,17 @@
    
   width: 100%;
   text-align: center;
+  margin:10rpx 0;
+
 }
 .home-6-2 {
   
    width: 100%;
 }
 .home-6-2-1{
- width: 50%;
- max-width: 50%;
- /* padding: 5rpx; */
+ /* width: 50%;
+ max-width: 50%; */
+  padding: 5rpx; /**/
 }
 .home-6-2-1-1-1{
 

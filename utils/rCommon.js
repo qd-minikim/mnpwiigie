@@ -468,8 +468,8 @@ var nolinkCanvaProgressRoute = {
   context: null,
   c: 0,
   doProgressRouteInfoImplNolink: function(data, category, id, that) {
-    var info_ = data.rInfo_
-    var this_ = this;
+    let info_ = data.rInfo_
+    let this_ = this;
     this_.headImage = {
       url: [],
       x: [],
@@ -480,24 +480,24 @@ var nolinkCanvaProgressRoute = {
     };
     this_.context = wx.createCanvasContext(id)
     this_.context.save()
-    for (var i = 0; i < info_.length; i++) {
-      var node = info_[i];
+    for (let i = 0; i < info_.length; i++) {
+      let node = info_[i];
       this_.readInfo(node, category, id);
     }
-    var len = this_.headImage.url.length
+    let len = this_.headImage.url.length
     this_.c = 0;
-    for (var n = 0; n < len; n++) {
+    for (let n = 0; n < len; n++) {
 
       this_.drawImageInfo(n, id, that);
     }
 
   },
   readInfo: function(node, category, id) {
-    var this_ = this;
-    var x = node.circlepoint[0] * config.routeCicleConfig.circleRM;
-    var y = node.circlepoint[1] * config.routeCicleConfig.circleRM;
-    var r = 48 * config.routeCicleConfig.circleRM;
-    var url = node.imagurl;
+    let this_ = this;
+    let x = node.circlepoint[0] * config.routeCicleConfig.circleRM;
+    let y = node.circlepoint[1] * config.routeCicleConfig.circleRM;
+    let r = 48 * config.routeCicleConfig.circleRM;
+    let url = node.imagurl;
 
 
     this_.headImage.url.push(url);
@@ -533,8 +533,8 @@ var nolinkCanvaProgressRoute = {
   /**画图 */
   drawImageInfo: function(i, id, that) {
 
-    var this_ = this;
-    var image = config.imageUrl + "/wiigie/background/icon/default_head.png";
+    let this_ = this;
+    let image = config.imageUrl + "/wiigie/background/icon/default_head.png";
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
@@ -559,13 +559,13 @@ var nolinkCanvaProgressRoute = {
 
   },
   drawHeadImage: function(id, that) {
-    var this_ = this;
-    var leng = this_.headImage.resource.length;
+    let this_ = this;
+    let leng = this_.headImage.resource.length;
 
-    for (var n = 0; n < leng; n++) {
+    for (let n = 0; n < leng; n++) {
 
 
-      var r = this_.headImage.r[n] - 5;
+      let r = this_.headImage.r[n] - 5;
 
       this_.context.save();
 

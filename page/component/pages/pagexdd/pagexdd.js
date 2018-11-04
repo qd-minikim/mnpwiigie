@@ -964,8 +964,10 @@ Page({
           'nolinkCanvasViewInfo.orders': rdata.orders,
 
         })
+  
+   rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
  
-    rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+     
  
 
 

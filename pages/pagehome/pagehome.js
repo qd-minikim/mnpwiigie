@@ -24,18 +24,18 @@ Page({
       swiperDuration: 500, //duration 滑动动画时长
       //home-3
       home3Figure1: '/image/figure_1.png',
-      home3Text: ['好友互荐', '正品保证', '无忧退货', '全场包邮'],
+      home3Text: ['好友互荐', '链购优享', '全场包邮', '正品保障'],
       //home-4
       home4Figure1: ['', ''],
       home4Figure2: ['/image/figure_2.png', '/image/figure_3.png'],
-      home4Text1: ['人以群分', '物以类聚'],
-      home4Text2: ['分众崛起:互荐+优享', '消费升级:精致+别样'],
+      home4Text1: ['分众崛起', '消费升级'],
+      home4Text2: ['行家好友:洞察+互荐', '心仪好物:感知+优享'],
       home4Text3: ['', ''],
       //home-5
-      home5Text1: '~好友动态~',
+      home5Text1: '~好友的洞察~',
       home5Array: [],
       //home-6
-      home6Text1: '~人气推荐~',
+      home6Text1: '-人气推荐-',
       home6Array: []
     },
 

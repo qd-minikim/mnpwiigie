@@ -21,7 +21,11 @@
   height: 20rpx;
   background-color: #f7f7f7;
 }
-
+.gap-bg-v {
+  width: 20rpx;
+  /* height: 100%; */
+  background-color: #f7f7f7;
+}
 /* 横线间隔  */
 
 .gap-line {
@@ -29,6 +33,13 @@
   height: 5rpx;
   background-color: #f7f7f7;
 }
+.gap-line-v {
+  width: 5rpx;
+  /* height: 5rpx; */
+  background-color: #f7f7f7;
+}
+
+
 /* 横线间隔-虚线  */
 .gap-dashed {
   width: 100%;
@@ -72,9 +83,11 @@
 }
 
 .font-size-7 {
-  font-size: 22rpx;
+  font-size: 23rpx;
 }
-
+.font-size-8 {
+  font-size: 21rpx;
+}
 /* 字体颜色 */
 
 .font-color-1 {
@@ -160,7 +173,14 @@
 	border:1px solid #303233;
 	background-color: #303233;
 }
-
+.bg-12{
+	border:1px solid #00c003;
+	background-color: #FFB5C5;
+}
+.bg-13{
+	border:1px solid #cda36b;
+	background-color: #cda36b;
+}
 .bg-15{
 	border:1px solid #e33ff7;
 	background-color: #e33ff7;
@@ -386,6 +406,14 @@
 .bg_11{
 	border:1px solid #303233;
 	background-color: #303233;
+}
+.bg_12{
+	border:1px solid #00c003;
+	background-color: #FFB5C5;
+}
+.bg_13{
+	border:1px solid #cda36b;
+	background-color: #cda36b;
 }
 .bg_15{
 	border:1px solid #e33ff7;
