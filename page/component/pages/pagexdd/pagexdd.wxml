@@ -393,20 +393,20 @@
 
         </block>
       </scroll-view>
+      <block wx:if="{{requirementInfo.dealtype =='2'}}">
+        <view class='gap-line'></view>
+        <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
+        <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+          <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
+          <block wx:if="{{!downNoLinkSuccess}}">
+            <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
+              <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+            </view>
 
-      <view class='gap-line'></view>
-      <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
-      <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
-        <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
-           <block wx:if="{{!downNoLinkSuccess}}">
-          <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
-            <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
-          </view>
+          </block>
+        </scroll-view>
 
-        </block>
-      </scroll-view>
-      <view></view>
-
+      </block>
     </view>
 
 

@@ -66,20 +66,24 @@ var canvaProgressRoute = {
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
+    
     image = image.replace('http:', 'https:')
-  
+    console.log("---------" + image)
     this_.downloadImage(image).then(function(value) {
      
       this_.headImage.resource[i] = value;
       this_.c = this_.c+1;
-       
+      console.log(this_.c + "--------" + this_.headImage.url.length)
       if (this_.c === this_.headImage.url.length) {
 
         this_.drawHeadImage(id, that);
 
       }
 
-    }).catch(function() {});
+    }).catch(function(e) {
+      console.log("------eee----" + e)
+      
+    });
 
   },
 
@@ -204,20 +208,20 @@ var canvaProgressRoute = {
 
             this_.context.beginPath();
             this_.context.setStrokeStyle(node.replyColor)
-            this_.context.arc(x, y, r - 5, Math.PI * 0, Math.PI * 2, false)
+            this_.context.arc(x, y, r - 4, Math.PI * 0, Math.PI * 2, false)
             this_.context.stroke()
           }
         }
         if (node.isLike) {
           this_.context.beginPath();
           this_.context.setStrokeStyle(node.likeColor)
-          this_.context.arc(x, y, r - 5, Math.PI * 3 / 4, Math.PI * 5 / 4, false)
+          this_.context.arc(x, y, r - 4, Math.PI * 3 / 4, Math.PI * 5 / 4, false)
           this_.context.stroke()
         }
         if (node.isBuy) {
           this_.context.beginPath();
           this_.context.setStrokeStyle(node.buyColor)
-          this_.context.arc(x, y, r - 5, Math.PI * 0, Math.PI * 2)
+          this_.context.arc(x, y, r - 4, Math.PI * 0, Math.PI * 2)
           this_.context.stroke()
 
         }
@@ -283,7 +287,7 @@ var canvaProgressRoute = {
         if (node.isBuy) {
           this_.context.beginPath();
           this_.context.setStrokeStyle(node.buyColor)
-          this_.context.arc(x, y, r - 2, Math.PI * 0, Math.PI * 2)
+          this_.context.arc(x, y, r - 4, Math.PI * 0, Math.PI * 2)
           this_.context.stroke()
  
         }
@@ -534,19 +538,23 @@ var nolinkCanvaProgressRoute = {
     if (this_.headImage.url[i] != undefined) {
       image = this_.headImage.url[i];
     }
+    console.log("------xxx---" + image)
     image = image.replace('http:', 'https:')
     this_.downloadImage(image).then(function(value) {
 
       this_.headImage.resource[i] = value;
-      this_.c++;
-
+      this_.c = this_.c + 1;
+      console.log(this_.c + "------xxxx----" + this_.headImage.url.length)
       if (this_.c == this_.headImage.url.length) {
 
         this_.drawHeadImage(id, that);
 
       }
 
-    }).catch(function() {});
+    }).catch(function(e) {
+      console.log( "------eee----" + e)
+
+    });
 
 
   },

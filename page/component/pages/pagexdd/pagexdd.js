@@ -808,7 +808,7 @@ Page({
        * 4.target为Page对象,一般为this(必填)
        * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
        */
-
+     
       WxParse.wxParse('richtext', 'html', richtext, that, 5);
 
     })
