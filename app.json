@@ -65,19 +65,20 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "color": "#a0a0a0",
     "selectedColor": "#00c003",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/pagehome/pagehome",
-        "text": "好友冰鉴",
+        "text": "好友",
         "iconPath": "image/home_0.png",
         "selectedIconPath": "image/home_1.png"
       },
       {
         "pagePath": "pages/pagegoods/pagegoods",
-        "text": "好物精选",
+        "text": "好物",
         "iconPath": "image/goods_0.png",
         "selectedIconPath": "image/goods_1.png"
       },

@@ -11,10 +11,10 @@
       <view style='flex-direction:row;display:flex'>
         <view>
           <block wx:if="{{initPagaInfo.isbunding =='0'}}">
-            <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-0 font-size-8 font-color-10'>已绑定</view>
+            <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-4 font-size-8 font-color-4'>已绑定</view>
           </block>
           <block wx:else>
-            <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-4 font-size-8 font-color-4'>绑定商户账号</view>
+            <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-0 font-size-8 font-color-10'>绑定商户账号</view>
           </block>
 
 

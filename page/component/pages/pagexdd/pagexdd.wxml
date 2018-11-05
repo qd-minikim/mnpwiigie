@@ -214,14 +214,26 @@
 
 
       <block wx:if="{{ requirementInfo.dealtype!='3'}}">
-        <view class='view-7-4 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='TGJZ_MSG' data-html='true'>
-          <view class='  align-center'>
+        <view class='view-7-4 align-r-center'>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='  align-center'>
             <image class='view-7-figure' src='/image/figure_6.png'></image>
           </view>
-          <view style='height100%'>活动截至：</view>
-          <view style='flex:1'>{{requirementInfo.deadlinetime}}</view>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='height100%'>活动截至：</view>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='flex:1'>{{requirementInfo.deadlinetime}}</view>
           <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            <block wx:if="{{initDetail.role =='TW'}}">
+              <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
+                <view class='align-center font-color-5' style='flex-direction:row;display:flex'>
+                  <image class='view-7-figure' src='/image/figure_36.png'></image>
+                  <view>延期</view>
+                </view>
+              </picker>
+
+            </block>
+            <block wx:if="{{initDetail.role =='XQ'}}">
+              <image catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </block>
+
           </view>
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
@@ -285,17 +297,25 @@
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
       </block>
-      <view class='view-7-11 align-r-center' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
-        <view class='  align-center'>
-          <image class='view-7-figure' src='/image/figure_7.png'></image>
+
+
+      <block wx:if="{{initDetail.role =='TW'}}">
+
+      </block>
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <view class='view-7-11 align-r-center' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_7.png'></image>
+          </view>
+          <view style='flex-direction:row;display:flex'>
+            <view style="width:3em ">已</view>选：</view>
+          <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
         </view>
-        <view style='flex-direction:row;display:flex'>
-          <view style="width:3em ">已</view>选：</view>
-        <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
-        <view class='align-center'>
-          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-        </view>
-      </view>
+      </block>
+
 
       <view></view>
       <view></view>
@@ -482,9 +502,9 @@
       <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
         <view class='font-size-3'>送礼</view>
       </view>
-      <view  class='align-center  bottom-view' style=' width:{{twoGridWidth}}'>
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}}'>
 
-        <button open-type="share"  class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%;line-height:100%; '>
+        <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%;line-height:100%; '>
           <view class='bottom-view-1 align-c-center'>
             <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
           </view>
