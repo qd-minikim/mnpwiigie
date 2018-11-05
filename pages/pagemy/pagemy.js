@@ -170,7 +170,7 @@ Page({
       url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=',
     })
   },
-/**我收到的礼 */
+/**我送的的礼 */
   giftgivelist: function (event) {
     var ty = event.currentTarget.dataset.type;
      
@@ -181,12 +181,12 @@ Page({
 
   },
 
-  /**我送的礼-list */
+  /**我收到礼-list */
   giftrecelist: function(event) {
     var ty = event.currentTarget.dataset.type;
 
     wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
+      url: '/page/component/pages/pagegift/giftreceivelist/giftreceivelist',
     })
 
 

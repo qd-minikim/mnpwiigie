@@ -478,12 +478,15 @@
       <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:colum;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
         <view class='font-size-3'>送礼</view>
       </view>
-      <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style=' width:{{twoGridWidth}}'>
-        <view class='bottom-view-1 align-c-center'>
-          <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
-        </view>
-        <view class='bottom-view-1 align-c-center font-size-4'>推荐给
-        </view>
+      <view  class='align-center  bottom-view' style=' width:{{twoGridWidth}}'>
+
+        <button open-type="share"  class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%;line-height:100%; '>
+          <view class='bottom-view-1 align-c-center'>
+            <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+          </view>
+          <view class='bottom-view-1 align-c-center font-size-4'>推荐给
+          </view>
+        </button>
       </view>
     </view>
 
@@ -510,6 +513,7 @@
         <view class='font-size-4'>补库存</view>
       </view>
       <view catchtap='forwardfriend' class='align-center {{fixedBottom.tjClassName}} bottom-view' style='flex:1; width:{{twoGridWidth}}'>
+
         <view class='bottom-view-1 align-c-center'>
           <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
         </view>
