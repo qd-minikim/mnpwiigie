@@ -8,19 +8,19 @@
       <view class='view_1_1' style='align-items:center;flex-direction:row;display:flex; '>
 
 
-        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color' style='width:{{promotiontagWidth}};'>
-          <text>全部</text>
+        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color font-size-5' style='width:{{promotiontagWidth}};'>
+          全部
         </view>
-        <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height  ' style='width:{{promotiontagWidth}};'>
-          <text>全部</text>
+        <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height font-size-5 ' style='width:{{promotiontagWidth}};'>
+          全部
         </view>
 
         <block wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-          <view wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this" class='align-center view_select_left' style="flex-direction:column;;display:flex">
-            <view class='align-center view_select_style '>{{item.tag_name}}</view>
+          <view wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this" class='align-center view_select_left font-size-5' style="flex-direction:column;;display:flex;height:100rpx">
+            <view style='height:50%;' class='align-center view_select_style '>{{item.tag_name}}</view>
 
 
-            <view style="flex-direction:row;;display:flex">
+            <view style="flex-direction:row;;display:flex;height:50%;">
               <block wx:for="{{item.children}}" wx:for-item="itemC" wx:key="trade" wx:for-index="indexC">
 
                 <block wx:if="{{indexC==item.children.length-1}}">
@@ -53,8 +53,7 @@
     </scroll-view>
 
   </view>
-  <!-- <view wx:if="{{promotiontagArry.length>0}}" class="gap-bg" style="flex-direction:column;"></view> -->
-
+ 
   <scroll-view style='height:{{scrollViewHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
     <template is="pagegood" data="{{goodsArry,imageSize}}"/>

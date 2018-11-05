@@ -55,16 +55,16 @@
 
 
 .scroll-view-friend-image{
-   width: 60rpx;
-  height: 60rpx;
+   width: 40rpx;
+  height: 40rpx;
   border-radius: 50%;
   margin: auto 5rpx;
 }
 
-.scroll-view--figure4{
+.scroll-view-figure4{
 
-    width: 130rpx;
-   height: 60rpx;
+    width: 120rpx;
+   height: 40rpx;
    background-size: 100% 100%;  
 	 -moz-background-size: 100% 100%;
    -webkit-background-size: 100% 100%;

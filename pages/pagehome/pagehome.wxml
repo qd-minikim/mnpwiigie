@@ -1,29 +1,31 @@
 <import src="../../wxParse/wxParse.wxml" />
 <import src="../../page/common/pages/pagehydt/pagehydt.wxml" />
 <view class="container" style="flex-direction:column;">
-
-  <view class="home-1" style="flex-direction:row;">
-    <view class="home-1-h">
-      <block wx:if="{{!userIData}}">
-        <image class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
-      </block>
-      <block wx:else>
-        <image catchtap='mypage' class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
-      </block>
-    </view>
-
-    <view class="home-1-s font-size-7 align-r-center" catchtap='homeSerarch'>
-      {{defaultInfo.searchHolder}}
-    </view>
-
-    <view class='home-1-a' style="flex-direction:column" catchtap='homeNotice'>
-      <view class='home-1-a-v align-center'>
-        <image class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
+  <view style="width:100%">
+    <view class="home-1" style="flex-direction:row;">
+      <view class="home-1-h">
+        <block wx:if="{{!userIData}}">
+          <image class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
+        </block>
+        <block wx:else>
+          <image catchtap='mypage' class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
+        </block>
       </view>
-      <view class='home-1-a-t font-size-7 align-center'>
-        <text>{{defaultInfo.askText}}</text>
+
+      <view class="home-1-s font-size-7 align-r-center" catchtap='homeSerarch'>
+        {{defaultInfo.searchHolder}}
+      </view>
+
+      <view class='home-1-a' style="flex-direction:column" catchtap='homeNotice'>
+        <view class='home-1-a-v align-center'>
+          <image class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
+        </view>
+        <view class='home-1-a-t font-size-7 align-center'>
+          <text>{{defaultInfo.askText}}</text>
+        </view>
       </view>
     </view>
+
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
 
@@ -58,50 +60,52 @@
     </view>
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
-  <view class="home-4" style="flex-direction:row;">
-    <view class="home-4-1" style="flex-direction:row;display:flex;flex:1" bindtap='homePerson'>
-      <view class="home-4-1-1" style="flex-direction:column;">
-        <view class="home-4-1-1-1 font-size-5">
-          <view>{{defaultInfo.home4Text1[0]}}</view>
-          <view class='align-r-center' style='position:relative'>
-            <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
-            <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品味</view>
-          </view>
+  <view style='width:100%'>
+    <view class="home-4" style="flex-direction:row;">
+      <view class="home-4-1 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homePerson'>
+        <view class="home-4-1-1" style="flex-direction:column;">
+          <view class="home-4-1-1-1 font-size-5">
+            <view>{{defaultInfo.home4Text1[0]}}</view>
+            <view class='align-r-center' style='position:relative'>
+              <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
+              <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品味</view>
+            </view>
 
-        </view>
-        <view class="home-4-1-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[0]}}</view>
-      </view>
-      <view class="align-center home-4-1-2">
-        <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
-      </view>
-    </view>
-    <view class='gap-bg-v ' style="flex-direction:column;"></view>
-    <view class="home-4-2" style="flex-direction:row;display:flex;flex:1" bindtap='homeGoods'>
-      <view class="home-4-2-1" style="flex-direction:column;">
-        <view class="home-4-2-1-1 font-size-5">
-          <view>{{defaultInfo.home4Text1[1]}}</view>
-          <view class='align-r-center' style='position:relative'>
-            <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
-            <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品质</view>
           </view>
+          <view class="home-4-1-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[0]}}</view>
         </view>
-        <view class="home-4-2-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[1]}}</view>
+        <view class="align-center home-4-1-2">
+          <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
+        </view>
       </view>
-      <view class="align-center home-4-2-2">
-        <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
+      <view class='gap-bg-v ' style="flex-direction:column;"></view>
+      <view class="home-4-2 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homeGoods'>
+        <view class="home-4-2-1" style="flex-direction:column;">
+          <view class="home-4-2-1-1 font-size-5">
+            <view>{{defaultInfo.home4Text1[1]}}</view>
+            <view class='align-r-center' style='position:relative'>
+              <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
+              <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品质</view>
+            </view>
+          </view>
+          <view class="home-4-2-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[1]}}</view>
+        </view>
+        <view class="align-center home-4-2-2">
+          <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
+        </view>
       </view>
     </view>
   </view>
-
   <view class="gap-bg" style="flex-direction:column;"></view>
 
   <!-- 好友动态 -->
-  <view class="home-5" style="flex-direction:column;">
-    <view class="home-5-1 font-size-4 font-color-4">{{defaultInfo.home5Text1}}</view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-    <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+  <view style='width:100%'>
+    <view class="home-5" style="flex-direction:column;">
+      <view class="home-5-1 font-size-4 font-color-4">{{defaultInfo.home5Text1}}</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+    </view>
   </view>
-
   <view class="gap-bg" style="flex-direction:column;"></view>
   <!-- 人气推荐 -->
   <view class="home-6" style="flex-direction:column;">
@@ -115,11 +119,11 @@
         </block>
         <view style='width:49%'>
           <view class='home-6-2-1' style="flex-direction:row;display:flex;">
-            <view class='home-6-2-1-1' style='flex-direction:column;flex:1'>
+            <view class='home-6-2-1-1' style='flex-direction:column;flex:1;position:relative'>
               <view class='home-6-2-1-1-1 font-size-6 view-ellipsis-2'>{{item.title}}</view>
-              <view class='home-6-2-1-1-2 ' style="flex-direction:row;display:flex; justify-content:flex-end ">
-                <view>
 
+              <view class='home-6-2-1-1-2 ' style="position:absolute;flex-direction:row;display:flex; justify-content:flex-end ;bottom:0rpx;">
+                <view>
                   <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-6-2-1-1-2-image" src='{{itemi.friend_image_url}}'></image>
                 </view>
                 <view>
@@ -133,14 +137,14 @@
             </view>
           </view>
         </view>
-       <block wx:if="{{index%2==0 && (home6Array.length)%2==0}}">
-       <view style="width:2%" class='align-center'>
-        <view class="gap-line-v" style="flex-direction:column;height:100%;"></view>
-       </view>
-         
+        <block wx:if="{{index%2==0 && (home6Array.length)%2==0}}">
+          <view style="width:2%" class='align-center'>
+            <view class="gap-line-v" style="flex-direction:column;height:100%;"></view>
+          </view>
+
         </block>
-      <block wx:else>
-          <view   style="width:2%"></view>
+        <block wx:else>
+          <view style="width:2%"></view>
         </block>
 
       </block>
