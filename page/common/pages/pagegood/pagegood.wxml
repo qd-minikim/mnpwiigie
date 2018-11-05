@@ -20,7 +20,7 @@
 
           <view wx:if="{{itemG.deal_type =='1' || itemG.deal_type =='2'||itemG.deal_type =='3'}}" class='align-c-center' style='flex-direction:column;display:flex; '>
             <view class='font-size-7  '>￥{{itemG.list_price}}</view>
-            <view wx:if="{{itemG.deal_type =='2'}}" class='font-size-7 font-color-7  '>{{itemG.link_price_name}}{{itemG.link_discount}}</view>
+            <view wx:if="{{itemG.deal_type =='2'}}" class='font-size-7 font-color-7  '>{{itemG.link_price_name}}:{{itemG.link_discount}}</view>
           </view>
           <view style="flex-direction:row;display:flex;flex:1; justify-content:flex-end;  ">
   
