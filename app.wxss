@@ -259,8 +259,8 @@
 /* 详情页的右箭头 */
 
 .arrow_right_1 {
-  width: 80rpx;
-  height: 80rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 /*链购红色背景图*/

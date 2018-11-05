@@ -37,11 +37,15 @@
       </view>
     </view>
     <!-- 出品商 -->
-    <view class='view-2 font-color-3 font-size-4' style='  '>
+    <view class='view-2 font-color-3 font-size-5' style='  '>
       <view class='view-2-1'>出品商:</view>
       <view class='view-2-2 view-ellipsis-1'>{{spuInfo.spuinfo.producer_brand_name}}</view>
       <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
+
+      <view class='' style='color: #4395f5;'>@友托帮</view>
     </view>
+
+
   </view>
 
 
@@ -59,13 +63,13 @@
       </swiper>
     </view>
     <!-- 描述 -->
-    <view class='view-4 align-center'>
+    <view class='view-4 align-center' style='margin:5rpx 15rpx;'>
       <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
     <!--微信传播描述 -->
-    <view class='view-5 align-center'>
+    <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
       <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
     </view>
     <view class="gap-line" style="flex-direction:column;"></view>
@@ -74,7 +78,7 @@
 
 
       <view wx:if="{{richtextInfo.richtextMore}}" class='align-center view-6-1' bindtap='showRichtext'>
-        <view class='view-6-1-1 font-size-4 font-color-8'>展看查看详情</view>
+        <view class='view-6-1-1 font-size-5 font-color-8'>展看查看详情</view>
         <view class='view-6-1-2'>
           <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
         </view>
@@ -108,14 +112,14 @@
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
-    <view class='view-7  font-size-4'>
+    <view class='view-7  font-size-5'>
       <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
         <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
           </view>
-          <view style='height100%'>传播红包单价:</view>
-          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice,2)}}/受阅者</view>
+          <view style='height100%'>传播红包单价：</view>
+          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice,2)}}/受众</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
           </view>
@@ -130,7 +134,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
           </view>
-          <view style='height100%'>下级落单返点:</view>
+          <view style='height100%'>下级落单返点：</view>
           <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent,2)}}%</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -147,7 +151,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_14.png'></image>
           </view>
-          <view style='height100%'>链购方案:</view>
+          <view style='height100%'>链购方案：</view>
           <view style='flex:1' class='font-size-5'>(门市价格:￥{{requirementInfo.listprice}})</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -155,13 +159,13 @@
         </view>
 
 
-        <view class='view-7-2-1 align-r-center font-size-6'>
+        <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
           <view class='view-7-2-1-2 align-center '>链团份数(份)</view>
           <view class='view-7-2-1-2 align-center  '>链团折扣</view>
         </view>
         <block wx:for="{{requirementInfo.cfggroupgradeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
-          <view class='view-7-2-1 align-r-center font-size-6'>
+          <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
             <view class='view-7-2-1-2 align-center '>{{item.min_copies_grade}}~
               <block wx:if="{{ item.max_copies_grade=='9999999'}}">不限 </block>
               <block wx:else>{{item.max_copies_grade}}</block>
@@ -180,7 +184,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
           </view>
-          <view style='height100%'>门市价格:</view>
+          <view style='height100%'>门市价格：</view>
           <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -195,7 +199,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
           </view>
-          <view style='height100%'>门市价格:</view>
+          <view style='height100%'>门市价格：</view>
           <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -214,7 +218,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_6.png'></image>
           </view>
-          <view style='height100%'>活动截至:</view>
+          <view style='height100%'>活动截至：</view>
           <view style='flex:1'>{{requirementInfo.deadlinetime}}</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -231,7 +235,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_6.png'></image>
           </view>
-          <view style='height100%'>服务截至:</view>
+          <view style='height100%'>服务截至：</view>
           <view style='flex:1'>{{requirementInfo.deliverydeadline}}</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -247,7 +251,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_6.png'></image>
           </view>
-          <view style='height100%'>退货周期:</view>
+          <view style='height100%'>退货周期：</view>
           <view style='flex:1'>
             <block wx:if="{{ requirementInfo.isreturn=='0'}}">
               {{requirementInfo.isreturnname}}{{requirementInfo.returndays}}天退货
@@ -266,7 +270,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_6.png'></image>
           </view>
-          <view style='height100%'>换货周期:</view>
+          <view style='height100%'>换货周期：</view>
           <view style='flex:1'>
             <block wx:if="{{ requirementInfo.ischange=='0'}}">
               {{requirementInfo.ischangename}}{{requirementInfo.changedays}}天换货
@@ -285,8 +289,8 @@
         <view class='  align-center'>
           <image class='view-7-figure' src='/image/figure_7.png'></image>
         </view>
-        <view style='height100%'>
-          <text style=" letter-spacing:2em ">已</text>选:</view>
+        <view style='flex-direction:row;display:flex'>
+          <view style="width:3em ">已</view>选：</view>
         <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
         <view class='align-center'>
           <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -299,13 +303,13 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
 
 
-    <view class='view-8  font-size-4'>
+    <view class='view-8  font-size-5'>
       <view class='view-8-1 align-r-center'>
 
         <view class='  align-center'>
           <image class='view-8-figure' src='/image/figure_8.png'></image>
         </view>
-        <view style='height100%'>朋友态度:</view>
+        <view style=' '>朋友态度：</view>
         <view class='view-ellipsis-1' style='flex:1'></view>
         <view class='align-center font-color-5' catchtap='addopinion'>
           我要说
@@ -335,9 +339,9 @@
           <view class='align-center '>
             <image class='view-9-1-figure' src='/image/figure_9.png'></image>
           </view>
-          <view class='font-color-5 font-size-4'>图例说明</view>
+          <view class='font-color-5 font-size-5'>图例说明</view>
         </view>
-        <view class='align-center font-size-2' style='flex:1'>活动中</view>
+        <view class='align-center font-size-3' style='flex:1'>活动中</view>
         <view class='align-center view-9-1-3' style='flex:1'>
           <!-- <view class='align-center '>
             <image class='view-9-1-figure' src='/image/figure_11.png'></image>

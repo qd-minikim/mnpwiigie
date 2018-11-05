@@ -6,7 +6,8 @@
 .view-1 {
   flex-direction: row;
   display: flex;
-  width: 95%;
+  margin:0 15rpx;
+
 }
 
 .view-1-1 {
@@ -38,7 +39,8 @@
 .view-2 {
   flex-direction: row;
   display: flex;
-  width: 95%;
+  margin:0 15rpx;
+
 }
 
 .view-2-1 {
@@ -49,7 +51,7 @@
 }
 
 .view-2-3 {
-  flex: 1;
+  /* flex: 1; */
 }
 
 .view-3 {
@@ -59,14 +61,14 @@
 }
 
 .view-4-1 {
-  width: 95%;
+ padding: 10rpx 0
 }
 
 .view-5 {
 }
 
 .view-5-1 {
-  width: 95%;
+ padding: 10rpx 0
 }
 
 .view-6 {
@@ -96,6 +98,8 @@
 .view-7 {
   display: flex;
   flex-direction: column;
+  margin:0 15rpx;
+
 }
 
 .view-7-1 {
@@ -143,8 +147,8 @@
 }
 
 .view-7-figure {
-  width: 80rpx;
-  height: 80rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .view-8 {
@@ -155,11 +159,13 @@
 .view-8-1 {
   display: flex;
   flex-direction: row;
+  margin:0 15rpx;
+
 }
 
 .view-8-figure {
-  width: 80rpx;
-  height: 80rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .view-8-2 {

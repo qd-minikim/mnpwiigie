@@ -82,7 +82,7 @@
 
 .home-4 {
   display: flex;
-  margin: 5rpx 15rpx
+  margin: 0 15rpx
 }
 
 .home-4-1 {

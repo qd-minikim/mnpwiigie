@@ -1,6 +1,6 @@
  var slideModal = {
 
-   duration: 500, //动画持续时间 单位毫秒
+   duration: 200, //动画持续时间 单位毫秒
    timingFunction: 'linear', // 定义动画效果，当前是匀速(其他参考小程序动画文档)
    chooseType: '',
    chooseSize: false,
@@ -16,7 +16,7 @@
      // 将该变量赋值给当前动画
      that.animation = animation
      // 先在y轴偏移，然后用step()完成一个动画
-     animation.translateY(400).step()
+     animation.translateY(0).step()
      // 用setData改变当前动画
      that.setData({
        // 通过export()方法导出数据
@@ -56,7 +56,7 @@
          'panelPage.chooseSize': chooseSize,
          'panelPage.chooseType': chooseType,
        })
-     }, 500)
+     }, 100)
 
    }
 
