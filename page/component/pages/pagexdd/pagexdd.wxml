@@ -341,7 +341,11 @@
           </view>
           <view class='font-color-5 font-size-5'>图例说明</view>
         </view>
-        <view class='align-center font-size-3' style='flex:1'>活动中</view>
+        <view class='align-center font-size-3' style='flex:1;{{filters.progressColor(requirementInfo.progress_status)}}'>{{requirementInfo.progress_status_name}}</view>
+
+
+
+
         <view class='align-center view-9-1-3' style='flex:1'>
           <!-- <view class='align-center '>
             <image class='view-9-1-figure' src='/image/figure_11.png'></image>

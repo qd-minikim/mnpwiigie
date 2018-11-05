@@ -33,9 +33,9 @@
         </view>
 
 
-        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7">链购优享:{{item.link_discount}}</view>
-        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7">价格:￥{{item.list_price}}</view>
-        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7">价格:￥{{item.list_price}}</view>
+        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7 font-color-7">链购优享:{{item.link_discount}}</view>
+        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
 
 
         <view style="flex-direction:row;display:flex; justify-content:flex-end ">

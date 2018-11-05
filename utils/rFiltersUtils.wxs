@@ -21,6 +21,30 @@ var filters = {
       return '0'
     }
   },
+  progressColor: function (progressStatus) { 
+
+    if (progressStatus == '0') {
+   
+      return "color:#00c003"
+    } else if (progressStatus == '1') {
+      return "color:#00c003"
+     
+    } else if (progressStatus == '2') {
+    
+      return "color:#ed2847"
+    } else if (progressStatus == '3') {
+      return "color:#7c8286"
+    } else if (progressStatus == '4') {
+      return "color:#5da3d9"
+ 
+    } else if (progressStatus == '5') {
+      return "color:#5da3d9"
+     
+    }
+
+  },
+
+
   //我的订单的订单状态的背景色
   matchBgcolor: function (dealtype, deliverytype, statuscode) {
     if (dealtype == '1' || dealtype == '2') {
@@ -61,5 +85,6 @@ var filters = {
 module.exports = {
   toFix: filters.toFix,
   toContain: filters.toContain,
-  matchBgcolor: filters.matchBgcolor
+  matchBgcolor: filters.matchBgcolor,
+  progressColor: filters.progressColor
 }

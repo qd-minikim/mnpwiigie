@@ -4,7 +4,7 @@
 <view class='container ' style="flex-direction:column;display:flex; ">
 
   <view class='serchlist-view-1'>
-    <view class='serchlist-view-1-1 font-size-4' style=';'>
+    <view class='serchlist-view-1-1 font-size-7' style=';'>
       <image class='serchlist-view-1-1-figure' src='/image/figure_27.png'></image>
       <input class='serchlist-view-1-1-input' focus='true' maxlength='20' placeholder='检索主题、描述、昵称' bindinput="bindKeyInput"></input>
     </view>
@@ -15,7 +15,7 @@
   <block wx:if="{{!isList}}">
 
     <view class='serchlist-view-2 '>
-      <view class='font-size-4 align-center'>{{isListMsg}}</view>
+      <view class='font-size-5 align-center'>{{isListMsg}}</view>
       <view class='align-center'>
         <image class='serchlist-view-figure-2' src='/image/figure_28.png'></image>
       </view>
@@ -27,7 +27,7 @@
     <scroll-view class='serchlist-view-3' style='height:{{scrollView.height}}px'>
       <block wx:if="{{serchListF.length >0}}">
         <view>
-          <view class='font-size-4' style='margin:8rpx 0'>搜索的好友</view>
+          <view class='font-size-5' style='margin:8rpx 0'>搜索的好友</view>
           <view class="gap-line" style="flex-direction:column;"></view>
           <view class='serchlist-view-3-friend '>
 
@@ -40,10 +40,10 @@
                 <view>
                   <image class='serchlist-view-3-friend-1-userimage' src='{{item.imagurl}}'></image>
                 </view>
-                <view class='font-size-4' style='flex:1'>{{item.nickname}}</view>
+                <view class='font-size-6' style='flex:1'>{{item.nickname}}</view>
                 <view>
                   <block wx:if="{{item.friendrequirementnum>3}}">
-                    <button catchtap='moreactive' data-fu='{{item.friend_userid}}' data-fn='{{item.nickname}}' class='font-size-5' style='padding:15rpx;line-height:1em'>更多</button>
+                    <button catchtap='moreactive' data-fu='{{item.friend_userid}}' data-fn='{{item.nickname}}' class='font-size-6' style='padding:15rpx;line-height:1em'>更多</button>
                   </block>
                 </view>
               </view>
@@ -92,7 +92,7 @@
           <view class="gap-bg" style="flex-direction:column;"></view>
         </block>
         <view>
-          <view class='font-size-4' style='margin:8rpx 0'>搜索的活动</view>
+          <view class='font-size-5' style='margin:8rpx 0'>搜索的活动</view>
           <view class="gap-line" style="flex-direction:column;"></view>
 
           <view class='serchlist-view-3-active '>

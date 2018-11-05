@@ -13,7 +13,7 @@
           <image style='width:60px;height:60px' mode='scaleToFill' src='{{item.theme_img_url}}'></image>
         </view>
         <view class='pageserch-view-1-1-2 '>
-          <view class='font-size-4'>{{item.merchant_brand_name_des}}</view>
+          <view class='font-size-5'>{{item.merchant_brand_name_des}}</view>
 
           <block wx:if="{{item.deal_type =='0'}}">
             <view class='font-size-6 font-color-7'>{{item.deal_type_name}}</view>
@@ -29,7 +29,7 @@
           </block>
         </view>
       </view>
-      <view class='view-ellipsis-1  font-size-4'>{{item.title}}</view>
+      <view class='view-ellipsis-1  font-size-5'>{{item.title}}</view>
       <view style='flex-direction:row;display:flex; '>
         <view class='font-size-6 font-color-4' style='width:5em'>驻足好友：</view>
         <view class='font-size-6 font-color-4' style='flex-direction:row;display:flex;flex:1'>
