@@ -19,8 +19,8 @@
     </view>
   </view>
   <view class='b-view-4  '>
-    <view class='' style='margin:5rpx 15rpx;height:110rpx'>
-      <button catchtap='submitBing' class='font-size-4 align-center' style='height:100%'>提交绑定</button>
+    <view class='' style='margin:5rpx 15rpx;height:85rpx'>
+      <button catchtap='submitBing' class='font-size-5 align-center' style='height:100%'>提交绑定</button>
     </view>
 
   </view>

@@ -403,7 +403,7 @@
   </scroll-view>
 
 
-  <view class='flex-bottom align-r-center bottom-v' style='height:110rpx '>
+  <view class='flex-bottom align-r-center bottom-v' style='height:90rpx '>
     <block wx:if="{{ giftInfo.oper=='0'}}">
       <view catchtap='pageback' class='align-c-center bottom-view' style='  width:100% '>
          

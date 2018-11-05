@@ -31,7 +31,7 @@ App({
     /**赋值在 giftdetar.js中 receiveAddress //funtion */
 
     /** 底部按钮的高度*/
-    bottomBtnHeight: 110, //flex-bottom  同步修改
+    bottomBtnHeight: 90, //flex-bottom  同步修改
     /** */
 
     tabbarHeight: 90, //pagetabbar.wxss 同步修改

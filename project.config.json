@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 40,
+			"current": 41,
 			"list": [
 				{
 					"id": -1,
@@ -119,7 +119,7 @@
 				{
 					"id": 13,
 					"name": "下单确认",
-					"pathName": "page/component/pages/pageorder/pageorder",
+					"pathName": "page/component/pages/pageorder/orderconfirm/orderconfirm",
 					"query": "gr=1537842834692515"
 				},
 				{
@@ -283,6 +283,12 @@
 					"name": "补库存",
 					"pathName": "page/component/pages/pagespu/storage/storage",
 					"query": "spuid=1529215126697316"
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "page/component/pages/pageorder/orderdetail/orderdetail",
+					"query": ""
 				}
 			]
 		}

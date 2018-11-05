@@ -23,7 +23,7 @@
         "pages/pageaddr/addradd/addradd",
         "pages/pagegift/giftdeta/giftdeta",
         "pages/pagegift/giftgivelist/giftgivelist",
-        "pages/pageorder/pageorder",
+        
         "pages/pagegift/giftorder/giftorder",
         "pages/pageserch/serchlist/serchlist",
         "pages/pageserch/serchmoref/serchmoref",
@@ -54,7 +54,10 @@
         "pages/pagedialog/dialoglist/dialoglist",
         "pages/pagegift/giftreceivelist/giftreceivelist",
         "pages/pagespu/storage/storage",
-        "pages/pageweb/pageweb"
+        "pages/pageweb/pageweb",
+        "pages/pageorder/orderdetail/orderdetail",
+        "pages/pageorder/orderconfirm/orderconfirm"
+        
       ]
     }
   ],

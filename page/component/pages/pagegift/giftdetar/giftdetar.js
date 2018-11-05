@@ -61,8 +61,8 @@ Page({
 
 
     pagePard: {
-      headHeight: '110',
-      footHeight: '110',
+      headHeight: '90',
+      footHeight: '90',
       contentHeight: '',
 
     },

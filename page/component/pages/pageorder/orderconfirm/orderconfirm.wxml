@@ -1,0 +1,59 @@
+<!--page/component/pages/pageorder/orderconfirm/orderconfirm.wxml-->
+ 
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view class='confirm-view-1 align-center' bindtap='selectUserAddr'>
+    <block wx:if="{{userDefAddr}}">
+      <view style='flex-direction:column;display:flex;flex:1'>
+        <view class='confirm-view-row'>
+
+          <view class='align-center font-size-1 ' style='flex:1;flex-direction:row;display:flex;'>
+            <view class='view-ellipsis-1 ' style='width:200rpx'>{{userDefAddr.orderUsername}}</view>
+            <view style='flex:1;'>{{userDefAddr.phone}}</view>
+          </view>
+        </view>
+        <view class='confirm-view-row align-r-center font-color-4'>
+          <view class='font-size-4' style='flex:1'>{{userDefAddr.address}}</view>
+        </view>
+
+      </view>
+    </block>
+    <block wx:else>
+      <view class='confirm-view-row font-color-9' style='flex-direction:column;display:flex;flex:1'>
+        请选择收货信息
+      </view>
+    </block>
+    <view>
+      <image style='width:60rpx;height:60rpx' src='/image/arrow_right_1.png'></image>
+    </view>
+
+  </view>
+
+
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class='confirm-view-2'>
+    <view class='confirm-view-row font-size-3 align-r-center'>
+      <view class='confirm-view-title'>已选规格：</view>
+      <view style='flex:1'>{{orderData.sku_desc}} {{orderData.buycopies}}份</view>
+    </view>
+    <view class='confirm-view-row font-size-3'>
+      <view class='confirm-view-title'>预付单价：</view>
+      <view>￥{{filters.toFix(orderData.unitPrice*1,2)}}</view>
+    </view>
+    <view class='confirm-view-row font-size-3'>
+      <view class='confirm-view-title'>支付金额：</view>
+      <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
+    </view>
+  </view>
+
+
+  <view class='flex-bottom align-center'>
+    <block wx:if="{{userDefAddr}}">
+      <button class='font-size-2' type="warn" bindtap='orderpay' style='width:100%;height:100%;'>提交订单</button>
+    </block>
+    <block wx:else>
+      <button class='font-size-2' type="warn" bindtap='orderpay' disabled='disabled' style='width:100%;height:100%;'>请选择收货信息</button>
+    </block>
+  </view>
+</view>

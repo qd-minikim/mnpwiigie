@@ -1,0 +1,21 @@
+/* page/component/pages/pageorder/orderconfirm/orderconfirm.wxss */
+ 
+.confirm-view-1 {
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+}
+
+.confirm-view-row {
+  flex-direction: row;
+  display: flex;
+  margin: 8rpx 10rpx;
+}
+.confirm-view-title {
+   width: 5rem;
+}
+.confirm-view-2 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}

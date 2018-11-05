@@ -73,8 +73,8 @@ Page({
 
         attributeInfo: {},
         pagePard: {
-          headHeight: '110',
-          footHeight: '110',
+          headHeight: '90',
+          footHeight: '90',
           contentHeight: '',
 
         },
@@ -610,7 +610,8 @@ Page({
           app.globalData.orderData = orderData
 
           wx.navigateTo({
-            url: '/page/component/pages/pageorder/pageorder',
+            //url: '/page/component/pages/pageorder/pageorder',
+            url: '/page/component/pages/pageorder/orderconfirm/orderconfirm',
           })
         }
 

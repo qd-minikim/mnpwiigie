@@ -90,7 +90,7 @@
 
 .home-4-1-1 {
   /* width: 100rpx; */
-  height: 110rpx;
+  height: 90rpx;
   vertical-align: middle;
   padding-top: 20rpx;
   padding-left: 5rpx;
@@ -107,7 +107,7 @@
 }
 
 .home-4-1-2 {
-  width: 110rpx;
+  width: 90rpx;
 }
 
 .home-4-2 {
@@ -115,7 +115,7 @@
 
 .home-4-2-1 {
   /* width: 100rpx; */
-  height: 110rpx;
+  height: 90rpx;
   padding-top: 20rpx;
     padding-left: 5rpx;
   padding-right:5rpx
