@@ -338,7 +338,7 @@
       <view class="gap-line" style="flex-direction:column;"></view>
       <view class='view-8-2 align-c-center'>
 
-        <template is="pageopins" data="{{opinionInfo}}" />
+        <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
 
       </view>
 

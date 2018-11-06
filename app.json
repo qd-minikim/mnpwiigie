@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-   
+    
   ],
   "subPackages": [
     {
@@ -23,7 +23,6 @@
         "pages/pageaddr/addradd/addradd",
         "pages/pagegift/giftdeta/giftdeta",
         "pages/pagegift/giftgivelist/giftgivelist",
-        
         "pages/pagegift/giftorder/giftorder",
         "pages/pageserch/serchlist/serchlist",
         "pages/pageserch/serchmoref/serchmoref",
@@ -56,8 +55,8 @@
         "pages/pagespu/storage/storage",
         "pages/pageweb/pageweb",
         "pages/pageorder/orderdetail/orderdetail",
-        "pages/pageorder/orderconfirm/orderconfirm"
-        
+        "pages/pageorder/orderconfirm/orderconfirm",
+        "pages/pageorder/ordercancel/ordercancel"
       ]
     }
   ],

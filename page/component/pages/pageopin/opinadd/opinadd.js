@@ -1,6 +1,8 @@
 // page/component/pages/pageopin/opinadd/opinadd.js
 var config = require('../../../../../config.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+var rUpload = require('../../../../../utils/rUpload.js');
+
 const app = getApp()
 Page({
 
@@ -19,7 +21,13 @@ Page({
     /**选择的选项 */
     choosecode: '',
     opinionReason: '',
-
+    /**添加配图的大小 */
+    picsize: 0,
+    pics: [],
+    // 触摸开始时间
+    touchStartTime: 0,
+    // 触摸结束时间
+    touchEndTime: 0,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -51,6 +59,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
+
+    var percent = windowWidth / 750
+
+    var picsize = (windowWidth - 30 * percent) / 5
+    this.setData({
+
+      picsize: picsize,
+
+    })
     wx.hideShareMenu();
   },
 
@@ -155,6 +174,11 @@ Page({
 
       return false;
     }
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+
 
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;
@@ -172,23 +196,65 @@ Page({
       voices: []
     }
     rRequest.doRequest(url, data, that, function (rdata) {
+ 
+      var data = {
+        service_: 'addopinionimage',
+        userid: userid,
+        requirementId: requirementId,
+        opinionId: rdata.info.opinionId,
+        
+      }
+      if (that.data.pics.length > 0) {
 
-      wx.showToast({
-        title: '提交成功',
-        image: '/image/icon_ok.png',
-        duration: 2000,
-        success: function () {
+        rUpload.upload.uploadImage('upfile', 0, that.data.pics.length, that.data.pics, data, that, function (rdata) {
+          wx.showToast({
+            title: '提交成功',
+            image: '/image/icon_ok.png',
+            duration: 2000,
+            success: function () { }
+
+          })
+          /**缓存 */
+
+          wx.setStorage({
+            key: "refresh",
+            data: "1",
+          })
+
+          setTimeout(function () {
+            wx.hideLoading();
+            wx.navigateBack({
+              delta: 1,
+            })
+
+          }, 1500)
 
 
-        }
-      })
-
-      setTimeout(function () {
-        wx.navigateBack({
-          delta: 1,
+        });
+      } else {
+        /**缓存 */
+        wx.showToast({
+          title: '提交成功',
+          image: '/image/icon_ok.png',
+          duration: 2000,
+          success: function () { }
+ 
         })
-      }, 1000);
+        wx.setStorage({
+          key: "refresh",
+          data: "1",
+        })
+        setTimeout(function () {
+          wx.hideLoading();
+          wx.navigateBack({
+            delta: 1,
+          })
 
+        }, 1500)
+ 
+      }
+
+ 
     })
 
 
@@ -212,5 +278,115 @@ Page({
       currentNoteLen: len, //当前字数
       opinionReason: e.detail.value
     });
+  },
+  touchStart: function (e) {
+
+    this.setData({
+      touchStartTime: e.timeStamp
+    })
+  },
+
+  /// 按钮触摸结束触发的事件
+  touchEnd: function (e) {
+
+    this.setData({
+      touchEndTime: e.timeStamp
+    })
+  },
+
+
+  deleimage: function (event) {
+    var that = this;
+    var index = event.currentTarget.dataset.index;
+
+    wx.showModal({
+      title: '提示',
+      content: '您要删除这张图片吗',
+      success: function (res) {
+        if (res.confirm) {
+          var pics = that.data.pics;
+          if (index == -1) {
+
+           } else {
+            pics.splice(index, 1);
+          }
+
+          if (pics.length == 0) {
+            that.setData({
+              isShowImage: 0
+            })
+          }
+          that.setData({
+            pics: pics,
+          })
+        } else if (res.cancel) {
+
+        }
+
+      }
+    })
+
+
+  },
+  selectImage: function (event) {
+    var that = this;
+    var index = event.currentTarget.dataset.index;
+
+    var s = that.data.touchEndTime - that.data.touchStartTime;
+    if (that.data.touchEndTime - that.data.touchStartTime < 300) {
+
+      wx.showActionSheet({
+        itemList: ['相册', '相机'],
+        success(res) {
+
+          if (res.tapIndex == 0) {
+            wx.chooseImage({
+              count: 1,
+              sizeType: ['original', 'compressed'],
+              sourceType: ['album'],
+              success: function (res) {
+                var pics = that.data.pics;
+                if (index == -1) {
+                  pics.push(res.tempFilePaths[0]);
+                } else {
+
+                  pics.splice(index, 1, res.tempFilePaths[0]);
+                }
+
+                that.setData({
+                  pics: pics,
+                  isShowImage: 1
+                })
+
+
+              },
+            })
+          }
+          if (res.tapIndex == 1) {
+            wx.chooseImage({
+              count: 1,
+              sizeType: ['original', 'compressed'],
+              sourceType: ['camera'],
+              success: function (res) {
+                var pics = that.data.pics;
+
+                if (index == -1) {
+                  pics.push(res.tempFilePaths[0]);
+                } else {
+                  pics.splice(index, 1, res.tempFilePaths[0]);
+                }
+                that.setData({
+                  pics: pics
+                })
+
+              },
+            })
+          }
+        },
+      })
+    }
   }
+
+
+  ,
 })

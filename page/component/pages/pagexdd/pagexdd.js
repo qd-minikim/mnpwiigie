@@ -6,1156 +6,1197 @@ var WxParse = require('../../../../wxParse/wxParse.js');
 var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
 const app = getApp()
 Page({
-      /**
-       * 页面的初始数据
-       */
-      data: {
+  /**
+   * 页面的初始数据
+   */
+  data: {
 
-        backpage: '',
-        /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
+    backpage: '',
+    /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
 
-        /**传递的参数 */
-        requirementId: '',
-        upmarkid: '',
-        /**初始化时的数据 */
-        initDetail: {},
-        ///**{markid:'',upmarkid:'',fmarkid:''} */
+    /**传递的参数 */
+    requirementId: '',
+    upmarkid: '',
+    /**初始化时的数据 */
+    initDetail: {},
+    ///**{markid:'',upmarkid:'',fmarkid:''} */
 
-        requirementInfo: {},
-        richtextInfo: {
-          richtextContent: '',
-          richtextMore: true,
-          richtextShow: false
-        },
-        viewModal: {
-          isModalShow: false,
+    requirementInfo: {},
+    richtextInfo: {
+      richtextContent: '',
+      richtextMore: true,
+      richtextShow: false
+    },
+    viewModal: {
+      isModalShow: false,
 
-        },
-        /**转发蒙板 */
-        pagemask: {
-          isForward: false,
-          msgTitle: '',
-          msgTitleColor: '',
-          msgDesc: '',
-          msgDescColor: '',
-        },
-
-
-        keepinfo: {
-          keepstatus: '/image/keep_off.png',
-        },
-        /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
-        spuInfo: {},
-        myOrderInfo: {
-          orderType: 1, //1选择2:下单拦截选择  3:送礼拦截选择 0:查看
-          mySkuInfo: null,
-          orderCopies: 1,
-          /**根据库存 限购 等控制sku选择时的按钮显示 */
-          sureBtn: {
-            btntext: '确定',
-            btnDisabled: false,
-            btnTipMsg: ''
-
-          },
-          /**选择规格时的动态赋值变化 */
-          selectSkuId: []
-        },
-
-        pcPromotionGroupOrderInfo: {},
-
-        pcPromotionGroupsummaryInfo: {},
-
-        opinionInfo: {
-          dataInfo: [],
-          pageSize: 5,
-          allrows: 0
-        },
-
-        attributeInfo: {},
-        pagePard: {
-          headHeight: '95',
-          footHeight: '90',
-          contentHeight: '',
-
-        },
-        panelPage: {
-          panelPageTop: false, // false 表示底部上推，true 表示 上不下推
-          chooseSize: false,
-          chooseType: '',
-          animationData: {},
-          maskLayerHeight: '',
-          maskLayerWidth: '',
-          maskPanHeight: '', //例如下单选择等存在底端按钮的时候，按钮上部的view的高度
-          maskPanWidth: '',
-
-          msginfo: '',
-          isHtml: false
-        },
-        swiperArea: {
-          swiperImgUrls: [],
-          swiperImgUrlsArry: [],
-          swiperIndicatorDots: true, //是否显示指示点   
-          swiperAutoplay: true, //是否自动切换
-          swiperInterval: 2000, //自动切换时间间隔
-          swiperDuration: 500, //duration 滑动动画时长
-          swiperWidth: 0,
-          swiperHeight: 0,
-        },
-        // progressRouteInfo: null,
-
-        fixedBottom: {
-          oneGridWidth: 0,
-          twoGridWidth: 0,
-          gridNums: 8, //下单 送礼 推荐给 占用两个 首页或客服的 空间
-
-          xdClassName: 'bottom-xd',
-          slClassName: 'bottom-sl',
-          tjClassName: 'bottom-tj'
-        },
-
-        //
-        currentnode: null,
-
-        //画布信息
-        canvasViewInfo: {
-          canvasSaveImage: null,
-          canvasWidth: '0',
-          canvasHeight: '0',
-          canvasTop: '0',
-          canvasLeft: '0'
-        },
-        /**不在链购的朋友 */
-        nolinkCanvasViewInfo: {
-          canvasSaveImage: null,
-          canvasWidth: '0',
-          canvasHeight: '0',
-          canvasTop: '0',
-          canvasLeft: '0',
-          copies: '0',
-          orders: '0'
-
-        },
-        percent: 1, //rpx 和px的转化比例
-
-        downSuccess: false,
-        downNoLinkSuccess: false,
-
-        configMsgInfo: {},
-        /**用户信息 */
-        userInfo: {},
-        //hasUserInfo: false,
-        userIData: false,
-        userWxInfo: {},
-
-        treetype: 'ZFC12_1'
-      },
-
-      /**
-       * 生命周期函数--监听页面加载
-       */
-      onLoad: function(options) {
-        this.setData({
-          'requirementId': options.r,
-          'upmarkid': options.m
-        })
-
-        if (app.globalData.userWxInfo) {
-          this.setData({
-            userWxInfo: app.globalData.userWxInfo,
-            userIData: app.globalData.userIData,
-            userInfo: app.globalData.userInfo,
-
-          })
-
-          this.getInitDetail()
-
-          this.getRequirementDetail()
-
-          this.getRequirementKeepInfo()
-          // this.getProgressRouteInfo()
-
-          this.getConfigMsgInfo()
-          this.getOpinionInfo()
+    },
+    /**转发蒙板 */
+    pagemask: {
+      isForward: false,
+      msgTitle: '',
+      msgTitleColor: '',
+      msgDesc: '',
+      msgDescColor: '',
+    },
 
 
-        } else {
-
-          app.userLogin();
-        }
+    keepinfo: {
+      keepstatus: '/image/keep_off.png',
+    },
+    /**spusku:{min_copies:,max_copies:,spuinfo:{},skuinfo:[{},{}],spuname:[{},{}]} */
+    spuInfo: {},
+    myOrderInfo: {
+      orderType: 1, //1选择2:下单拦截选择  3:送礼拦截选择 0:查看
+      mySkuInfo: null,
+      orderCopies: 1,
+      /**根据库存 限购 等控制sku选择时的按钮显示 */
+      sureBtn: {
+        btntext: '确定',
+        btnDisabled: false,
+        btnTipMsg: ''
 
       },
+      /**选择规格时的动态赋值变化 */
+      selectSkuId: []
+    },
 
-      /**
-       * 生命周期函数--监听页面初次渲染完成
-       */
-      onReady: function() {
+    pcPromotionGroupOrderInfo: {},
+
+    pcPromotionGroupsummaryInfo: {},
+
+    opinionInfo: {
+      dataInfo: [],
+      pageSize: 5,
+      allrows: 0
+    },
+
+    attributeInfo: {},
+    pagePard: {
+      headHeight: '95',
+      footHeight: '90',
+      contentHeight: '',
+
+    },
+    panelPage: {
+      panelPageTop: false, // false 表示底部上推，true 表示 上不下推
+      chooseSize: false,
+      chooseType: '',
+      animationData: {},
+      maskLayerHeight: '',
+      maskLayerWidth: '',
+      maskPanHeight: '', //例如下单选择等存在底端按钮的时候，按钮上部的view的高度
+      maskPanWidth: '',
+
+      msginfo: '',
+      isHtml: false
+    },
+    swiperArea: {
+      swiperImgUrls: [],
+      swiperImgUrlsArry: [],
+      swiperIndicatorDots: true, //是否显示指示点   
+      swiperAutoplay: true, //是否自动切换
+      swiperInterval: 2000, //自动切换时间间隔
+      swiperDuration: 500, //duration 滑动动画时长
+      swiperWidth: 0,
+      swiperHeight: 0,
+    },
+    // progressRouteInfo: null,
+
+    fixedBottom: {
+      oneGridWidth: 0,
+      twoGridWidth: 0,
+      gridNums: 8, //下单 送礼 推荐给 占用两个 首页或客服的 空间
+
+      xdClassName: 'bottom-xd',
+      slClassName: 'bottom-sl',
+      tjClassName: 'bottom-tj'
+    },
+
+    //
+    currentnode: null,
+
+    //画布信息
+    canvasViewInfo: {
+      canvasSaveImage: null,
+      canvasWidth: '0',
+      canvasHeight: '0',
+      canvasTop: '0',
+      canvasLeft: '0'
+    },
+    /**不在链购的朋友 */
+    nolinkCanvasViewInfo: {
+      canvasSaveImage: null,
+      canvasWidth: '0',
+      canvasHeight: '0',
+      canvasTop: '0',
+      canvasLeft: '0',
+      copies: '0',
+      orders: '0'
+
+    },
+    percent: 1, //rpx 和px的转化比例
+
+    downSuccess: false,
+    downNoLinkSuccess: false,
+
+    configMsgInfo: {},
+
+    // 朋友说图片大小
+    opinpicsize: 0,
+
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
+
+    treetype: 'ZFC12_1'
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setData({
+      'requirementId': options.r,
+      'upmarkid': options.m
+    })
+
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+
+      })
+
+      this.getInitDetail()
+
+      this.getRequirementDetail()
+
+      this.getRequirementKeepInfo()
+      // this.getProgressRouteInfo()
+
+      this.getConfigMsgInfo()
+      this.getOpinionInfo()
 
 
-        var windowWidth = app.globalData.systemInfo.windowWidth
-        var windowHeight = app.globalData.systemInfo.windowHeight
-        var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
-        var percent = windowWidth / 750
-        var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
+    } else {
 
-        var maskPanHeight = 400 - 120 * percent
-        this.setData({
+      app.userLogin();
+    }
 
-          oneGridWidth: ongGridWidth + "px",
-          twoGridWidth: (ongGridWidth * 2) + "px",
-          'pagePard.contentHeight': contentHeight,
-          'panelPage.maskLayerHeight': windowHeight + "px",
-          'panelPage.maskLayerWidth': windowWidth + "px",
+  },
 
-          'panelPage.maskPanHeight': maskPanHeight + "px",
-          'panelPage.maskPanWidth': windowWidth + "px",
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
 
-          'swiperArea.swiperWidth': windowWidth + "px",
-          'swiperArea.swiperHeight': windowWidth + "px",
 
-          'percent': percent
-        })
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
+    var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
+    var percent = windowWidth / 750
+    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
 
-      },
+    var maskPanHeight = 400 - 120 * percent
 
-      /**
-       * 生命周期函数--监听页面显示
-       */
-      onShow: function() {
+    var opinpicsize = (windowWidth - 80 * percent) / 8
+    this.setData({
 
-        var that = this;
-        var backpage = this.data.backpage;
+      oneGridWidth: ongGridWidth + "px",
+      twoGridWidth: (ongGridWidth * 2) + "px",
+      'pagePard.contentHeight': contentHeight,
+      'panelPage.maskLayerHeight': windowHeight + "px",
+      'panelPage.maskLayerWidth': windowWidth + "px",
 
-        if (backpage == 'opinion') {
+      'panelPage.maskPanHeight': maskPanHeight + "px",
+      'panelPage.maskPanWidth': windowWidth + "px",
 
+      'swiperArea.swiperWidth': windowWidth + "px",
+      'swiperArea.swiperHeight': windowWidth + "px",
+
+      'percent': percent,
+      'opinpicsize': opinpicsize
+    })
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+    var that = this;
+    var backpage = this.data.backpage;
+
+    if (backpage == 'opinion') {
+
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '1') {
           that.getOpinionInfo()
         }
-        if (backpage == 'storage') {
+      } catch (e) {
 
-          try {
-            var value = wx.getStorageSync('refresh')
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
 
-            if (value && value == '1') {
-              that.getRequirementDetail()
-            }
-          } catch (e) {
 
-          }
-          wx.setStorage({
-            key: "refresh",
-            data: "0",
-          })
+    }
+    if (backpage == 'storage') {
+
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '1') {
+          that.getRequirementDetail()
         }
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
+    }
 
 
-        that.setData({
-          'backpage': '',
-        })
-        //
-      },
+    that.setData({
+      'backpage': '',
+    })
+    //
+  },
 
-      /**
-       * 生命周期函数--监听页面隐藏
-       */
-      onHide: function() {
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
 
-      },
+  },
 
-      /**
-       * 生命周期函数--监听页面卸载
-       */
-      onUnload: function() {
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
 
-      },
+  },
 
-      /**
-       * 页面相关事件处理函数--监听用户下拉动作
-       */
-      onPullDownRefresh: function() {
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
 
-      },
+  },
 
-      /**
-       * 页面上拉触底事件的处理函数
-       */
-      onReachBottom: function() {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
 
-      },
+  },
 
-      /**
-       * 用户点击右上角分享
-       */
-      onShareAppMessage: function() {
-
-
-        var that = this;
-        var title = that.data.requirementInfo.wxdescription;
-        var fm = that.data.initDetail.fmarkid;;
-        var r = that.data.requirementId;
-        var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
-        var shareObj = {
-          title: title,
-          path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
-          imageUrl: swiperImgUrls[0].imageUrl,
-          success: function() {
-
-            var userid = that.data.userInfo.id;
-            var requirementId = that.data.requirementId;;
-
-            var upmarkid = that.data.upmarkid;
-            var markid = that.data.initDetail.markid;
-            var url = config.requestUrl;
-
-            var data = {
-              code_: 'x_addForward',
-              "userid": userid,
-              "requirement_id": requirementId,
-              "upmarkid": upmarkid,
-              "markid": markid
-            }
-            rRequest.doRequest(url, data, that, function(rdata) {
-
-              that.getProgressRouteInfo()
-
-            })
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
 
 
-          },
-          fail: function() {
-
-          }
-
-
-        }
-
-        return shareObj;
-
-      },
-
-
-      // test: function() {
-
-      //   rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
-      // },
-
-      clickView_7x: function(event) {
-        /**
-         *  data-lx='default' data-code='CBDJSM' data-html='true'
-         *  data-lx='sku' data-code='' data-html='false'
-         */
-        var that = this
-        var clicklx = event.currentTarget.dataset.lx;
-        var clickcode = event.currentTarget.dataset.code;
-        var isHtml = event.currentTarget.dataset.html
-        rUtils.slideModal.up(that, clicklx, true);
-
-
-
-        that.setData({
-          'panelPage.isHtml': isHtml,
-        })
-
-        if (clicklx == 'default') {
-          if (isHtml) {
-            WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo[clickcode], that, 5);
-
-          } else {
-
-            that.setData({
-              'panelPage.msginfo': that.data.configMsgInfo[clickcode],
-            })
-          }
-        } else if (clicklx == 'sku') {
-
-
-        }
-
-      },
-      hideSlideModal: function() {
-        var that = this
-        rUtils.slideModal.down(that, null, false);
-
-      },
-
-      imageYl: function(event) {
-
-        var src = event.currentTarget.dataset.src; //获取data-src
-        var imgList = event.currentTarget.dataset.list; //获取data-list
-        //图片预览
-        wx.previewImage({
-          current: src, // 当前显示图片的http链接
-          urls: imgList // 需要预览的图片http链接列表
-
-        })
-      },
-
-      /**获取朋友说 */
-      getOpinionInfo: function() {
-        var that = this;
-        var url = config.requestUrl;
+    var that = this;
+    var title = that.data.requirementInfo.wxdescription;
+    var fm = that.data.initDetail.fmarkid;;
+    var r = that.data.requirementId;
+    var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
+    var shareObj = {
+      title: title,
+      path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
+      imageUrl: swiperImgUrls[0].imageUrl,
+      success: function() {
 
         var userid = that.data.userInfo.id;
         var requirementId = that.data.requirementId;;
-        var pageSize = that.data.opinionInfo.pageSize;
 
+        var upmarkid = that.data.upmarkid;
+        var markid = that.data.initDetail.markid;
+        var url = config.requestUrl;
 
         var data = {
-          code_: 'x_getOpinionList',
-          endRow: 0,
-          itemsPerPage: pageSize,
-          userid: userid,
-          requirementId: requirementId,
+          code_: 'x_addForward',
+          "userid": userid,
+          "requirement_id": requirementId,
+          "upmarkid": upmarkid,
+          "markid": markid
         }
         rRequest.doRequest(url, data, that, function(rdata) {
 
-          if (rdata.info) {
+          that.getProgressRouteInfo()
 
-            that.setData({
-              'opinionInfo.dataInfo': rdata.info.infolist,
-              'opinionInfo.allrows': rdata.info.allrows,
-            })
-          }
         })
+
+
       },
+      fail: function() {
+
+      }
 
 
-      openModal: function() {
-        var that = this;
+    }
+
+    return shareObj;
+
+  },
+
+
+  // test: function() {
+
+  //   rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
+  // },
+
+  clickView_7x: function(event) {
+    /**
+     *  data-lx='default' data-code='CBDJSM' data-html='true'
+     *  data-lx='sku' data-code='' data-html='false'
+     */
+    var that = this
+    var clicklx = event.currentTarget.dataset.lx;
+    var clickcode = event.currentTarget.dataset.code;
+    var isHtml = event.currentTarget.dataset.html
+    rUtils.slideModal.up(that, clicklx, true);
+
+
+
+    that.setData({
+      'panelPage.isHtml': isHtml,
+    })
+
+    if (clicklx == 'default') {
+      if (isHtml) {
+        WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo[clickcode], that, 5);
+
+      } else {
+
         that.setData({
-          'viewModal.isModalShow': true,
+          'panelPage.msginfo': that.data.configMsgInfo[clickcode],
         })
-      },
-      closeModal: function() {
-        var that = this;
+      }
+    } else if (clicklx == 'sku') {
+
+
+    }
+
+  },
+  hideSlideModal: function() {
+    var that = this
+    rUtils.slideModal.down(that, null, false);
+
+  },
+
+  imageYl: function(event) {
+
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+
+    })
+  },
+  opinImageYl: function(event) {
+
+    var that = this;
+
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    var imageUrlArry = new Array();
+    for (var n = 0; n < imgList.length; n++) {
+
+      var imageUrl = imgList[n].imageurl
+      imageUrl = imageUrl.replace('160', '1024')
+      imageUrlArry.push(imageUrl)
+    }
+
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imageUrlArry // 需要预览的图片http链接列表
+
+    })
+  },
+  /**获取朋友说 */
+  getOpinionInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;;
+    var pageSize = that.data.opinionInfo.pageSize;
+
+
+    var data = {
+      code_: 'x_getOpinionList',
+      endRow: 0,
+      itemsPerPage: pageSize,
+      userid: userid,
+      requirementId: requirementId,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
         that.setData({
-          'viewModal.isModalShow': false,
+          'opinionInfo.dataInfo': rdata.info.infolist,
+          'opinionInfo.allrows': rdata.info.allrows,
         })
+      }
+    })
+  },
+
+
+  openModal: function() {
+    var that = this;
+    that.setData({
+      'viewModal.isModalShow': true,
+    })
+  },
+  closeModal: function() {
+    var that = this;
+    that.setData({
+      'viewModal.isModalShow': false,
+    })
+  },
+  /**获取配置描述 */
+  getConfigMsgInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+    var values = [{
+        code: 'CBDJSM',
+        replace: []
       },
-      /**获取配置描述 */
-      getConfigMsgInfo: function() {
-        var that = this;
-        var url = config.requestUrl;
-        var values = [{
-            code: 'CBDJSM',
-            replace: []
-          },
-          {
-            code: 'THZQ_MSG',
-            replace: []
-          },
-          {
-            code: 'HHZQ_MSG',
-            replace: []
-          },
-          {
-            code: 'FWJZ_MSG',
-            replace: []
-          },
-          {
-            code: 'TGJZ_MSG',
-            replace: []
-          },
-          {
-            code: 'CBDJSM',
-            replace: []
-          },
-          {
-            code: 'SOWER_PER_MSG',
-            replace: []
-          },
-          {
-            code: 'CFG_GROUP_MSG',
-            replace: []
-          },
-          {
-            code: 'MSJG_MSG',
-            replace: []
-          },
-
-        ];
-
-
-        var data = {
-          code_: 'x_getConfigMsgInfo',
-          /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
-          values: values
-        }
-        rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
-          if (rdata.info) {
-
-            that.setData({
-              configMsgInfo: rdata.info,
-
-            })
-
-          }
-
-        });
-
+      {
+        code: 'THZQ_MSG',
+        replace: []
       },
-      getPcPromotionGroupOrderInfo: function() {
+      {
+        code: 'HHZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'FWJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'TGJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'SOWER_PER_MSG',
+        replace: []
+      },
+      {
+        code: 'CFG_GROUP_MSG',
+        replace: []
+      },
+      {
+        code: 'MSJG_MSG',
+        replace: []
+      },
 
-        var that = this;
-
-        var url = config.requestUrl;
-        var userid = that.data.userInfo.id //1528869953018820
-
-        var promotionId = that.data.requirementInfo.promotionid;
-        var data = {
-          code_: 'x_getPcPromotionGroupOrderInfo',
-          "promotionid": promotionId,
-          "userid": userid
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-          if (rdata.info) {
+    ];
 
 
-            that.setData({
+    var data = {
+      code_: 'x_getConfigMsgInfo',
+      /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
+      values: values
+    }
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
+      if (rdata.info) {
 
-              pcPromotionGroupOrderInfo: rdata.info
-            })
-          }
-
+        that.setData({
+          configMsgInfo: rdata.info,
 
         })
 
-      },
-      getPcPromotionGroupsummaryInfo: function() {
+      }
 
-        var that = this;
+    });
 
-        var url = config.requestUrl;
-        var userid = that.data.userInfo.id //1528869953018820
+  },
+  getPcPromotionGroupOrderInfo: function() {
 
-        var promotionId = that.data.requirementInfo.promotionid;
-        var data = {
-          code_: 'x_getPcPromotionGroupSummaryInfo',
-          "promotionid": promotionId,
-          "userid": userid
+    var that = this;
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+
+    var promotionId = that.data.requirementInfo.promotionid;
+    var data = {
+      code_: 'x_getPcPromotionGroupOrderInfo',
+      "promotionid": promotionId,
+      "userid": userid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      if (rdata.info) {
+
+
+        that.setData({
+
+          pcPromotionGroupOrderInfo: rdata.info
+        })
+      }
+
+
+    })
+
+  },
+  getPcPromotionGroupsummaryInfo: function() {
+
+    var that = this;
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+
+    var promotionId = that.data.requirementInfo.promotionid;
+    var data = {
+      code_: 'x_getPcPromotionGroupSummaryInfo',
+      "promotionid": promotionId,
+      "userid": userid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      if (rdata.info) {
+
+
+        that.setData({
+
+          pcPromotionGroupsummaryInfo: rdata.info
+        })
+      }
+
+
+    })
+
+  },
+
+
+  /**获取SpuCoverImage*/
+  getSpuCoverImageInfo: function() {
+    var that = this
+    var spuid = that.data.requirementInfo.spuid;
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getSpuCoverImageInfo',
+      spuid: spuid,
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+        // imageUrl
+        var imageUrlArry = new Array();
+        for (var n = 0; n < rdata.info.length; n++) {
+
+          var imageUrl = rdata.info[n].imageUrl
+          imageUrlArry.push(imageUrl)
         }
-        rRequest.doRequest(url, data, that, function(rdata) {
-          if (rdata.info) {
+        that.setData({
+          'swiperArea.swiperImgUrls': rdata.info,
+          'swiperArea.swiperImgUrlsArry': imageUrlArry,
+        })
+      }
+    })
+  },
+  /**选择sku */
+  selectSku: function(event) {
+    var that = this
+    var skuindex = event.currentTarget.dataset.skuindex;
+    var skuids = event.currentTarget.dataset.skuids;
+    var vindex = event.currentTarget.dataset.vindex;
+    pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
+  },
+  /**点击确认按钮 */
+  sureSelect: function() {
+    var that = this
+    // pagekskujs.selectSpuSku.sureBtn(that)
+    that.hideSlideModal();
+
+    var orderType = that.data.myOrderInfo.orderType;
+
+    var orderData = {
+      requirementid: that.data.requirementId,
+      userid: that.data.userInfo.id,
+      markid: that.data.initDetail.markid,
+      upmarkid: that.data.upmarkid,
+      buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
+      skuid: that.data.myOrderInfo.mySkuInfo.id,
+      spuid: that.data.requirementInfo.spuid,
+      promotionid: that.data.requirementInfo.promotionid,
+      buycopies: that.data.myOrderInfo.orderCopies,
+      unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
+      ordertype: orderType,
+      sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
+    }
+
+    if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      app.globalData.orderData = orderData
+
+      wx.navigateTo({
+        //url: '/page/component/pages/pageorder/pageorder',
+        url: '/page/component/pages/pageorder/orderconfirm/orderconfirm',
+      })
+    }
+
+    if (orderType == '3') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
+      app.globalData.orderData = orderData
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftorder/giftorder',
+      })
+    }
 
 
-            that.setData({
+  },
 
-              pcPromotionGroupsummaryInfo: rdata.info
-            })
-          }
 
+  /**获取spu*/
+  getSpuInfo: function() {
+
+    var that = this
+    var spuid = that.data.requirementInfo.spuid;
+
+    var promotionid = that.data.requirementInfo.promotionid;
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getSpuInfo',
+      spuid: spuid,
+      promotionid: promotionid,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        that.setData({
+          spuInfo: rdata.info,
 
         })
 
-      },
+        /**判断是佛存在自选的skuinfo */
+        var maySkuInfo = that.data.myOrderInfo.mySkuInfo;
 
 
-      /**获取SpuCoverImage*/
-      getSpuCoverImageInfo: function() {
-        var that = this
-        var spuid = that.data.requirementInfo.spuid;
+        if (maySkuInfo) {
 
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getSpuCoverImageInfo',
-          spuid: spuid,
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
 
-          if (rdata.info) {
-            // imageUrl
-            var imageUrlArry = new Array();
-            for (var n = 0; n < rdata.info.length; n++) {
 
-              var imageUrl = rdata.info[n].imageUrl
-              imageUrlArry.push(imageUrl)
-            }
-            that.setData({
-              'swiperArea.swiperImgUrls': rdata.info,
-              'swiperArea.swiperImgUrlsArry': imageUrlArry,
-            })
-          }
-        })
-      },
-      /**选择sku */
-      selectSku: function(event) {
-        var that = this
-        var skuindex = event.currentTarget.dataset.skuindex;
-        var skuids = event.currentTarget.dataset.skuids;
-        var vindex = event.currentTarget.dataset.vindex;
-        pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
-      },
-      /**点击确认按钮 */
-      sureSelect: function() {
-        var that = this
-        // pagekskujs.selectSpuSku.sureBtn(that)
-        that.hideSlideModal();
+        } else {
+          var skuInfo = that.data.spuInfo.skuinfo;
 
-        var orderType = that.data.myOrderInfo.orderType;
+          var spuname = that.data.spuInfo.spuname;
 
-        var orderData = {
-          requirementid: that.data.requirementId,
-          userid: that.data.userInfo.id,
-          markid: that.data.initDetail.markid,
-          upmarkid: that.data.upmarkid,
-          buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
-          skuid: that.data.myOrderInfo.mySkuInfo.id,
-          spuid: that.data.requirementInfo.spuid,
-          promotionid: that.data.requirementInfo.promotionid,
-          buycopies: that.data.myOrderInfo.orderCopies,
-          unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
-          ordertype: orderType,
-          sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
-        }
-
-        if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
-          app.globalData.orderData = orderData
-
-          wx.navigateTo({
-            //url: '/page/component/pages/pageorder/pageorder',
-            url: '/page/component/pages/pageorder/orderconfirm/orderconfirm',
+          that.setData({
+            'myOrderInfo.mySkuInfo': skuInfo[0],
+            'myOrderInfo.orderType': 1, //1选择2:下单拦截选择  3:送礼拦截选择
+            'myOrderInfo.orderCopies': 1,
+            'myOrderInfo.orderCopies': 1,
+            'myOrderInfo.selectSkuId': skuInfo[0].id
           })
-        }
 
-        if (orderType == '3') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
-          app.globalData.orderData = orderData
-          wx.navigateTo({
-            url: '/page/component/pages/pagegift/giftorder/giftorder',
-          })
-        }
+          for (var i = 0; i < spuname.length; i++) {
 
 
-      },
+            for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
+              var dataskuids = spuname[i].skuspecvalues[x].sku_id;
 
-
-      /**获取spu*/
-      getSpuInfo: function() {
-
-        var that = this
-        var spuid = that.data.requirementInfo.spuid;
-
-        var promotionid = that.data.requirementInfo.promotionid;
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getSpuInfo',
-          spuid: spuid,
-          promotionid: promotionid,
-
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          if (rdata.info) {
-
-            that.setData({
-              spuInfo: rdata.info,
-
-            })
-
-            /**判断是佛存在自选的skuinfo */
-            var maySkuInfo = that.data.myOrderInfo.mySkuInfo;
-
-
-            if (maySkuInfo) {
-
-
-
-            } else {
-              var skuInfo = that.data.spuInfo.skuinfo;
-
-              var spuname = that.data.spuInfo.spuname;
-
-              that.setData({
-                'myOrderInfo.mySkuInfo': skuInfo[0],
-                'myOrderInfo.orderType': 1, //1选择2:下单拦截选择  3:送礼拦截选择
-                'myOrderInfo.orderCopies': 1,
-                'myOrderInfo.orderCopies': 1,
-                'myOrderInfo.selectSkuId': skuInfo[0].id
-              })
-
-              for (var i = 0; i < spuname.length; i++) {
-
-
-                for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
-                  var dataskuids = spuname[i].skuspecvalues[x].sku_id;
-
-                  if (dataskuids.indexOf(skuInfo[0].id) >= 0) {
-                    pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
-
-                  }
-
-                }
+              if (dataskuids.indexOf(skuInfo[0].id) >= 0) {
+                pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
 
               }
 
-
-
-
-
             }
-
-            pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
           }
 
 
-        })
 
 
-      },
-
-      /**获取sku */
-      /**获取详情 */
-      getRequirementDetail: function() {
-        var that = this
-        var usreId = that.data.userInfo.id;
-        var requirementid = that.data.requirementId;
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getRequirementDetail',
-          id: requirementid,
-          userid: usreId,
 
         }
-        rRequest.doRequest(url, data, that, function(rdata) {
 
-          if (rdata.info) {
+        pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
-            that.setData({
-              requirementInfo: rdata.info
-
-            })
-
-            if (rdata.info.requirement_person != usreId) {
-
-              that.getPcPromotionGroupOrderInfo()
-
-            }
-            if (rdata.info.requirement_person == usreId) {
-
-              that.getPcPromotionGroupsummaryInfo()
-
-              that.setData({
-                treetype: 'TW'
-
-              })
-            }
-
-            that.getProgressRouteInfo()
-
-            that.getSpuCoverImageInfo()
-            that.getSpuInfo()
-            that.getRequirementRichtext()
-            that.getAttribute()
+      }
 
 
-          }
+    })
 
 
-        })
+  },
 
-      },
-      showRichtext: function() {
-        var that = this;
+  /**获取sku */
+  /**获取详情 */
+  getRequirementDetail: function() {
+    var that = this
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRequirementDetail',
+      id: requirementid,
+      userid: usreId,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
         that.setData({
-          'richtextInfo.richtextMore': false,
-          'richtextInfo.richtextShow': true
-        })
-
-      },
-      /**获取展开详情信息 */
-      getAttribute: function() {
-        var that = this
-
-        var spuid = that.data.requirementInfo.spuid;;
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getAttribute',
-          spuid: spuid,
-
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          if (rdata.info) {
-
-            that.setData({
-              attributeInfo: rdata.info
-            })
-          }
+          requirementInfo: rdata.info
 
         })
 
-      },
+        if (rdata.info.requirement_person != usreId) {
 
-
-      /**获取展开详情信息 */
-      getRequirementRichtext: function() {
-        var that = this
-        var usreId = '';
-        var spuid = that.data.requirementInfo.spuid;;
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getRequirementRichtext',
-          spuid: spuid,
+          that.getPcPromotionGroupOrderInfo()
 
         }
-        rRequest.doRequest(url, data, that, function(rdata) {
-          var richtext = rdata.info.richtext_content;
-          /**
-           * WxParse.wxParse(bindName , type, data, target,imagePadding)
-           * 1.bindName绑定的数据名(必填)
-           * 2.type可以为html或者md(必填)
-           * 3.data为传入的具体数据(必填)
-           * 4.target为Page对象,一般为this(必填)
-           * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
-           */
+        if (rdata.info.requirement_person == usreId) {
 
-          WxParse.wxParse('richtext', 'html', richtext, that, 5);
-
-        })
-
-      },
-      /**mark行为 */
-      //
-      requirementMarkAction: function() {
-
-        var url = '',
-          data = {},
-          actionType = '',
-          that = this
-        rCommon.requirementMarkAction.markAction(url, data, actionType, that, function() {
-
-        })
-
-      },
-
-      mytest: function() {
-
-      },
-      /**执行收藏操作 */
-      doRequirementKeepInfo: function() {
-
-        var that = this
-
-        var requirementid = that.data.requirementId;
-        var userid = that.data.userInfo.id;
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_keepdone',
-          requirementid: requirementid,
-          userid: userid,
-
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          var keepstatusmsg = rdata.keepstatusmsg;
-
-          wx.showToast({
-            title: keepstatusmsg,
-            icon: 'success',
-            duration: 2000,
-            success: function() {
-              that.getRequirementKeepInfo();
-            }
-          })
-
-        })
-      },
-      /**详情页初始化 */
-      getInitDetail: function() {
-          var that = this
-          var usreId = that.data.userInfo.id;
-          var requirementid = that.data.requirementId;
-          var upmarkid = that.data.upmarkid;
-          var url = config.requestUrl
-          var data = {
-            code_: 'x_initDetail',
-            m: upmarkid,
-            r: requirementid,
-            u: usreId,
-          }
-          rRequest.doRequest(url, data, that, function(rdata) {
-
-            if (rdata.info) {
-              that.setData({
-                'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'} */
-              })
-
-            }
-          })
-
-        }
-
-        ,
-      /**获取收藏信息 */
-      getRequirementKeepInfo: function() {
-        var that = this
-        var usreId = that.data.userInfo.id;
-        var requirementid = that.data.requirementId;
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getKeepInfo',
-          requirementid: requirementid,
-          userid: usreId,
-
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-          var keepstatus = rdata.keepstatus;
-          if (keepstatus == 1) {
-            that.setData({
-              'keepinfo.keepstatus': '/image/keep_on.png'
-            })
-          } else {
-            that.setData({
-              'keepinfo.keepstatus': '/image/keep_off.png'
-            })
-          }
-        })
-      },
-      //获取进展区路径图
-      getProgressRouteInfo: function() {
-        var that = this
-        var usreId = that.data.userInfo.id;
-        var requirementid = that.data.requirementId;
-        var treetype = that.data.treetype;
-
-
-        var url = config.requestUrl
-        var data = {
-          code_: 'x_getRelateTree',
-          id: requirementid,
-          userid: usreId,
-          role: treetype,
-
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
+          that.getPcPromotionGroupsummaryInfo()
 
           that.setData({
-
-            'canvasViewInfo.canvasWidth':
-              (rdata.boder.max_width * config.routeCicleConfig.circleRM),
-            'canvasViewInfo.canvasHeight':
-              (rdata.boder.max_height * config.routeCicleConfig.circleRM),
-
-            'canvasInfo.canvasTop':
-              (rdata.boder.max_height * config.routeCicleConfig.circleRM),
-            'canvasInfo.canvasLeft':
-              (rdata.boder.max_width * config.routeCicleConfig.circleRM),
+            treetype: 'TW'
 
           })
-          rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
-
-
-          if (that.data.requirementInfo.dealtype == '2') {
-
-            that.setData({
-
-              'nolinkCanvasViewInfo.canvasWidth':
-                (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-              'nolinkCanvasViewInfo.canvasHeight':
-                (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
-
-              'nolinkCanvasViewInfo.canvasTop':
-                (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
-              'nolinkCanvasViewInfo.canvasLeft':
-                (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-              'nolinkCanvasViewInfo.copies': rdata.copies,
-              'nolinkCanvasViewInfo.orders': rdata.orders,
-
-            })
-
-            rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
-
-
-
-
-
-
-          }
-
-
-
-        });
-      },
-
-      /** */
-
-      updateCopies: function(event) {
-        //var src = event.currentTarget.dataset.src; //获取data-src
-        var doType = event.currentTarget.dataset.dotype;
-        var that = this;
-        if (doType == 'add') {
-          pagekskujs.uppdateCopies.addCopies(that);
         }
-        if (doType == 'sub') {
-          pagekskujs.uppdateCopies.subCopies(that);
-        }
-      },
+
+        that.getProgressRouteInfo()
+
+        that.getSpuCoverImageInfo()
+        that.getSpuInfo()
+        that.getRequirementRichtext()
+        that.getAttribute()
 
 
-      order: function() {
-
-        var that = this
-
-        var isHtml = false
-        rUtils.slideModal.up(that, 'sku', true);
-        that.setData({
-          'myOrderInfo.orderType': 2, //1选择2:下单拦截选择  3:送礼拦截选择
-        })
+      }
 
 
-      },
+    })
 
-      gift: function() {
-
-        var that = this
-
-        var isHtml = false
-        rUtils.slideModal.up(that, 'sku', true);
-        that.setData({
-          'myOrderInfo.orderType': 3, //1选择2:下单拦截选择  3:送礼拦截选择
-        })
-
-
-      },
-
-      /**延期 */
-      bindDateChange: function(e) {
-
-        var newDate = e.detail.value;
-
-        var that = this;
-
-
-        var url = config.requestUrl;
-        var userid = that.data.userInfo.id //1528869953018820
-        var requirementid = that.data.requirementId;
-        var data = {
-          code_: 'x_uppDeadlineTime',
-          "deadlinetime": newDate,
-          "requirement_id": requirementid,
-          "userid": userid
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          if (rdata.info) { }
-              wx.showToast({
-                title: '延期成功',
-                image: '/image/icon_ok.png',
-                duration: 2000,
-                success: function() {}
-              })
-
-              that.setData({
-                'requirementInfo.deadlinetime': newDate
-              })
- 
-          })
   },
-          /**转发蒙板 */
-          forwardfriend: function() {
-            this.setData({
-              'pagemask.isForward': true,
-              'pagemask.msgTitle': '请点击右上角,选择【发送给朋友】以便进行链购优享'
-            })
+  showRichtext: function() {
+    var that = this;
+    that.setData({
+      'richtextInfo.richtextMore': false,
+      'richtextInfo.richtextShow': true
+    })
 
-          },
-          closeforwardfriend: function() {
-            this.setData({
-              'pagemask.isForward': false,
-              'pagemask.msgTitle': ''
-            })
+  },
+  /**获取展开详情信息 */
+  getAttribute: function() {
+    var that = this
 
-          },
-          /**首页 */
-          homepage: function() {
+    var spuid = that.data.requirementInfo.spuid;;
 
-            wx.switchTab({
-              url: '/pages/pagehome/pagehome',
-            })
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getAttribute',
+      spuid: spuid,
 
-          },
-          /**客服聊天 */
-          customerpage: function() {
-            var r = this.data.requirementId;
-            /**type = 1:消费者 0：商户  t == 1时 c =''*/
-            wx.navigateTo({
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
 
-              url: '/page/component/pages/pagedialog/dialog/dialog?t=1&r=' + r + '&d=',
+      if (rdata.info) {
 
-            })
+        that.setData({
+          attributeInfo: rdata.info
+        })
+      }
 
-          },
+    })
 
-          /**客服聊天--需求者 */
-          customerpagelist: function() {
-            var r = this.data.requirementId;
-
-            wx.navigateTo({
-
-              url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=' + r,
-
-            })
-
-          },
-          /**添加库存 */
-          addstorage: function() {
-            var spuid = this.data.requirementInfo.spuid;
-
-            wx.navigateTo({
-
-              url: '/page/component/pages/pagespu/storage/storage?spuid=' + spuid,
-
-            })
-            this.setData({
-              'backpage': 'storage',
-            })
-          },
-          /**转发成功 */
-          forwardSuccess: function() {
-            var that = this;
-            var url = config.requestUrl;
-
-            var userid = that.data.userInfo.id;
-            var requirementId = that.data.requirementId;
-            var upmarkid = that.data.initDetail.upmarkid;
-            var markid = that.data.initDetail.markid;
-
-            var data = {
-              code_: 'x_addForward',
-              userid: userid,
-              requirement_id: requirementId,
-              upmarkid: gr,
-              markid: gr,
-
-            }
-            rRequest.doRequest(url, data, that, function(rdata) {
+  },
 
 
-            })
+  /**获取展开详情信息 */
+  getRequirementRichtext: function() {
+    var that = this
+    var usreId = '';
+    var spuid = that.data.requirementInfo.spuid;;
 
-          },
-          /**我要说 */
-          addopinion: function(event) {
-            var requirementId = this.data.requirementId;
-            wx.navigateTo({
-              url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
-            })
-            this.setData({
-              'backpage': 'opinion',
-            })
-          },
-          /**更多朋友说 */
-          moreopinion: function(event) {
-            var requirementId = this.data.requirementId;
-            wx.navigateTo({
-              url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
-            })
-            // this.setData({
-            //   'backpage': 'opinion',
-            // })
-          },
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRequirementRichtext',
+      spuid: spuid,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      var richtext = rdata.info.richtext_content;
+      /**
+       * WxParse.wxParse(bindName , type, data, target,imagePadding)
+       * 1.bindName绑定的数据名(必填)
+       * 2.type可以为html或者md(必填)
+       * 3.data为传入的具体数据(必填)
+       * 4.target为Page对象,一般为this(必填)
+       * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+       */
+
+      WxParse.wxParse('richtext', 'html', richtext, that, 5);
+
+    })
+
+  },
+  /**mark行为 */
+  //
+  requirementMarkAction: function() {
+
+    var url = '',
+      data = {},
+      actionType = '',
+      that = this
+    rCommon.requirementMarkAction.markAction(url, data, actionType, that, function() {
+
+    })
+
+  },
+
+  mytest: function() {
+
+  },
+  /**执行收藏操作 */
+  doRequirementKeepInfo: function() {
+
+    var that = this
+
+    var requirementid = that.data.requirementId;
+    var userid = that.data.userInfo.id;
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_keepdone',
+      requirementid: requirementid,
+      userid: userid,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      var keepstatusmsg = rdata.keepstatusmsg;
+
+      wx.showToast({
+        title: keepstatusmsg,
+        icon: 'success',
+        duration: 2000,
+        success: function() {
+          that.getRequirementKeepInfo();
+        }
+      })
+
+    })
+  },
+  /**详情页初始化 */
+  getInitDetail: function() {
+      var that = this
+      var usreId = that.data.userInfo.id;
+      var requirementid = that.data.requirementId;
+      var upmarkid = that.data.upmarkid;
+      var url = config.requestUrl
+      var data = {
+        code_: 'x_initDetail',
+        m: upmarkid,
+        r: requirementid,
+        u: usreId,
+      }
+      rRequest.doRequest(url, data, that, function(rdata) {
+
+        if (rdata.info) {
+          that.setData({
+            'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'} */
+          })
+
+        }
+      })
+
+    }
+
+    ,
+  /**获取收藏信息 */
+  getRequirementKeepInfo: function() {
+    var that = this
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getKeepInfo',
+      requirementid: requirementid,
+      userid: usreId,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      var keepstatus = rdata.keepstatus;
+      if (keepstatus == 1) {
+        that.setData({
+          'keepinfo.keepstatus': '/image/keep_on.png'
+        })
+      } else {
+        that.setData({
+          'keepinfo.keepstatus': '/image/keep_off.png'
+        })
+      }
+    })
+  },
+  //获取进展区路径图
+  getProgressRouteInfo: function() {
+    var that = this
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
+    var treetype = that.data.treetype;
+
+
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_getRelateTree',
+      id: requirementid,
+      userid: usreId,
+      role: treetype,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      that.setData({
+
+        'canvasViewInfo.canvasWidth':
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM),
+        'canvasViewInfo.canvasHeight':
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM),
+
+        'canvasInfo.canvasTop':
+          (rdata.boder.max_height * config.routeCicleConfig.circleRM),
+        'canvasInfo.canvasLeft':
+          (rdata.boder.max_width * config.routeCicleConfig.circleRM),
+
+      })
+      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+
+
+      if (that.data.requirementInfo.dealtype == '2') {
+
+        that.setData({
+
+          'nolinkCanvasViewInfo.canvasWidth':
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+          'nolinkCanvasViewInfo.canvasHeight':
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+
+          'nolinkCanvasViewInfo.canvasTop':
+            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+          'nolinkCanvasViewInfo.canvasLeft':
+            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+          'nolinkCanvasViewInfo.copies': rdata.copies,
+          'nolinkCanvasViewInfo.orders': rdata.orders,
 
         })
+
+        rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+
+
+
+
+
+
+      }
+
+
+
+    });
+  },
+
+  /** */
+
+  updateCopies: function(event) {
+    //var src = event.currentTarget.dataset.src; //获取data-src
+    var doType = event.currentTarget.dataset.dotype;
+    var that = this;
+    if (doType == 'add') {
+      pagekskujs.uppdateCopies.addCopies(that);
+    }
+    if (doType == 'sub') {
+      pagekskujs.uppdateCopies.subCopies(that);
+    }
+  },
+
+
+  order: function() {
+
+    var that = this
+
+    var isHtml = false
+    rUtils.slideModal.up(that, 'sku', true);
+    that.setData({
+      'myOrderInfo.orderType': 2, //1选择2:下单拦截选择  3:送礼拦截选择
+    })
+
+
+  },
+
+  gift: function() {
+
+    var that = this
+
+    var isHtml = false
+    rUtils.slideModal.up(that, 'sku', true);
+    that.setData({
+      'myOrderInfo.orderType': 3, //1选择2:下单拦截选择  3:送礼拦截选择
+    })
+
+
+  },
+
+  /**延期 */
+  bindDateChange: function(e) {
+
+    var newDate = e.detail.value;
+
+    var that = this;
+
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+    var requirementid = that.data.requirementId;
+    var data = {
+      code_: 'x_uppDeadlineTime',
+      "deadlinetime": newDate,
+      "requirement_id": requirementid,
+      "userid": userid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {}
+      wx.showToast({
+        title: '延期成功',
+        image: '/image/icon_ok.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      that.setData({
+        'requirementInfo.deadlinetime': newDate
+      })
+
+    })
+  },
+  /**转发蒙板 */
+  forwardfriend: function() {
+    this.setData({
+      'pagemask.isForward': true,
+      'pagemask.msgTitle': '请点击右上角,选择【发送给朋友】以便进行链购优享'
+    })
+
+  },
+  closeforwardfriend: function() {
+    this.setData({
+      'pagemask.isForward': false,
+      'pagemask.msgTitle': ''
+    })
+
+  },
+  /**首页 */
+  homepage: function() {
+
+    wx.switchTab({
+      url: '/pages/pagehome/pagehome',
+    })
+
+  },
+  /**客服聊天 */
+  customerpage: function() {
+    var r = this.data.requirementId;
+    /**type = 1:消费者 0：商户  t == 1时 c =''*/
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagedialog/dialog/dialog?t=1&r=' + r + '&d=',
+
+    })
+
+  },
+
+  /**客服聊天--需求者 */
+  customerpagelist: function() {
+    var r = this.data.requirementId;
+
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=' + r,
+
+    })
+
+  },
+  /**添加库存 */
+  addstorage: function() {
+    var spuid = this.data.requirementInfo.spuid;
+
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagespu/storage/storage?spuid=' + spuid,
+
+    })
+    this.setData({
+      'backpage': 'storage',
+    })
+  },
+  /**转发成功 */
+  forwardSuccess: function() {
+    var that = this;
+    var url = config.requestUrl;
+
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;
+    var upmarkid = that.data.initDetail.upmarkid;
+    var markid = that.data.initDetail.markid;
+
+    var data = {
+      code_: 'x_addForward',
+      userid: userid,
+      requirement_id: requirementId,
+      upmarkid: gr,
+      markid: gr,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+
+    })
+
+  },
+  /**我要说 */
+  addopinion: function(event) {
+    var requirementId = this.data.requirementId;
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
+    })
+    this.setData({
+      'backpage': 'opinion',
+    })
+  },
+  /**更多朋友说 */
+  moreopinion: function(event) {
+    var requirementId = this.data.requirementId;
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
+    })
+    // this.setData({
+    //   'backpage': 'opinion',
+    // })
+  },
+
+})

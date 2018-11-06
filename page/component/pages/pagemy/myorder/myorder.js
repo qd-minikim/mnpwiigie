@@ -292,11 +292,13 @@ Page({
     })
   },
   /*取消订单*/
-  cancelOrder:function(e){
+  cancelOrder: function (event){
 
     var orderid = event.currentTarget.dataset.orderid;
-
-
+    wx.navigateTo({
+      url: '/page/component/pages/pageorder/ordercancel/ordercancel?o=' + orderid,
+    })
+    
     
   },
   /*确认收货*/

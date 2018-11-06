@@ -20,12 +20,12 @@
   width: 100%;
 }
 .addrlist-view-1-4_figure{
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 .addrlist-view-1-4-btn{
   padding:5rpx 10rpx;
  
-  line-height: 50rpx;
+  line-height: 40rpx;
 
 }

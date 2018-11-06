@@ -1,6 +1,8 @@
 // page/component/pages/pageaddr/addradd/addradd.js
 var rRequest = require('../../../../../utils/rRequest.js');
 var config = require('../../../../../config.js');
+
+var app = getApp();
 Page({
 
   /**

@@ -9,10 +9,11 @@
 .confirm-view-row {
   flex-direction: row;
   display: flex;
-  margin: 8rpx 10rpx;
+  margin: 8rpx 15rpx;
 }
 .confirm-view-title {
-   width: 5rem;
+   /* width: 5rem; */
+   white-space: nowrap
 }
 .confirm-view-2 {
   width: 100%;
