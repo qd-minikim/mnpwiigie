@@ -133,6 +133,8 @@
 .font-color-11 {
   color: #e36c09;
 }
+
+ 
 .bg-0{
 	border:1px solid #00c003;
 	background-color: #00c003;
