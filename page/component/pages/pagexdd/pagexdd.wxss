@@ -207,7 +207,7 @@
 }
 
 .bottom-view-1 {
-  height: 45rpx;
+  /* height: 45rpx; */
 }
 
 .bottom-view {

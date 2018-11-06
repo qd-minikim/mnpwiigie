@@ -73,7 +73,7 @@ Page({
 
         attributeInfo: {},
         pagePard: {
-          headHeight: '90',
+          headHeight: '95',
           footHeight: '90',
           contentHeight: '',
 

@@ -99,7 +99,7 @@ Page({
   getGiftReceiveListInfo: function () {
 
     var that = this
-    var userid = '1528869953018820'//that.data.userInfo.id
+    var userid = that.data.userInfo.id//that.data.userInfo.id
     var endRow = '0';
     var itemsPerPage = '10';
     var url = config.requestUrl

@@ -26,7 +26,7 @@ Page({
     ordergiftArray: [],
 
     /**分页 */
-    itemsPerPage: 10,
+    itemsPerPage: 100,
     orderbuyEndRow: 0,
     orderbuyAllRows: 0,
 
@@ -290,9 +290,66 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pagemy/evaluate/evaladd/evaladd?e=' + evalid,
     })
+  },
+  /*取消订单*/
+  cancelOrder:function(e){
+
+    var orderid = event.currentTarget.dataset.orderid;
+
+
+    
+  },
+  /*确认收货*/
+surereceve:function(e){
+  var that = this;
+  var orderid = e.currentTarget.dataset.orderid;
+  var promotionid = e.currentTarget.dataset.proid;
+  var requirementid = e.currentTarget.dataset.reqid;
+  var receiveSuccessCS = e.currentTarget.dataset.recs;
+  var dealtype = e.currentTarget.dataset.detype;
+  var deliverytype = e.currentTarget.dataset.deltype;
+  var logisticsstatus = e.currentTarget.dataset.lstatus;
+
+  var userid = that.data.userInfo.id;
+  if (deliverytype == '2' && logisticsstatus == '1') {
+
+    wx.showModal({
+      title: '提示',
+      content: '确定收到了商品了吗？',
+      success: function (res) {
+        if (res.confirm) {
+          var data = {
+            code_: 'x_doreceive',
+            "orderid": orderid,
+            "promotion_id": promotionid,
+            "requirementid": requirementid,
+            "userid": userid
+          }
+
+          rCommon.doOrder.orderAction(that, data, function (rdata) {
+
+            wx.showToast({
+              title: '确认成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function () {
+
+
+              }
+            })
+
+
+            that.getOrdersInfo();
+          });
+        } else if (res.cancel) {
+
+        }
+
+      }
+    })
+
   }
 
-
-
+}
 
 })
