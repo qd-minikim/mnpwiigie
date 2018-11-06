@@ -47,7 +47,7 @@
 }
 
 .view-2-2 {
-  width: 5rem;
+  max-width: 5rem;
 }
 
 .view-2-3 {

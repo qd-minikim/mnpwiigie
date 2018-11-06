@@ -6,13 +6,13 @@
 }
 
 .gr-view-1-image {
-  width: 400rpx;
-  height: 400rpx;
+  width: 300rpx;
+  height: 300rpx;
 }
 
 .gr-view-5 {
   width: 100%;
-  margin-top: 70rpx
+  /* margin-top: 70rpx */
 }
 
 .gr-view-5-1 {
@@ -26,7 +26,7 @@
 .gr-view-7 {
   
   width: 100%;
-  margin-top: 70rpx;
+  /* margin-top: 70rpx; */
 }
 
 .gr-view-7-1 {
@@ -39,8 +39,8 @@
 
 .gr-view-9 {
   width: 100%;
-  margin-top: 70rpx;
-   margin-bottom: 50rpx;
+  /* margin-top: 70rpx; */
+   margin-bottom: 100rpx;
 }
 
 .gr-view-9-1 {

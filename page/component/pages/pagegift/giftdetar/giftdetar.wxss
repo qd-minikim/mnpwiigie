@@ -190,7 +190,7 @@
 .bottom-v {
   flex-direction: row;
   display: flex;
-  border-top: 1px solid #999;
+  border-top: 1px solid #e4e5e4;
 }
 
 .bottom-view-1-image {

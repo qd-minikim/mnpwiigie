@@ -39,7 +39,7 @@ App({
       "color": "#a0a0a0",
       "selectedColor": "#00c003",
       "backgroundColor": "#ffffff",
-      "borderStyle": "black",
+      "borderStyle": "#e4e5e4",
       "list": [{
           "pagePath": "/pages/pagehome/pagehome",
           "text": "好友",

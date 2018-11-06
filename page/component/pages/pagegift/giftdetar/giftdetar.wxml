@@ -7,14 +7,7 @@
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <!--转送给朋友的  留言信息 -->
-<!-- <modal hidden="{{fmodalhidden}}"  title="送礼留言" confirm-text="继续" cancel-text="取消" bindcancel="fmodalcancel" bindconfirm="fmodalsure"  >
-     <view style=' flex-direction: column;display: flex;'>
-     <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
-     <textarea class='font-size-4' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em'  maxlength='40' bindinput='fmodalWordLimit'
-     placeholder-class='font-size-5'
-     placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}' ></textarea>
-     </view>
-</modal> -->
+ 
 <view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
 <view class="modal-dialog" wx:if="{{!fmodalhidden}}">
   <view class="modal-title">送礼留言</view>
@@ -108,7 +101,7 @@
             <image class='view-7-figure' src='/image/figure_5.png'></image>
           </view>
           <view style='height100%'>传播红包单价:</view>
-          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice,2)}}/受阅者</view>
+          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice,2)}}/受众</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
           </view>
@@ -407,35 +400,35 @@
     <block wx:if="{{ giftInfo.oper=='0'}}">
       <view catchtap='pageback' class='align-c-center bottom-view' style='  width:100% '>
          
-        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>返回</view>
+        <view class='bottom-view-1 align-center font-size-5 font-color-4' style='flex:1;width:100%'>返回</view>
       </view>
     </block>
     <block wx:if="{{ giftInfo.oper=='1'}}">
-      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
-        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+      <view class='align-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-center' style='flex:1;width:100%'>
           <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+        <view class='bottom-view-1 align-center font-size-7 font-color-4' style='flex:1;width:100%'>客服</view>
       </view>
-      <view class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% ' catchtap='receiveAddress'>提交收货信息</view>
+      <view class='align-center bottom-view bottom-xd  font-size-5' style='  width:80%;height:100% ' catchtap='receiveAddress'>提交收货信息</view>
     </block>
     <block wx:if="{{giftInfo.oper=='2'}}">
-      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
-        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+      <view class='align-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-center' style='flex:1;width:100%'>
           <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+        <view class='bottom-view-1 align-center font-size-7' style='flex:1;width:100%'>客服</view>
       </view>
-      <view class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% ' catchtap='forwardfriend'>转送给其他朋友</view>
+      <view class='  bottom-view bottom-xd align-center font-size-5' style='  width:80%;height:100% ' catchtap='forwardfriend'>转送给其他朋友</view>
     </block>
     <block wx:if="{{giftInfo.oper=='3'}}">
-      <view class='align-c-center bottom-view' style='  width:20% ' catchtap='customerpage'>
-        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+      <view class='align-center bottom-view' style='  width:20% ' catchtap='customerpage'>
+        <view class='bottom-view-1 align-center' style='flex:1;width:100%'>
           <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-4' style='flex:1;width:100%'>客服</view>
+        <view class='bottom-view-1 align-center font-size-7 font-color-4' style='flex:1;width:100%'>客服</view>
       </view>
-      <view catchtap='reject' class='align-c-center bottom-view bottom-xd align-center' style='  width:80%;height:100% '>拒绝</view>
+      <view catchtap='reject' class='align-center bottom-view bottom-xd align-center font-size-5' style='  width:80%;height:100% '>拒绝</view>
     </block>
   </view>
 

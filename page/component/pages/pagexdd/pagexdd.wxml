@@ -307,8 +307,7 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_7.png'></image>
           </view>
-          <view style='flex-direction:row;display:flex'>
-            <view style="width:3em ">已</view>选：</view>
+          <view style='flex-direction:row;display:flex'>已<view style="color:#ffffff ">白白</view>选：</view>
           <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
