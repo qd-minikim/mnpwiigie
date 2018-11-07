@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -56,7 +56,8 @@
         "pages/pageweb/pageweb",
         "pages/pageorder/orderdetail/orderdetail",
         "pages/pageorder/orderconfirm/orderconfirm",
-        "pages/pageorder/ordercancel/ordercancel"
+        "pages/pageorder/ordercancel/ordercancel",
+        "pages/pagemy/hydtmore/hydtmore"
       ]
     }
   ],

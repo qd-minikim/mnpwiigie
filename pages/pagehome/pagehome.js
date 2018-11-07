@@ -34,10 +34,12 @@ Page({
       //home-5
       home5Text1: '~好友的洞察~',
       home5Array: [],
-      home5Selected:false,
+      home5Count: 0,
+      home5Selected: false,
       //home-6
       home6Text1: '-人气推荐-',
-      home6Array: []
+      home6Array: [],
+      home6Count: 0
     },
     /**msg配置信息 */
     configMsgInfo: {},
@@ -208,13 +210,14 @@ Page({
       windowWidth: app.globalData.systemInfo.windowWidth
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-      console.log("-----------------")
+
       if (rdata.infolist) {
 
 
         that.setData({
           home5Array: rdata.infolist,
-          home5Selected:true,
+          home5Selected: true,
+          home5Count: rdata.infocounts
         })
 
         var actiontyArr = [];
@@ -235,6 +238,16 @@ Page({
 
 
   },
+
+  /**更多好友动态 */
+  morehydt: function(e) {
+
+ 
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/hydtmore/hydtmore',
+    })
+  },
+
   //获取人气推荐
   getPopularity: function() {
     var that = this;
@@ -245,7 +258,7 @@ Page({
       homepageid: 'homepage_7',
       userid: usreId,
       endRow: '0',
-      itemsPerPage: '10',
+      itemsPerPage: '4',
       windowWidth: app.globalData.systemInfo.windowWidth
     }
     rRequest.doRequest(url, data, that, function(rdata) {
@@ -253,7 +266,8 @@ Page({
       if (rdata.infolist) {
 
         that.setData({
-          home6Array: rdata.infolist
+          home6Array: rdata.infolist,
+          home6Count: rdata.infocounts
         })
       }
     })

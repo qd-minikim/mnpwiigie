@@ -107,6 +107,14 @@
       <view class="gap-line" style="flex-direction:column;"></view>
       <block wx:if="{{home5Array.length>0}}">
         <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+        <block wx:if="{{home5Count>8}}">
+          <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
+
+            <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%'>查看更多</button>
+          </view>
+
+        </block>
+
       </block>
       <block wx:if="{{home5Selected && home5Array.length<=0}}">
 
