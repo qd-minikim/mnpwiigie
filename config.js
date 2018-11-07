@@ -1,4 +1,4 @@
-var host = "wx.yihuby.com"
+var host = "www.yihuby.com"
 var config = {
 
   // 下面的地址配合云端 Server 工作

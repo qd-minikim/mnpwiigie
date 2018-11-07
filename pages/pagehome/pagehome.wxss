@@ -226,8 +226,8 @@
 }
 
 .home-5-2-4-4-image {
-  width: 40rpx;
-  height: 40rpx;
+  width: 36rpx;
+  height: 36rpx;
   border-radius: 50%;
   margin: auto 5rpx;
 }
