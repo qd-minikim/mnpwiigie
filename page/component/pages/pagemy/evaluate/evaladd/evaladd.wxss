@@ -46,14 +46,14 @@
   /* position: absolute; */
   position: relative;
   top: 0rpx;
-  width: 60rpx;
-  height: 60rpx;
+  width: 50rpx;
+  height: 50rpx;
   src: "/image/normal.png";
 }
 
 .item {
     position: absolute; 
   top: 0rpx;
-  width: 30rpx;
-  height: 60rpx;
+  width: 25rpx;
+  height: 50rpx;
 }

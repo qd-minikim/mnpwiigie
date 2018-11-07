@@ -46,8 +46,8 @@
   /* position: absolute; */
   position: relative;
   top: 0rpx;
-  width: 60rpx;
-  height: 60rpx;
+  width: 40rpx;
+  height: 40rpx;
   src: "/image/normal.png";
 }
  

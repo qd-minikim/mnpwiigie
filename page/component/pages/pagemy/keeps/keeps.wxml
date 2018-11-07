@@ -13,7 +13,7 @@
 
       </block>
       <block wx:else>
-        <view class='font-size-5 align-center' style='margin:1rpx 15rpx'>还没有数据</view>
+        <view class='font-size-6 align-center' style='margin:1rpx 15rpx'>还没有数据</view>
       </block>
     </block>
   </view>

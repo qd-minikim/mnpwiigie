@@ -7,7 +7,7 @@
         <image class='evalimge-view-0-image' src='{{evalinfo.coverimageurl}}'></image>
       </view>
       <view style=' flex-direction: column;display: flex;margin:5rpx 25rpx'>
-        <view class='font-size-4' style='margin-left:10rpx'>评分</view>
+        <view class='font-size-5' style='margin-left:10rpx'>评分</view>
         <view>
           <block wx:for="{{stars}}">
             <image class="star-image" style="left: 5rpx" src="{{key > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">

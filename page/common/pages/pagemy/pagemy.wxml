@@ -178,7 +178,7 @@
           <image class='eval-view-2-1-image' src='{{item.cover_image_url}}'></image>
         </view>
         <view class='eval-view-2-2 ' style='text-align: left;'>
-          <view class='font-size-4 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
+          <view class='font-size-5 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
           <view class='font-size-4 ' style='flex:1'></view>
           <view class='eval-view-3 '>
             <view style='flex:1'></view>
@@ -197,7 +197,7 @@
 
   </block>
   <block wx:if="{{searched && evalArray_0.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>
@@ -217,7 +217,7 @@
           <image class='eval-view-2-1-image' src='{{item.cover_image_url}}'></image>
         </view>
         <view class='eval-view-2-2 ' style='text-align: left;'>
-          <view class='font-size-4 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
+          <view class='font-size-5 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
           <view class='font-size-4 ' style='flex:1'></view>
           <view class='eval-view-3 '>
             <view style='flex:1'></view>
@@ -236,7 +236,7 @@
 
   </block>
   <block wx:if="{{searched && evalArray_1.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>
@@ -256,7 +256,7 @@
           <image class='eval-view-2-1-image' src='{{item.cover_image_url}}'></image>
         </view>
         <view class='eval-view-2-2 ' style='text-align: left;'>
-          <view class='font-size-4 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
+          <view class='font-size-5 view-ellipsis-2' style='text-align:left;'>{{item.requirement_title}}</view>
           <view class='font-size-4 ' style='flex:1'></view>
           <view class='eval-view-3 '>
             <view style='flex:1'></view>
@@ -284,7 +284,7 @@
 
   </block>
   <block wx:if="{{searched && evalArray_2.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>
@@ -344,7 +344,7 @@
   </block>
 
   <block wx:if="{{servlistsearched_0 && servlistArray_0.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>
@@ -395,7 +395,7 @@
     </view>
   </block>
   <block wx:if="{{servlistsearched_1 && servlistArray_1.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>

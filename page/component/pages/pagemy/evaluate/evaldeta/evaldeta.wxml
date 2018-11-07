@@ -35,7 +35,7 @@
           </view>
 
         </block>
-        <view class='font-size-5 ' style='margin: 5rpx 15rpx;flex-direction:row;display:flex'>
+        <view class='font-size-6 ' style='margin: 5rpx 15rpx;flex-direction:row;display:flex'>
           {{item.commont_content_des}}
         </view>
 
@@ -67,10 +67,10 @@
             <view style='width:80rpx;height:80rpx'>
               <image style='width:80rpx;height:80rpx; border-radius: 50rpx' src='{{item.image_url}}'></image>
             </view>
-            <view class='font-size-5' style='margin-left:5rpx;flex:1'>{{item.ennickname}}</view>
-            <view class='font-size-5 font-color-4'>{{item.timeinterval}}</view>
+            <view class='font-size-6' style='margin-left:5rpx;flex:1'>{{item.ennickname}}</view>
+            <view class='font-size-6 font-color-4'>{{item.timeinterval}}</view>
           </view>
-          <view class='font-size-5'>{{item.discuss_content}}</view>
+          <view class='font-size-6'>{{item.discuss_content}}</view>
         </view>
       </block>
 

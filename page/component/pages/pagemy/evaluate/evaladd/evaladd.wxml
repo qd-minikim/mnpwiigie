@@ -6,12 +6,12 @@
         <image class='evaladd-view-0-image' src='{{evalinfo.coverimageurl}}'></image>
       </view>
       <view style=' flex-direction: column;display: flex;margin:5rpx 25rpx'>
-        <view class='font-size-4' style='margin-left:10rpx'>评分</view>
+        <view class='font-size-5' style='margin-left:10rpx'>评分</view>
         <view>
           <block wx:for="{{stars}}">
             <image class="star-image" style="left: 5rpx" src="{{key > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
               <view class="item" style="left:0rpx" data-key="{{item+0.5}}" bindtap="selectLeft"></view>
-              <view class="item" style="left:30rpx" data-key="{{item+1}}" bindtap="selectRight"></view>
+              <view class="item" style="left:25rpx" data-key="{{item+1}}" bindtap="selectRight"></view>
             </image>
           </block>
 
@@ -21,8 +21,8 @@
 
 
     <view class='evaladd-view-0-2'>
-      <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
-      <textarea class='evaladd-view-0-2-textarea font-size-4' placeholder='输入评价' placeholder-style=' ' placeholder-class='font-size-4' maxlength='200' bindinput='bindWordLimit'></textarea>
+      <view class='font-size-7 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
+      <textarea class='evaladd-view-0-2-textarea font-size-6' placeholder='输入评价' placeholder-style=' ' placeholder-class='font-size-6' maxlength='200' bindinput='bindWordLimit'></textarea>
     </view>
 <!-- bindtap='selectImage' bindlongtap='deleimage' -->
 
