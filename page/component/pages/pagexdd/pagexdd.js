@@ -27,10 +27,10 @@ Page({
       richtextMore: true,
       richtextShow: false
     },
-      // 弹出层
+    // 弹出层
     viewModal: {
       isModalShow: false,
-      addtoComossionShow: false,//追加赏金
+      addtoComossionShow: false, //追加赏金
     },
     /**转发蒙板 */
     pagemask: {
@@ -40,7 +40,7 @@ Page({
       msgDesc: '',
       msgDescColor: '',
     },
-   
+
 
     keepinfo: {
       keepstatus: '/image/keep_off.png',
@@ -146,7 +146,7 @@ Page({
     // 朋友说图片大小
     opinpicsize: 0,
 
-    addToCommission:'',
+    addToCommission: '',
 
     /**用户信息 */
     userInfo: {},
@@ -1103,27 +1103,27 @@ Page({
     })
   },
   // 关闭弹窗--追加赏金
-  closecommission: function () {
+  closecommission: function() {
     var that = this;
     that.setData({
       'viewModal.addtoComossionShow': false,
     })
   },
   /**追加 */
-  opencommission: function () {
- 
-      var that = this;
-  
-      that.setData({
-        'viewModal.addtoComossionShow': true,
-        
-      })
+  opencommission: function() {
+
+    var that = this;
+
+    that.setData({
+      'viewModal.addtoComossionShow': true,
+
+    })
 
     WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
 
-    
+
   },
-  bindKeyInputCommission: function (e) {
+  bindKeyInputCommission: function(e) {
     this.setData({
       addToCommission: e.detail.value
     })
@@ -1150,7 +1150,7 @@ Page({
         title: '金额不正确',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1202,6 +1202,11 @@ Page({
               image: '/image/icon_ok.png',
               duration: 2000,
               success: function() {}
+            })
+            that.getRequirementDetail()
+
+            that.setData({
+              addToCommission: ''
             })
 
 

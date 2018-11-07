@@ -93,7 +93,7 @@
     </view>
   </block>
   <block wx:if="{{searched && giftreceivelist.length==0}}">
-    <view class='font-size-6'>
+    <view class='font-size-6 align-center'>
       还没有数据
     </view>
   </block>
