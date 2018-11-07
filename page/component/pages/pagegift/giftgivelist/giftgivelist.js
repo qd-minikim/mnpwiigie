@@ -10,7 +10,7 @@ Page({
    */
   data: {
     giftgivelist:null,
-
+    searched:false,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -99,7 +99,8 @@ Page({
       if (rdata.infolist) {
  
           that.setData({
-            'giftgivelist': rdata.infolist
+            'giftgivelist': rdata.infolist,
+            'searched': true,
           })
       }
     })

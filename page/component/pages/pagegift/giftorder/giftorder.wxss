@@ -1,27 +1,28 @@
 /* page/component/pages/pagegift/giftorder/giftorder.wxss */
 
 .giftorder-view-1 {
-   width: 95%;  
+   width: 100%;  
   flex-direction: column;
   display: flex;
   margin-bottom: 10rpx;
  
 }
 .giftorder-view-1-1 {
-   width: 100%;
+   /* width: 100%; */
  flex-direction: row;
   display: flex;
+  margin: 5rpx 15rpx
 }
 .giftorder-view-row {
   flex-direction: row;
   display: flex;
-  margin: 8rpx 0;
+  margin: 8rpx 15rpx;
 }
 .giftorder-view-title {
-   width: 5rem;
+   /* width: 5rem; */
 }
 .giftorder-view-2 {
-    width: 95%;
+    width: 100%;
   flex-direction: column;
   display: flex;
 }

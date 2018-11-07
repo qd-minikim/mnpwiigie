@@ -240,7 +240,16 @@ Page({
   },
 
   //人气推荐-详情
+  
+  rqtjShowDetail: function(event) {
+    var that = this;
+
+    var upmarkid = event.currentTarget.dataset.upmarkid;
+    var requirementid = event.currentTarget.dataset.requir;
+    var userid = that.data.userInfo.id;
+    pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
 
 
+  },
   
 })

@@ -12,6 +12,7 @@ Page({
   data: {
     giftreceivelist: null,
 
+    searched:false,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -115,7 +116,9 @@ Page({
       if (rdata.infolist) {
 
         that.setData({
-          'giftreceivelist': rdata.infolist
+          'giftreceivelist': rdata.infolist,
+          'searched': true,
+           
         })
       }
     })

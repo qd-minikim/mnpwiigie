@@ -2,33 +2,39 @@
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 <view class='container ' style='flex-direction:colum;display:flex; '>
 
-
-  <block wx:for="{{giftgivelist}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
-    <block wx:if="{{index>0}}">
-      <view class="gap-bg" style="flex-direction:column;"></view>
-    </block>
-    <view bindtap='showGiftDetail' data-id='{{item.id}}' style='width:100%'>
-    <view class='gglist-view-1 font-size-6  '>
-      <view>订单编号：</view>
-      <view style='flex:1'>{{item.order_id}}</view>
-    </view>
-
-    <view class="gap-line" style="flex-direction:column;"></view>
-    <view class='gglist-view-2'>
-      <view class='gglist-view-2-1'>
-        <image class='gglist-view-2-image' src='{{item.cover_image_url}}'></image>
-      </view>
-      <view class='gglist-view-2-2 align-c-center' style="flex:1;position: relative;">
-        <view class='view-ellipsis-1 font-size-5' style=' '>{{item.title}}</view>
-        <view class='gglist-view-2-2-2 align-c-center' style='flex:1'>
-          <view class='font-size-6 font-color-4' style='height:30%'>下单时间：{{item.buy_datetime}}</view>
-          <view class='font-size-6 font-color-4' style='height:30%'>订单数量：{{item.buy_copies}}</view>
-          <view class='font-size-6 font-color-4' style='height:30%'>订单金额：￥{{filters.toFix(item.buy_cash,2)}}</view>
+  <view style='width:100%'>
+    <block wx:for="{{giftgivelist}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+      <block wx:if="{{index>0}}">
+        <view class="gap-bg" style="flex-direction:column;"></view>
+      </block>
+      <view bindtap='showGiftDetail' data-id='{{item.id}}' style='margin:2rpx 15rpx'>
+        <view class='gglist-view-1 font-size-6  '>
+          <view>订单编号：</view>
+          <view style='flex:1'>{{item.order_id}}</view>
         </view>
-        <view class='font-size-6 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
+
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='gglist-view-2'>
+          <view class='gglist-view-2-1'>
+            <image class='gglist-view-2-image' src='{{item.cover_image_url}}'></image>
+          </view>
+          <view class='gglist-view-2-2 align-c-center' style="flex:1;position: relative;">
+            <view class='view-ellipsis-1 font-size-5' style=' '>{{item.title}}</view>
+            <view class='gglist-view-2-2-2 align-c-center' style='flex:1'>
+              <view class='font-size-6 font-color-4' style='height:30%'>下单时间：{{item.buy_datetime}}</view>
+              <view class='font-size-6 font-color-4' style='height:30%'>订单数量：{{item.buy_copies}}</view>
+              <view class='font-size-6 font-color-4' style='height:30%'>订单金额：￥{{filters.toFix(item.buy_cash,2)}}</view>
+            </view>
+            <view class='font-size-6 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
+          </view>
+
+        </view>
       </view>
-      
-    </view>
-    </view>
-  </block>
+    </block>
+    <block wx:if="{{searched && giftgivelist.length==0}}">
+      <view class=' font-size-6'>
+        还没有数据
+      </view>
+    </block>
+  </view>
 </view>

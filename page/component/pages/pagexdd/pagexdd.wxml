@@ -14,15 +14,45 @@
 <!-- 蒙板 -->
 <template is="pagemask" data="{{pagemask}}" />
 <!-- 蒙板 -->
-
 <view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
-
   <view class='view-modal-content'>
     <template is="pagesign" />
+  </view>
+</view>
 
+<!-- 追加赏金 -->
+
+<view class="view-modal {{viewModal.addtoComossionShow?'view-modal-show':'view-modal-hide'}}">
+
+  <view class='view-modal-content'>
+
+    <view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+
+      <view class='font-size-6' style='margin-left:10rpx;flex:1'>追加赏金</view>
+      <view class='align-right' style="margin-right:10rpx;" bindtap='closecommission'>
+        <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
+      </view>
+    </view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='number' maxlength='8' value='{{storage}}'></input>
+
+    </view>
+
+    <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
+     <template is="wxParse" data="{{wxParseData:codemsg.nodes}}" />
+    </view>
+
+    <view style='flex-direction:row;display:flex;margin:5rpx;'>
+      <button class='font-size-5  align-center' type="warn" catchtap='addcommission' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>确定</button>
+      <button class='font-size-5 align-center' type="default" catchtap='closecommission' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>取消</button>
+    </view>
+ 
   </view>
 
 </view>
+
+
 
 
 <view class='container ' style='flex-direction:colum;display:flex; '>
@@ -113,7 +143,9 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
 
     <view class='view-7  font-size-5'>
-      <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
+
+      <block wx:if="{{initDetail.role =='TW'}}">
+
         <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
@@ -126,10 +158,22 @@
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
 
+        <view class='view-7-0 align-r-center'  >
+          <view class='align-center'  catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'     >
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default' >传播预算余额：</view>
+          <view style='flex:1' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>￥{{filters.toFix(requirementInfo.commission,2)}}</view>
+          <view class='align-center'>
+            <view catchtap='opencommission' class='align-center font-color-5' style='flex-direction:row;display:flex'>
+              <image class='view-7-figure' src='/image/figure_44.png'></image>
+              <view>追加</view>
+            </view>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
 
-      </block>
 
-      <block wx:if="{{requirementInfo.sowerpercent>0}}">
         <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_5.png'></image>
@@ -141,9 +185,43 @@
           </view>
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
-
-
       </block>
+
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
+          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
+            <view class='  align-center'>
+              <image class='view-7-figure' src='/image/figure_5.png'></image>
+            </view>
+            <view style='height100%'>传播红包单价：</view>
+            <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice,2)}}/受众</view>
+            <view class='align-center'>
+              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+          <view class="gap-line" style="flex-direction:column;"></view>
+
+
+        </block>
+
+        <block wx:if="{{requirementInfo.sowerpercent>0}}">
+          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
+            <view class='  align-center'>
+              <image class='view-7-figure' src='/image/figure_5.png'></image>
+            </view>
+            <view style='height100%'>下级落单返点：</view>
+            <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent,2)}}%</view>
+            <view class='align-center'>
+              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+          <view class="gap-line" style="flex-direction:column;"></view>
+
+        </block>
+      </block>
+
+
+
 
       <!-- 链购方案  -->
       <block wx:if="{{requirementInfo.dealtype =='2'}}">
@@ -307,7 +385,8 @@
           <view class='  align-center'>
             <image class='view-7-figure' src='/image/figure_7.png'></image>
           </view>
-          <view style='flex-direction:row;display:flex'>已<view style="color:#ffffff ">白白</view>选：</view>
+          <view style='flex-direction:row;display:flex'>已
+            <view style="color:#ffffff ">白白</view>选：</view>
           <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
           <view class='align-center'>
             <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
@@ -319,37 +398,43 @@
       <view></view>
       <view></view>
     </view>
-    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <block wx:if="{{initDetail.role =='XQ'}}">
 
 
-    <view class='view-8  font-size-5'>
-      <view class='view-8-1 align-r-center'>
+      <view class="gap-bg" style="flex-direction:column;"></view>
 
-        <view class='  align-center'>
-          <image class='view-8-figure' src='/image/figure_8.png'></image>
+
+      <view class='view-8  font-size-5'>
+        <view class='view-8-1 align-r-center'>
+
+          <view class='  align-center'>
+            <image class='view-8-figure' src='/image/figure_8.png'></image>
+          </view>
+          <view style=' '>朋友态度：</view>
+          <view class='view-ellipsis-1' style='flex:1'></view>
+          <view class='align-center font-color-5' catchtap='addopinion'>
+            我要说
+          </view>
+
         </view>
-        <view style=' '>朋友态度：</view>
-        <view class='view-ellipsis-1' style='flex:1'></view>
-        <view class='align-center font-color-5' catchtap='addopinion'>
-          我要说
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='view-8-2 align-c-center'>
+
+          <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
+
         </view>
 
-      </view>
-      <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='view-8-2 align-c-center'>
+        <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
+          <view style='padding:10rpx 2rpx'>还没有朋友说</view>
+        </view>
+        <view wx:if="{{opinionInfo.allrows>opinionInfo.pageSize}}" class='view-8-3 align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
 
-        <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
-
+          <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
+        </view>
       </view>
+    </block>
 
-      <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
-        <view style='padding:10rpx 2rpx'>还没有朋友说</view>
-      </view>
-      <view wx:if="{{opinionInfo.allrows>opinionInfo.pageSize}}" class='view-8-3 align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
-
-        <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
-      </view>
-    </view>
 
     <view class="gap-bg" style="flex-direction:column;"></view>
     <view class='view-9'>
@@ -504,12 +589,12 @@
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
-        <view style='flex-direction:column;display:flex;; height:100%'>
-          <view class='bottom-view-1 align-c-center' style='flex:1'>
-            <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
-          </view>
-          <view class='bottom-view-1 align-c-center font-size-7'>推荐给
-          </view>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
           </view>
         </button>
       </view>
@@ -533,7 +618,7 @@
         <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
       </view>
 
-      <view class='align-center {{fixedBottom.slClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
+      <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
         <view class='font-size-7'>库存:{{requirementInfo.keep_storage}}</view>
         <view class='font-size-6'>补库存</view>
       </view>
@@ -541,12 +626,12 @@
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
-        <view style='flex-direction:column;display:flex;; height:100%'>
-          <view class='bottom-view-1 align-c-center' style='flex:1'>
-            <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
-          </view>
-          <view class='bottom-view-1 align-c-center font-size-7'>推荐给
-          </view>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
           </view>
         </button>
       </view>

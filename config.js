@@ -18,6 +18,8 @@ var config = {
   imageUrl: `https://${host}/wiigie/image/getImage?addr=`,
   
   orderPayUrl: `https://${host}/wiigie/xcx/prePayOrder`,
+
+  commissionPayUrl: `https://${host}/wiigie/xcx/preCommission`,
  
   socketUrl: `wss://${host}/wiigie/ws`,
 

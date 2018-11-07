@@ -27,9 +27,10 @@ Page({
       richtextMore: true,
       richtextShow: false
     },
+      // 弹出层
     viewModal: {
       isModalShow: false,
-
+      addtoComossionShow: false,//追加赏金
     },
     /**转发蒙板 */
     pagemask: {
@@ -39,7 +40,7 @@ Page({
       msgDesc: '',
       msgDescColor: '',
     },
-
+   
 
     keepinfo: {
       keepstatus: '/image/keep_off.png',
@@ -145,6 +146,8 @@ Page({
     // 朋友说图片大小
     opinpicsize: 0,
 
+    addToCommission:'',
+
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -179,7 +182,7 @@ Page({
       // this.getProgressRouteInfo()
 
       this.getConfigMsgInfo()
-      this.getOpinionInfo()
+
 
 
     } else {
@@ -510,6 +513,9 @@ Page({
       {
         code: 'MSJG_MSG',
         replace: []
+      }, {
+        code: 'ZJSM',
+        replace: []
       },
 
     ];
@@ -769,6 +775,7 @@ Page({
 
           that.getPcPromotionGroupOrderInfo()
 
+          that.getOpinionInfo()
         }
         if (rdata.info.requirement_person == usreId) {
 
@@ -1094,6 +1101,125 @@ Page({
       })
 
     })
+  },
+  // 关闭弹窗--追加赏金
+  closecommission: function () {
+    var that = this;
+    that.setData({
+      'viewModal.addtoComossionShow': false,
+    })
+  },
+  /**追加 */
+  opencommission: function () {
+ 
+      var that = this;
+  
+      that.setData({
+        'viewModal.addtoComossionShow': true,
+        
+      })
+
+    WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
+
+    
+  },
+  bindKeyInputCommission: function (e) {
+    this.setData({
+      addToCommission: e.detail.value
+    })
+  },
+  /**追加 */
+  addcommission: function() {
+
+    // commissionPayUrl
+    var that = this;
+    var url = config.commissionPayUrl;
+    /**追加酬金 */
+    var addToCommission = that.data.addToCommission
+    if (addToCommission == '') {
+      wx.showToast({
+        title: '追加酬金为空',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
+    }
+    if (Number(addToCommission) !== NaN) {
+      wx.showToast({
+        title: '金额不正确',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function () { }
+      })
+      return false;
+    }
+    if (Number(addToCommission) == 0) {
+      wx.showToast({
+        title: '追加酬金为零',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
+    }
+    if (Number(addToCommission) < 0) {
+      wx.showToast({
+        title: '追加酬金小于零',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
+    }
+    var userid = that.data.userInfo.id
+    var prepaytype = 'B'
+    var requirementid = that.data.requirementId;
+    var upmarkid = that.data.initDetail.upmarkid;
+    var markid = that.data.initDetail.markid;
+
+    var dataInfo = {
+      "userid": userid,
+      "fee": addToCommission,
+      "prepaytype": prepaytype,
+      "requirementid": requirementid,
+      "upmarkid": upmarkid,
+      "markid": markid
+    }
+
+    rRequest.doRequest(url, dataInfo, that, function(rdata) {
+      if (rdata.info) {
+        wx.requestPayment({
+          timeStamp: rdata.info.timeStamp, //时间戳
+          nonceStr: rdata.info.nonceStr, //随机字符串
+          package: rdata.info.package, //统一下单接口返回的 prepay_id 参数值
+          signType: rdata.info.signType, //签名算法
+          paySign: rdata.info.paySign, //签名
+          success: function(res) {
+
+            wx.showToast({
+              title: '追加成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+
+
+          },
+          fail: function(res) {
+
+          },
+          complete: function(res) {
+
+          }
+        })
+
+      }
+
+
+    })
+
+
   },
   /**转发蒙板 */
   forwardfriend: function() {

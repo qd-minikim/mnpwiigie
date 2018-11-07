@@ -118,7 +118,7 @@
           <view class="gap-line" style="flex-direction:column;"></view>
         </block>
         <view style='width:49%'>
-          <view class='home-6-2-1' style="flex-direction:row;display:flex;">
+          <view catchtap='rqtjShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}' class='home-6-2-1' style="flex-direction:row;display:flex;">
             <view class='home-6-2-1-1' style='flex-direction:column;flex:1;position:relative'>
               <view class='home-6-2-1-1-1 font-size-6 view-ellipsis-2'>{{item.title}}</view>
 

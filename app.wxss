@@ -10,7 +10,7 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
   font-family: Microsoft YaHei;
-  
+   
 
 }
 
@@ -163,6 +163,7 @@
 .bg-6{
 	border:1px solid #ed2847;
 	background-color: #ed2847;
+ 
 }
 .bg-8{
 	border:1px solid #7c8286;
