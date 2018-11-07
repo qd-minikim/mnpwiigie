@@ -25,7 +25,7 @@
 
   </view>
   <view class='b-view-5  '>
-    <view class='font-size-5 font-color-4' style='margin:5rpx 15rpx;'>
+    <view class='font-size-6 font-color-4' style='margin:5rpx 15rpx;'>
       {{configMsgInfo.BIND_MSG}}
     </view>
   </view>
