@@ -11,7 +11,7 @@
       <view style='flex-direction:row;display:flex'>
         <view>
           <block wx:if="{{initPagaInfo.isbunding =='0'}}">
-            <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-4 font-size-8 font-color-4'>已绑定</view>
+            <view   style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-4 font-size-8 font-color-4'>{{initPagaInfo.merchantbrandname}}</view>
           </block>
           <block wx:else>
             <view catchtap='bundingPage' style='border-radius:20rpx;padding:5rpx 10rpx;' class='bg-0 font-size-8 font-color-10'>绑定商户账号</view>
@@ -108,16 +108,17 @@
         <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
       </view> -->
       </view>
-      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftrecelist'>
-        <view>
+      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap=''>
+       
+      </view>
+      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftrecelist'  >
+
+ <view>
           <image src='/image/figure_101.png' class='pagemy-view-figure'></image>
         </view>
         <view class='font-size-6' style='flex:1'>我收的礼</view>
-        <!-- <view>
-        <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
-      </view> -->
-      </view>
-      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='' data-type='giftgivelist'>
+       
+
 
       </view>
     </view>

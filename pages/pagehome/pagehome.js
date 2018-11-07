@@ -34,11 +34,13 @@ Page({
       //home-5
       home5Text1: '~好友的洞察~',
       home5Array: [],
+      home5Selected:false,
       //home-6
       home6Text1: '-人气推荐-',
       home6Array: []
     },
-
+    /**msg配置信息 */
+    configMsgInfo: {},
 
     /**用户信息 */
     userInfo: {},
@@ -72,6 +74,8 @@ Page({
       this.getFriendsActive();
       //人气推荐
       this.getPopularity();
+      //配置信息
+      this.getConfigMsgInfo()
     }
 
   },
@@ -113,49 +117,79 @@ Page({
     wx.switchTab({
       url: '/pages/pagegoods/pagegoods',
     })
-  
+
 
   },
 
   //获取swiper 图片
-  homepageCarousel: function () {
+  homepageCarousel: function() {
     var that = this;
-   
+
     var url = config.requestUrl;
-    
+
     var data = {
       code_: 'x_getImageInfo',
-      "imagetype":"homepage_carousel"
+      "imagetype": "homepage_carousel"
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
-      if (rdata.infolist){
-          that.setData({
+      if (rdata.infolist) {
+        that.setData({
 
-            'defaultInfo.swiperImgUrls': rdata.infolist
-          })
-        }
+          'defaultInfo.swiperImgUrls': rdata.infolist
+        })
+      }
 
     })
 
   },
   //点击banner进入web-view页面
-  webPage: function (e) {
+  webPage: function(e) {
 
-    var  path = e.currentTarget.dataset.webpath
+    var path = e.currentTarget.dataset.webpath
     wx.navigateTo({
       url: '/page/component/pages/pageweb/pageweb?webpath=' + path,
-    }) 
+    })
 
 
   },
   //点击头像进入 我的
-  mypage: function (e) {
- 
+  mypage: function(e) {
+
     wx.switchTab({
       url: '/pages/pagemy/pagemy',
     })
 
+
+  },
+  /**获取配置描述 */
+  getConfigMsgInfo: function() {
+    var that = this;
+    var url = config.requestUrl;
+    var values = [{
+        code: 'FDYNAMIC_MSG',
+        replace: []
+      }
+
+    ];
+
+
+    var data = {
+      code_: 'x_getConfigMsgInfo',
+      /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
+      values: values
+    }
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
+      if (rdata.info) {
+
+        that.setData({
+          configMsgInfo: rdata.info,
+
+        })
+
+      }
+
+    });
 
   },
   //获取好友动态
@@ -179,7 +213,8 @@ Page({
 
 
         that.setData({
-          home5Array: rdata.infolist
+          home5Array: rdata.infolist,
+          home5Selected:true,
         })
 
         var actiontyArr = [];
@@ -240,7 +275,7 @@ Page({
   },
 
   //人气推荐-详情
-  
+
   rqtjShowDetail: function(event) {
     var that = this;
 
@@ -251,5 +286,5 @@ Page({
 
 
   },
-  
+
 })

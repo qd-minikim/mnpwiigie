@@ -102,9 +102,26 @@
   <view style='width:100%'>
     <view class="home-5" style="flex-direction:column;">
       <view class="home-5-1 font-size-4 font-color-4">{{defaultInfo.home5Text1}}</view>
+
+
       <view class="gap-line" style="flex-direction:column;"></view>
-      <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+      <block wx:if="{{home5Array.length>0}}">
+        <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+      </block>
+      <block wx:if="{{home5Selected && home5Array.length<=0}}">
+
+        <view class="home-5-1 font-size-6 font-color-4">
+
+          {{configMsgInfo.FDYNAMIC_MSG}}
+        </view>
+      </block>
+
     </view>
+
+
+
+
+
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
   <!-- 人气推荐 -->

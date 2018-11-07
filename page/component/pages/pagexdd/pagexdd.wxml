@@ -619,8 +619,8 @@
       </view>
 
       <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
-        <view class='font-size-7'>库存:{{requirementInfo.keep_storage}}</view>
-        <view class='font-size-6'>补库存</view>
+        <view class='font-size-7 font-color-2'>库存:{{requirementInfo.keep_storage}}</view>
+        <view class='font-size-6 font-color-2'>补库存</view>
       </view>
 
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
