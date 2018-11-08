@@ -99,7 +99,7 @@
 
   </block>
   <block wx:if="{{searched && orderbuyArray.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>
@@ -159,7 +159,7 @@
 
   </block>
   <block wx:if="{{searched && ordergiftArray.length==0}}">
-    <view class='ordergift-view font-size-4'>
+    <view class='ordergift-view font-size-6'>
       还没有数据
     </view>
   </block>

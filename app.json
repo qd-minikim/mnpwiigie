@@ -93,5 +93,8 @@
       }
     ],
     "position": "bottom"
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx1edf489cb248852c"
+  ]
 }

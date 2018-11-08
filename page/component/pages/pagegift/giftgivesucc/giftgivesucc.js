@@ -267,48 +267,48 @@ Page({
     var that = this;
     var url = config.requestUrl;
 
-    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname);
+    var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.to_person_nickname);
     var values = [{
         code: 'PROCESS_0',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_1',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_2',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_21',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_22',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_23',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'PROCESS_99',
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }, {
         code: 'FORWARD_TIP', //模板信息
@@ -320,7 +320,7 @@ Page({
         code: 'GIFT_FORWARD_TIT', //分享时的title
         replace: [{
           regexp: 'nickname',
-          replacement: fUserNickname
+          replacement: tUserNickname
         }]
       }
 

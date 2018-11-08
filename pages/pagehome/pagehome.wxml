@@ -110,7 +110,7 @@
         <block wx:if="{{home5Count>8}}">
           <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
 
-            <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%'>查看更多</button>
+            <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;'>查看更多</button>
           </view>
 
         </block>
