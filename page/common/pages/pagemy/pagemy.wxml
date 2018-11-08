@@ -361,7 +361,7 @@
         <view class='font-size-7'>{{item.service_type_name}}</view>
       </view>
       <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='customer-view-2 '>
+      <view class='customer-view-2 '   >
         <view class='align-center'>
           <image class='customer-view-2-1-image' src='{{item.image_url}}'></image>
         </view>
@@ -381,7 +381,7 @@
         </view>
       </view>
       <view class="gap-line" style="flex-direction:column;"></view>
-      <view class='customer-view-3 align-center'>
+      <view catchtap='servdetaPage'  data-serviceid='{{item.id}}' class='customer-view-3 align-center'>
         <view class='align-center'>
           <view style='padding:2rpx 8rpx;margin:2rpx 10rpx;border:1rpx dashed #ccc' class='font-size-6'>{{item.service_status_name}}</view>
         </view>

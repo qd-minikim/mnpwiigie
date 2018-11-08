@@ -37,7 +37,7 @@ Page({
     }
     var orderid = options.o
     that.setData({
-      orderid: orderid
+      orderid: orderid//'1537499430418714'
     })
 
     that.getOrderDetail();
@@ -123,7 +123,19 @@ Page({
               })
 
             }
-            if (customerServiceStatus == 0) {
+            else if (customerServiceStatus == 0) {
+              wx.showModal({
+                title: '提示',
+                content: '不支持售后服务',
+                // confirmText:'',
+                showCancel: false,
+                success: function () {
+
+                }
+              })
+
+            }
+           else  if (customerServiceStatus == 3) {
               wx.navigateTo({
 
                 url: '/page/component/pages/pagemy/customserv/servdeta/servdeta?s=' + csId,
@@ -131,7 +143,7 @@ Page({
               })
 
             }
-            if ('1,2,9'.indexOf(customerServiceStatus) > -1) {
+            else if('1,2,9'.indexOf(customerServiceStatus) > -1) {
 
               wx.navigateTo({
 
@@ -169,7 +181,7 @@ Page({
       }
 
 
-      if (orderType == '3') {
+      else if (orderType == '3') {
 
         var orderDstip = that.data.configMsgInfo.ORDER_DSTIP;
         wx.showModal({

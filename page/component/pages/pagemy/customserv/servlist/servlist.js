@@ -28,7 +28,7 @@ Page({
     itemsPerPage: 10,
     servlistEndRow_0: 0,
     servlistAllRows_0: 0,
-    
+
 
     servlistEndRow_1: 0,
     servlistAllRows_1: 0,
@@ -53,7 +53,7 @@ Page({
       })
     }
 
-    this.getOrdersInfo()
+    this.getCusServApplys()
 
 
     wx.hideShareMenu();
@@ -161,14 +161,14 @@ Page({
       var servlistsearched_0 = that.data.servlistsearched_0;
 
       if (!servlistsearched_0) {
-         that.getOrdersInfo()
+        that.getCusServApplys()
       }
     }
     if (currentTab == '1') {
       var servlistsearched_1 = that.data.servlistsearched_1;
 
       if (!servlistsearched_1) {
-         that.getOrdersInfo()
+        that.getCusServApplys()
       }
     }
   },
@@ -188,7 +188,7 @@ Page({
       })
     }
   },
-  getOrdersInfo: function() {
+  getCusServApplys: function() {
 
     var that = this;
     var currentTab = that.data.currentTab;
@@ -217,17 +217,19 @@ Page({
     }
     var url = config.requestUrl;
 
-    var userid = that.data.userInfo.id
+    var userid =  that.data.userInfo.id
     var data = {
-      code_: 'x_getMyOrders',
+      code_: 'x_getCusServApply', //x_getMyOrders getCustomerServiceApply
       userid: userid,
-      endRow: endRow,
-      itemsPerPage: itemsPerPage,
-      orderType: currentTab
+      "endRow": endRow,
+      "itemsPerPage": itemsPerPage,
+      "userid": userid,
+      "pageType": currentTab
+
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-       
+
       if (rdata.infolist) {
 
         if (currentTab == '0') {
@@ -269,6 +271,24 @@ Page({
       wx.hideLoading();
 
     })
+  },
+  /**售后详情 */
+  servdetaPage: function (event) {
+    var serviceId = event.currentTarget.dataset.serviceid;
+    wx.navigateTo({
+
+      url: '/page/component/pages/pagemy/customserv/servdeta/servdeta?s=' + serviceId,
+
+    })
+
+  },
+  /**进度详情(暂时没用，) */
+  servjdPage: function (event) {
+    var serviceId = event.currentTarget.dataset.serviceid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/customserv/servjd/servjd?s=' + serviceId,
+    })
+
   },
   /**售后申请 */
   servapply: function(e) {
