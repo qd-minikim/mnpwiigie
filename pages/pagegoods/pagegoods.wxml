@@ -3,17 +3,17 @@
 <import src="../../page/common/pages/pagegood/pagegood.wxml" />
 <view class='container ' style="flex-direction:column;display:flex; ">
   <!-- 导航选择 -->
-  <view wx:if="{{promotiontagArry.length>0}}" class='align-center view_1' style="flex-direction:row;display:flex; ">
+  <view wx:if="{{promotiontagArry.length>0}}" class='align-center view_1' style="flex-direction:row;display:flex;  ">
     <scroll-view class="view_1_scroll-view" scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
       <view class='view_1_1' style='align-items:center;flex-direction:row;display:flex; '>
 
 
-        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color font-size-5'  >
-             <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
+        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color font-size-5'>
+          <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
         </view>
-        <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height font-size-5 ' >
-        <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
-         
+        <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height font-size-5 '>
+          <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
+
         </view>
 
         <block wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
@@ -54,10 +54,9 @@
     </scroll-view>
 
   </view>
- 
-  <scroll-view style='height:{{scrollViewHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
-    <template is="pagegood" data="{{goodsArry,imageSize}}"/>
+  <scroll-view style='height:{{scrollViewHeight}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+  
+    <template is="pagegood" data="{{goodsArry,imageSize,goodsSelected}}" />
   </scroll-view>
-
 </view>
