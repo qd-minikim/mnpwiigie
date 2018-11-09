@@ -49,7 +49,7 @@
     </scroll-view>
   </block>
   <block wx:if="{{!wayBillInfo.waybilllist}}">
-    <view class='waybill-view-3 font-size-4'> {{msg}}</view>
+    <view class='waybill-view-3 font-size-6'> {{wayBillInfo.waybillmsg}}</view>
   </block>
 
 

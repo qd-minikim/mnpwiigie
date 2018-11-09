@@ -29,6 +29,7 @@ Page({
 
     windowWidth: app.globalData.systemInfo.windowWidth,
     screenWidth: app.globalData.systemInfo.screenWidth,
+    screenHeight: app.globalData.systemInfo.screenHeight,
     windowHeight: app.globalData.systemInfo.windowHeight,
     scrollViewHeight: 0,
     imageSize: app.globalData.systemInfo.screenWidth,
@@ -69,13 +70,16 @@ Page({
    */
   onReady: function() {
 
-    var windowWidth = this.data.screenWidth
+    // var windowWidth = this.data.screenWidth
+    var windowWidth = app.globalData.systemInfo.windowWidth
+
+    var windowHeight = app.globalData.systemInfo.windowHeight
     var percent = windowWidth / 750
     var viewTagHeight = 100 * percent
 
     this.setData({
 
-      scrollViewHeight: (this.data.windowHeight - viewTagHeight - 5) + "px"
+      scrollViewHeight: (windowHeight - viewTagHeight * 2 - 5 * 2) + "px"
     })
     wx.hideShareMenu();
   },
