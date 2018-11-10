@@ -154,7 +154,8 @@
 	background-color: #f4f5f6;
 }
 .bg-4{
-	background-color: #e4e5e4;
+	border:1px solid #e4e5e4;
+  	background-color: #e4e5e4;
 }
 .bg-5{
 	background-color: #f9f9f9;
@@ -192,6 +193,12 @@
 	border:1px solid #e33ff7;
 	background-color: #e33ff7;
 }
+.bg-16{
+	border:1px solid #fb4949;
+	background-color: #fb4949;
+ 
+}
+
 
 /* 超出范围省略号显示 */
 

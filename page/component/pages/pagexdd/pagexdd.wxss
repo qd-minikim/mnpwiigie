@@ -225,15 +225,16 @@
 /* 下单（禁止操作：例如无货 下线 等） */
 
 .bottom-xd-u {
-  background-color: #fd4343;
-  color: #f6f4f4;
+  background-color: #c3c1c1;
+  color: #ebe9e9;
+  
 }
-
+/**送礼*/
 .bottom-sl {
   background-color: #e33ff7;
   color: #f6f4f4;
 }
-
+/*推荐*/
 .bottom-tj {
   background-color: #62b900;
   color: #f6f4f4;

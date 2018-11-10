@@ -178,27 +178,42 @@ cancelConfirm:function(){
       userId: userid,
     }
     rRequest.doRequest(url, data, that, function(rdata) {
+      if (rdata.status =='1'){
 
-      wx.setStorage({
-        key: "refresh",
-        data: "1",
-      })
-      wx.showToast({
-        title: '取消成功',
-        image: '/image/icon_ok.png',
-        duration: 2000,
-        success: function() {
+        wx.setStorage({
+          key: "refresh",
+          data: "1",
+        })
+        wx.showToast({
+          title: '取消成功',
+          image: '/image/icon_ok.png',
+          duration: 2000,
+          success: function () {
 
 
-        }
-      })
-      setTimeout(function() {
+          }
+        })
+        setTimeout(function () {
 
-        wx.navigateBack({
-          delta: 1,
+          wx.navigateBack({
+            delta: 1,
+          })
+
+        }, 1500)
+      }else{
+
+        
+        wx.showToast({
+          title: rdata.msg,
+          image: '/image/icon_ok.png',
+          duration: 2000,
+          success: function () {
+
+          }
         })
 
-      }, 1500)
+      }
+      
 
 
     })

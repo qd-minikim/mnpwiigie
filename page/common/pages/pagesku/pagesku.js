@@ -35,107 +35,125 @@
      var storage = that.data.myOrderInfo.mySkuInfo.storage;
      var minCopies = that.data.spuInfo.spuinfo.min_copies;
      var maxCopies = that.data.spuInfo.spuinfo.max_copies;
+     var available = that.data.myOrderInfo.mySkuInfo.available_status;
 
-     if (Number(storage) < Number(minCopies)) {
+
+     if (available != '0') {
        that.setData({
 
-         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
          'myOrderInfo.sureBtn.btnDisabled': true,
-         'myOrderInfo.sureBtn.btnTipMsg': '库存小于限购'
+         'myOrderInfo.sureBtn.btnTipMsg': '已下架'
        })
 
-     } else if (Number(storage) == Number(minCopies)) {
 
-       if (Number(newOrderCopies) > Number(storage)) {
+     } else {
+       if (Number(storage) < Number(minCopies)) {
          that.setData({
 
            // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
            'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
+           'myOrderInfo.sureBtn.btnTipMsg': '库存小于限购'
          })
 
-       } else if (Number(newOrderCopies) < Number(storage)) {
-         that.setData({
+       } else if (Number(storage) == Number(minCopies)) {
 
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
-         })
+         if (Number(newOrderCopies) > Number(storage)) {
+           that.setData({
 
-       } else if (Number(newOrderCopies) == Number(storage)) {
-         that.setData({
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
+           })
 
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': false,
-           'myOrderInfo.sureBtn.btnTipMsg': ''
-         })
+         } else if (Number(newOrderCopies) < Number(storage)) {
+           that.setData({
 
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+           })
+
+         } else if (Number(newOrderCopies) == Number(storage)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': false,
+             'myOrderInfo.sureBtn.btnTipMsg': ''
+           })
+
+         }
+
+       } else if (Number(storage) > Number(minCopies) && Number(storage) <= Number(maxCopies)) {
+
+         if (Number(newOrderCopies) < Number(minCopies)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+           })
+
+         } else if (Number(newOrderCopies) > Number(storage)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
+           })
+
+         } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(storage)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': false,
+             'myOrderInfo.sureBtn.btnTipMsg': ''
+           })
+
+         }
+
+       } else if (Number(storage) > Number(maxCopies)) {
+
+         if (Number(newOrderCopies) < Number(minCopies)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
+           })
+
+         } else if (Number(newOrderCopies) > Number(maxCopies)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
+           })
+
+         } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(maxCopies)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': false,
+             'myOrderInfo.sureBtn.btnTipMsg': ''
+           })
+
+         } else if (Number(newOrderCopies) > Number(storage)) {
+           that.setData({
+
+             // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+             'myOrderInfo.sureBtn.btnDisabled': true,
+             'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
+           })
+
+         }
        }
 
-     } else if (Number(storage) > Number(minCopies) && Number(storage) <= Number(maxCopies)) {
-
-       if (Number(newOrderCopies) < Number(minCopies)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
-         })
-
-       } else if (Number(newOrderCopies) > Number(storage)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
-         })
-
-       } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(storage)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': false,
-           'myOrderInfo.sureBtn.btnTipMsg': ''
-         })
-
-       }
-
-     } else if (Number(storage) > Number(maxCopies)) {
-
-       if (Number(newOrderCopies) < Number(minCopies)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买小于限购'
-         })
-
-       } else if (Number(newOrderCopies) > Number(maxCopies)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买大于限购'
-         })
-
-       } else if (Number(newOrderCopies) >= Number(minCopies) && Number(newOrderCopies) <= Number(maxCopies)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': false,
-           'myOrderInfo.sureBtn.btnTipMsg': ''
-         })
-
-       } else if (Number(newOrderCopies) > Number(storage)) {
-         that.setData({
-
-           // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
-           'myOrderInfo.sureBtn.btnDisabled': true,
-           'myOrderInfo.sureBtn.btnTipMsg': '购买大于库存'
-         })
-
-       }
      }
+
+
+
+
+
 
 
    }
@@ -157,7 +175,7 @@
      that.setData({
        'spuInfo.spuname': spunamelist
      })
- 
+
      if (inde == 0) {
 
        for (var n = 0; n < spunamelist[inde].skuspecvalues.length; n++) {
@@ -175,7 +193,7 @@
        var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
      } else {
-     
+
 
        for (var n = 0; n < spunamelist[inde].skuspecvalues.length; n++) {
          if (n != vindex) {
@@ -191,17 +209,17 @@
          }
 
        }
-       var lastSelectSkuId ='';
-       for (var m = 0; m < spunamelist[inde-1].skuspecvalues.length; m++) {
-       
+       var lastSelectSkuId = '';
+       for (var m = 0; m < spunamelist[inde - 1].skuspecvalues.length; m++) {
+
          var v = spunamelist[inde - 1].skuspecvalues[m];
 
-           if (v.currentstatus == 'selected') {
+         if (v.currentstatus == 'selected') {
 
-             lastSelectSkuId = v.sku_id
+           lastSelectSkuId = v.sku_id
 
-           }  
-         
+         }
+
        }
        var selectSkuId = new Array();
        if (lastSelectSkuId.indexOf(",") >= 0) {
@@ -209,16 +227,15 @@
        } else {
          selectSkuId.push(lastSelectSkuId);
        }
-
-      //  var selectSkuId = that.data.myOrderInfo.selectSkuId;
+ 
        var intersect = '';
-       if(arr.length ==1){
+       if (arr.length == 1) {
 
          intersect = arr;
-       }else{
+       } else {
          intersect = this_.intersect(arr, selectSkuId);
        }
-       
+
        that.setData({
          'myOrderInfo.selectSkuId': intersect,
          'spuInfo.spuname': spunamelist
@@ -270,24 +287,51 @@
 
      if (selectSkuId.length == 1) {
        that.setData({
-
-         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+ 
          'myOrderInfo.sureBtn.btnDisabled': false,
-           'myOrderInfo.sureBtn.btnTipMsg': '确定'
+         'myOrderInfo.sureBtn.btnTipMsg': '确定'
        })
 
-       var orderCopies = that.data.myOrderInfo.orderCopies;
-       uppdateCopies.canBuyCopies(that, orderCopies);
+      //  var orderCopies = that.data.myOrderInfo.orderCopies;
+      //  uppdateCopies.canBuyCopies(that, orderCopies);
 
-     }else{
+     } else {
 
        that.setData({
-
-         // 'myOrderInfo.sureBtn.btntext': 'newOrderCopies',
+ 
          'myOrderInfo.sureBtn.btnDisabled': true,
-          'myOrderInfo.sureBtn.btnTipMsg': '请选择规格'
+         'myOrderInfo.sureBtn.btnTipMsg': '请选择规格'
        })
      }
+
+     var selectSkuId = that.data.myOrderInfo.selectSkuId;
+
+
+     if (selectSkuId.length == 1) {
+
+       var skuinfo = that.data.spuInfo.skuinfo;
+       var ind = 0;
+
+       for (var m = 0; m < skuinfo.length; m++) {
+         var skuId = skuinfo[m].id;
+         if (skuId == selectSkuId[0]) {
+
+           that.setData({
+             'myOrderInfo.mySkuInfo': skuinfo[m]
+           })
+ 
+           break;
+         }
+
+       }
+       var orderCopies = that.data.myOrderInfo.orderCopies;
+       uppdateCopies.canBuyCopies(that, orderCopies);
+     }
+      
+
+   },
+
+   sureBtn: function(that) {
 
      var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
@@ -311,61 +355,8 @@
        }
 
      }
-    //  var selectSkuId = that.data.myOrderInfo.selectSkuId;
 
-
-    //  if (selectSkuId.length ==1){
-
-    //    var skuinfo = that.data.spuInfo.skuinfo;
-    //     var ind = 0;
-
-    //     for(var m=0;m<skuinfo.length;m++){
-    //         var  skuId = skuinfo[m].id;
-    //       if (skuId == selectSkuId[0] ){
-
-    //         that.setData({
-    //           'myOrderInfo.mySkuInfo': skuinfo[m]
-    //         })
-
-    //         return false;
-    //       }
-             
-    //     }
- 
-    //  }
-     
- //    var orderCopies = that.data.myOrderInfo.orderCopies;
-    //    uppdateCopies.canBuyCopies(that, orderCopies);
-     
-  
    },
-
-   sureBtn: function (that){
-
-    var selectSkuId = that.data.myOrderInfo.selectSkuId;
-
-
-    if (selectSkuId.length == 1) {
-
-      var skuinfo = that.data.spuInfo.skuinfo;
-      var ind = 0;
-
-      for (var m = 0; m < skuinfo.length; m++) {
-        var skuId = skuinfo[m].id;
-        if (skuId == selectSkuId[0]) {
-
-          that.setData({
-            'myOrderInfo.mySkuInfo': skuinfo[m]
-          })
-
-          return false;
-        }
-
-      }
-
-    }
-
-  },
 
    /**点击选择时，每次都取交集 */
    intersect: function(a, b) {
@@ -381,5 +372,5 @@
  module.exports = {
    uppdateCopies: uppdateCopies,
    selectSpuSku: selectSpuSku
- 
+
  }

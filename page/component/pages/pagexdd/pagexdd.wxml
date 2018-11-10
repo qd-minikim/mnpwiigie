@@ -582,13 +582,13 @@
         </view>
         <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
       </view>
-      <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap='order'>
-        <view class='font-size-5'>下单</view>
+      <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap="{{ fixedBottom.xdClick?'order':''}}">
+        <view class='font-size-5'>{{fixedBottom.xdText}}</view>
       </view>
-      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='gift'>
-        <view class='font-size-5'>送礼</view>
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%'  catchtap="{{ fixedBottom.slClick?'gift':''}}">
+        <view class='font-size-5'>{{fixedBottom.slText}}</view>
       </view>
-      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+      <view  class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
           <view style='flex-direction:column;display:flex;; height:100%'>

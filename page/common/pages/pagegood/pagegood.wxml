@@ -7,7 +7,7 @@
         <image style='width:{{imageSize}}px;height:{{imageSize}}px' lazy-load='true' src='{{itemG.richtextcover}}'></image>
 
         <!-- 仅存 -->
-        <view style='position:absolute;bottom:12.5%;border-top-right-radius:50px ;border-bottom-right-radius:50px;padding: 5rpx 10rpx' class='font-size-6 font-color-2 bg-8'>{{itemG.sellcount}}</view>
+        <view style='position:absolute;bottom:12.5%;border-top-right-radius:50px ;border-bottom-right-radius:50px;padding: 5rpx 10rpx' class='font-size-6 font-color-2 bg-8'>仅存{{itemG.keep_storage}}件</view>
       </view>
       <view class='font-size-3 view-ellipsis-1'>{{itemG.title}}</view>
       <view class='font-size-7  align-r-center' style='flex-direction:row;display:flex'>
@@ -31,7 +31,19 @@
               <image wx:for="{{itemG.my_friends}}" wx:for-item="itemi" wx:key="*this" class="scroll-view-friend-image" src='{{itemi.friend_image_url}}'></image>
             </view>
 
-            <view class='align-center scroll-view-figure4 bg-figure4-image font-size-6 ' s>{{itemG.link_price_name}}</view>
+            <block wx:if="{{itemG.deal_type=='0'}}">
+              <view class='align-center scroll-view-figure4 bg-16 font-color-2 font-size-6 '>{{itemG.link_price_name}}</view>
+
+            </block>
+            <block wx:else>
+              <block wx:if="{{itemG.keep_storage<=0}}">
+                <view class='align-center scroll-view-figure4 bg-4 font-color-4 font-size-6 '>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='align-center scroll-view-figure4 bg-16 font-color-2 font-size-6 '>{{itemG.link_price_name}}</view>
+              </block>
+            </block>
+
 
           </view>
         </view>

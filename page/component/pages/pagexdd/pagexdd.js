@@ -109,9 +109,16 @@ Page({
       twoGridWidth: 0,
       gridNums: 8, //下单 送礼 推荐给 占用两个 首页或客服的 空间
 
-      xdClassName: 'bottom-xd',
-      slClassName: 'bottom-sl',
-      tjClassName: 'bottom-tj'
+      xdClassName: 'bottom-xd-u',
+      slClassName: 'bottom-xd-u',
+      tjClassName: 'bottom-tj',
+
+      xdText: '下单',
+      xdClick: false,
+      slText: '送礼',
+      slClick: false,
+
+
     },
 
     //
@@ -397,7 +404,7 @@ Page({
   hideSlideModal: function() {
     var that = this
     rUtils.slideModal.down(that, null, false);
-
+ 
   },
 
   imageYl: function(event) {
@@ -629,7 +636,12 @@ Page({
     var skuids = event.currentTarget.dataset.skuids;
     var vindex = event.currentTarget.dataset.vindex;
     pagekskujs.selectSpuSku.doSelectSpuSku(skuindex, vindex, skuids, that)
+
+    that.orderBtn()
   },
+
+
+
   /**点击确认按钮 */
   sureSelect: function() {
     var that = this
@@ -652,6 +664,12 @@ Page({
       ordertype: orderType,
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
     }
+
+    if (orderType == '1') { 
+
+      that.orderBtn()
+    }
+
 
     if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       app.globalData.orderData = orderData
@@ -719,7 +737,6 @@ Page({
 
           for (var i = 0; i < spuname.length; i++) {
 
-
             for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
               var dataskuids = spuname[i].skuspecvalues[x].sku_id;
 
@@ -738,6 +755,7 @@ Page({
 
         }
 
+        that.orderBtn()
         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
       }
@@ -748,6 +766,59 @@ Page({
 
   },
 
+
+  orderBtn: function() {
+    var that = this;
+    var available = that.data.myOrderInfo.mySkuInfo.available_status;
+
+    var storage = that.data.requirementInfo.keep_storage;
+
+   
+    if (available != '0') {
+
+      that.setData({
+
+        'fixedBottom.xdClassName': 'bottom-xd-u',
+        'fixedBottom.xdText': '已下架',
+        'fixedBottom.xdClick': false,
+
+        'fixedBottom.slClassName': 'bottom-xd-u',
+        'fixedBottom.slText': '已下架',
+        'fixedBottom.slClick': false,
+      })
+
+    } else {
+      if (Number(storage) <= 0) {
+
+        that.setData({
+
+          'fixedBottom.xdClassName': 'bottom-xd-u',
+          'fixedBottom.xdText': '已售罄',
+          'fixedBottom.xdClick': false,
+
+          'fixedBottom.slClassName': 'bottom-xd-u',
+          'fixedBottom.slText': '已售罄',
+          'fixedBottom.slClick': false,
+        })
+      } else {
+        that.setData({
+
+          'fixedBottom.xdClassName': 'bottom-xd',
+          'fixedBottom.xdText': that.data.requirementInfo.button_name,
+          'fixedBottom.xdClick': true,
+
+          'fixedBottom.slClassName': 'bottom-sl',
+          'fixedBottom.slText': '送礼',
+          'fixedBottom.slClick': true,
+        })
+
+      }
+
+
+
+    }
+
+  },
   /**获取sku */
   /**获取详情 */
   getRequirementDetail: function() {
@@ -767,11 +838,25 @@ Page({
       if (rdata.info) {
 
         that.setData({
-          requirementInfo: rdata.info
+          requirementInfo: rdata.info /**keep_storage */
 
         })
 
+
+
         if (rdata.info.requirement_person != usreId) {
+
+
+          that.setData({
+
+            'fixedBottom.xdClassName': 'bottom-xd-u',
+            'fixedBottom.xdText': that.data.requirementInfo.button_name,
+            'fixedBottom.xdClick': false,
+
+            'fixedBottom.slClassName': 'bottom-xd-u',
+            'fixedBottom.slText': '送礼',
+            'fixedBottom.slClick': false,
+          })
 
           that.getPcPromotionGroupOrderInfo()
 
