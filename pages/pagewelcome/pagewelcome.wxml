@@ -4,7 +4,7 @@ background-image: url('{{backgroundImage}}') -->
 <view class='container v-bgimage ' style="height:{{windowHeight}};;background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%">
 
   <view class='font-size-0 ' model='aspectFill' style='display:flex; justify-content:center; align-items:center;padding-top:30%'>
-    友托帮欢迎您
+    <text style='text-align:center'>{{configMsgInfo.WELCOME_MSG}}</text>
   </view>
 
   <view style='margin-top:50%'>

@@ -8,8 +8,9 @@ App({
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
-
     this.userLogin();
+
+   
   },
   globalData: {
     userInfo: null, //用户信息--wiigie
@@ -20,11 +21,9 @@ App({
     loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
-
-
+ 
     },
-
-
+    
     orderData: null,
     /**赋值在 pagexdd.js中 sureSelect //funtion */
     giftData: null,
@@ -66,9 +65,10 @@ App({
   },
   //获取设备信息
   getSystemInfo: function() {
+    var that = this
     wx.getSystemInfo({
       success: res => {
-        this.globalData.systemInfo = res
+        that.globalData.systemInfo = res
       },
       fail: res => {},
       complete: res => {},
@@ -265,6 +265,6 @@ App({
       });
     }
 
-  }
+  },
 
 })

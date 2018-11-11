@@ -3,7 +3,7 @@ const app = getApp()
 var config = require('../../config.js')
 var rRequest = require('../../utils/rRequest.js');
 var WXBizDataCrypt = require('../../utils/WXBizDataCrypt.js')
-
+var rCommon = require('../../utils/rCommon.js');
 
 Page({
 
@@ -12,15 +12,16 @@ Page({
    */
   data: {
     windowHeight: app.globalData.systemInfo.windowHeight + 'px',
-    backgroundImage: config.imageUrl + '/wiigie/background/bg_1/bg_image.jpg'
-
+    backgroundImage: config.imageUrl + '/wiigie/background/bg_1/bg_image.jpg',
+configMsgInfo:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // this.userLogin();
+    
+    this.getConfigMsgInfo();
   },
 
 
@@ -90,7 +91,35 @@ Page({
     })
   },
 
+  /**获取配置描述 */
+  getConfigMsgInfo: function () {
+    var that = this;
+    var url = config.requestUrl;
+    var values = [{
+      code: 'WELCOME_MSG',
+      replace: []
+    },
 
+    ];
+
+    var data = {
+      code_: 'x_getConfigMsgInfo',
+
+      values: values
+    }
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+      if (rdata.info) {
+          that.setData({
+
+            'configMsgInfo': rdata.info
+          })
+      
+
+      }
+
+    });
+
+  },
   /** 自定事件*/
 
   setAuthInfo: function(e) {

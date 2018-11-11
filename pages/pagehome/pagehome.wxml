@@ -1,6 +1,7 @@
 <import src="../../wxParse/wxParse.wxml" />
 <import src="../../page/common/pages/pagehydt/pagehydt.wxml" />
 <view class="container" style="flex-direction:column;">
+
   <view style="width:100%">
     <view class="home-1" style="flex-direction:row;">
       <view class="home-1-h">
@@ -147,11 +148,11 @@
             <view class='home-6-2-1-1' style='flex-direction:column;flex:1;position:relative'>
               <view class='home-6-2-1-1-1 font-size-6 view-ellipsis-2'>{{item.title}}</view>
 
-              <view class='home-6-2-1-1-2 ' style="position:absolute;flex-direction:row;display:flex; justify-content:flex-end ;bottom:0rpx;width:100%;">
-                <view style='flex:1;text-align:right;'>
+              <view class='home-6-2-1-1-2 align-r-center' style="position:absolute;flex-direction:row;display:flex; justify-content:flex-end ;bottom:0rpx;width:100%;">
+                <view class='align-r-center' style='flex:1;text-align:right;'>
                   <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-6-2-1-1-2-image" src='{{itemi.friend_image_url}}'></image>
                 </view>
-                <view>
+                <view class='align-r-center'>
 
                   <block wx:if="{{item.deal_type=='0'}}">
                     <view class='align-center home-6-2-1-1-2-view-figure4 bg-16 font-color-2  font-size-7 ' s>{{item.link_price_name}}
