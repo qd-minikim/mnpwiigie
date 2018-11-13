@@ -49,10 +49,10 @@ Page({
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
-      if (value && value == '1'  ) {
-  
+      if (value && value == '1') {
+
         that.initPaga();
-   
+
       }
     } catch (e) {
 
@@ -132,7 +132,7 @@ Page({
     })
   },
   /**售后申请 */
-  mycusservPage: function () {
+  mycusservPage: function() {
 
     wx.navigateTo({
       url: '/page/component/pages/pagemy/customserv/servlist/servlist',
@@ -163,21 +163,15 @@ Page({
     })
   },
 
-  /**客户服务 */
-  mydialogsPage: function() {
+
+  /**我送的的礼 */
+  giftgivelist: function(event) {
+    var ty = event.currentTarget.dataset.type;
 
     wx.navigateTo({
-      url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=',
+      url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
     })
-  },
-/**我送的的礼 */
-  giftgivelist: function (event) {
-    var ty = event.currentTarget.dataset.type;
-     
-      wx.navigateTo({
-        url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
-      })
-     
+
 
   },
 
@@ -192,12 +186,86 @@ Page({
 
   },
   /**商户绑定 */
-  bundingPage: function () {
+  bundingPage: function() {
 
     wx.navigateTo({
       url: '/page/component/pages/pagebing/pagebing',
     })
   },
+  /**客户服务 */
+  mydialogsPage: function() {
+
+    wx.navigateTo({
+      url: '/page/component/pages/pagedialog/dialoglist/dialoglist?r=',
+    })
+  },
+
+  /**商户信息 */
+  merchantPage: function() {
+    var that = this;
+    if (that.data.initPagaInfo.isbunding == '0') {
+
+      var pu = that.data.initPagaInfo.pcuserid
+
+      wx.navigateTo({
+        url: '/page/component/pages/pagemy/merchant/baseinfo/baseinfo?pu=' + pu,
+      })
+    } else {
+
+      wx.showToast({
+        title: '未绑定手机号',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+    }
+
+
+  },
+  /**粉丝互动 */
+  benefactorPage: function() {
+
+    var that = this;
+    if (that.data.initPagaInfo.isbunding == '0') {
+
+      var pu = that.data.initPagaInfo.pcuserid
+
+      wx.navigateTo({
+        url: '/page/component/pages/pagemy/merchant/benefactor/benefactor?pu=' + pu,
+      })
+    } else {
+
+      wx.showToast({
+        title: '未绑定手机号',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+    }
+  },
+  /**推广管理 */
+  promotionPage: function() {
+
+    
+    var that = this;
+    if (that.data.initPagaInfo.isbunding == '0') {
+
+      var pu = that.data.initPagaInfo.pcuserid
+
+      wx.navigateTo({
+        url: '/page/component/pages/pagemy/merchant/promotion/promotion?pu=' + pu,
+      })
+    } else {
+
+      wx.showToast({
+        title: '未绑定手机号',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function () { }
+      })
+    }
+  },
+
 
 
   initPaga: function() {
@@ -206,18 +274,22 @@ Page({
 
 
     var url = config.requestUrl;
-    var userid = that.data.userInfo.id 
+    var userid = that.data.userInfo.id
     var data = {
       code_: 'x_initMyPaga',
-      userid:userid
+      userid: userid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
         that.setData({
-          initPagaInfo: rdata.info
+          initPagaInfo: rdata.info,
+
         })
+
+
+
       }
 
     })

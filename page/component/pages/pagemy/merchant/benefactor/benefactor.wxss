@@ -1,0 +1,13 @@
+/* page/component/pages/pagemy/merchant/benefactor/benefactor.wxss */
+
+.view-1 {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx
+}
+
+.view-1-1 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+}

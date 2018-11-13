@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wxa95ca6d0de960e0d",
+	"appid": "wx1718994f5d471b54",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 42,
+			"current": 46,
 			"list": [
 				{
 					"id": -1,
@@ -295,6 +295,36 @@
 					"name": "订单取消",
 					"pathName": "page/component/pages/pageorder/ordercancel/ordercancel",
 					"query": "o="
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/pagemy/pagemy",
+					"query": ""
+				},
+				{
+					"id": 44,
+					"name": "商户信息",
+					"pathName": "page/component/pages/pagemy/merchant/baseinfo/baseinfo",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 45,
+					"name": "粉丝互动",
+					"pathName": "page/component/pages/pagemy/merchant/benefactor/benefactor",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 46,
+					"name": "推广管理",
+					"pathName": "page/component/pages/pagemy/merchant/promotion/promotion",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 47,
+					"name": "发起活动",
+					"pathName": "page/component/pages/pagemy/merchant/fqrequirement/fqrequirement",
+					"query": "pro=1533264330832852&rid=1542102251017843"
 				}
 			]
 		}

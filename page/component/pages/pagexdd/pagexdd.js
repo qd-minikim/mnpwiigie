@@ -323,7 +323,7 @@ Page({
     var fm = that.data.initDetail.fmarkid;;
     var r = that.data.requirementId;
     var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
-    var shareObj = {
+    return   {
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
       imageUrl: swiperImgUrls[0].imageUrl,
@@ -344,7 +344,14 @@ Page({
           "markid": markid
         }
         rRequest.doRequest(url, data, that, function(rdata) {
-
+          wx.showToast({
+            title: '分享成功',
+            image: '/image/icon_ok.png',
+            duration: 2000,
+            success: function () {
+  
+            }
+          })
           that.getProgressRouteInfo()
 
         })
@@ -357,9 +364,7 @@ Page({
 
 
     }
-
-    return shareObj;
-
+ 
   },
 
 
@@ -1370,30 +1375,30 @@ Page({
       'backpage': 'storage',
     })
   },
-  /**转发成功 */
-  forwardSuccess: function() {
-    var that = this;
-    var url = config.requestUrl;
+  // /**转发成功 */
+  // forwardSuccess: function() {
+  //   var that = this;
+  //   var url = config.requestUrl;
 
-    var userid = that.data.userInfo.id;
-    var requirementId = that.data.requirementId;
-    var upmarkid = that.data.initDetail.upmarkid;
-    var markid = that.data.initDetail.markid;
+  //   var userid = that.data.userInfo.id;
+  //   var requirementId = that.data.requirementId;
+  //   var upmarkid = that.data.initDetail.upmarkid;
+  //   var markid = that.data.initDetail.markid;
 
-    var data = {
-      code_: 'x_addForward',
-      userid: userid,
-      requirement_id: requirementId,
-      upmarkid: gr,
-      markid: gr,
+  //   var data = {
+  //     code_: 'x_addForward',
+  //     userid: userid,
+  //     requirement_id: requirementId,
+  //     upmarkid: gr,
+  //     markid: gr,
 
-    }
-    rRequest.doRequest(url, data, that, function(rdata) {
+  //   }
+  //   rRequest.doRequest(url, data, that, function(rdata) {
 
 
-    })
+  //   })
 
-  },
+  // },
   /**我要说 */
   addopinion: function(event) {
     var requirementId = this.data.requirementId;

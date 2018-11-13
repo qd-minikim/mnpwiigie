@@ -41,19 +41,16 @@
 
     </view>
 
-<view class='view-5'>
+    <view class='view-5'>
       <block wx:for="{{pics}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
         <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
-          <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{item}}' 
-          bindtap='selectImage' bindlongtap='deleimage' bindtouchstart="touchStart" bindtouchend="touchEnd"
-
-           data-index="{{index}}"  ></image> 
+          <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{item}}' bindtap='selectImage' bindlongtap='deleimage' bindtouchstart="touchStart" bindtouchend="touchEnd" data-index="{{index}}"></image>
 
         </view>
       </block>
 
       <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
-        <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='/image/figure_21.png'  data-index="-1"  catchtap='selectImage'></image>
+        <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='/image/figure_21.png' data-index="-1" catchtap='selectImage'></image>
       </view>
 
 
@@ -61,7 +58,7 @@
     </view>
 
 
-    
+
 
   </view>
 

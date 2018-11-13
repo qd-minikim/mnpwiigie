@@ -7,7 +7,6 @@
     "pages/logs/logs",
     "pages/index/index"
     
-   
   ],
   "subPackages": [
     {
@@ -58,7 +57,11 @@
         "pages/pageorder/orderdetail/orderdetail",
         "pages/pageorder/orderconfirm/orderconfirm",
         "pages/pageorder/ordercancel/ordercancel",
-        "pages/pagemy/hydtmore/hydtmore"
+        "pages/pagemy/hydtmore/hydtmore",
+        "pages/pagemy/merchant/baseinfo/baseinfo",
+        "pages/pagemy/merchant/benefactor/benefactor",
+        "pages/pagemy/merchant/promotion/promotion",
+        "pages/pagemy/merchant/fqrequirement/fqrequirement"
       ]
     }
   ],
