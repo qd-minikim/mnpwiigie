@@ -1,0 +1,56 @@
+/* page/component/pages/pagemy/selcarrier/selcarrier.wxss */
+ 
+.scarrier-view-1 {
+  flex-direction: row;
+  display: flex;
+  height: 80rpx;
+  width: 95%;
+}
+
+.scarrier-view-1-1 {
+  flex: 1;
+  position: relative;
+}
+
+.scarrier-view-1-1-figure {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: 10rpx;
+  top: 20rpx;
+}
+
+.scarrier-view-1-1-input {
+  padding-left: 55rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 15rpx;
+  height: 80rpx;
+}
+
+.scarrier-view-figure {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.scarrier-view-2 {
+  width: 95%;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  margin-top: 40%;
+}
+
+.scarrier-view-figure-2 {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+ .scarrier-view-3 {
+  flex-direction: column;
+  display: flex;
+  width: 95%;
+}
+ 
+
+

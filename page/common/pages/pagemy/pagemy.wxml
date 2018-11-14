@@ -543,7 +543,7 @@
       <view class='gap-bg'></view>
     </block>
 
-   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -598,7 +598,7 @@
       <view class='gap-bg'></view>
     </block>
 
-   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -643,4 +643,144 @@
 
   </block>
 
+</template>
+
+<!-- 订单处理 -->
+<!-- 待处理 -->
+<template name="dclorders">
+
+  <block wx:for="{{dclArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+    <block wx:if="{{inde>0}}">
+      <view class='gap-bg'></view>
+    </block>
+
+    <view class='' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+
+      <view class='align-center'>
+        <image style='width:150rpx;height:150rpx' src='{{item.image_url}}'></image>
+      </view>
+      <view class='' style='flex-direction:column;display:flex;margin-left:15rpx;flex:1'>
+        <view style='width:100%;text-align:left;flex-direction:row;display:flex;'>
+          <view class='align-r-center font-size-6 view-ellipsis-1' style=' line-height:40rpx ;text-align:left;flex:1'>{{item.requirement_title}}</view>
+          <view>
+            <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class='gap-line'></view>
+
+        <view class='  font-size-7 font-color-4' style=' margin:3rpx 0;width:100%;;text-align:left'>份数/总单数：{{item.num_buycopies}}份/{{item.num_orders}}笔</view>
+        <view class='  font-size-7 font-color-4' style='margin:3rpx 0; width:100%;;text-align:left'>待处理份数/单数：{{item.num_pending_buycopies}}份{{item.num_pending_orders}}笔</view>
+        <view class='  font-size-7 font-color-4' style='margin:3rpx 0; width:100%;;text-align:right;flex-direction:row;display:flex;'>
+          <view style='flex:1'></view>
+          <view style='margin:2rpx 5rpx'>
+            <button catchtap='surereceve' data-orderid='{{item.id}}' data-proid='{{item.promotion_id}}' data-reqid='{{item.requirement_id}}' data-recs='receiveSuccessL' data-detype='{{item.deal_type}}' data-deltype='{{item.delivery_type}}' data-lstatus='{{item.status_code}}'
+              class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+              <image style='width:32rpx;height:30rpx;' src='/image/figure_b_106.png'></image>
+              <view style='margin:0 5rpx;'>全部订单</view>
+            </button>
+          </view>
+        </view>
+
+      </view>
+    </view>
+    <block wx:if="{{item.ordersinfo && item.ordersinfo.length>0}}">
+      <block wx:for="{{item.ordersinfo}}" wx:key="" wx:for-index="indeo" wx:for-item="itemo">
+
+        <view class='gap-line'></view>
+        <view class='' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+          <view class='  font-size-7 font-color-4' style='flex-direction:column;display:flex;flex:1;margin-left:30rpx'>
+            <view style='flex-direction:row;display:flex;margin:5rpx 0'>
+              <view>订单编号：</view>
+              <view>{{itemo.orderid}}</view>
+            </view>
+
+            <block wx:if="{{itemo.delivery_type=='1'}}">
+              <view style='flex-direction:row;display:flex;;margin:5rpx 0'>
+                <view>订单份数/</view>
+                <view class='font-color-7'>待处理</view>
+                <view>：</view>
+                <view >{{itemo.buy_copies}}份/</view>
+                <view class='font-color-7'>{{itemo.pending_copies}}</view>
+
+                <view style='width:1em'></view>
+                <view>订单金额：</view>
+                <view>{{itemo.buy_cash}}元</view>
+              </view>
+
+            </block>
+
+            <block wx:if="{{itemo.delivery_type=='2'}}">
+              <view style='flex-direction:row;display:flex;;margin:5rpx 0'>
+                <view>订单份数：</view>
+                <view>{{itemo.buy_copies}}份</view>
+                <view style='width:1em'></view>
+                <view>订单金额：</view>
+                <view>{{itemo.buy_cash}}元</view>
+              </view>
+            </block>
+            <view style='flex-direction:row;display:flex;;margin:5rpx 0'>
+              <view>下单时间：</view>
+              <view>{{itemo.buy_datetime}}</view>
+            </view>
+          </view>
+          <block wx:if="{{itemo.delivery_type=='2'}}">
+            <view class='align-center' style='flex-direction:column;display:flex;'>
+
+              <block wx:if="{{itemo.logistics_status=='0'}}">
+                <view style='margin:2rpx 5rpx'>
+                  <button catchtap='doPhoneAddSendInfo' class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'
+                  data-title='{{item.requirement_title}}' data-username='{{itemo.order_username}}' data-phone='{{itemo.mobile_phone}}' data-addr='{{itemo.order_addr}}'
+                  >
+                    <view style='margin:0 5rpx;'>录入快递单</view>
+                  </button>
+                </view>
+              </block>
+              <block wx:if="{{itemo.logistics_status=='9'}}">
+                <view style='margin:2rpx 5rpx'>
+                  <button catchtap='surereceve' class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
+
+                    <view style='margin:0 5rpx;'>录入快递单</view>
+                  </button>
+                </view>
+              </block>
+
+            </view>
+          </block>
+        </view>
+      </block>
+    </block>
+
+    <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
+
+      <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;border-radius:0;line-height:2'>更多订单</button>
+    </view>
+
+  </block>
+  <block wx:if="{{dclsearched && dclArray.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      没有待处理的订单
+    </view>
+
+  </block>
+</template>
+<!-- 已处理 -->
+<template name="yclorders">
+
+  <block wx:for="{{yclArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+    <block wx:if="{{inde>0}}">
+      <view class='gap-bg'></view>
+    </block>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+
+
+
+
+    </view>
+  </block>
+  <block wx:if="{{yclsearched && yclArray.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      没有已处理的订单
+    </view>
+
+  </block>
 </template>

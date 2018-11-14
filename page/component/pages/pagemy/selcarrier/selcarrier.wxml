@@ -1,0 +1,31 @@
+<!--page/component/pages/pagemy/selcarrier/selcarrier.wxml-->
+ <!--page/component/pages/pageserch/serchlist/serchlist.wxml-->
+<import src="../../../../../wxParse/wxParse.wxml" />
+<import src="../../../../common/pages/pageserch/pageserch.wxml" />
+<view class='container ' style="flex-direction:column;display:flex; ">
+
+  <view class='scarrier-view-1'>
+    <view class='scarrier-view-1-1 font-size-7' style=';'>
+      <image class='scarrier-view-1-1-figure' src='/image/figure_27.png'></image>
+      <input class='scarrier-view-1-1-input' focus='true' maxlength='20' placeholder='检索快递公司' bindinput="bindKeyInput"></input>
+    </view>
+  </view>
+  <block wx:if="{{!isCarrier}}">
+    <view class='scarrier-view-2 '>
+      <view class='font-size-5 align-center'>{{isCarrierMsg}}</view>
+      <view class='align-center'>
+        <image class='scarrier-view-figure-2' src='/image/figure_28.png'></image>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{serchListA.length >0 ||serchListF.length >0}}">
+
+    <scroll-view class='scarrier-view-3' style='height:{{scrollView.height}}px'>
+   
+    </scroll-view>
+  </block>
+
+
+
+</view>

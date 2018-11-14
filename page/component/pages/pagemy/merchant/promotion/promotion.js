@@ -10,7 +10,7 @@ Page({
    */
   data: {
     /**tab */
-
+    pcuserid:'',
     currentTab: 0, // 0编辑中 1活动中 2冻结中 3已下线
     /** */
     swiperHeight: 0,
@@ -46,17 +46,23 @@ Page({
     //是否上拉更多
     isReachBottom: false,
     // /**用户信息 */
-    // userInfo: {},
-    // //hasUserInfo: false,
-    // userIData: false,
-    // userWxInfo: {},
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    userWxInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (app.globalData.userWxInfo) {
+      this.setData({
+        userWxInfo: app.globalData.userWxInfo,
+        userIData: app.globalData.userIData,
+        userInfo: app.globalData.userInfo,
+      })
+    }
 
     var pcuserid = options.pu;
 

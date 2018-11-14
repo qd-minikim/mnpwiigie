@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 46,
+			"current": 48,
 			"list": [
 				{
 					"id": -1,
@@ -325,6 +325,12 @@
 					"name": "发起活动",
 					"pathName": "page/component/pages/pagemy/merchant/fqrequirement/fqrequirement",
 					"query": "pro=1533264330832852&rid=1542102251017843"
+				},
+				{
+					"id": 48,
+					"name": "订单处理",
+					"pathName": "page/component/pages/pagemy/merchant/orderhandle/orderhandle",
+					"query": "pu=1528959768474228"
 				}
 			]
 		}
