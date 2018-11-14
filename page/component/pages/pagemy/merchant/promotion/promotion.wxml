@@ -40,8 +40,8 @@
   </swiper>
 
 
-  <view class='flex-bottom  '>
+  <!-- <view class='flex-bottom  '>
 
     <button class='font-size-5 align-center' type="default" catchtap='addRequirement' style='width:100%'>发起</button>
-  </view>
+  </view> -->
 </view>

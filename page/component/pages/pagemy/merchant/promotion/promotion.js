@@ -77,8 +77,8 @@ Page({
     var windowHeight = app.globalData.systemInfo.windowHeight
 
     var percent = windowWidth / 750
-
-    var swiperHeight = windowHeight - 80 * percent - 90 * percent
+//- 90 * percent
+    var swiperHeight = windowHeight - 80 * percent 
     this.setData({
 
       swiperHeight: swiperHeight + "px",
@@ -112,9 +112,9 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this;
-   
+
     var currentTab = that.data.currentTab;
-     
+
 
     if (currentTab == '0') {
       that.setData({
@@ -142,7 +142,7 @@ Page({
       })
     }
     that.setData({
-      
+
       isPullDownRefresh: true
     })
 
@@ -162,14 +162,14 @@ Page({
   onShareAppMessage: function() {
 
   },
-  scroll: function (e) {
+  scroll: function(e) {
 
   },
 
-  upper: function (e) {
+  upper: function(e) {
 
   },
-  lower: function (e) {
+  lower: function(e) {
     this.setData({
       isReachBottom: true
     })
@@ -358,6 +358,31 @@ Page({
 
   },
 
+  showdetail: function(e) {
+
+    var upmarkid = e.currentTarget.dataset.upmarkid;
+    var requirementid = e.currentTarget.dataset.id;
+    var progressstatus = e.currentTarget.dataset.progress;
+
+    if (progressstatus == '4') {
+
+      // $("#endRow").val("0");
+      // window.location.href = "/wiigie/requirement/addPage?u=${userid}&c=V-3&ct=1000000000000012&cc=content_12&r=" + r;
+
+
+
+    } else {
+      wx.navigateTo({
+        url: "/page/component/pages/pagexdd/pagexdd?m=" + upmarkid + "&r=" + requirementid,
+      })
+     
+    }
+
+
+
+  },
+
+  /**获取活动 */
   getPromotion: function() {
 
     var that = this;
@@ -371,14 +396,17 @@ Page({
     var endRow = 0;
     var allRows = 0;
     if (currentTab == '0') {
-
-
+      endRow = that.data.bjzEndRow;
+      allRows = that.data.bjzAllRows;
     } else if (currentTab == '1') {
-
+      endRow = that.data.hdzEndRow;
+      allRows = that.data.hdzAllRows;
     } else if (currentTab == '2') {
-
+      endRow = that.data.djzEndRow;
+      allRows = that.data.djzAllRows;
     } else if (currentTab == '3') {
-
+      endRow = that.data.yxxEndRow;
+      allRows = that.data.yxxAllRows;
     }
 
     if (isReachBottom && allRows == endRow) {
@@ -400,7 +428,7 @@ Page({
       mask: true,
     })
     var url = config.requestUrl;
-    var userid = '1528869953018820' //that.data.userInfo.id //1528869953018820
+    var userid = that.data.userInfo.id//'1528869953018820' //that.data.userInfo.id //1528869953018820
     var pcuserid = that.data.pcuserid //1528869953018820
     var data = {
       code_: 'x_getPromotions',

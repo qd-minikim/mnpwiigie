@@ -543,7 +543,7 @@
       <view class='gap-bg'></view>
     </block>
 
-   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -570,7 +570,7 @@
       <view class='gap-bg'></view>
     </block>
 
-    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -598,7 +598,7 @@
       <view class='gap-bg'></view>
     </block>
 
-   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+   <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -625,7 +625,7 @@
       <view class='gap-bg'></view>
     </block>
 
-    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx'>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>

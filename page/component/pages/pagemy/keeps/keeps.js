@@ -140,7 +140,7 @@ Page({
     var userid = that.data.userInfo.id;
 
     wx.navigateTo({
-      url: "/page/component/pages/pagexdd/pagexdd?m" + upmarkid + "&r=" + requirementid,
+      url: "/page/component/pages/pagexdd/pagexdd?m=" + upmarkid + "&r=" + requirementid,
     })
 
   }

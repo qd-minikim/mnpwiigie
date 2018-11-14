@@ -123,7 +123,7 @@
     </view>
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
-  <block wx:if="{{initPagaInfo.isbunding !='0'}}">
+  <block wx:if="{{initPagaInfo.isbunding =='0'}}">
     <!-- 将！=0还原为 ==0 -->
 
     <view class='font-size-5 align-center' style='margin:10rpx 5rpx'>商户专用入口</view>
