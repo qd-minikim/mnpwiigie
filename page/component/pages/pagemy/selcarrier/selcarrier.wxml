@@ -1,13 +1,14 @@
 <!--page/component/pages/pagemy/selcarrier/selcarrier.wxml-->
- <!--page/component/pages/pageserch/serchlist/serchlist.wxml-->
+<!--page/component/pages/pageserch/serchlist/serchlist.wxml-->
 <import src="../../../../../wxParse/wxParse.wxml" />
 <import src="../../../../common/pages/pageserch/pageserch.wxml" />
 <view class='container ' style="flex-direction:column;display:flex; ">
 
   <view class='scarrier-view-1'>
-    <view class='scarrier-view-1-1 font-size-7' style=';'>
+
+    <view class='scarrier-view-1-1 font-size-6' style=''>
       <image class='scarrier-view-1-1-figure' src='/image/figure_27.png'></image>
-      <input class='scarrier-view-1-1-input' focus='true' maxlength='20' placeholder='检索快递公司' bindinput="bindKeyInput"></input>
+      <input class='scarrier-view-1-1-input' focus='true' maxlength='20' placeholder='检索快递公司' focus='true' bindinput="bindKeyInput"></input>
     </view>
   </view>
   <block wx:if="{{!isCarrier}}">
@@ -18,14 +19,19 @@
       </view>
     </view>
   </block>
+ 
+  <view class='scarrier-view-3'>
+    <scroll-view style='height:{{scrollView.height}}px;margin: 1rpx 15rpx' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
-  <block wx:if="{{serchListA.length >0 ||serchListF.length >0}}">
-
-    <scroll-view class='scarrier-view-3' style='height:{{scrollView.height}}px'>
-   
+      <block wx:for="{{carriersSearch}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <block wx:if="{{index>0}}">
+          <view class='gap-line '></view>
+        </block>
+        <view catchtap='selectedCarriers' data-carriercode='{{item.carrierCode}}' data-carriername='{{item.carrierName}}' class='font-size-6 view-ellipsis-1' style='margin:15rpx 0rpx'>{{item.carrierName}}</view>
+      </block>
     </scroll-view>
-  </block>
 
+  </view>
 
 
 </view>

@@ -1,4 +1,4 @@
-// page/component/pages/pagemy/merchant/orderhandle/orderhandle.js
+// page/component/pages/pagemy/merchant/orderpromotion/orderpromotion.js
 var config = require('../../../../../../config.js');
 var rRequest = require('../../../../../../utils/rRequest.js');
 
@@ -9,7 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+
     pcuserid: '',
+    promotionid: '',
+    deliverytype: '',
     currentTab: 0, // 0待处理 1已处理 
     /** */
     swiperHeight: 0,
@@ -18,28 +21,16 @@ Page({
 
     navigateToflg: '',
 
-    /**待处理 */
-    dclsearched: false,
-    dclArray: [],
-    dclEndRow: 0,
-    dclAllRows: 0,
-    /**已处理 */
-    yclsearched: false,
-    yclArray: [],
-    yclEndRow: 0,
-    yclAllRows: 0,
 
+    orderDes: {
 
-    /**分页 */
-    itemsPerPage: 10,
+      allOrderNum: '',
+      waitCopiesNum: '',
+      waitOrderNum: '',
+      doneCopiesNum: '',
+      doneOrderNum: '',
 
-    //是否下拉刷新
-    isPullDownRefresh: false,
-    //是否上拉更多
-    isReachBottom: false,
-    //刷新
-    isRefresh: false,
-
+    },
     viewModal: {
       /**录入快递单号的弹框 */
       addLogistics: {
@@ -54,13 +45,27 @@ Page({
       }
 
     },
+    /**待处理 */
+    dclsearched: false,
+    dclArray: [],
+    dclEndRow: 0,
+    dclAllRows: 0,
+    /**已处理 */
+    yclsearched: false,
+    yclArray: [],
+    yclEndRow: 0,
+    yclAllRows: 0,
 
+    initPageInfo: {},
+    /**分页 */
+    itemsPerPage: 10,
 
-    // /**用户信息 */
-    userInfo: {},
-    //hasUserInfo: false,
-    userIData: false,
-    userWxInfo: {},
+    //是否下拉刷新
+    isPullDownRefresh: false,
+    //是否上拉更多
+    isReachBottom: false,
+    //刷新
+    isRefresh: false,
   },
 
   /**
@@ -74,15 +79,19 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
-
     var pcuserid = options.pu;
+    var promotionid = options.p;
 
     this.setData({
 
-      pcuserid: pcuserid
-    })
+      pcuserid: pcuserid,
+      promotionid: promotionid,
 
-    this.getMgmtOrders()
+    })
+    this.getInitPage()
+
+
+
     wx.hideShareMenu();
   },
 
@@ -95,7 +104,7 @@ Page({
 
     var percent = windowWidth / 750
     //- 90 * percent
-    var swiperHeight = windowHeight - 80 * percent
+    var swiperHeight = windowHeight - 250 * percent
     this.setData({
 
       swiperHeight: swiperHeight + "px",
@@ -116,8 +125,6 @@ Page({
         'viewModal.addLogistics.carrierCode': carrierInfo.carrierCode
       })
     }
-
-
   },
 
   /**
@@ -175,6 +182,9 @@ Page({
     that.setData({
       currentTab: currentTab,
       searched: false,
+      isPullDownRefresh: false,
+      isReachBottom: false,
+      isRefresh: false,
     });
 
 
@@ -182,14 +192,14 @@ Page({
       var dclsearched = that.data.dclsearched;
 
       if (!dclsearched) {
-        that.getMgmtOrders()
+        that.getPromotionOrders()
       }
     }
     if (currentTab == '1') {
       var yclsearched = that.data.yclsearched;
 
       if (!yclsearched) {
-        that.getMgmtOrders()
+        that.getPromotionOrders()
       }
     }
 
@@ -210,7 +220,40 @@ Page({
       })
     }
   },
-  getMgmtOrders: function() {
+
+
+  getInitPage: function() {
+    var that = this;
+
+
+    var url = config.requestUrl;
+    var userid = '1529295282828524' //that.data.userInfo.id //1528869953018820
+    var pcuserid = that.data.pcuserid
+    var promotionid = that.data.promotionid
+
+    var data = {
+      code_: 'x_getInitPromotionOrders',
+      "userid": userid,
+      "pcuserid": pcuserid,
+      "promotionid": promotionid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+
+        that.setData({
+          initPageInfo: rdata.info
+        })
+
+        that.getPromotionOrders()
+      }
+
+    })
+
+
+  },
+  getPromotionOrders: function() {
 
 
     var that = this;
@@ -257,22 +300,25 @@ Page({
     var url = config.requestUrl;
     var userid = '1529295282828524' //that.data.userInfo.id //1528869953018820
     var pcuserid = that.data.pcuserid
-
+    var promotionid = that.data.promotionid
+    var deliveryType = that.data.initPageInfo.delivery_type
 
     var data = {
-      code_: 'x_getMgmtOrders',
+      code_: 'x_getPromotionOrders',
       "endRow": endRow,
       "itemsPerPage": itemsPerPage,
+      "tabType": currentTab,
+      "deliveryType": deliveryType,
       "userid": userid,
       "pcuserid": pcuserid,
-      "tabType": currentTab
+      "promotionid": promotionid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.infolist) {
         if (currentTab == '0') {
           var dclArray = [];
-          if (isRefresh ||isPullDownRefresh) {
+          if (isRefresh || isPullDownRefresh) {
             dclArray = [];
 
             wx.stopPullDownRefresh();
@@ -291,12 +337,15 @@ Page({
             isReachBottom: false,
             isRefresh: false,
 
+            'orderDes.allOrderNum': rdata.info.num_orders,
+            'orderDes.waitCopiesNum': rdata.info.num_pending_buycopies,
+            'orderDes.waitOrderNum': rdata.info.num_pending_orders
           })
-
+      
 
         } else if (currentTab == '1') {
           var yclArray = [];
-          if (isRefresh ||isPullDownRefresh) {
+          if (isRefresh || isPullDownRefresh) {
             yclArray = [];
 
             wx.stopPullDownRefresh();
@@ -314,9 +363,13 @@ Page({
             isPullDownRefresh: false,
             isReachBottom: false,
             isRefresh: false,
+            orderNum: rdata.info,
+            'orderDes.allOrderNum': rdata.info.num_orders,
+            'orderDes.doneCopiesNum': rdata.info.num_pending_buycopies,
+            'orderDes.doneOrderNum': rdata.info.num_pending_orders
           })
         }
-
+       
       }
 
       wx.hideLoading();
@@ -324,8 +377,7 @@ Page({
     })
   },
 
-
-  closeLogistics: function() {
+  closeLogistics: function () {
 
     var that = this;
     that.setData({
@@ -340,7 +392,7 @@ Page({
 
     })
   },
-  bindKeyInputLogisticsNo: function(e) {
+  bindKeyInputLogisticsNo: function (e) {
     var that = this;
     var carrierNo = e.detail.value
     that.setData({
@@ -348,7 +400,7 @@ Page({
     })
 
   },
-  addLogisticsNo: function() {
+  addLogisticsNo: function () {
     var that = this;
     var carrierNo = that.data.viewModal.addLogistics.carrierNo;
 
@@ -362,7 +414,7 @@ Page({
         title: '快递单号为空',
         image: '/image/icon_warn.png',
         duration: 2000,
-        success: function() {}
+        success: function () { }
       })
       return false;
     }
@@ -371,7 +423,7 @@ Page({
         title: '快递公司为空',
         image: '/image/icon_warn.png',
         duration: 2000,
-        success: function() {}
+        success: function () { }
       })
       return false;
     }
@@ -389,7 +441,7 @@ Page({
       "carrierCode": carrierCode
 
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    rRequest.doRequest(url, data, that, function (rdata) {
 
       if (rdata.info == '') {
 
@@ -397,16 +449,17 @@ Page({
           title: '录入成功',
           image: '/image/icon_ok.png',
           duration: 2000,
-          success: function() {}
+          success: function () { }
         })
 
         that.setData({
           isRefresh: true,
+          yclsearched:false,
         })
-        setTimeout(function() {
+        setTimeout(function () {
           that.closeLogistics()
 
-          that.getMgmtOrders()
+          that.getPromotionOrders()
 
         }, 1500)
 
@@ -417,9 +470,9 @@ Page({
     })
 
   },
-  doPhoneAddSendInfo: function(e) {
+  doPhoneAddSendInfo: function (e) {
     var that = this;
-    var title = e.currentTarget.dataset.title;
+    var title = that.data.initPageInfo.requirement_title;
     var username = e.currentTarget.dataset.username;
     var phone = e.currentTarget.dataset.phone;
     var addr = e.currentTarget.dataset.addr;
@@ -439,7 +492,7 @@ Page({
 
   },
 
-  doWaitAddrMsg: function(e) {
+  doWaitAddrMsg: function (e) {
     var that = this;
     var wmsg = e.currentTarget.dataset.wmsg;
 
@@ -448,13 +501,13 @@ Page({
       content: wmsg,
       showCancel: false,
       confirmText: '知道了',
-      success: function(res) {
+      success: function (res) {
 
       }
     })
 
   },
-  selectCarrier: function() {
+  selectCarrier: function () {
 
 
     this.setData({
@@ -465,16 +518,4 @@ Page({
     })
 
   },
-  // 全部订单
-   promotionOrders:function(e){
-     var that = this;
-     var proid = e.currentTarget.dataset.proid;
-     var pcuserid = that.data.pcuserid
-     
-     wx.navigateTo({
-       url: '/page/component/pages/pagemy/merchant/orderpromotion/orderpromotion?p=' + proid + "&pu=" + pcuserid,
-     })
-   
-   }
-
 })

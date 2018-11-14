@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 48,
+			"current": 50,
 			"list": [
 				{
 					"id": -1,
@@ -331,6 +331,18 @@
 					"name": "订单处理",
 					"pathName": "page/component/pages/pagemy/merchant/orderhandle/orderhandle",
 					"query": "pu=1528959768474228"
+				},
+				{
+					"id": -1,
+					"name": "检索快递公司",
+					"pathName": "page/component/pages/pagemy/selcarrier/selcarrier",
+					"query": ""
+				},
+				{
+					"id": 50,
+					"name": "某一文案的订单",
+					"pathName": "page/component/pages/pagemy/merchant/orderpromotion/orderpromotion",
+					"query": "pu=&p="
 				}
 			]
 		}

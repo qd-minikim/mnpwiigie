@@ -17,13 +17,16 @@ App({
     userIData: false,
     userWxInfo: null, //用户微信信息--wiigie
     systemInfo: null,
+
     //登录信息
     loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
  
     },
-    
+    // 订单处理时，录入快递单号时，选择快递公司
+    carrierInfo:'',
+
     orderData: null,
     /**赋值在 pagexdd.js中 sureSelect //funtion */
     giftData: null,

@@ -1,5 +1,6 @@
-<!--page/component/pages/pagemy/merchant/orderhandle/orderhandle.wxml-->
+<!--page/component/pages/pagemy/merchant/orderpromotion/orderpromotion.wxml-->
 <import src="../../../../../../page/common/pages/pagemy/pagemy.wxml" />
+
 <!-- 录入快递单 logistics_status=='0'-->
 <view class="view-modal {{viewModal.addLogistics.addLogisticsShow?'view-modal-show':'view-modal-hide'}}">
   <view class='view-modal-content'>
@@ -55,10 +56,52 @@
 </view>
 
 
+
+
+
+
+
 <view class='container ' style='flex-direction:colum;display:flex; '>
-  <view class="myoh-view-1">
-    <view class="myoh-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">待处理</view>
-    <view class="myoh-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">已处理</view>
+  <view class="myop-view-0">
+    <view class='' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+
+      <view class='align-center'>
+        <image style='width:150rpx;height:150rpx' src='{{initPageInfo.image_url}}'></image>
+      </view>
+
+      <view class='' style='flex-direction:column;display:flex;margin-left:15rpx;flex:1'>
+        <view style='width:100%;text-align:left;flex-direction:row;display:flex;'>
+          <view class='align-r-center font-size-6 view-ellipsis-1' style=' line-height:40rpx ;text-align:left;flex:1'>{{initPageInfo.requirement_title}}</view>
+          <view>
+            <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class='gap-line'></view>
+
+        <view class='  font-size-7 font-color-4' style=' margin:3rpx 0;width:100%;;text-align:left'>总订单数：{{orderDes.allOrderNum}}笔</view>
+
+        <block wx:if="{{currentTab=='0'}}">
+          <view class='  font-size-7 font-color-4' style='flex-direction:row;display:flex;margin:3rpx 0; width:100%;;text-align:left'>
+
+            <view>待处理份数/单数：</view>
+            <view class='font-color-7'>{{orderDes.waitCopiesNum}}份/{{orderDes.waitOrderNum}}笔</view>
+          </view>
+        </block>
+        <block wx:if="{{currentTab=='1'}}">
+          <view class='  font-size-7 font-color-4' style='flex-direction:row;display:flex;margin:3rpx 0; width:100%;;text-align:left'>
+
+            <view>已处理份数/单数：</view>
+            <view class='font-color-7'>{{orderDes.doneCopiesNum}}份/{{orderDes.doneOrderNum}}笔</view>
+          </view>
+        </block>
+
+      </view>
+    </view>
+  </view>
+
+  <view class="myop-view-1">
+    <view class="myop-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">待处理</view>
+    <view class="myop-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">已处理</view>
 
   </view>
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
@@ -66,14 +109,14 @@
     <swiper-item>
       <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
 
-        <template is="dclorders" data="{{dclArray,dclsearched}}" />
+        <template is="dclproorders" data="{{dclArray,dclsearched}}" />
       </scroll-view>
     </swiper-item>
     <!-- 已处理 -->
     <swiper-item>
       <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
 
-        <template is="yclorders" data="{{yclArray,yclsearched}}" />
+        <template is="yclproorders" data="{{yclArray,yclsearched}}" />
       </scroll-view>
     </swiper-item>
 

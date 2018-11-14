@@ -1,0 +1,76 @@
+/* page/component/pages/pagemy/merchant/orderpromotion/orderpromotion.wxss */
+ 
+.myop-view-0 {
+  width: 100%;
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  text-align: center;
+   
+}
+.myop-view-1 {
+  width: 100%;
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.myop-view-1-1 {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 50%;
+  color: #777;
+}
+
+.tab-on {
+  color: #da7c0c;
+  border-bottom: 5rpx solid #da7c0c;
+}
+
+.swiper-box {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-box view {
+  text-align: center;
+}
+
+/*弹出层*/
+
+.view-modal {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+.view-modal-content {
+  /* padding: 10rpx 10rpx; */
+  width: 90%;
+  background: #fffefb;
+  margin: 40% auto;
+  /* border-radius: 20rpx; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+
+.view-modal-show{
+    display: block;
+}
+.view-modal-hide{
+    display: none;
+}
+
+.view-modal-sign{
+
+  width: 40rpx;
+  height: 40rpx;
+}
