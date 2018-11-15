@@ -35,6 +35,15 @@
               <view class='align-center scroll-view-figure4 bg-16 font-color-2 font-size-6 '>{{itemG.link_price_name}}</view>
 
             </block>
+            <block wx:if="{{itemG.deal_type=='3'}}">
+            <!-- 零售 -->
+              <block wx:if="{{itemG.keep_storage<=0}}">
+                <view class='align-center scroll-view-figure4 bg-4 font-color-4 font-size-6 '>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='align-center scroll-view-figure4 bg-17 font-color-10 font-size-6 '>{{itemG.link_price_name}}</view>
+              </block>
+            </block>
             <block wx:else>
               <block wx:if="{{itemG.keep_storage<=0}}">
                 <view class='align-center scroll-view-figure4 bg-4 font-color-4 font-size-6 '>售罄</view>

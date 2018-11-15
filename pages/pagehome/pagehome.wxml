@@ -159,7 +159,16 @@
                     </view>
 
                   </block>
+                  <block wx:if="{{item.deal_type=='3'}}">
+                    <!-- 零售 -->
+                    <block wx:if="{{item.keep_storage<=0}}">
+                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>
+                    </block>
+                    <block wx:else>
+                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-17 font-color-10  font-size-7 '>{{item.link_price_name}}</view>
+                    </block>
 
+                  </block>
                   <block wx:else>
                     <block wx:if="{{item.keep_storage<=0}}">
                       <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>

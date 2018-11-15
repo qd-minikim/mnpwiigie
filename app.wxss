@@ -198,7 +198,11 @@
 	background-color: #fb4949;
  
 }
-
+.bg-17{
+	border:1px solid #8deec1;
+	background-color: #8deec1;
+ 
+}
 
 /* 超出范围省略号显示 */
 
