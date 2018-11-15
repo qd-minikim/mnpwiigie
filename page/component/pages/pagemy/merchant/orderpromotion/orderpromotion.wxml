@@ -70,7 +70,7 @@
       </view>
 
       <view class='' style='flex-direction:column;display:flex;margin-left:15rpx;flex:1'>
-        <view style='width:100%;text-align:left;flex-direction:row;display:flex;'>
+        <view style='width:100%;text-align:left;flex-direction:row;display:flex;' catchtap='pagexdd'  data-upmark='{{initPageInfo.upmarkid}}' data-rqui='{{initPageInfo.requirement_id}}'>
           <view class='align-r-center font-size-6 view-ellipsis-1' style=' line-height:40rpx ;text-align:left;flex:1'>{{initPageInfo.requirement_title}}</view>
           <view>
             <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>

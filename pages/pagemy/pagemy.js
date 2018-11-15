@@ -265,8 +265,28 @@ Page({
       })
     }
   },
+/**订单处理 */
+  mgmtorderpage: function () {
 
 
+    var that = this;
+    if (that.data.initPagaInfo.isbunding == '0') {
+
+      var pu = that.data.initPagaInfo.pcuserid
+
+      wx.navigateTo({
+        url: '/page/component/pages/pagemy/merchant/orderhandle/orderhandle?pu=' + pu,
+      })
+    } else {
+
+      wx.showToast({
+        title: '未绑定手机号',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function () { }
+      })
+    }
+  },
 
   initPaga: function() {
 

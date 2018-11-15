@@ -14,7 +14,7 @@ Page({
     /** */
     swiperHeight: 0,
 
-    searched: false,
+    // searched: false,
 
     navigateToflg: '',
 
@@ -118,6 +118,29 @@ Page({
     }
 
 
+    try {
+      var value = wx.getStorageSync('refresh')
+      var currentTab = that.data.currentTab;
+      var index = that.data.clickindex;
+      if (value && value == '1') {
+        that.setData({
+          isRefresh:true,
+          dclsearched:false,
+          yclsearched: false,
+        })
+
+        that.getMgmtOrders()
+
+      }
+    } catch (e) {
+
+    }
+    wx.setStorage({
+      key: "refresh",
+      data: "0",
+    })
+
+
   },
 
   /**
@@ -174,7 +197,10 @@ Page({
     var currentTab = e.detail.current;
     that.setData({
       currentTab: currentTab,
-      searched: false,
+      // searched: false,
+      isPullDownRefresh: false,
+      isReachBottom: false,
+      isRefresh: false,
     });
 
 
@@ -255,7 +281,7 @@ Page({
     })
 
     var url = config.requestUrl;
-    var userid = '1529295282828524' //that.data.userInfo.id //1528869953018820
+    var userid = that.data.userInfo.id //'1529295282828524'that.data.userInfo.id //1528869953018820
     var pcuserid = that.data.pcuserid
 
 
@@ -272,7 +298,7 @@ Page({
       if (rdata.infolist) {
         if (currentTab == '0') {
           var dclArray = [];
-          if (isRefresh ||isPullDownRefresh) {
+          if (isRefresh || isPullDownRefresh) {
             dclArray = [];
 
             wx.stopPullDownRefresh();
@@ -296,7 +322,7 @@ Page({
 
         } else if (currentTab == '1') {
           var yclArray = [];
-          if (isRefresh ||isPullDownRefresh) {
+          if (isRefresh || isPullDownRefresh) {
             yclArray = [];
 
             wx.stopPullDownRefresh();
@@ -466,15 +492,32 @@ Page({
 
   },
   // 全部订单
-   promotionOrders:function(e){
-     var that = this;
-     var proid = e.currentTarget.dataset.proid;
-     var pcuserid = that.data.pcuserid
-     
-     wx.navigateTo({
-       url: '/page/component/pages/pagemy/merchant/orderpromotion/orderpromotion?p=' + proid + "&pu=" + pcuserid,
-     })
-   
-   }
+  promotionOrders: function(e) {
+    var that = this;
+    var proid = e.currentTarget.dataset.proid;
+    var pcuserid = that.data.pcuserid
 
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/merchant/orderpromotion/orderpromotion?p=' + proid + "&pu=" + pcuserid,
+    })
+
+  },
+  /**查看物流 */
+  wayBill: function(event) {
+    var orderId = event.currentTarget.dataset.orderid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/waybill/waybill?o=' + orderId,
+    })
+
+
+  },
+  pagexdd: function(event) {
+    var m = event.currentTarget.dataset.upmark;
+    var r = event.currentTarget.dataset.rqui;
+    wx.navigateTo({
+      url: "/page/component/pages/pagexdd/pagexdd?m=" + m + "&r=" + r,
+    })
+
+
+  },
 })

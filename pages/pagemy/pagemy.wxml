@@ -145,7 +145,7 @@
         </view>
         <view class='font-size-6' style='flex:1'>推广管理</view>
       </view>
-      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='' data-type=''>
+      <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='mgmtorderpage' data-type=''>
         <view>
           <image src='/image/figure_116.png' class='pagemy-view-figure'></image>
         </view>

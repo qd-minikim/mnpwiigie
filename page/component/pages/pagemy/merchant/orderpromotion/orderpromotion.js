@@ -227,7 +227,7 @@ Page({
 
 
     var url = config.requestUrl;
-    var userid = '1529295282828524' //that.data.userInfo.id //1528869953018820
+    var userid = that.data.userInfo.id //'1529295282828524' //1528869953018820
     var pcuserid = that.data.pcuserid
     var promotionid = that.data.promotionid
 
@@ -298,7 +298,7 @@ Page({
     })
 
     var url = config.requestUrl;
-    var userid = '1529295282828524' //that.data.userInfo.id //1528869953018820
+    var userid = that.data.userInfo.id//'1529295282828524'//1528869953018820
     var pcuserid = that.data.pcuserid
     var promotionid = that.data.promotionid
     var deliveryType = that.data.initPageInfo.delivery_type
@@ -456,6 +456,10 @@ Page({
           isRefresh: true,
           yclsearched:false,
         })
+        wx.setStorage({
+          key: "refresh",
+          data: "1",
+        })
         setTimeout(function () {
           that.closeLogistics()
 
@@ -518,4 +522,25 @@ Page({
     })
 
   },
+
+  
+  wayBill: function (event) {
+    var orderId = event.currentTarget.dataset.orderid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagemy/waybill/waybill?o=' + orderId,
+    })
+ 
+
+  },
+  pagexdd: function (event) {
+    var m = event.currentTarget.dataset.upmark;
+    var r = event.currentTarget.dataset.rqui;
+    wx.navigateTo({
+      url: "/page/component/pages/pagexdd/pagexdd?m=" + m + "&r=" + r,
+    })
+
+
+  },
+
+
 })
