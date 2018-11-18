@@ -543,7 +543,7 @@
       <view class='gap-bg'></view>
     </block>
 
-    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}'>
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}' data-proid='{{item.promotionid}}'>
       <view class='align-center'>
         <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
       </view>
@@ -556,7 +556,34 @@
 
   <block wx:if="{{bjzsearched && bjzArray.length==0}}">
     <view class='font-size-6 align-center' style='margin-top:5rpx '>
-      还没有活动
+      没有编辑中活动
+    </view>
+
+  </block>
+
+</template>
+<!--待付款 -->
+<template name="promotiondfk">
+
+  <block wx:for="{{dfkArray}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+    <block wx:if="{{inde>0}}">
+      <view class='gap-bg'></view>
+    </block>
+
+    <view class='align-center' style='flex-direction:row;display:flex;margin:8rpx 15rpx' catchtap='showdetail' data-upmarkid='{{item.upmarkid}}' data-id='{{item.id}}' data-progress='{{item.progress_status}}' data-proid='{{item.promotionid}}'>
+      <view class='align-center'>
+        <image style='width:120rpx;height:120rpx' src='{{item.image_url}}'></image>
+      </view>
+      <view class='align-r-center' style='flex-direction:column;display:flex;margin-left:15rpx;flex:1'>
+        <view class='font-size-6 view-ellipsis-2' style='width:100%;text-align:left;height:2rem'>{{item.title}}</view>
+        <view class='font-size-7 font-color-4' style='width:100%;;text-align:left'>创建时间：{{item.submit_time}}</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{hdzsearched && hdzArray.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+     没有待付款活动
     </view>
 
   </block>
@@ -583,7 +610,7 @@
 
   <block wx:if="{{hdzsearched && hdzArray.length==0}}">
     <view class='font-size-6 align-center' style='margin-top:5rpx '>
-      还没有活动
+     没有活动中活动
     </view>
 
   </block>
@@ -611,7 +638,7 @@
 
   <block wx:if="{{djzsearched && djzArray.length==0}}">
     <view class='font-size-6 align-center' style='margin-top:5rpx '>
-      还没有活动
+      没有冻结中活动
     </view>
 
   </block>
@@ -638,7 +665,7 @@
 
   <block wx:if="{{yxxsearched && yxxArray.length==0}}">
     <view class='font-size-6 align-center' style='margin-top:5rpx '>
-      还没有活动
+      没有已下线活动
     </view>
 
   </block>

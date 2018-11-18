@@ -11,7 +11,7 @@ Page({
   data: {
     /**tab */
     pcuserid:'',
-    currentTab: 0, // 0编辑中 1活动中 2冻结中 3已下线
+    currentTab: 0, // 0编辑中1待付款  2活动中 3冻结中 4已下线
     /** */
     swiperHeight: 0,
 
@@ -22,6 +22,11 @@ Page({
     bjzArray: [],
     bjzEndRow: 0,
     bjzAllRows: 0,
+    /**待付款 */
+    dfksearched: false,
+    dfkArray: [],
+    dfkEndRow: 0,
+    dfkAllRows: 0,
     /**活动中 */
     hdzsearched: false,
     hdzArray: [],
@@ -130,18 +135,24 @@ Page({
     }
     if (currentTab == '1') {
       that.setData({
+        dfkEndRow: 0,
+        dfkAllRows: 0,
+      })
+    }
+    if (currentTab == '2') {
+      that.setData({
         hdzEndRow: 0,
         hdzAllRows: 0,
       })
     }
-    if (currentTab == '2') {
+    if (currentTab == '3') {
       that.setData({
         djzEndRow: 0,
         djzAllRows: 0,
       })
     }
 
-    if (currentTab == '3') {
+    if (currentTab == '4') {
       that.setData({
         yxxAllRows: '0',
         yxxEndRow: 0
@@ -200,13 +211,20 @@ Page({
       }
     }
     if (currentTab == '1') {
+      var dfksearched = that.data.dfksearched;
+
+      if (!dfksearched) {
+        that.getPromotion()
+      }
+    }
+    if (currentTab == '2') {
       var hdzsearched = that.data.hdzsearched;
 
       if (!hdzsearched) {
         that.getPromotion()
       }
     }
-    if (currentTab == '2') {
+    if (currentTab == '3') {
       var djzsearched = that.data.djzsearched;
 
       if (!djzsearched) {
@@ -214,7 +232,7 @@ Page({
       }
     }
 
-    if (currentTab == '3') {
+    if (currentTab == '4') {
       var yxxsearched = that.data.yxxsearched;
 
       if (!yxxsearched) {
@@ -238,143 +256,28 @@ Page({
       })
     }
   },
-  /**发起 */
-  addRequirement: function() {
-    wx.scanCode({
-      onlyFromCamera: true,
-      scanType: ['QR_CODE'],
-
-      success: function(res) {
-        var result = res.result;
-
-
-        if (result.indexOf("QRCODE") > -1) {
-
-          var paramStr = result.substring(result.indexOf("QRCODE"), result.indexOf("#wechat_redirect"))
-
-          var arryStr = paramStr.split("Q000Q");
-          var type = arryStr[1];
-
-          if ("promotion".equals(type)) {
-
-            var pcPromotionId = arryStr[2];
-            var pcuserid = arryStr[3];
-            var pcuserphone = arryStr[4];
-
-
-
-          } else {
-
-            wx.showToast({
-              title: '不是有效文案',
-              image: '/image/icon_warn.png',
-              duration: 2000,
-              success: function() {}
-            })
-          }
-
-
-        } else {
-
-          wx.showToast({
-            title: '二维码无效',
-            image: '/image/icon_warn.png',
-            duration: 2000,
-            success: function() {}
-          })
-        }
-
-      }
-    })
-
-
-  },
-
-
-  checkPromotion: function() {
-    var that = this;
-
-    var url = config.requestUrl;
-    var userid = ''
-    var promotionid = ''
-
-    var data = {
-      code_: 'x_checkPromotion',
-      promotionid: promotionid
-    }
-    rRequest.doRequest(url, data, that, function(rdata) {
-      if (rdata.info) {
-
-        var isUsed = rdata.info.is_used;
-        var isBing = rdata.info.is_bing;
-
-        var requirementid = rdata.info.requirement_id;
-        var categoryType = rdata.info.category_type;
-        var category = rdata.info.category;
-
-        var isEdit = rdata.info.isEdit;
-
-
-        var requirementPerson = rdata.info.requirement_person;
-
-        if (isUsed == '0') {
-
-          if (isBing == '0') { //没绑定后台
-
-          } else {
-
-            //需求发起页面
-          }
-
-
-        } else if (isUsed == '1') {
-
-          if (isEdit) {
-
-            if (userid == requirementPerson) {
-              //需求发起页面
-            } else {
-              wx.showModal({
-                title: '二维码无效',
-                content: '',
-                showCancel: true,
-                confirmText: '知道了',
-                success: function() {
-
-
-                }
-              })
-
-            }
-
-          } else {
-
-            //跳转详情页
-          }
-
-
-        }
-
-      }
-
-
-    })
-
-
-
-  },
+   
 
   showdetail: function(e) {
 
     var upmarkid = e.currentTarget.dataset.upmarkid;
     var requirementid = e.currentTarget.dataset.id;
     var progressstatus = e.currentTarget.dataset.progress;
-
+    var promotionId = e.currentTarget.dataset.proid;
     if (progressstatus == '4') {
 
-      // $("#endRow").val("0");
-      // window.location.href = "/wiigie/requirement/addPage?u=${userid}&c=V-3&ct=1000000000000012&cc=content_12&r=" + r;
+       
+      wx.navigateTo({
+        url: "/page/component/pages/pagemy/merchant/fqrequirement/fqrequirement?pro=" + promotionId + "&rid=" + requirementid,
+      })
 
+
+    } else if (progressstatus == '5') {
+
+
+      wx.navigateTo({
+        url: "/page/component/pages/pagemy/merchant/fkrequirement/fkrequirement?p=" + promotionId + "&r=" + requirementid,
+      })
 
 
     } else {
@@ -405,12 +308,15 @@ Page({
       endRow = that.data.bjzEndRow;
       allRows = that.data.bjzAllRows;
     } else if (currentTab == '1') {
+      endRow = that.data.dfkEndRow;
+      allRows = that.data.dfkAllRows;
+    } else if (currentTab == '2') {
       endRow = that.data.hdzEndRow;
       allRows = that.data.hdzAllRows;
-    } else if (currentTab == '2') {
+    } else if (currentTab == '3') {
       endRow = that.data.djzEndRow;
       allRows = that.data.djzAllRows;
-    } else if (currentTab == '3') {
+    } else if (currentTab == '4') {
       endRow = that.data.yxxEndRow;
       allRows = that.data.yxxAllRows;
     }
@@ -472,6 +378,27 @@ Page({
 
 
         } else if (currentTab == '1') {
+          var dfkArray = [];
+          if (isPullDownRefresh) {
+            dfkArray = [];
+
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            dfkArray = that.data.dfkArray;
+          }
+          var dfkArrayNew = [...dfkArray, ...rdata.infolist]
+
+          that.setData({
+            dfkArray: dfkArrayNew,
+            dfkAllRows: rdata.infocounts,
+            dfkEndRow: rdata.endRow,
+            dfksearched: true,
+            isPullDownRefresh: false,
+            isReachBottom: false,
+
+          })
+        } else if (currentTab == '2') {
           var hdzArray = [];
           if (isPullDownRefresh) {
             hdzArray = [];
@@ -492,7 +419,7 @@ Page({
             isReachBottom: false,
 
           })
-        } else if (currentTab == '2') {
+        } else if (currentTab == '3') {
           var djzArray = [];
           if (isPullDownRefresh) {
             djzArray = [];
@@ -513,7 +440,7 @@ Page({
             isReachBottom: false,
 
           })
-        } else if (currentTab == '3') {
+        } else if (currentTab == '4') {
           var yxxArray = [];
           if (isPullDownRefresh) {
             yxxArray = [];

@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 50,
+			"current": 52,
 			"list": [
 				{
 					"id": -1,
@@ -343,6 +343,20 @@
 					"name": "某一文案的订单",
 					"pathName": "page/component/pages/pagemy/merchant/orderpromotion/orderpromotion",
 					"query": "pu=&p="
+				},
+				{
+					"id": -1,
+					"name": "文案发布二维码扫码",
+					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
+					"query": "p=234234234423",
+					"scene": "1047"
+				},
+				{
+					"id": 52,
+					"name": "文案发布二维码扫码",
+					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
+					"query": "scene=1542538314906196",
+					"scene": "1011"
 				}
 			]
 		}

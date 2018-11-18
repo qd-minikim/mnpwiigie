@@ -8,6 +8,8 @@ App({
   //启动时执行的初始化工作
   onLaunch: function() {
     this.getSystemInfo();
+
+    
     this.userLogin();
 
    
@@ -157,7 +159,7 @@ App({
 
             var currentPage = pages[pages.length - 1] //获取当前页面的对象
 
-            var url = currentPage.route //当前页面url
+            var url = currentPage && currentPage.route ? currentPage.route:''//当前页面url
 
             if ("page/component/pages/pagegift/giftreceive/giftreceive" == url) {
               var options = currentPage.options
@@ -169,14 +171,14 @@ App({
 
             }
             /**详情 */
-            if ("page/component/pages/pagexdd/pagexdd" == url) {
-              var options = currentPage.options
-              var fm = options.m;
-              var r = options.r;
-              wx.reLaunch({
-                url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
-              })
-            }
+            // if ("page/component/pages/pagexdd/pagexdd" == url) {
+            //   var options = currentPage.options
+            //   var fm = options.m;
+            //   var r = options.r;
+            //   wx.reLaunch({
+            //     url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
+            //   })
+            // }
             if ("page/component/pages/pagecount/counthome/counthome" == url) {
 
               wx.reLaunch({
@@ -192,13 +194,14 @@ App({
               })
 
             }
-
             if ("pages/pagewelcome/pagewelcome" == url) {
               wx.switchTab({
                 url: '/pages/pagehome/pagehome',
               })
 
             }
+      
+
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
 
 

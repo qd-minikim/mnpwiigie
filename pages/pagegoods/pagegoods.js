@@ -25,7 +25,7 @@ Page({
     goodsCount: 0,
     goodsSelected: false,
     goodsendRow: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 3,
 
     windowWidth: app.globalData.systemInfo.windowWidth,
     screenWidth: app.globalData.systemInfo.screenWidth,
@@ -79,7 +79,7 @@ Page({
 
     this.setData({
 
-      scrollViewHeight: (windowHeight - viewTagHeight * 2 - 5 * 2) + "px"
+      scrollViewHeight: (windowHeight - viewTagHeight * 2 - 5 * 2)
     })
     wx.hideShareMenu();
   },
@@ -130,6 +130,22 @@ Page({
   },
   scroll: function(e) {
 
+    var scrollHeight = e.detail.scrollHeight;
+    var scrollTop = e.detail.scrollTop
+    var scrollViewHeight = this.data.scrollViewHeight
+
+    var maxScrollTop = scrollHeight - scrollViewHeight
+
+
+    if (scrollTop + 200 >= maxScrollTop) {
+
+      this.setData({
+        isReachBottom: true
+      })
+      this.getGoods()
+
+    }
+
   },
 
   upper: function(e) {
@@ -141,10 +157,10 @@ Page({
     // this.getGoods();
   },
   lower: function(e) {
-    this.setData({
-      isReachBottom: true
-    })
-    this.getGoods()
+    // this.setData({
+    //   isReachBottom: true
+    // })
+    // this.getGoods()
   },
   /**
    * 用户点击右上角分享
@@ -213,12 +229,24 @@ Page({
   selectTag: function(event) {
 
       var tagCode = event.currentTarget.dataset.tagcode;
+      var oldTagCode = this.data.promotiontag;
+      if (tagCode == oldTagCode) {
+      
+      } else {
+        this.setData({
+          goodsArry: [],
+          goodsCount: 0,
+          goodsSelected: false,
+          goodsendRow: 0,
+          promotiontag: tagCode,
+          isPullDownRefresh: false,
+          isReachBottom: false,
+        })
 
-      this.setData({
-        promotiontag: tagCode,
-      })
+        this.getGoods();
 
-      this.getGoods();
+      }
+
     }
 
     ,
@@ -247,15 +275,20 @@ Page({
       })
       return
     }
+    if (!isReachBottom) {
+
+      wx.showLoading({
+        title: '加载中...',
+        mask: true,
+      })
+    }
+
 
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var tag = this.data.promotiontag;
 
-    wx.showLoading({
-      title: '加载中...',
-      mask: true,
-    })
+
 
     var data = {
       code_: 'x_getGoods',

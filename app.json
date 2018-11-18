@@ -64,7 +64,9 @@
         "pages/pagemy/merchant/fqrequirement/fqrequirement",
         "pages/pagemy/merchant/orderhandle/orderhandle",
         "pages/pagemy/selcarrier/selcarrier",
-        "pages/pagemy/merchant/orderpromotion/orderpromotion"
+        "pages/pagemy/merchant/orderpromotion/orderpromotion",
+        "pages/pageinform/scanpage/scanpage",
+        "pages/pagemy/merchant/fkrequirement/fkrequirement"
       ]
     }
   ],

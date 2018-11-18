@@ -188,7 +188,7 @@ Page({
     this.setData({
       isReachBottom: true
     })
-
+    this.getMgmtOrders()
   },
   bindChange: function(e) {
 

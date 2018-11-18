@@ -143,7 +143,7 @@
    }
 
  }
-
+/**发送验证码倒计时 */
  var countDown = {
    timer: null,
 
@@ -193,13 +193,46 @@
 
 
  }
+ /**倒计秒数执行 */
+var countSecondDown = {
+  timer: null,
 
+  secondStart: 3,
+  countSecondDown: function (that, secondStart, downtimes, callback) {
+    var this_ = this;
+
+    if (this_.secondStart == 0) {
+      this_.secondStart = secondStart
+      that.setData({
+        [downtimes]: this_.secondStart,
+
+      })
+      clearTimeout(this_.timer)
+
+      typeof callback == "function" && callback()
+    } else {
+
+
+      that.setData({
+        [downtimes]: this_.secondStart ,
+         
+      })
+      this_.secondStart--;
+      this_.timer = setTimeout(function () {
+        this_.countSecondDown(that, this_.secondStart, downtimes, callback);
+      }, 1000);
+    }
+
+  },
+   
+
+}
  module.exports = {
    slideModal: slideModal,
 
    timerDown: timerDown,
    countDown: countDown,
-
+   countSecondDown: countSecondDown,
    // filters: filters,
    // toFix: filters.toFix
  }

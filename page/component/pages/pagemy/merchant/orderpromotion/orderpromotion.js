@@ -172,7 +172,7 @@ Page({
     this.setData({
       isReachBottom: true
     })
-
+    this.getPromotionOrders()
   },
   bindChange: function(e) {
 

@@ -3,6 +3,8 @@ var rCommon = require('../../../../utils/rCommon.js');
 var rRequest = require('../../../../utils/rRequest.js');
 var rUtils = require('../../../../utils/rUtils.js');
 var WxParse = require('../../../../wxParse/wxParse.js');
+
+var rUserInfo = require('../../../../utils/rUserInfo.js');
 var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
 const app = getApp()
 Page({
@@ -168,33 +170,52 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
+
+    var that = this
+    that.setData({
       'requirementId': options.r,
       'upmarkid': options.m
     })
 
     if (app.globalData.userWxInfo) {
-      this.setData({
+      that.setData({
         userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
 
       })
 
-      this.getInitDetail()
+      that.getInitDetail()
 
-      this.getRequirementDetail()
+      that.getRequirementDetail()
 
-      this.getRequirementKeepInfo()
+      that.getRequirementKeepInfo()
       // this.getProgressRouteInfo()
 
-      this.getConfigMsgInfo()
+      that.getConfigMsgInfo()
 
 
 
     } else {
 
-      app.userLogin();
+      rUserInfo.getUserInfoApp(that, function (rdata) {
+        if (app.globalData.userWxInfo) {
+          that.setData({
+            userWxInfo: app.globalData.userWxInfo,
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+          that.getInitDetail()
+
+          that.getRequirementDetail()
+
+          that.getRequirementKeepInfo()
+          // this.getProgressRouteInfo()
+
+          that.getConfigMsgInfo()
+        }
+
+      })
     }
 
   },
@@ -323,7 +344,7 @@ Page({
     var fm = that.data.initDetail.fmarkid;;
     var r = that.data.requirementId;
     var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
-    return   {
+    return {
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
       imageUrl: swiperImgUrls[0].imageUrl,
@@ -348,8 +369,8 @@ Page({
             title: '分享成功',
             image: '/image/icon_ok.png',
             duration: 2000,
-            success: function () {
-  
+            success: function() {
+
             }
           })
           that.getProgressRouteInfo()
@@ -364,7 +385,7 @@ Page({
 
 
     }
- 
+
   },
 
 
@@ -409,7 +430,7 @@ Page({
   hideSlideModal: function() {
     var that = this
     rUtils.slideModal.down(that, null, false);
- 
+
   },
 
   imageYl: function(event) {
@@ -670,7 +691,7 @@ Page({
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
     }
 
-    if (orderType == '1') { 
+    if (orderType == '1') {
 
       that.orderBtn()
     }
@@ -778,7 +799,7 @@ Page({
 
     var storage = that.data.requirementInfo.keep_storage;
 
-   
+
     if (available != '0') {
 
       that.setData({
@@ -1099,13 +1120,13 @@ Page({
             (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
           'nolinkCanvasViewInfo.canvasLeft':
             (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.copies': rdata.copies,
-          'nolinkCanvasViewInfo.orders': rdata.orders,
+          'nolinkCanvasViewInfo.copies': rdata.copies ? rdata.copies : 0,
+          'nolinkCanvasViewInfo.orders': rdata.orders ? rdata.orders : 0,
 
         })
-
-        rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
-
+        if (rdata.rInfo_) {
+          rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+        }
 
 
 

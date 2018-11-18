@@ -1,4 +1,5 @@
-// page/component/pages/pagemy/merchant/fqrequirement/fqrequirement.js
+// page/component/pages/pagemy/merchant/fkrequirement/fkrequirement.js
+
 var config = require('../../../../../../config.js');
 var rRequest = require('../../../../../../utils/rRequest.js');
 var rUpload = require('../../../../../../utils/rUpload.js');
@@ -19,7 +20,7 @@ Page({
 
     configMsgInfo: {},
 
-
+    headHeight: '95',
     footHeight: '90',
     contentHeight: 0,
 
@@ -64,8 +65,8 @@ Page({
   onLoad: function(options) {
 
     var that = this
-    var promotionid = options.pro;
-    var requirementid = options.rid;
+    var promotionid = options.p;
+    var requirementid = options.r;
     that.setData({
 
       promotionid: promotionid,
@@ -110,11 +111,11 @@ Page({
     var windowHeight = app.globalData.systemInfo.windowHeight
 
     var percent = windowWidth / 750
-    var contentHeight = windowHeight - this.data.footHeight * percent
-
+    var contentHeight = windowHeight - this.data.footHeight * percent -
+      this.data.headHeight * percent
     this.setData({
 
-
+      'pagePard.contentHeight': contentHeight,
       contentHeight: contentHeight
     })
 
@@ -195,10 +196,10 @@ Page({
     if (Number(commission) <= 0) {
       commission = 0
       that.setData({
-        
+
         singlepricedisable: true,
       })
-    }else{
+    } else {
 
       that.setData({
 
@@ -493,244 +494,25 @@ Page({
 
   },
 
-  submit: function (e) {
+  continuePay: function(e) {
     var that = this;
-    var addtype = e.currentTarget.dataset.addtype; //"4" 暂存 "0" 下一步
 
-    if (addtype == '0') {
+    wx.showModal({
+      title: '提示',
+      content: '付款成功后，您的活动将可以被好友发现和分享了',
+      success: function(res) {
+        if (res.confirm) {
+          that.toPayCommission()
+        } else if (res.cancel) {
 
-      wx.showModal({
-        title: '提示',
-        content: '成功后，您的活动将可以被好友发现和分享了',
-        success: function (res) {
-          if (res.confirm) {
-            that.submitInfo(addtype)
-          }
-          else if (res.cancel) {
-
-          }
         }
-      })
-
-    }
-    if (addtype == '4') {
-
-      wx.showModal({
-        title: '提示',
-        content: '暂时保存您编辑的信息，活动仍处于编辑中状态',
-        success: function (res) {
-          if (res.confirm) {
-            that.submitInfo(addtype)
-          }
-          else if (res.cancel) {
-
-          }
-        }
-      })
-
-    }
-
-  },
-
- 
-  submitInfo: function (addtype) {
-    var that = this;
-  
-    var code_ = ''
-    if (addtype == '0') {
-      code_ = 'x_addRequirement'
-      var title = that.data.title;
-
-      if (title == '') {
-        wx.showToast({
-          title: '标题不为空',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
-        })
-
-        return
       }
-      var commission = that.data.commission;
-
-      var singleprice = that.data.singleprice;
-
-      if (Number(commission) < 0) {
-
-        wx.showToast({
-          title: '传播预算<0',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
-        })
-
-        return
-
-      }
-      if (Number(singleprice) < 0) {
-
-        wx.showToast({
-          title: '传播单价<0',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
-        })
-
-        return
-
-      }
-
-   
-
-      if (Number(singleprice) > 0 && Number(commission) < Number(singleprice)) {
-
-        wx.showToast({
-          title: '预算<传播单价',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
-        })
-
-        return
-      }
-      if (Number(singleprice) == 0 && Number(commission)>0) {
-
-        wx.showToast({
-          title: '传播单价不为0',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function () { }
-        })
-
-        return
-      }
-      var deadlineTime = that.data.deadlinetime;
-      if (deadlineTime == '') {
-        wx.showToast({
-          title: '截止时间不为空',
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
-        })
-
-        return
-
-      }
-
-    } else if (addtype == '4') {
-      code_ = 'x_addTempRequirement'
-
-    }
-
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
     })
 
 
-    var url = config.requestUrl;
-    var userid = that.data.userInfo.id //'1528869953018820' // that.data.userInfo.id
-
-    var requirementid = that.data.requirementid
-
-    var singleprice = that.data.singleprice
-
-    var promotionid = that.data.promotionid
-
-    var deadlinetime = that.data.deadlinetime
-    var commission = that.data.commission
-    var forwardcontrol = that.data.forwardcontrol
-    var aidcontrol = that.data.aidcontrol
-    var initialcontrol = that.data.initialcontrol
-    var title = that.data.title
-
-    var data = {
-      code_: code_,
-
-      title: encodeURIComponent(title),
-      commission: commission,
-      deadline_time: deadlinetime,
-      initial_control: initialcontrol,
-      forward_control: forwardcontrol,
-      aid_control: aidcontrol,
-      userid: userid,
-      pc_promotion_id: promotionid,
-      settlement_single_price: singleprice,
-      requirement_id: requirementid,
-
-    }
-
-    rRequest.doRequest(url, data, that, function(rdata) {
-
-      if (rdata.info) {
-        if (addtype == '0') {
-          var r = rdata.info.requirementid;
-          var m = rdata.info.markid;
-          that.setData({
-            requirementid: r,
-            markid: m,
-          })
-          if (rdata.info.iszero == '1') { //启动微信支付
-
-            that.toPayCommission()
-
-          } else {
-
-            wx.showToast({
-              title: '提交成功',
-              image: '/image/icon_ok.png',
-              duration: 2000,
-              success: function () { }
-            })
-            setTimeout(function(){
-              wx.redirectTo({
-                url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + r,
-              })
-
-            },1500)
-          
-          }
-
-
-        } else if (addtype == '4') { //暂存
-
-
-          if (rdata.status == '1') {
-
-            that.setData({
-              requirementid: rdata.info.requirementid,
-            })
-
-            wx.showToast({
-              title: '暂存成功',
-              image: '/image/icon_ok.png',
-              duration: 2000,
-              success: function() {}
-            })
-          } else {
-
-            wx.showModal({
-              title: '提示',
-              content: rdata.msg,
-              showCancel: false,
-              confirmText: '知道了',
-              success: function(res) {
-
-              }
-            })
-          }
-
-        }
-
-      }
-
-      wx.hideLoading();
-
-
-    })
   },
-  // requirementid: r,
-  // markid: m,
+
+
   toPayCommission: function() {
 
     var that = this;
@@ -743,7 +525,7 @@ Page({
         title: '传播预算为零',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -751,9 +533,10 @@ Page({
     var prepaytype = 'A'
     var requirementid = that.data.requirementid;
     var upmarkid = '0';
-    var markid = that.data.markid;
-    var promotionid = that.data.promotionid;
+    var markid = that.data.initFq.markid;
+
     var dataInfo = {
+      
       "userid": userid,
       "fee": commission,
       "prepaytype": prepaytype,
@@ -778,18 +561,14 @@ Page({
               duration: 2000,
               success: function() {}
             })
-           
+
             wx.redirectTo({
               url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + requirementid,
             })
 
           },
           fail: function(res) {
-            wx.redirectTo({
-              url: "/page/component/pages/pagemy/merchant/fkrequirement/fkrequirement?p=" + promotionid + "&r=" + requirementid,
-            })
 
-          
           },
           complete: function(res) {
 
