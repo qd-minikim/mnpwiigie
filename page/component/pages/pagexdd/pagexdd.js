@@ -172,11 +172,18 @@ Page({
   onLoad: function(options) {
 
     var that = this
+    var fm = options.m;
+    var r = options.r;
     that.setData({
-      'requirementId': options.r,
-      'upmarkid': options.m
+      'requirementId': r,
+      'upmarkid': fm
     })
 
+    var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
+    wx.setStorage({
+      key: "cardpage",
+      data: url,
+    })
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -198,7 +205,7 @@ Page({
 
     } else {
 
-      rUserInfo.getUserInfoApp(that, function (rdata) {
+      rUserInfo.getUserInfoApp(that, function(rdata) {
         if (app.globalData.userWxInfo) {
           that.setData({
             userWxInfo: app.globalData.userWxInfo,
@@ -271,6 +278,18 @@ Page({
         if (value && value == '1') {
           that.getOpinionInfo()
         }
+        if (value && value == '2') { //下单成功
+
+          var role = that.data.initDetail.role;
+
+          if (role == "XQ") {
+            that.getPcPromotionGroupOrderInfo()
+            that.getProgressRouteInfo()
+          }
+
+        }
+
+
       } catch (e) {
 
       }
@@ -344,47 +363,54 @@ Page({
     var fm = that.data.initDetail.fmarkid;;
     var r = that.data.requirementId;
     var swiperImgUrls = that.data.swiperArea.swiperImgUrls;
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;;
+
+    // var upmarkid = that.data.upmarkid;
+    var upmarkid = that.data.initDetail.upmarkid;
+
+    var markid = that.data.initDetail.markid;
+    var url = config.requestUrl;
+
+    var data = {
+      code_: 'x_addForward',
+      "userid": userid,
+      "requirement_id": requirementId,
+      "upmarkid": upmarkid,
+      "markid": markid
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      // wx.showToast({
+      //   title: '分享成功',
+      //   image: '/image/icon_ok.png',
+      //   duration: 2000,
+      //   success: function () {
+
+      //   }
+      // })
+      that.getProgressRouteInfo()
+
+    })
     return {
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
       imageUrl: swiperImgUrls[0].imageUrl,
       success: function() {
+        wx.showToast({
+          title: '分享成功',
+          image: '/image/icon_ok.png',
+          duration: 2000,
+          success: function() {
 
-        var userid = that.data.userInfo.id;
-        var requirementId = that.data.requirementId;;
-
-        var upmarkid = that.data.upmarkid;
-        var markid = that.data.initDetail.markid;
-        var url = config.requestUrl;
-
-        var data = {
-          code_: 'x_addForward',
-          "userid": userid,
-          "requirement_id": requirementId,
-          "upmarkid": upmarkid,
-          "markid": markid
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-          wx.showToast({
-            title: '分享成功',
-            image: '/image/icon_ok.png',
-            duration: 2000,
-            success: function() {
-
-            }
-          })
-          that.getProgressRouteInfo()
-
+          }
         })
-
-
       },
       fail: function() {
 
-      }
-
+      },
 
     }
+
 
   },
 
@@ -680,7 +706,7 @@ Page({
       requirementid: that.data.requirementId,
       userid: that.data.userInfo.id,
       markid: that.data.initDetail.markid,
-      upmarkid: that.data.upmarkid,
+      upmarkid: that.data.initDetail.upmarkid, //that.data.upmarkid,
       buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
       skuid: that.data.myOrderInfo.mySkuInfo.id,
       spuid: that.data.requirementInfo.spuid,
@@ -1128,13 +1154,7 @@ Page({
           rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
         }
 
-
-
-
-
       }
-
-
 
     });
   },
@@ -1224,15 +1244,11 @@ Page({
   opencommission: function() {
 
     var that = this;
-
     that.setData({
       'viewModal.addtoComossionShow': true,
 
     })
-
     WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
-
-
   },
   bindKeyInputCommission: function(e) {
     this.setData({
@@ -1396,30 +1412,7 @@ Page({
       'backpage': 'storage',
     })
   },
-  // /**转发成功 */
-  // forwardSuccess: function() {
-  //   var that = this;
-  //   var url = config.requestUrl;
 
-  //   var userid = that.data.userInfo.id;
-  //   var requirementId = that.data.requirementId;
-  //   var upmarkid = that.data.initDetail.upmarkid;
-  //   var markid = that.data.initDetail.markid;
-
-  //   var data = {
-  //     code_: 'x_addForward',
-  //     userid: userid,
-  //     requirement_id: requirementId,
-  //     upmarkid: gr,
-  //     markid: gr,
-
-  //   }
-  //   rRequest.doRequest(url, data, that, function(rdata) {
-
-
-  //   })
-
-  // },
   /**我要说 */
   addopinion: function(event) {
     var requirementId = this.data.requirementId;
@@ -1436,9 +1429,7 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
     })
-    // this.setData({
-    //   'backpage': 'opinion',
-    // })
+
   },
 
 })

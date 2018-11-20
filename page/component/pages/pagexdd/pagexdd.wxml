@@ -98,12 +98,13 @@
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
-    <!--微信传播描述 -->
-    <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
-      <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
-    </view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-
+    <block wx:if="{{requirementInfo.dealtype !='3'}}">
+      <!--微信传播描述 -->
+      <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
+        <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+    </block>
     <view class='view-6 align-center'>
 
 
@@ -585,10 +586,10 @@
       <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap="{{ fixedBottom.xdClick?'order':''}}">
         <view class='font-size-5'>{{fixedBottom.xdText}}</view>
       </view>
-      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%'  catchtap="{{ fixedBottom.slClick?'gift':''}}">
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap="{{ fixedBottom.slClick?'gift':''}}">
         <view class='font-size-5'>{{fixedBottom.slText}}</view>
       </view>
-      <view  class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
           <view style='flex-direction:column;display:flex;; height:100%'>

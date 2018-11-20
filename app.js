@@ -7,12 +7,18 @@ App({
 
   //启动时执行的初始化工作
   onLaunch: function() {
+
+    wx.setStorage({
+      key: "cardpage",
+      data: "",
+    })
+
     this.getSystemInfo();
 
-    
-    this.userLogin();
 
-   
+    // this.userLogin();
+
+
   },
   globalData: {
     userInfo: null, //用户信息--wiigie
@@ -24,10 +30,10 @@ App({
     loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
       pagexdd_p_1: null,
- 
+
     },
     // 订单处理时，录入快递单号时，选择快递公司
-    carrierInfo:'',
+    carrierInfo: '',
 
     orderData: null,
     /**赋值在 pagexdd.js中 sureSelect //funtion */
@@ -114,10 +120,11 @@ App({
           that.getUsersInfo();
         } else {
           console.log("用户信息未授权--")
-          wx.reLaunch({ ///pages/pagehome/pagehome
-            url: '/pages/pagewelcome/pagewelcome',
-          })
-         
+
+          // wx.reLaunch({ ///pages/pagehome/pagehome
+          //   url: '/pages/pagewelcome/pagewelcome',
+          // })
+
         }
       },
       fail: function(res) {
@@ -159,17 +166,67 @@ App({
 
             var currentPage = pages[pages.length - 1] //获取当前页面的对象
 
-            var url = currentPage && currentPage.route ? currentPage.route:''//当前页面url
+            var url = currentPage && currentPage.route ? currentPage.route : '' //当前页面url
+            var page = ""
+            try {
+              page = wx.getStorageSync('cardpage')
+              wx.setStorage({
+                key: "cardpage",
+                data: "",
+              })
+            } catch (e) {
 
-            if ("page/component/pages/pagegift/giftreceive/giftreceive" == url) {
-              var options = currentPage.options
-              var giftRecordId = options.gr;
-              var fuserid = options.fu;
-              wx.reLaunch({
-                url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '& fu=' + fuserid,
+            }
+ 
+
+            if (page != "") {
+              if (page.indexOf("/page/component/pages/pagexdd/pagexdd") > -1) {
+
+                wx.reLaunch({
+                  url: page,
+                })
+              }
+              if (page.indexOf("/page/component/pages/pagegift/giftreceive/giftreceive") > -1) {
+                wx.reLaunch({
+                  url: page,
+                })
+              }
+              if (page.indexOf("/page/component/pages/pagecount/counthome/counthome") > -1) {
+                wx.reLaunch({
+                  url: page,
+                })
+              }
+              if (page.indexOf("/page/component/pages/pagegift/giftgivesucc/giftgivesucc") > -1) {
+                wx.reLaunch({
+                  url: page,
+                })
+              }
+              if (page.indexOf("/page/component/pages/pageinform/scanpage/scanpage") > -1) {
+                wx.reLaunch({
+                  url: page,
+                })
+              }
+
+
+
+            } else {
+              wx.switchTab({
+                url: '/pages/pagehome/pagehome',
               })
 
             }
+
+
+
+            // if ("page/component/pages/pagegift/giftreceive/giftreceive" == url) {
+            //   var options = currentPage.options
+            //   var giftRecordId = options.gr;
+            //   var fuserid = options.fu;
+            //   wx.reLaunch({
+            //     url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '& fu=' + fuserid,
+            //   })
+
+            // }
             /**详情 */
             // if ("page/component/pages/pagexdd/pagexdd" == url) {
             //   var options = currentPage.options
@@ -179,28 +236,28 @@ App({
             //     url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
             //   })
             // }
-            if ("page/component/pages/pagecount/counthome/counthome" == url) {
+            // if ("page/component/pages/pagecount/counthome/counthome" == url) {
 
-              wx.reLaunch({
-                url: "/page/component/pages/pagecount/counthome/counthome",
-              })
+            //   wx.reLaunch({
+            //     url: "/page/component/pages/pagecount/counthome/counthome",
+            //   })
 
-            }
-            if ("page/component/pages/pagegift/giftgivesucc/giftgivesucc" == url) {
-              var options = currentPage.options
-              var gr = options.gr;
-              wx.reLaunch({
-                url: "/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=" + gr,
-              })
+            // }
+            // if ("page/component/pages/pagegift/giftgivesucc/giftgivesucc" == url) {
+            //   var options = currentPage.options
+            //   var gr = options.gr;
+            //   wx.reLaunch({
+            //     url: "/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=" + gr,
+            //   })
 
-            }
-            if ("pages/pagewelcome/pagewelcome" == url) {
-              wx.switchTab({
-                url: '/pages/pagehome/pagehome',
-              })
+            // }
+            // if ("pages/pagewelcome/pagewelcome" == url) {
+            //   wx.switchTab({
+            //     url: '/pages/pagehome/pagehome',
+            //   })
 
-            }
-      
+            // }
+
 
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
 

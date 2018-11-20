@@ -66,6 +66,13 @@ Page({
       'giftInfo.fuserid': fuserid,
     })
 
+    var url = "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "&fu=" + fuserid
+    wx.setStorage({
+      key: "cardpage",
+      data: url,
+    })
+
+
     if (app.globalData.userWxInfo) {
       this.setData({
         userWxInfo: app.globalData.userWxInfo,

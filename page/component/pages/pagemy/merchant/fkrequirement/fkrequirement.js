@@ -445,7 +445,7 @@ Page({
         wx.showModal({
           title: '提示',
           content: rdata.msg,
-          showCancel: true,
+          showCancel: false,
           confirmText: '知道了',
           success: function(res) {}
         })

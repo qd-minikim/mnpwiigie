@@ -11,6 +11,14 @@ var config = require('../config.js')
      },
      success: res => {
        typeof callback == "function" && callback(res.data)
+     },
+     fail:res=>{
+
+       console.log("----------"+res)
+     },
+     complete: res => {
+
+        
      }
    })
  }

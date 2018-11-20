@@ -1,5 +1,5 @@
 {
   "navigationBarTitleText": "友托帮-好物精选",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50
+  "onReachBottomDistance": 150
 }

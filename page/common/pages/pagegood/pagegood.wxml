@@ -1,6 +1,6 @@
 <template name="pagegood">
 
-  <block wx:for="{{goodsArry}}" wx:for-item="itemG" wx:key="trade" wx:for-index="indexG">
+  <block wx:for="{{goodsArry}}" wx:for-item="itemG"   wx:for-index="indexG" wx:key="index">
     <view wx:if="{{indexG>0}}" class="gap-bg" style="flex-direction:column;"></view>
     <view bindtap='goodShowDetail' data-upmarkid='{{itemG.upmarkid}}' data-requir='{{itemG.requirementid}}'>
       <view style='position:relative'>

@@ -201,16 +201,28 @@ cancelConfirm:function(){
 
         }, 1500)
       }else{
-
-        
-        wx.showToast({
-          title: rdata.msg,
-          image: '/image/icon_ok.png',
-          duration: 2000,
-          success: function () {
+        wx.showModal({
+          title: '提示',
+          content: '订单取消异常',
+          showCancel: false,
+          confirmText: '知道了',
+          success: function (res) { 
+            wx.navigateBack({
+              delta: 1,
+            })
 
           }
         })
+        // wx.showToast({
+        //   title: rdata.msg,
+        //   image: '/image/icon_ok.png',
+        //   duration: 2000,
+        //   success: function () {
+
+        //   }
+        // })
+
+
 
       }
       

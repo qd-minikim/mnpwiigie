@@ -7,7 +7,7 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到个人中心进行绑定</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_00_T}}</view>
 
       </view>
 
@@ -20,7 +20,7 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到首页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_010_T}}</view>
 
       </view>
 
@@ -34,7 +34,7 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到活动发起页面</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_011_T}}</view>
 
       </view>
 
@@ -48,7 +48,7 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到首页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_10a_T}}</view>
 
       </view>
 
@@ -61,7 +61,7 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到首页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_100_T}}</view>
 
       </view>
 
@@ -74,21 +74,21 @@
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到首页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_101_T}}</view>
 
       </view>
 
     </view>
 
   </block>
-  <!-- H -->
+  <!-- G -->
 
   <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '0'&& checkStatus.isedit != '-1'&& checkStatus.isedit != '0'&& checkStatus.isedit != '1'}}">
     <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转详情页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_102_T}}</view>
 
       </view>
 
@@ -98,13 +98,27 @@
 
 
 
-  <!-- I -->
+  <!-- H -->
   <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '-1'}}">
     <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转到首页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_11a_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- I -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '0'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_110_T}}</view>
 
       </view>
 
@@ -113,12 +127,12 @@
   </block>
 
   <!-- J -->
-  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '0'}}">
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '1'}}">
     <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转编辑页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_111_T}}</view>
 
       </view>
 
@@ -127,26 +141,12 @@
   </block>
 
   <!-- K -->
-  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '1'}}">
-    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
-      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
-
-      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后继续付款</view>
-
-      </view>
-
-    </view>
-
-  </block>
-
-  <!-- L -->
   <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit != '-1'&& checkStatus.isedit != '0'&& checkStatus.isedit != '1'}}">
     <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
       <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
 
       <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
-        <view style='text-align:center;'>{{checkStatus.downtimes}}秒后跳转详情页</view>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_112_T}}</view>
 
       </view>
 

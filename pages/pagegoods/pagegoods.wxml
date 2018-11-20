@@ -7,18 +7,21 @@
     <scroll-view class="view_1_scroll-view" scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
       <view class='view_1_1' style='align-items:center;flex-direction:row;display:flex; '>
 
-
-        <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color font-size-5'>
-          <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
+        <!-- 2018-11-19 导航分类指引暂只支持 -->
+        <!-- <view wx:if="{{promotiontag==''}}" class='align-center view_select_style  view_select_height  view_select_color font-size-5'>
+          <view class='align-center' style='width:{{promotiontagWidth}};'>全部</view>
         </view>
         <view bindtap='selectTag' data-tagcode='' wx:else class='align-center view_select_style  view_select_height font-size-5 '>
-          <view class='align-center' style='width:{{promotiontagWidth}};'> 全部</view>
+          <view class='align-center' style='width:{{promotiontagWidth}};'>全部</view>
 
-        </view>
+        </view> -->
 
         <block wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
           <view wx:for="{{promotiontagArry}}" wx:for-index="index" wx:for-item="item" wx:key="*this" class='align-center view_select_left font-size-5' style="flex-direction:column;;display:flex;height:100rpx">
-            <view style='height:50%;' class='align-center view_select_style '>{{item.tag_name}}</view>
+
+            <view   wx:if="{{promotiontag==''}}" style='height:50%;width:100%;' class='align-center view_select_style  view_select_height  view_select_color font-size-5'>全部</view>
+            <view wx:else bindtap='selectTag' data-tagcode='' style='height:50%;;width:100%;' class='align-center view_select_style  view_select_height font-size-5 '>全部</view>
+
 
 
             <view style="flex-direction:row;;display:flex;height:50%;">
@@ -55,8 +58,9 @@
 
   </view>
 
-  <scroll-view style='height:{{scrollViewHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
-  
+  <scroll-view style='height:{{scrollViewHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower"
+  lower-threshold='0'  >
+
     <template is="pagegood" data="{{goodsArry,imageSize,goodsSelected}}" />
   </scroll-view>
 </view>

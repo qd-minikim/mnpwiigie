@@ -186,18 +186,20 @@ Page({
               success: function () { }
             })
 
+            wx.setStorage({
+              key: "refresh",
+              data: "2",
+            })
             setTimeout(function () {
-
               wx.navigateBack({
                 delta: 1,
               })
-
             }, 2000)
 
 
           },
           fail: function (res) {
-            console.log("---------fail")
+             
           },
           complete: function (res) {
 

@@ -38,7 +38,17 @@ Page({
 
     var that = this
 
+
+    
     if (options.scene) {
+
+      var url = "/page/component/pages/pageinform/scanpage/scanpage?scene=" + options.scene 
+      wx.setStorage({
+        key: "cardpage",
+        data: url,
+      })
+
+
       var scene = decodeURIComponent(options.scene);
       console.log("scene is ", scene);
       that.setData({
@@ -155,24 +165,18 @@ Page({
         var isfqr = rdata.info.isFqr
         var isedit = rdata.info.isEdit
 
+        var configMsgInfo = rdata.info.configMsgInfo
 
         var m = rdata.info.upmarkId
         var r = rdata.info.requirementId
-        // checkStatus: {
-        //   isused: '0',
-        //     isbind: '0',
-        //       isfqr: '0',
-        //         isedit: '-1',
-        //           downtimes: 3,
-        //             statusmsg: ''
-        // },
-
+   
         that.setData({
           'checkStatus.isused': isused,
           'checkStatus.isbind': isbind,
           'checkStatus.isfqr': isfqr,
           'checkStatus.isedit': isedit,
-          'haschecked': true
+          'haschecked': true,
+          'configMsgInfo': configMsgInfo
         })
 
         //isUsed是否 文案已被发起到手机端 0未  1 已经
@@ -187,7 +191,7 @@ Page({
           if (isbind == '0') { //未绑定后台手机号
             //A 层
             that.setData({
-              'checkStatus.statusmsg': '还没有绑定后台商户账号',
+              'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_00 ? configMsgInfo.SCAN_MSG_00:'还没有绑定后台商户账号',
               'checkStatus.downtimes': that.data.initdowntime
             })
             rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -202,7 +206,7 @@ Page({
             if (isfqr == '0') { //该需求不是我所绑定后台用户生成的
               //B 层
               that.setData({
-                'checkStatus.statusmsg': '该推广还未发布，请耐心等待，先看看其他的吧',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_010 ? configMsgInfo.SCAN_MSG_010 :'该推广还未发布，请耐心等待，先看看其他的吧',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -217,7 +221,7 @@ Page({
 
               //C 层
               that.setData({
-                'checkStatus.statusmsg': '还需一步，您的推广就会上线喽！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_011 ? configMsgInfo.SCAN_MSG_011 :'还需一步，您的推广就会上线喽！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -236,7 +240,7 @@ Page({
             if (isedit == '-1') { //编辑中
               //D 层
               that.setData({
-                'checkStatus.statusmsg': '该推广无效，快去看看其他的吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_10a ? configMsgInfo.SCAN_MSG_10a :'该推广无效，快去看看其他的吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -248,7 +252,7 @@ Page({
             } else if (isedit == '0') { //编辑中
               //E 层
               that.setData({
-                'checkStatus.statusmsg': '该推广还没上线，快去看看其他的吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_100 ? configMsgInfo.SCAN_MSG_100 : '该推广还没上线，快去看看其他的吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -264,7 +268,7 @@ Page({
               //F 层
 
               that.setData({
-                'checkStatus.statusmsg': '该推广还没上线，快去看看其他的吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_101 ? configMsgInfo.SCAN_MSG_101 :  '该推广还没上线，快去看看其他的吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -275,9 +279,10 @@ Page({
               })
 
             } else {
-              //H层 直接跳转到详情
+              //H
+              //G层 直接跳转到详情
               that.setData({
-                'checkStatus.statusmsg': '好物要分享，快行动起来吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_102 ? configMsgInfo.SCAN_MSG_102 :'好物要分享，快行动起来吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -293,9 +298,9 @@ Page({
           if (isfqr == '1') { //是发起人
 
             if (isedit == '-1') { //无效
-              //I
+              //H
               that.setData({
-                'checkStatus.statusmsg': '该推广无效，快去看看其他的吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_11a ? configMsgInfo.SCAN_MSG_11a :'该推广无效，快去看看其他的吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -305,9 +310,9 @@ Page({
                 })
               })
             } else if (isedit == '0') { //编辑中
-              //J
+              //I
               that.setData({
-                'checkStatus.statusmsg': '还需一步，您的推广就会上线喽！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_110 ? configMsgInfo.SCAN_MSG_110:'还需一步，您的推广就会上线喽！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -317,9 +322,9 @@ Page({
                 })
               })
             } else if (isedit == '1') { //待付款
-              //K
+              //J
               that.setData({
-                'checkStatus.statusmsg': '上次付款还没有完成哟！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_111 ? configMsgInfo.CAN_MSG_111 :'上次付款还没有完成哟！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {
@@ -329,9 +334,9 @@ Page({
              
               })
             } else {
-              //L直接跳转到详情
+              //K直接跳转到详情
               that.setData({
-                'checkStatus.statusmsg': '好物要分享，快行动起来吧！',
+                'checkStatus.statusmsg': configMsgInfo.SCAN_MSG_112 ? configMsgInfo.SCAN_MSG_112 :'好物要分享，快行动起来吧！',
                 'checkStatus.downtimes': that.data.initdowntime
               })
               rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function() {

@@ -49,13 +49,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-   
+
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     var giftRecordId = options.gr;
     this.setData({
       'giftInfo.giftRecordId': giftRecordId,
 
+    })
+
+
+    var url = "/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=" + giftRecordId
+    wx.setStorage({
+      key: "cardpage",
+      data: url,
     })
     /****调用函数设置tabbar及页面*****/
     if (app.globalData.userWxInfo) {
@@ -66,12 +73,12 @@ Page({
       })
 
       this.getGiveGiftRecordInfo()
-    }else{
+    } else {
 
       app.userLogin();
     }
 
-   
+
     wx.hideShareMenu();
 
   },
@@ -137,7 +144,7 @@ Page({
       path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid,
       imageUrl: imageUrl,
       success: function() {
-      
+
 
         var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
 
@@ -156,9 +163,9 @@ Page({
         }
         rRequest.doRequest(url, data, that, function(rdata) {
 
-           that.setData({
-             'giftInfo.process':0
-           })
+          that.setData({
+            'giftInfo.process': 0
+          })
 
         })
 
@@ -252,7 +259,7 @@ Page({
           'giftInfo.recordInfo': rdata.info,
           'giftInfo.process': process,
           'giftInfo.giftStatusImage': giftStatusImage,
-         
+
           'fromLeaveMsg': rdata.info.from_leave_message,
         })
 

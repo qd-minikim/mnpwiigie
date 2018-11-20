@@ -3,6 +3,10 @@ var config = require('../../config.js')
 var pagegood = require('../../page/common/pages/pagegood/pagegood.js');
 var rRequest = require('../../utils/rRequest.js');
 const app = getApp()
+//是否下拉刷新
+var isPullDownRefresh = false
+//是否上拉更多
+var isReachBottom = false
 Page({
 
   /**
@@ -25,7 +29,7 @@ Page({
     goodsCount: 0,
     goodsSelected: false,
     goodsendRow: 0,
-    itemsPerPage: 3,
+    itemsPerPage: 5,
 
     windowWidth: app.globalData.systemInfo.windowWidth,
     screenWidth: app.globalData.systemInfo.screenWidth,
@@ -42,10 +46,7 @@ Page({
 
 
 
-    //是否下拉刷新
-    isPullDownRefresh: false,
-    //是否上拉更多
-    isReachBottom: false,
+
   },
 
   /**
@@ -130,21 +131,21 @@ Page({
   },
   scroll: function(e) {
 
-    var scrollHeight = e.detail.scrollHeight;
-    var scrollTop = e.detail.scrollTop
-    var scrollViewHeight = this.data.scrollViewHeight
+    // var scrollHeight = e.detail.scrollHeight;
+    // var scrollTop = e.detail.scrollTop
+    // var scrollViewHeight = this.data.scrollViewHeight
 
-    var maxScrollTop = scrollHeight - scrollViewHeight
+    // var maxScrollTop = scrollHeight - scrollViewHeight
 
 
-    if (scrollTop + 200 >= maxScrollTop) {
+    // if (scrollTop + 200 >= maxScrollTop) {
 
-      this.setData({
-        isReachBottom: true
-      })
-      this.getGoods()
+    //   this.setData({
+    //     isReachBottom: true
+    //   })
+    //   this.getGoods()
 
-    }
+    // }
 
   },
 
@@ -157,10 +158,21 @@ Page({
     // this.getGoods();
   },
   lower: function(e) {
-    // this.setData({
-    //   isReachBottom: true
-    // })
-    // this.getGoods()
+   
+    var isReachBottom = this.data.isReachBottom;
+    console.log("-----lower---" + isReachBottom)
+    if (isReachBottom) {
+
+    } else {
+
+      this.setData({
+        isReachBottom: true
+      })
+      this.getGoods()
+    }
+
+
+
   },
   /**
    * 用户点击右上角分享
@@ -190,7 +202,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: res => {
-        console.log("tag=1=" + res.data.infolist)
 
         var wCount = 1;
 
@@ -231,7 +242,7 @@ Page({
       var tagCode = event.currentTarget.dataset.tagcode;
       var oldTagCode = this.data.promotiontag;
       if (tagCode == oldTagCode) {
-      
+        return false;
       } else {
         this.setData({
           goodsArry: [],
@@ -253,7 +264,7 @@ Page({
 
   getGoods: function() {
 
-
+    console.log("--------getGoods---------")
     var that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
@@ -273,15 +284,14 @@ Page({
         duration: 1500,
         success: function() {}
       })
-      return
+      return false
     }
-    if (!isReachBottom) {
+    
 
-      wx.showLoading({
-        title: '加载中...',
-        mask: true,
-      })
-    }
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+    })
 
 
     var url = config.requestUrl;
@@ -298,38 +308,58 @@ Page({
       itemsPerPage: itemsPerPage,
       promotiontag: tag,
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    wx.request({
+      url: url, //对外地址
+      data: data,
+      header: {
+        'content-type': 'application/json'
+      },
+      success: res => {
+        console.log("-----success---")
+        if (res.data.infolist) {
 
-      if (rdata.infolist) {
+          var goodsArry = [];
+          var goodsArryNew = [];
+          if (isPullDownRefresh) {
+            goodsArry = [];
 
-        var goodsArry = [];
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            goodsArry = that.data.goodsArry;
 
-        if (isPullDownRefresh) {
-          goodsArry = [];
+          }
 
-          wx.stopPullDownRefresh();
+          goodsArryNew = goodsArry.concat(res.data.infolist);
+        
+          that.setData({
+
+            goodsArry: goodsArryNew,
+
+            goodsSelected: true,
+            goodsCount: res.data.infocounts,
+            goodsendRow: res.data.endRow,
+            // isPullDownRefresh: false,
+            // isReachBottom: false,
+          })
+        
+          
         }
-        if (isReachBottom) {
-          goodsArry = that.data.goodsArry;
-        }
-        var goodsArryNew = [...goodsArry, ...rdata.infolist]
+      },
+      fail: res => {
 
-
+      },
+      complete: res => {
+        console.log("-----complete---")
         that.setData({
 
-          goodsArry: goodsArryNew,
-
-          goodsSelected: true,
-          goodsCount: rdata.infocounts,
-          goodsendRow: rdata.endRow,
           isPullDownRefresh: false,
           isReachBottom: false,
         })
+        wx.hideLoading();
       }
-
-
-      wx.hideLoading();
     })
+
 
   }
 

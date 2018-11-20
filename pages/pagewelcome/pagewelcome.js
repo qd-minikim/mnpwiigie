@@ -13,14 +13,17 @@ Page({
   data: {
     windowHeight: app.globalData.systemInfo.windowHeight + 'px',
     backgroundImage: config.imageUrl + '/wiigie/background/bg_1/bg_image.jpg',
-configMsgInfo:{}
+    configMsgInfo: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+ 
+
+    app.userLogin();
+
     this.getConfigMsgInfo();
   },
 
@@ -74,7 +77,7 @@ configMsgInfo:{}
   onShareAppMessage: function() {
 
   },
- 
+
   getSettingInfo: function() { // 查看是否授权
     var that = this;
     wx.getSetting({
@@ -92,13 +95,13 @@ configMsgInfo:{}
   },
 
   /**获取配置描述 */
-  getConfigMsgInfo: function () {
+  getConfigMsgInfo: function() {
     var that = this;
     var url = config.requestUrl;
     var values = [{
-      code: 'WELCOME_MSG',
-      replace: []
-    },
+        code: 'WELCOME_MSG',
+        replace: []
+      },
 
     ];
 
@@ -107,13 +110,13 @@ configMsgInfo:{}
 
       values: values
     }
-    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
-          that.setData({
+        that.setData({
 
-            'configMsgInfo': rdata.info
-          })
-      
+          'configMsgInfo': rdata.info
+        })
+
 
       }
 

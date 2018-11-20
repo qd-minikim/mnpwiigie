@@ -21,6 +21,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+
+    var url = "/page/component/pages/pagecount/counthome/counthome"
+    wx.setStorage({
+      key: "cardpage",
+      data: url,
+    })
+
     if (app.globalData.userWxInfo) {
       this.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -35,7 +43,7 @@ Page({
       app.userLogin();
     }
 
-   
+
     wx.hideShareMenu();
   },
 
@@ -112,8 +120,8 @@ Page({
 
     })
   },
-/**获取行为积分 */
-  getCredit: function () {
+  /**获取行为积分 */
+  getCredit: function() {
 
     var that = this;
     var url = config.requestUrl;
@@ -126,7 +134,7 @@ Page({
       userid: userid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -139,7 +147,7 @@ Page({
 
     })
   },
-  
+
   /**去提现 */
   countoutPage: function() {
 

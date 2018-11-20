@@ -11,7 +11,7 @@ Page({
   data: {
 
     /**tab */
-    clickindex:-1,
+    // clickindex:-1,
     currentTab: 0, // 0自购 1送礼
     /** */
     swiperHeight: 0,
@@ -82,16 +82,16 @@ Page({
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
-      var index = that.data.clickindex;
-      if (value && value == '1' && index !='-1' ) {
+      // var index = that.data.clickindex;
+      if (value && value == '1'   ) {
  
         if (currentTab == '0') {
- 
-          var orderbuyArray = that.data.orderbuyArray;
-          orderbuyArray[index].evaluable = '1';
-          that.setData({
-            orderbuyArray: orderbuyArray,
-          })
+          that.getOrdersInfo();
+          // var orderbuyArray = that.data.orderbuyArray;
+          // orderbuyArray[index].evaluable = '1';
+          // that.setData({
+          //   orderbuyArray: orderbuyArray,
+          // })
         }
         if (currentTab == '1') {
           // that.setData({
@@ -281,10 +281,10 @@ Page({
     var that = this
 
     var index = event.currentTarget.dataset.index;
-    that.setData({
-      clickindex: index,
+    // that.setData({
+    //   clickindex: index,
 
-    })
+    // })
 
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({
