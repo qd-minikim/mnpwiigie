@@ -302,7 +302,8 @@
 }
  
 .modal-title {
- padding-top: 50rpx;
+ /* padding-top: 50rpx; */
+ margin: 15rpx 0rpx 0rpx 0rpx;
  font-size: 36rpx;
  color: #030303;
  text-align: center;

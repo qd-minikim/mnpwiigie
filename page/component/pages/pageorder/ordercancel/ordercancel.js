@@ -24,7 +24,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this;
+    let that = this;
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -101,7 +101,7 @@ Page({
   },
   getOrderCancel: function() {
 
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var userid = that.data.userInfo.id //that.data.userInfo.id //1528869953018820
@@ -127,7 +127,7 @@ Page({
   },
 
 cancelConfirm:function(){
-  var that = this;
+  let that = this;
   wx.showModal({
     title: '提示',
     content: '确定要取消订单吗？',
@@ -146,7 +146,7 @@ cancelConfirm:function(){
 
   addOrderCancel: function() {
 
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var cancel = that.data.cancel

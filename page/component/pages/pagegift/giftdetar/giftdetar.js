@@ -5,6 +5,8 @@ var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
 var rUtils = require('../../../../../utils/rUtils.js');
 var WxParse = require('../../../../../wxParse/wxParse.js');
+var rUserInfo = require('../../../../../utils/rUserInfo.js');
+
 var pagekskujs = require('../../../../../page/common/pages/pagesku/pagesku.js');
 const app = getApp()
 Page({
@@ -120,57 +122,55 @@ Page({
     fmodaltextareaMaxLen: 40, //字数限制
     fmodalMsg: '', //送礼留言
     nofmodalMsg: true, //是否输入留言
-    nofmodalTip: '输入留言'
+    nofmodalTip: '输入留言',
+
+    showPage: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let that = this
     var giftRecordId = options.gr;
     var oper = options.t;
 
-    this.setData({
+    that.setData({
       'giftInfo.giftRecordId': giftRecordId,
       'giftInfo.oper': oper
 
     })
     if (app.globalData.userWxInfo) {
-      this.setData({
+      that.setData({
         userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
+      that.getGiftInfo()
+    } else {
+
+      rUserInfo.getUserInfoApp(that, function (rdata) {
+        if (app.globalData.userWxInfo) {
+          that.setData({
+            userWxInfo: app.globalData.userWxInfo,
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+
+        }
+        that.getGiftInfo()
+      })
+       
     }
-    this.getGiftInfo();
 
-    // if(oper =='2'){
 
-    //   wx.showShareMenu();
-    // }else{
-    //   wx.hideShareMenu();
-    // }
+ 
+
     wx.hideShareMenu();
 
 
   },
-  // panelPageTop: function () {
-  //   var that = this;
 
-  //   that.setData({
-  //     'panelPage.panelPageTop': true,
-  //     'panelPage.msginfo': '',
-  //   })
-  //   rUtils.slideModal.down(that, 'pagetop', true);
-  //   setTimeout(function () {
-  //     rUtils.slideModal.up(that, null, false);
-
-  //     that.setData({
-  //       'panelPage.panelPageTop': false,
-  //     })
-  //   }, 2000)
-  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -212,6 +212,28 @@ Page({
    */
   onShow: function() {
 
+    let that = this
+
+    var showPage = that.data.showPage;
+
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+
+    var oper = that.data.giftInfo.oper;
+    if (showPage == 'share') {
+      that.setData({
+        'showPage': ''
+      });
+      wx.navigateTo({
+        url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+      })
+
+
+    } else {
+
+      that.getGiftInfo();
+
+    }
+
   },
 
   /**
@@ -246,50 +268,48 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    var that = this;
-
-    var fmodalMsg = that.data.fmodalMsg;
+    let that = this;
     var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
     var userid = that.data.userInfo.id;
+
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+
+   
+    var fromLeaveMessage = that.data.fmodalMsg;
+    var oper = that.data.giftInfo.oper;
+    var tUserId = '';
+    var url = config.requestUrl;
+    var data = {
+      code_: 'x_doProcess',
+      "processStatus": '24', //24已转送
+      "giftRecordId": giftRecordId,
+      "fUserId": userid,
+      "newGiftRecordId": newGiftRecordId,
+      "tUserId": tUserId,
+      "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      // wx.redirectTo({
+      //   url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+      // })
+
+    })
+    that.setData({
+      'showPage': 'share'
+    });
+
+    var fmodalMsg = that.data.fmodalMsg;
+
     that.setData({
       fmodalhidden: true,
     });
 
-    var shareObj = {
+    return {
       title: fmodalMsg,
       path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
       imageUrl: that.data.myOrderInfo.mySkuInfo.image_url,
       success: function() {
-
-
-        var giftRecordId = that.data.giftInfo.giftRecordId;
-
-        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
-
-        var fromLeaveMessage = that.data.fmodalMsg;
-        var oper = that.data.giftInfo.oper;
-        var tUserId = '';
-        var url = config.requestUrl;
-        var data = {
-          code_: 'x_doProcess',
-          "processStatus": '24', //24已转送
-          "giftRecordId": giftRecordId,
-          "fUserId": fUserId,
-          "newGiftRecordId": newGiftRecordId,
-          "tUserId": tUserId,
-          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          wx.redirectTo({
-            url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
-          })
-
-        })
-
-
-
-
 
 
 
@@ -302,7 +322,7 @@ Page({
       }
 
     };
-    return shareObj;
+
 
   },
 
@@ -313,14 +333,15 @@ Page({
   },
 
   getGiftInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var gr = that.data.giftInfo.giftRecordId;
+    var userid = that.data.userInfo.id;
     var data = {
       code_: 'x_getGiftInfo',
       gr: gr,
-
+      u: userid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -338,6 +359,29 @@ Page({
           'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
         })
 
+        if (rdata.info.newGiftRecord) {
+          that.setData({
+            'giftInfo.newGiftRecord': rdata.info.newGiftRecord
+          })
+          var from_leave_message = rdata.info.newGiftRecord.fromLeaveMessage ? rdata.info.newGiftRecord.fromLeaveMessage : ''
+          var len = parseInt(from_leave_message.length);
+          if (len == 0) {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: true,
+              nofmodalTip: '输入留言'
+            });
+          } else {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: false,
+              nofmodalTip: '继续'
+            });
+          }
+
+        }
 
 
 
@@ -365,7 +409,7 @@ Page({
      *  data-lx='default' data-code='CBDJSM' data-html='true'
      *  data-lx='sku' data-code='' data-html='false'
      */
-    var that = this
+    let that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
@@ -394,7 +438,7 @@ Page({
   },
 
   hideSlideModal: function(e) {
-    var that = this
+    let that = this
     rUtils.slideModal.down(that, null, false);
 
   },
@@ -413,7 +457,7 @@ Page({
 
   /**获取朋友说 */
   getOpinionInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -439,20 +483,20 @@ Page({
 
 
   openModal: function() {
-    var that = this;
+    let that = this;
     that.setData({
       'viewModal.isModalShow': true,
     })
   },
   // closeModal: function () {
-  //   var that = this;
+  //   let that = this;
   //   that.setData({
   //     'viewModal.isModalShow': false,
   //   })
   // },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var processStatus = that.data.giftInfo.giftRecordInfo.processStatus;
@@ -542,7 +586,7 @@ Page({
   },
   /**获取SpuCoverImage*/
   getSpuCoverImageInfo: function() {
-    var that = this
+    let that = this
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var url = config.requestUrl
@@ -569,7 +613,7 @@ Page({
   },
   /**选择sku */
   selectSku: function(event) {
-    var that = this
+    let that = this
     var skuindex = event.currentTarget.dataset.skuindex;
     var skuids = event.currentTarget.dataset.skuids;
     var vindex = event.currentTarget.dataset.vindex;
@@ -579,7 +623,7 @@ Page({
   /**获取spu*/
   getSpuInfo: function() {
 
-    var that = this
+    let that = this
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var promotionid = that.data.giftInfo.giftInfo.promotionId;
@@ -651,7 +695,7 @@ Page({
 
   },
   getSkuInfo: function() {
-    var that = this
+    let that = this
 
     var spuid = that.data.giftInfo.giftInfo.spuId;
     var promotionid = that.data.giftInfo.giftInfo.promotionId;
@@ -685,7 +729,7 @@ Page({
   /**获取sku */
   /**获取详情 */
   getRequirementDetail: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
 
@@ -715,7 +759,7 @@ Page({
 
   },
   showRichtext: function() {
-    var that = this;
+    let that = this;
     that.setData({
       'richtextInfo.richtextMore': false,
       'richtextInfo.richtextShow': true
@@ -725,7 +769,7 @@ Page({
 
   /**获取展开详情信息 */
   getRequirementRichtext: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;;
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
@@ -757,7 +801,7 @@ Page({
   /**执行收藏操作 */
   doRequirementKeepInfo: function() {
 
-    var that = this
+    let that = this
 
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
     var userid = that.data.userInfo.id;
@@ -786,7 +830,7 @@ Page({
   },
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
 
@@ -813,17 +857,17 @@ Page({
 
   /**客服聊天 */
   customerpage: function() {
-    var that = this;
+    let that = this;
     var r = that.data.giftInfo.giftInfo.requirementId;
     /**type = 1:消费者 0：商户  t==1是  c=''*/
     wx.navigateTo({
-  
+
       url: '/page/component/pages/pagedialog/dialog/dialog?t=1&r=' + r + '&d=',
     })
 
   },
   forwardfriend: function() {
-    var that = this;
+    let that = this;
     that.setData({
       fmodalhidden: false,
 
@@ -864,11 +908,11 @@ Page({
 
   reject: function() {
 
-    var that = this;
+    let that = this;
     wx.showModal({
       title: '提示',
       content: that.data.configMsgInfo.REJECT_TIP,
-      success: function (res) {
+      success: function(res) {
 
         if (res.confirm) {
           var giftRecordId = that.data.giftInfo.giftRecordId;
@@ -906,7 +950,7 @@ Page({
   },
   /**提交收货 */
   receiveAddress: function() {
-    var that = this;
+    let that = this;
     var giftData = {
 
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc,

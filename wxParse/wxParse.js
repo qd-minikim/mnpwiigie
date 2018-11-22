@@ -53,7 +53,7 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
 }
 // 图片点击事件
 function wxParseImgTap(e) {
-  var that = this;
+  let that = this;
   var nowImgUrl = e.target.dataset.src;
   var tagFrom = e.target.dataset.from;
   if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
@@ -68,7 +68,7 @@ function wxParseImgTap(e) {
  * 图片视觉宽高计算函数区 
  **/
 function wxParseImgLoad(e) {
-  var that = this;
+  let that = this;
   var tagFrom = e.target.dataset.from;
   var idx = e.target.dataset.idx;
   if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {

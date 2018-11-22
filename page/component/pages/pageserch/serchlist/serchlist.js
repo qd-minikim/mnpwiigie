@@ -133,7 +133,7 @@ Page({
   },
   showDetail: function (event){
 
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
@@ -148,7 +148,7 @@ Page({
   ,
   serchInfo: function(event) {
 
-    var that = this;
+    let that = this;
 
     var search = that.data.serchInputValue
 

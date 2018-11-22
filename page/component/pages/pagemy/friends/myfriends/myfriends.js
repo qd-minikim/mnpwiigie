@@ -60,7 +60,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
 
@@ -113,7 +113,7 @@ Page({
 
   },
   getMyFriends: function() {
-    var that = this;
+    let that = this;
 
 
     var url = config.requestUrl;

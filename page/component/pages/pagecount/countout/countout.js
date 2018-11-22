@@ -95,7 +95,7 @@ Page({
 
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
         code: 'WJ_LJJE_MSG',
@@ -142,7 +142,7 @@ Page({
 
   getAccount: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -168,7 +168,7 @@ Page({
   /**全部提现 */
   takeoutAll: function() {
 
-    var that = this;
+    let that = this;
 
     that.setData({
 
@@ -178,7 +178,7 @@ Page({
 
   bindKeyInput: function(event) {
 
-    var that = this;
+    let that = this;
     var value = event.detail.value;
     var availableAmount = that.data.accountInfo.available_amount
     var len = value.split(".").length
@@ -225,7 +225,7 @@ Page({
   /**提现 */
   takeOut: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;

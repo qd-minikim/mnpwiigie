@@ -79,7 +79,7 @@ Page({
   },
 
   initFriendSet: function() {
-    var that = this;
+    let that = this;
 
 
     var url = config.requestUrl;
@@ -104,7 +104,7 @@ Page({
 
   uppFriendSet: function(e) {
 
-    var that = this;
+    let that = this;
 
 
     var url = config.requestUrl;

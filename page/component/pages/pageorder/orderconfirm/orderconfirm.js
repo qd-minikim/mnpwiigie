@@ -28,7 +28,7 @@ Page({
    */
   onLoad: function (options) {
 
-    var that = this;
+    let that = this;
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -70,7 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
+    let that = this;
     wx.getStorage({
       key: 'userDefAddr',
       success: function (res) {
@@ -130,7 +130,7 @@ Page({
   /**提交订单 */
   orderpay: function () {
 
-    var that = this;
+    let that = this;
     var url = config.orderPayUrl;
 
     var userDefAddr = that.data.userDefAddr;

@@ -89,7 +89,7 @@ Page({
   },
   getKeeps:function(){
 
-    var that = this;
+    let that = this;
     
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;
@@ -132,7 +132,7 @@ Page({
   },
   showDetail: function (event) {
 
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;

@@ -59,7 +59,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
 
@@ -112,7 +112,7 @@ Page({
 
   },
   getDialogList: function() {
-    var that = this;
+    let that = this;
 
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;

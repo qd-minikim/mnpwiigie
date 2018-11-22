@@ -88,7 +88,7 @@ Page({
   },
   //检索
   bindKeyInput: function(e) {
-    var that = this;
+    let that = this;
     var carrier = e.detail.value
     if (carrier == '') {
 
@@ -132,7 +132,7 @@ Page({
   },
   getCarrier: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var data = {

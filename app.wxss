@@ -271,7 +271,16 @@
   width: 100%;
   box-sizing: border-box;
 }
-
+.flex-bottom-2 {
+  /* //height:8%; */
+  height: 90rpx;
+  /* background:#F4F4F4;  *//* padding: 16rpx; */
+  display: flex;
+  position: fixed;
+  bottom: 110rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
 /* 详情页的右箭头 */
 
 .arrow_right_1 {

@@ -128,7 +128,7 @@ Page({
 
   },
   getBenefactors: function() {
-    var that = this;
+    let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
 

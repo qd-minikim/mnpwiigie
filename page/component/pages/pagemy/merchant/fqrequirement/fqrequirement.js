@@ -63,7 +63,7 @@ Page({
    */
   onLoad: function(options) {
 
-    var that = this
+    let that = this
     var promotionid = options.pro;
     var requirementid = options.rid;
     that.setData({
@@ -188,7 +188,7 @@ Page({
   },
   /**传播预算失去焦点 */
   commissionblur: function(e) {
-    var that = this;
+    let that = this;
     var commission = e.detail.value
     var singleprice = this.data.singleprice
 
@@ -214,7 +214,7 @@ Page({
   },
   commissioninput: function(e) {
     var commission = e.detail.value
-    var that = this;
+    let that = this;
     var n = Number(commission);
 
     if (n <= 0) {
@@ -273,7 +273,7 @@ Page({
 
   initPage: function() {
 
-    var that = this
+    let that = this
 
     var userid = that.data.userInfo.id;
     var promotionId = that.data.promotionid
@@ -309,7 +309,7 @@ Page({
   },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
       code: 'CJZWSS',
@@ -357,7 +357,7 @@ Page({
   },
   /**获取展开详情信息 */
   getAttribute: function() {
-    var that = this
+    let that = this
 
     var spuid = that.data.pcPromotion.spuId;;
 
@@ -381,7 +381,7 @@ Page({
   },
   /**获取展开详情信息 */
   getRequirementRichtext: function() {
-    var that = this
+    let that = this
     var usreId = '';
     var spuid = that.data.pcPromotion.spuId;;
 
@@ -409,7 +409,7 @@ Page({
   },
   getPcPromotion: function() {
 
-    var that = this;
+    let that = this;
 
     wx.showLoading({
       title: '请稍候...',
@@ -456,7 +456,7 @@ Page({
   /**展开 */
   showRichtext: function() {
 
-    var that = this;
+    let that = this;
     that.setData({
       'richtextMore': false,
       'richtextShow': true
@@ -464,7 +464,7 @@ Page({
 
   },
   showGroupGrade: function(e) {
-    var that = this;
+    let that = this;
 
     var showGroupGrade = that.data.showGroupGrade;
     if (showGroupGrade) {
@@ -494,7 +494,7 @@ Page({
   },
 
   submit: function (e) {
-    var that = this;
+    let that = this;
     var addtype = e.currentTarget.dataset.addtype; //"4" 暂存 "0" 下一步
 
     if (addtype == '0') {
@@ -534,7 +534,7 @@ Page({
 
  
   submitInfo: function (addtype) {
-    var that = this;
+    let that = this;
   
     var code_ = ''
     if (addtype == '0') {
@@ -733,7 +733,7 @@ Page({
   // markid: m,
   toPayCommission: function() {
 
-    var that = this;
+    let that = this;
     var url = config.commissionPayUrl;
 
     var commission = that.data.commission

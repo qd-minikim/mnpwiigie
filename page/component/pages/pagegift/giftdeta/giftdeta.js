@@ -134,7 +134,7 @@ Page({
 
   },
   panelPageTop: function() {
-    var that = this;
+    let that = this;
 
     that.setData({
       'panelPage.panelPageTop': true,
@@ -234,14 +234,15 @@ Page({
   },
 
   getGiftInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var gr = that.data.giftInfo.giftRecordId;
+    var userid = that.data.userInfo.id;
     var data = {
       code_: 'x_getGiftInfo',
       gr: gr,
-
+      u: userid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -282,7 +283,7 @@ Page({
      *  data-lx='default' data-code='CBDJSM' data-html='true'
      *  data-lx='sku' data-code='' data-html='false'
      */
-    var that = this
+    let that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
@@ -311,7 +312,7 @@ Page({
   },
 
   hideSlideModal: function(e) {
-    var that = this
+    let that = this
     rUtils.slideModal.down(that, null, false);
 
   },
@@ -330,7 +331,7 @@ Page({
 
   /**获取朋友说 */
   getOpinionInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -356,20 +357,20 @@ Page({
 
 
   openModal: function() {
-    var that = this;
+    let that = this;
     that.setData({
       'viewModal.isModalShow': true,
     })
   },
   // closeModal: function () {
-  //   var that = this;
+  //   let that = this;
   //   that.setData({
   //     'viewModal.isModalShow': false,
   //   })
   // },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var processStatus = that.data.giftInfo.giftRecordInfo.processStatus;
@@ -446,7 +447,7 @@ Page({
   },
   /**获取SpuCoverImage*/
   getSpuCoverImageInfo: function() {
-    var that = this
+    let that = this
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var url = config.requestUrl
@@ -473,7 +474,7 @@ Page({
   },
   /**选择sku */
   selectSku: function(event) {
-    var that = this
+    let that = this
     var skuindex = event.currentTarget.dataset.skuindex;
     var skuids = event.currentTarget.dataset.skuids;
     var vindex = event.currentTarget.dataset.vindex;
@@ -483,7 +484,7 @@ Page({
   /**获取spu*/
   getSpuInfo: function() {
 
-    var that = this
+    let that = this
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
     var promotionid = that.data.giftInfo.giftInfo.promotionId;
@@ -555,7 +556,7 @@ Page({
 
   },
   getSkuInfo: function() {
-    var that = this
+    let that = this
 
     var spuid = that.data.giftInfo.giftInfo.spuId;
     var promotionid = that.data.giftInfo.giftInfo.promotionId;
@@ -589,7 +590,7 @@ Page({
   /**获取sku */
   /**获取详情 */
   getRequirementDetail: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
 
@@ -619,7 +620,7 @@ Page({
 
   },
   showRichtext: function() {
-    var that = this;
+    let that = this;
     that.setData({
       'richtextInfo.richtextMore': false,
       'richtextInfo.richtextShow': true
@@ -629,7 +630,7 @@ Page({
 
   /**获取展开详情信息 */
   getRequirementRichtext: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;;
     var spuid = that.data.giftInfo.giftInfo.spuId;
 
@@ -661,7 +662,7 @@ Page({
   /**执行收藏操作 */
   doRequirementKeepInfo: function() {
 
-    var that = this
+    let that = this
 
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
     var userid = that.data.userInfo.id;
@@ -690,7 +691,7 @@ Page({
   },
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
-    var that = this
+    let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.giftInfo.giftInfo.requirementId;
 

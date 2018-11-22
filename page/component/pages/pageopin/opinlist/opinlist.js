@@ -92,7 +92,7 @@ Page({
   },
   /**获取朋友说 */
   getOpinionInfo: function () {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;

@@ -88,7 +88,7 @@ Page({
 
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
       code: 'GIFT_FORWARD_MSG',
@@ -116,7 +116,7 @@ Page({
   },
   orderpay: function() {
 
-    var that = this;
+    let that = this;
     var url = config.orderPayUrl;
 
 

@@ -76,7 +76,7 @@ App({
   },
   //获取设备信息
   getSystemInfo: function() {
-    var that = this
+    let that = this
     wx.getSystemInfo({
       success: res => {
         that.globalData.systemInfo = res
@@ -88,12 +88,12 @@ App({
 
 
   userInfoResetCallBak: function(res) {
-    var that = this;
+    let that = this;
 
   },
   //先登录
   userLogin: function() {
-    var that = this;
+    let that = this;
     wx.login({
       success: res => {
         var url = config.loginUrl;
@@ -113,7 +113,7 @@ App({
     })
   },
   getSettingInfo: function() { // 查看是否授权
-    var that = this;
+    let that = this;
     wx.getSetting({
       success: function(res) {
         if (res.authSetting['scope.userInfo']) {
@@ -134,7 +134,7 @@ App({
   },
 
   getUsersInfo: function() {
-    var that = this;
+    let that = this;
     wx.getUserInfo({
       success: function(res) {
 

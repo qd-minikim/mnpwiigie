@@ -108,14 +108,14 @@ Page({
 
   },
   closeModal: function() {
-    var that = this;
+    let that = this;
     that.setData({
       'viewModal.isModalShow': false,
     })
   },
 
   openModal: function(e) {
-    var that = this;
+    let that = this;
     var id = e.currentTarget.dataset.id;
     var storage = e.currentTarget.dataset.storage;
     var index = e.currentTarget.dataset.index;
@@ -134,7 +134,7 @@ Page({
   },
   uppStorage: function() {
 
-      var that = this;
+      let that = this;
 
       var url = config.requestUrl;
       var skuid = that.data.skuid;
@@ -170,7 +170,7 @@ Page({
     ,
   getSkuList: function() {
 
-    var that = this;
+    let that = this;
 
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;

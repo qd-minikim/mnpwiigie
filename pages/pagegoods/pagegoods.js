@@ -183,7 +183,7 @@ Page({
 
 
   goodShowDetail: function(event) {
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
@@ -265,7 +265,7 @@ Page({
   getGoods: function() {
 
     console.log("--------getGoods---------")
-    var that = this;
+    let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
 

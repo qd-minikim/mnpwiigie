@@ -2,7 +2,7 @@
 
 var config = require('../../../../../config.js');
 var rUtils = require('../../../../../utils/rUtils.js');
-
+var rUserInfo = require('../../../../../utils/rUserInfo.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
 var WxParse = require('../../../../../wxParse/wxParse.js');
@@ -21,11 +21,12 @@ Page({
       // endTime: '2018-10-04 21:16:12',
 
       giftRecordId: '',
-      process: '0',
+      process: '-1',
       fuserid: '',
       newGiftRecordId: '',
       giftStatusImage: config.imageUrl + "/wiigie/background/gift/give_gift_icon.png", //展示的图片路径
-      recordInfo: {}
+      recordInfo: {},
+      newgiftrecord:{}
     },
     /** */
     actionprocess: '',
@@ -56,12 +57,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    let that = this
      /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
     app.editTabBar();
     var giftRecordId = options.gr;
     var fuserid = options.fu;
 
-    this.setData({
+    that.setData({
       'giftInfo.giftRecordId': giftRecordId,
       'giftInfo.fuserid': fuserid,
     })
@@ -74,16 +77,34 @@ Page({
 
 
     if (app.globalData.userWxInfo) {
-      this.setData({
-        userWxInfo: app.globalData.userWxInfo,
-        userIData: app.globalData.userIData,
-        userInfo: app.globalData.userInfo,
+      that.setData({
+        'userWxInfo':app.globalData.userWxInfo,
+        'userIData':app.globalData.userIData,
+        'userInfo':app.globalData.userInfo,
       }) /****调用函数设置tabbar及页面*****/
-      this.getGiftReceive();
+         that.setData({
+          
+            'userInfo.id': 'fsadfasdfadsf',
+          })
+      that.getGiftReceive();
     } 
     else {
 
-      app.userLogin();
+      rUserInfo.getUserInfoApp(that, function (rdata) {
+        if (app.globalData.userWxInfo) {
+       
+          that.setData({
+            'userWxInfo':app.globalData.userWxInfo,
+            'userIData':app.globalData.userIData,
+            'userInfo':app.globalData.userInfo,
+          })
+ 
+          that.getGiftReceive();
+        }
+      
+      })
+
+     // app.userLogin();
     }
   
    
@@ -102,7 +123,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (app.globalData.userWxInfo) {
+     this.getGiftReceive();
+    }
   },
 
   /**
@@ -142,7 +165,7 @@ Page({
 
   /**倒计时  this.getTimerDown() */
   getTimerDown: function() {
-    var that = this;
+    let that = this;
     var currentTime = that.data.giftInfo.recordInfo.current_time;
     var endTime = that.data.giftInfo.recordInfo.end_time;
     var process = that.data.giftInfo.process
@@ -200,26 +223,45 @@ Page({
 
   getGiftReceive: function() {
 
-    var that = this
+    let that = this
     var giftRecordId = that.data.giftInfo.giftRecordId;
     var fu = that.data.giftInfo.fuserid;
     var url = config.requestUrl
+    var userid = that.data.userInfo.id
     var data = {
       code_: 'x_getGiftReceive',
       gr: giftRecordId,
       fu: fu,
-      // u: giftRecordId,
+       u: userid,
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
-        that.setData({
-          'giftInfo.recordInfo': rdata.info,
-          'giftInfo.process': rdata.info.process_status,
-          'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid
-        })
+        var touserId = rdata.info.to_person ? rdata.info.to_person:'';
+
+        if (touserId == '' || touserId ==userid){
+
+          that.setData({
+            'giftInfo.recordInfo': rdata.info,
+            'giftInfo.process': rdata.info.process_status,
+            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
+            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+          })
+        }else{
+
+          that.setData({
+            'giftInfo.recordInfo': rdata.info,
+            // 'giftInfo.process': rdata.info.process_status,
+            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
+            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+          })
+
+
+        }
+
+       
 
         if (rdata.info.process_status == '0' || rdata.info.process_status == '2') {
           that.getTimerDown()
@@ -232,7 +274,7 @@ Page({
   },
   /**操作 */
   doProcessGift: function() {
-    var that = this
+    let that = this
 
     var url = config.requestUrl
 
@@ -252,7 +294,7 @@ Page({
     var fUserId = that.data.giftInfo.fuserid;
     var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
     var fromLeaveMessage = '';
-    var tUserId = '';
+    var tUserId = that.data.userInfo.id;
     var data = {
       code_: 'x_doProcess',
       "processStatus": actionprocess,
@@ -274,10 +316,13 @@ Page({
 
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.fusernickname);
+
+    var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.to_person_nickname);
+    
     var values = [{
         code: 'GIFT_ADR_MSG',
         replace: [{
@@ -320,7 +365,15 @@ Page({
           regexp: 'nickname',
           replacement: fUserNickname
         }]
-      }
+      }, {
+        code: 'GIFT_READ',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }, {
+            regexp: 'receiveruser_nickname',
+            replacement: tUserNickname
+          }]}
 
     ];
 
@@ -345,6 +398,20 @@ Page({
         WxParse.wxParse('REJECT_GIFT', 'html', rdata.info.REJECT_GIFT, that, 5);
         WxParse.wxParse('REJECT_GIFT_1', 'html', rdata.info.REJECT_GIFT_1, that, 5);
 
+        var process = that.data.giftInfo.process;
+
+        if (process=='-1'){
+          wx.showModal({
+            title: '提示',
+            content: rdata.info.GIFT_READ,
+            showCancel: false,
+            confirmText: '知道了',
+            success: function (res) {
+
+            }
+          })
+
+        }
       }
 
     });
@@ -352,7 +419,7 @@ Page({
   },
   /**点击进入详情页 */
   giftdetar: function(event) {
-    var that = this;
+    let that = this;
     var giftRecordId = that.data.giftInfo.giftRecordId;
     var t = event.currentTarget.dataset.oper;
      

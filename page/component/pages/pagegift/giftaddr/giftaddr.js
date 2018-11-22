@@ -28,7 +28,7 @@ Page({
    */
   onLoad: function(options) {
 
-    var that = this;
+    let that = this;
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -70,7 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     wx.getStorage({
       key: 'userDefAddr',
       success: function(res) {
@@ -127,7 +127,7 @@ Page({
   },
   acceptgift: function() {
 
-    var that = this;
+    let that = this;
     wx.showModal({
       title: '提示',
       content: '收礼后表示您已接收该礼品，将会向您提供的地址进行发货',

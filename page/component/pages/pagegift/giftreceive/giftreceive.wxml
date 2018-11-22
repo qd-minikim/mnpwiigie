@@ -17,7 +17,7 @@
         <view class='align-center' style='position:absolute;bottom: 20rpx;width: 100%; right: 1rpx;'>
 
 
-        <view  catchtap='giftdetar'data-oper='0'  class='font-size-7 font-color-2 bg-15' style='padding:5rpx 15rpx ;border-radius:10rpx;'>打开看看</view>
+          <view catchtap='giftdetar' data-oper='0' class='font-size-7 font-color-2 bg-15' style='padding:5rpx 15rpx ;border-radius:10rpx;'>打开看看</view>
         </view>
 
 
@@ -26,11 +26,15 @@
     </view>
 
     <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
-      <view class='gr-view-3'>
+      <view class='gr-view-3 font-size-6'>
         倒计时{{timerDown.day}}天{{timerDown.hou}}时{{timerDown.min}}分{{timerDown.sec}}秒
       </view>
     </block>
-
+    <block wx:if="{{giftInfo.process=='-1'}}">
+      <view class='gr-view-3 font-size-6' style='margin:2rpx 25rpx'>
+      {{configMsgInfo.GIFT_READ}}
+       </view>
+    </block>
     <view class='gr-view-5'>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-5-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
@@ -48,7 +52,7 @@
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
 
         <view class='gr-view-5-1'>
-          <button catchtap='giftdetar'data-oper='1' class='gr-view-5-1-btn font-size-5' type='default'>提交收货信息</button>
+          <button catchtap='giftdetar' data-oper='1' class='gr-view-5-1-btn font-size-5' type='default'>提交收货信息</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='23'}}">
@@ -57,7 +61,13 @@
           <button class='gr-view-5-1-btn font-size-5' type='default'>已接收</button>
         </view>
       </block>
-      <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='23'}}">
+      <block wx:if="{{giftInfo.process!='-1' &&giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='23'}}">
+
+        <view class='gr-view-5-1'>
+          <button class='gr-view-5-1-btn font-size-5' type='default' disabled='disabled'>提交收货信息</button>
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process=='-1'}}">
 
         <view class='gr-view-5-1'>
           <button class='gr-view-5-1-btn font-size-5' type='default' disabled='disabled'>提交收货信息</button>
@@ -74,10 +84,21 @@
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
-        <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
 
-          <template is="wxParse" data="{{wxParseData:FORWARD_GIFT.nodes}}" />
-        </view>
+        <block wx:if="{{giftInfo.newgiftrecord.processStatus !='0'}}">
+          <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
+
+            <template is="wxParse" data="{{wxParseData:FORWARD_GIFT.nodes}}" />
+          </view>
+        </block>
+        <block wx:else>
+          <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
+
+            上传转送留言时间：{{giftInfo.newgiftrecord.fromTime}}
+          </view>
+        </block>
+
+
       </block>
 
 
@@ -87,13 +108,30 @@
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
-        <view class='gr-view-7-1'>
-          <button class='gr-view-7-1-btn font-size-5' type='default'>已转送</button>
-        </view>
+        <block wx:if="{{giftInfo.newgiftrecord.processStatus!='0' }}">
+
+
+          <view class='gr-view-7-1  '>
+            <button class='gr-view-7-1-btn font-size-5' type='default' disabled='disabled'>已转送</button>
+          </view>
+        </block>
+
+
+        <block wx:else>
+          <view class='gr-view-7-1'>
+            <button catchtap='giftdetar' data-oper='2' class='gr-view-7-1-btn font-size-5' type='default'>转送中</button>
+          </view>
+        </block>
       </block>
-      <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='24' }}">
+      <block wx:if="{{giftInfo.process!='-1' &&giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='24' }}">
         <view class='gr-view-7-1  '>
           <button class='gr-view-7-1-btn font-size-5' type='default' disabled='disabled'>转送给其他朋友</button>
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process=='-1'}}">
+
+        <view class='gr-view-7-1  '>
+          <button class='gr-view-7-1-btn font-size-5' type='default' disabled='disabled'>转送</button>
         </view>
       </block>
     </view>
@@ -105,6 +143,7 @@
           <template is="wxParse" data="{{wxParseData:GIFT_REJ_MSG.nodes}}" />
         </view>
       </block>
+
       <block wx:if="{{giftInfo.process=='21' }}">
         <view class='gr-view-9-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
 
@@ -117,6 +156,8 @@
           <template is="wxParse" data="{{wxParseData:REJECT_GIFT_1.nodes}}" />
         </view>
       </block>
+
+
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-9-1'>
           <button catchtap='giftdetar' data-oper='3' class='gr-view-9-1-btn font-size-5' type='default'>拒绝</button>
@@ -127,9 +168,15 @@
           <button class='gr-view-9-1-btn font-size-5' type='default'>已拒绝</button>
         </view>
       </block>
-      <block wx:if="{{giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='21'}}">
+      <block wx:if="{{giftInfo.process!='-1' &&giftInfo.process!='0' && giftInfo.process!='2' && giftInfo.process!='21'}}">
         <view class='gr-view-9-1 '>
           <button class='gr-view-9-1-btn font-size-5' type='default' disabled='disabled'>已拒绝</button>
+        </view>
+      </block>
+      <block wx:if="{{giftInfo.process=='-1'}}">
+
+        <view class='gr-view-9-1 '>
+          <button class='gr-view-9-1-btn font-size-5' type='default' disabled='disabled'>拒绝</button>
         </view>
       </block>
 

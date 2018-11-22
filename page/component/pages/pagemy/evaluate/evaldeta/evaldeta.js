@@ -120,7 +120,7 @@ Page({
   },
   getEvalDet: function() {
 
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var evaluationId = that.data.evalid;
@@ -146,7 +146,7 @@ Page({
   },
   getEvalDiscuss: function() {
 
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var evaluateId = that.data.evalid;
@@ -208,7 +208,7 @@ Page({
   },
    
   sendDiscuss: function() {
-    var that = this;
+    let that = this;
 
 
 

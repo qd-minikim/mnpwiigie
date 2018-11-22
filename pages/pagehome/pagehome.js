@@ -125,7 +125,7 @@ Page({
 
   //获取swiper 图片
   homepageCarousel: function() {
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
 
@@ -166,7 +166,7 @@ Page({
   },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
         code: 'FDYNAMIC_MSG',
@@ -198,7 +198,7 @@ Page({
   getFriendsActive: function() {
 
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var data = {
@@ -250,7 +250,7 @@ Page({
 
   //获取人气推荐
   getPopularity: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var data = {
@@ -278,7 +278,7 @@ Page({
   //好友动态-详情
 
   hydtShowDetail: function(event) {
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
@@ -291,7 +291,7 @@ Page({
   //人气推荐-详情
 
   rqtjShowDetail: function(event) {
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;

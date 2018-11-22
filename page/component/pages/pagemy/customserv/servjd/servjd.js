@@ -92,7 +92,7 @@ Page({
   },
   getservjd: function () {
 
-    var that = this;
+    let that = this;
 
     wx.showLoading({
       title: '请稍候...',

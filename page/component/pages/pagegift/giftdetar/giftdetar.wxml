@@ -9,18 +9,23 @@
 <!--转送给朋友的  留言信息 -->
  
 <view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
-<view class="modal-dialog" wx:if="{{!fmodalhidden}}">
-  <view class="modal-title">送礼留言</view>
-
+<view class="modal-dialog" style='border-radius:15rpx;'  wx:if="{{!fmodalhidden}}">
+  <view class="modal-title " style='font-size:30rpx;'>送礼留言</view>
+  
   <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
-    <view class='font-size-5 font-color-4' style='flex:1;text-align:right'>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
-    <textarea class='font-size-4' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' placeholder-class='font-size-5'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
+
+    <view class='font-size-7 font-color-4' style='flex:1;display:flex;flex-direction:row;text-align:right'>
+    <view style='flex:1;text-align:left'><view  wx:if="{{giftInfo.newGiftRecord.fromTime&&giftInfo.newGiftRecord.fromTime!=''}}">上次留言时间:{{giftInfo.newGiftRecord.fromTime}}</view></view>
+    
+    <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
+   </view>
+    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
   </view>
   <view class="modal-footer">
 
-    <button catchtap='fmodalcancel' class='font-size-4' type="warn" style='width:60%;border-radius:0'>取消</button>
+    <button catchtap='fmodalcancel' class='font-size-5 align-center' type="warn" style='width:60%;border-radius:0'>取消</button>
     <block wx:if="{{nofmodalMsg}}">
-      <button class='font-size-4' type="primary" open-type="{{nofmodalMsg?'share':''}}" style='width:60%;border-radius:0' disabled='true'>{{nofmodalTip}}
+      <button class='font-size-5 align-center' type="primary" open-type="{{nofmodalMsg?'share':''}}" style='width:60%;border-radius:0' disabled='true'>{{nofmodalTip}}
       </button>
     </block>
     <block wx:else>

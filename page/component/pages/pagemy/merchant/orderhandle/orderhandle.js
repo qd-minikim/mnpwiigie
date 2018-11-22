@@ -107,7 +107,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     var navigateToflg = that.data.navigateToflg
     if (navigateToflg == 'carrier') {
       var carrierInfo = app.globalData.carrierInfo
@@ -192,7 +192,7 @@ Page({
   },
   bindChange: function(e) {
 
-    var that = this;
+    let that = this;
 
     var currentTab = e.detail.current;
     that.setData({
@@ -225,7 +225,7 @@ Page({
    */
   swichNav: function(e) {
 
-    var that = this;
+    let that = this;
 
     if (this.data.currentTab === e.currentTarget.dataset.current) {
       return false;
@@ -239,7 +239,7 @@ Page({
   getMgmtOrders: function() {
 
 
-    var that = this;
+    let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
     var isRefresh = that.data.isRefresh;
@@ -353,7 +353,7 @@ Page({
 
   closeLogistics: function() {
 
-    var that = this;
+    let that = this;
     that.setData({
       'viewModal.addLogistics.addLogisticsShow': false,
       'viewModal.addLogistics.requirementTitle': '',
@@ -367,7 +367,7 @@ Page({
     })
   },
   bindKeyInputLogisticsNo: function(e) {
-    var that = this;
+    let that = this;
     var carrierNo = e.detail.value
     that.setData({
       'viewModal.addLogistics.carrierNo': carrierNo,
@@ -375,7 +375,7 @@ Page({
 
   },
   addLogisticsNo: function() {
-    var that = this;
+    let that = this;
     var carrierNo = that.data.viewModal.addLogistics.carrierNo;
 
     var carrierName = that.data.viewModal.addLogistics.carrierName;
@@ -444,7 +444,7 @@ Page({
 
   },
   doPhoneAddSendInfo: function(e) {
-    var that = this;
+    let that = this;
     var title = e.currentTarget.dataset.title;
     var username = e.currentTarget.dataset.username;
     var phone = e.currentTarget.dataset.phone;
@@ -466,7 +466,7 @@ Page({
   },
 
   doWaitAddrMsg: function(e) {
-    var that = this;
+    let that = this;
     var wmsg = e.currentTarget.dataset.wmsg;
 
     wx.showModal({
@@ -493,7 +493,7 @@ Page({
   },
   // 全部订单
   promotionOrders: function(e) {
-    var that = this;
+    let that = this;
     var proid = e.currentTarget.dataset.proid;
     var pcuserid = that.data.pcuserid
 

@@ -99,7 +99,7 @@ Page({
   },
   getMerchantBaseInfo: function() {
 
-    var that = this;
+    let that = this;
 
 
     var url = config.requestUrl;

@@ -79,7 +79,7 @@ Page({
   },
 
   getSettingInfo: function() { // 查看是否授权
-    var that = this;
+    let that = this;
     wx.getSetting({
       success: function(res) {
         if (res.authSetting['scope.userInfo']) {
@@ -96,7 +96,7 @@ Page({
 
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
         code: 'WELCOME_MSG',
@@ -127,7 +127,7 @@ Page({
 
   setAuthInfo: function(e) {
 
-    var that = this;
+    let that = this;
 
     if (e.detail.userInfo) {
       // console.log('授权通过')

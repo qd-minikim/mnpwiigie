@@ -97,7 +97,7 @@ Page({
   },
   getAccount: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -123,7 +123,7 @@ Page({
   /**获取行为积分 */
   getCredit: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;

@@ -161,7 +161,7 @@ Page({
 
 
   deleimage: function(event) {
-    var that = this;
+    let that = this;
     var index = event.currentTarget.dataset.index;
 
     wx.showModal({
@@ -192,7 +192,7 @@ Page({
 
   },
   selectImage: function(event) {
-      var that = this;
+      let that = this;
       var index = event.currentTarget.dataset.index;
 
       var s = that.data.touchEndTime - that.data.touchStartTime;
@@ -275,7 +275,7 @@ Page({
   },
   getEval: function() {
 
-    var that = this;
+    let that = this;
     // var userid = that.data.userInfo.id
     var userid = that.data.userInfo.id
     var evaluationId = that.data.evalid
@@ -303,7 +303,7 @@ Page({
 
 
   submitEval: function() {
-    var that = this;
+    let that = this;
    
     wx.showLoading({
       title: '请稍候...',

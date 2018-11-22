@@ -121,7 +121,7 @@ Page({
 
   getServPageInfo: function () {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -149,7 +149,7 @@ Page({
 
   ,
   addCusServ: function () {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var serviceType = that.data.serviceType;
@@ -284,7 +284,7 @@ Page({
   },
   radioChange: function (e) {
     // serviceType: '1',// //1 退  2 换
-    var that = this;
+    let that = this;
     var code = e.detail.value;
 
     var serviceType = that.data.serviceType;
@@ -340,7 +340,7 @@ Page({
 
 
   deleimage: function (event) {
-    var that = this;
+    let that = this;
     var index = event.currentTarget.dataset.index;
 
     wx.showModal({
@@ -371,7 +371,7 @@ Page({
 
   },
   selectImage: function (event) {
-    var that = this;
+    let that = this;
     var index = event.currentTarget.dataset.index;
 
     var s = that.data.touchEndTime - that.data.touchStartTime;

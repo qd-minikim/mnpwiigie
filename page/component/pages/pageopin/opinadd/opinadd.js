@@ -117,7 +117,7 @@ Page({
 
   getInitOpinion: function () {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -145,7 +145,7 @@ Page({
 
   ,
   addopinion: function () {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var code = that.data.choosecode;
@@ -296,7 +296,7 @@ Page({
 
 
   deleimage: function (event) {
-    var that = this;
+    let that = this;
     var index = event.currentTarget.dataset.index;
 
     wx.showModal({
@@ -329,7 +329,7 @@ Page({
 
   },
   selectImage: function (event) {
-    var that = this;
+    let that = this;
     var index = event.currentTarget.dataset.index;
 
     var s = that.data.touchEndTime - that.data.touchStartTime;

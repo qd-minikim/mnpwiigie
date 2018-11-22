@@ -6,7 +6,6 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
- 
   ],
   "subPackages": [
     {
@@ -66,7 +65,9 @@
         "pages/pagemy/selcarrier/selcarrier",
         "pages/pagemy/merchant/orderpromotion/orderpromotion",
         "pages/pageinform/scanpage/scanpage",
-        "pages/pagemy/merchant/fkrequirement/fkrequirement"
+        "pages/pagemy/merchant/fkrequirement/fkrequirement",
+        "pages/pageinform/notice/summarypage/summarypage",
+        "pages/pageinform/notice/detailpage/detailpage"
       ]
     }
   ],

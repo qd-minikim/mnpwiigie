@@ -97,7 +97,7 @@ Page({
 
   getSerchInfoOnFriend:function(){
 
-    var that = this;
+    let that = this;
 
     
     var url = config.requestUrl;
@@ -128,7 +128,7 @@ Page({
     })
   },
   serchShowDetail: function (event) {
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;

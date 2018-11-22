@@ -157,7 +157,7 @@ Page({
 
   getAddressInfo: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var id = that.data.useraddressid;
     var userid = that.data.userInfo.id;
@@ -197,7 +197,7 @@ Page({
    * 获取省份
    */
   getProvince: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var data = {
@@ -242,7 +242,7 @@ Page({
   },
 
   changeProvince: function(e) {
-    var that = this;
+    let that = this;
    
     that.setData({
 
@@ -259,7 +259,7 @@ Page({
    * 获取市
    */
   getCity: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
    var fcode = that.data.addrInfo.provinceInfo.provice[that.data.addrInfo.provinceInfo.index].code;
@@ -306,7 +306,7 @@ Page({
     })
   },
   changeCity: function(e) {
-    var that = this;
+    let that = this;
     that.setData({
 
       'addrInfo.cityInfo.index': e.detail.value,
@@ -320,7 +320,7 @@ Page({
    * 获取区
    */
   getDistrict: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
    var fcode = that.data.addrInfo.cityInfo.city[that.data.addrInfo.cityInfo.index].code;
     // var fcode = that.data.myAddressInfo.city;
@@ -365,7 +365,7 @@ Page({
     })
   },
   changeDistrict: function(e) {
-    var that = this;
+    let that = this;
     that.setData({
 
       'addrInfo.districtInfo.index': e.detail.value,
@@ -376,7 +376,7 @@ Page({
   },
   formSubmit: function(e) {
  
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var formObj = e.detail.value;

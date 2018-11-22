@@ -89,7 +89,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
@@ -158,7 +158,7 @@ Page({
   },
   bindChange: function(e) {
 
-    var that = this;
+    let that = this;
 
     var currentTab = e.detail.current;
     that.setData({
@@ -194,7 +194,7 @@ Page({
    */
   swichNav: function(e) {
 
-    var that = this;
+    let that = this;
 
     if (that.data.currentTab === e.currentTarget.dataset.current) {
       return false;
@@ -206,7 +206,7 @@ Page({
     }
   },
   getEvaluationNum: function() {
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var userid =that.data.userInfo.id
@@ -232,7 +232,7 @@ Page({
   },
   getEvaluations: function() {
 
-    var that = this;
+    let that = this;
     var currentTab = that.data.currentTab;
     var itemsPerPage = that.data.itemsPerPage;
     var refreshpage = that.data.refreshpage; //0初始 1 刷新当前 2 追加
@@ -353,7 +353,7 @@ Page({
   },
   /**评价晒单 */
   evaladd: function(event) {
-    var that = this
+    let that = this
  
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({
@@ -362,7 +362,7 @@ Page({
   },
   /**查看评论 */
   evaldeta: function (event) {
-    var that = this
+    let that = this
 
     
     var evalid = event.currentTarget.dataset.evalid;
@@ -372,7 +372,7 @@ Page({
   },
   /**添加晒图 */
   evalimge: function (event) {
-    var that = this
+    let that = this
 
 
     var evalid = event.currentTarget.dataset.evalid;
@@ -382,7 +382,7 @@ Page({
   },
   /**追加评论 */
   evaladdmore: function (event) {
-    var that = this
+    let that = this
 
 
     var evalid = event.currentTarget.dataset.evalid;

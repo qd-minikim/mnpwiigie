@@ -111,7 +111,7 @@ Page({
   //好友动态-详情
 
   hydtShowDetail: function(event) {
-    var that = this;
+    let that = this;
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
@@ -124,7 +124,7 @@ Page({
   getFriendsActive: function() {
 
 
-    var that = this;
+    let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
 

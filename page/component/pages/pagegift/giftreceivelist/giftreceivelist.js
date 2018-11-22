@@ -45,7 +45,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
@@ -99,7 +99,7 @@ Page({
   },
   getGiftReceiveListInfo: function () {
 
-    var that = this
+    let that = this
     var userid = that.data.userInfo.id//that.data.userInfo.id
     var endRow = '0';
     var itemsPerPage = '10';
@@ -137,7 +137,7 @@ Page({
  
   /**评价晒单 */
   evaladd: function (event) {
-    var that = this
+    let that = this
  
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({
@@ -146,7 +146,7 @@ Page({
   },
  /**申请售后 */
   serviceApply: function (event) {
-    var that = this
+    let that = this
 
     var orderid = event.currentTarget.dataset.orderid;
     wx.navigateTo({
@@ -156,7 +156,7 @@ Page({
    /**确认收货 */
   
   surereceve: function (e) {
-    var that = this;
+    let that = this;
     var orderid = e.currentTarget.dataset.orderid;
     var promotionid = e.currentTarget.dataset.proid;
     var requirementid = e.currentTarget.dataset.reqid;

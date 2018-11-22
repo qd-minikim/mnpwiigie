@@ -2,6 +2,7 @@
 var config = require('../../../../../config.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+var rUserInfo = require('../../../../../utils/rUserInfo.js');
 var app = getApp();
 Page({
 
@@ -39,17 +40,26 @@ Page({
     },
     /**tabbar */
     pageScrollView: {
-      height: app.globalData.systemInfo.windowHeight
+      height: 0
     },
     tabbar: {}, //tabbar 信息
-    tabbarPage: '/pages/pagemy/pagemy' //当前页面属于哪个tabbar 默认是null
+    tabbarPage: '/pages/pagemy/pagemy', //当前页面属于哪个tabbar 默认是null
+
+    /**送礼弹框 */
+    fmodalhidden: true,
+    fmodaltextareaMaxLen: 40, //字数限制
+    fmodalMsg: '', //送礼留言
+    nofmodalMsg: true, //是否输入留言
+    nofmodalTip: '输入留言',
+    /** */
+    showFlg:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let that = this
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     var giftRecordId = options.gr;
@@ -66,16 +76,27 @@ Page({
     })
     /****调用函数设置tabbar及页面*****/
     if (app.globalData.userWxInfo) {
-      this.setData({
+      that.setData({
         userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
 
-      this.getGiveGiftRecordInfo()
+      that.getGiveGiftRecordInfo()
     } else {
 
-      app.userLogin();
+      rUserInfo.getUserInfoApp(that, function(rdata) {
+        if (app.globalData.userWxInfo) {
+          that.setData({
+            userWxInfo: app.globalData.userWxInfo,
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+
+        }
+        that.getGiveGiftRecordInfo()
+      })
+      // app.userLogin();
     }
 
 
@@ -87,14 +108,42 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
 
+    var percent = windowWidth / 750
 
+    var swiperHeight = windowHeight - 90 * percent - 110 * percent
+    this.setData({
+
+      'pageScrollView.height': swiperHeight + "px",
+
+    })
+
+  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
+    let that = this;
+
+    var showFlg = that.data.showFlg;
+
+    if (showFlg == 'share'){
+       
+      that.getGiveGiftRecordInfo()
+
+      
+      that.setData({
+        'showFlg': '',
+        'fmodalhidden': true,
+      })
+    }
+
+
 
   },
 
@@ -130,44 +179,46 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    var that = this;
-    var fromLeaveMsg = that.data.fromLeaveMsg;
-    if (fromLeaveMsg == '') {
+    let that = this;
 
-      fromLeaveMsg = that.data.shareTitle;
-    }
+    that.setData({
+      'showFlg':'share'
+    })
+
+
+    var fromLeaveMsg = that.data.fmodalMsg;
+    // if (fromLeaveMsg =''){
+
+    //   fromLeaveMsg =  that.data.shareTitle; 
+    // }
+
     var giftRecordId = that.data.giftInfo.giftRecordId;
     var userid = that.data.userInfo.id;
+  
+    var oper = that.data.giftInfo.oper;
+    var tUserId = '';
+    var url = config.requestUrl;
+    var data = {
+      code_: 'x_doProcess',
+      "processStatus": '0', //0已送
+      "giftRecordId": giftRecordId,
+      "fUserId": userid,
+      "newGiftRecordId": '',
+      "tUserId": '',
+      "fromLeaveMessage": encodeURIComponent(fromLeaveMsg)
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+     
+
+    })
+   
     var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
-    var shareObj = {
+    return {
       title: fromLeaveMsg,
       path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid,
       imageUrl: imageUrl,
       success: function() {
-
-
-        var fUserId = that.data.giftInfo.giftRecordInfo.fromPerson;
-
-        var fromLeaveMessage = '';
-        var oper = that.data.giftInfo.oper;
-        var tUserId = '';
-        var url = config.requestUrl;
-        var data = {
-          code_: 'x_doProcess',
-          "processStatus": '0', //0已送
-          "giftRecordId": giftRecordId,
-          "fUserId": fUserId,
-          "newGiftRecordId": '',
-          "tUserId": '',
-          "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
-        }
-        rRequest.doRequest(url, data, that, function(rdata) {
-
-          that.setData({
-            'giftInfo.process': 0
-          })
-
-        })
 
 
       },
@@ -178,24 +229,60 @@ Page({
 
     }
 
-    return shareObj;
+
+  },
+  forwardfriend: function () {
+    let that = this;
+    that.setData({
+      fmodalhidden: false,
+
+    });
+
+
+  },
+  //字数限制
+  fmodalWordLimit: function (e) {
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > this.data.fmodaltextareaMaxLen) return;
+    if (len == 0) {
+      this.setData({
+        fmodalcurrentNoteLen: len, //当前字数
+        fmodalMsg: e.detail.value,
+        nofmodalMsg: true,
+        nofmodalTip: '输入留言'
+      });
+    } else {
+      this.setData({
+        fmodalcurrentNoteLen: len, //当前字数
+        fmodalMsg: e.detail.value,
+        nofmodalMsg: false,
+        nofmodalTip: '继续'
+      });
+    }
   },
 
+  fmodalcancel: function () {
+    this.setData({
+      fmodalhidden: true,
+
+    });
+  },
   /**转发蒙板 */
-  forwardfriend: function() {
-    this.setData({
-      'pagemask.isForward': true,
+  // forwardfriend: function() {
+  //   this.setData({
+  //     'pagemask.isForward': true,
 
-    })
+  //   })
 
-  },
-  closeforwardfriend: function() {
-    this.setData({
-      'pagemask.isForward': false,
+  // },
+  // closeforwardfriend: function() {
+  //   this.setData({
+  //     'pagemask.isForward': false,
 
-    })
+  //   })
 
-  },
+  // },
 
 
   showGiftRequirementDetail: function(event) {
@@ -211,9 +298,9 @@ Page({
   /** */
   getGiveGiftRecordInfo: function() {
 
-    var that = this
+    let that = this
     var giftRecordId = that.data.giftInfo.giftRecordId;
-
+   
     var url = config.requestUrl
     var data = {
       code_: 'x_getGiveGiftRecord',
@@ -229,6 +316,7 @@ Page({
 
         if (process == '0') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png";
+          wx.showShareMenu();
         }
         if (process == '1') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_1.png"; //展示的图片路径
@@ -263,6 +351,28 @@ Page({
           'fromLeaveMsg': rdata.info.from_leave_message,
         })
 
+        if (rdata.info.from_leave_message) {
+
+          var from_leave_message = rdata.info.from_leave_message
+          var len = parseInt(from_leave_message.length);
+          if (len == 0) {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: true,
+              nofmodalTip: '输入留言'
+            });
+          } else {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: false,
+              nofmodalTip: '继续'
+            });
+          }
+
+        }
+
 
         that.getConfigMsgInfo()
       }
@@ -271,7 +381,7 @@ Page({
   },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.to_person_nickname);

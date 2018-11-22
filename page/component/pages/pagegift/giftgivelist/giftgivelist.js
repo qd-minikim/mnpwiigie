@@ -82,7 +82,7 @@ Page({
   },
   getGiftGiveListInfo: function () {
 
-    var that = this
+    let that = this
     var userid =  that.data.userInfo.id
     var endRow = '0';
     var itemsPerPage = '10';

@@ -122,7 +122,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    var that = this;
+    let that = this;
 
     var currentTab = that.data.currentTab;
 
@@ -194,7 +194,7 @@ Page({
   },
   bindChange: function(e) {
 
-    var that = this;
+    let that = this;
 
     var currentTab = e.detail.current;
     that.setData({
@@ -245,7 +245,7 @@ Page({
    */
   swichNav: function(e) {
 
-    var that = this;
+    let that = this;
 
     if (this.data.currentTab === e.currentTarget.dataset.current) {
       return false;
@@ -294,7 +294,7 @@ Page({
   /**获取活动 */
   getPromotion: function() {
 
-    var that = this;
+    let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
 

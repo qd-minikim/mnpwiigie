@@ -80,7 +80,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
@@ -148,7 +148,7 @@ Page({
   },
   bindChange: function(e) {
 
-    var that = this;
+    let that = this;
 
     var currentTab = e.detail.current;
     that.setData({
@@ -177,7 +177,7 @@ Page({
    */
   swichNav: function(e) {
 
-    var that = this;
+    let that = this;
 
     if (this.data.currentTab === e.currentTarget.dataset.current) {
       return false;
@@ -190,7 +190,7 @@ Page({
   },
   getCusServApplys: function() {
 
-    var that = this;
+    let that = this;
     var currentTab = that.data.currentTab;
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;
@@ -300,7 +300,7 @@ Page({
 
   /**确认收货 */
   surereceve: function(e) {
-    var that = this;
+    let that = this;
     var orderid = e.currentTarget.dataset.orderid;
     var promotionid = e.currentTarget.dataset.proid;
     var requirementid = e.currentTarget.dataset.reqid;
@@ -351,7 +351,7 @@ Page({
   },
   /**回寄确认收货 */
   suhjrereceve: function(e) {
-    var that = this;
+    let that = this;
     var serviceId = e.currentTarget.dataset.serviceid;
     var userId = e.currentTarget.dataset.buyuserid;
     var userName = e.currentTarget.dataset.username;

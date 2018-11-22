@@ -25,7 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this;
+    let that = this;
     if (app.globalData.userWxInfo) {
       that.setData({
         userWxInfo: app.globalData.userWxInfo,
@@ -96,7 +96,7 @@ Page({
   },
 
   customdialog: function(e) {
-      var that = this;
+      let that = this;
 
       var requirmentId = e.currentTarget.dataset.requir
       var orderType = e.currentTarget.dataset.ordertype
@@ -203,7 +203,7 @@ Page({
     ,
   getOrderDetail: function() {
 
-    var that = this;
+    let that = this;
     //1525959638799628&u=1492742904403462
     var url = config.requestUrl;
     var userid = that.data.userInfo.id //that.data.userInfo.id //1528869953018820
@@ -229,7 +229,7 @@ Page({
   },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
         code: 'ORDER_DSTIP',

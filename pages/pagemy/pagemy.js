@@ -45,7 +45,7 @@ Page({
    */
   onShow: function() {
 
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
@@ -202,7 +202,7 @@ Page({
 
   /**商户信息 */
   merchantPage: function() {
-    var that = this;
+    let that = this;
     if (that.data.initPagaInfo.isbunding == '0') {
 
       var pu = that.data.initPagaInfo.pcuserid
@@ -225,7 +225,7 @@ Page({
   /**粉丝互动 */
   benefactorPage: function() {
 
-    var that = this;
+    let that = this;
     if (that.data.initPagaInfo.isbunding == '0') {
 
       var pu = that.data.initPagaInfo.pcuserid
@@ -247,7 +247,7 @@ Page({
   promotionPage: function() {
 
     
-    var that = this;
+    let that = this;
     if (that.data.initPagaInfo.isbunding == '0') {
 
       var pu = that.data.initPagaInfo.pcuserid
@@ -269,7 +269,7 @@ Page({
   mgmtorderpage: function () {
 
 
-    var that = this;
+    let that = this;
     if (that.data.initPagaInfo.isbunding == '0') {
 
       var pu = that.data.initPagaInfo.pcuserid
@@ -290,7 +290,7 @@ Page({
 
   initPaga: function() {
 
-    var that = this;
+    let that = this;
 
 
     var url = config.requestUrl;

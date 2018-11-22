@@ -88,7 +88,7 @@ Page({
   },
   /**获取配置描述 */
   getConfigMsgInfo: function() {
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
     var values = [{
         code: 'BIND_MSG',
@@ -131,7 +131,7 @@ Page({
 
   /**发送验证码 */
   getYzm: function() {
-    var that = this;
+    let that = this;
     var phone = that.data.phone
 
     if (phone == '') {
@@ -204,7 +204,7 @@ Page({
   /**提交验证码 */
   submitBing: function() {
 
-    var that = this;
+    let that = this;
     var phone = that.data.phone
     var yzm = that.data.yzm
     if (phone == '') {

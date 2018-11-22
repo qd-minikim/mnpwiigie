@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wx1718994f5d471b54",
+	"appid": "wxa95ca6d0de960e0d",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 52,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -64,21 +64,17 @@
 				},
 				{
 					"id": 4,
-					"name": "收到礼品",
-					"pathName": "page/component/pages/pagegift/giftreceive/giftreceive",
-					"query": "gr=1534766566195646&fu=1527671283933540"
+					"name": "送到礼品-succ",
+					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
+					"query": "gr=1534212656312139",
+					"scene": "1011"
 				},
 				{
 					"id": 5,
-					"name": "送到礼品",
-					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
-					"query": "gr=1534766566195646"
-				},
-				{
-					"id": 6,
 					"name": "收到礼品-succ",
 					"pathName": "page/component/pages/pagegift/giftreceivesucc/giftreceivesucc",
-					"query": "gr=1539954468803111&t=3"
+					"query": "gr=1534212656312139&t=2",
+					"scene": "1011"
 				},
 				{
 					"id": 7,
@@ -356,6 +352,20 @@
 					"name": "文案发布二维码扫码",
 					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
 					"query": "scene=1542538314906196",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "通知概要",
+					"pathName": "page/component/pages/pageinform/notice/summarypage/summarypage",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": 53,
+					"name": "收到礼品-三大按钮",
+					"pathName": "page/component/pages/pagegift/giftreceive/giftreceive",
+					"query": "gr=1534212656312139&fu=1527673151198212",
 					"scene": "1011"
 				}
 			]

@@ -63,7 +63,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
+    let that = this;
     try {
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
@@ -120,7 +120,7 @@ Page({
   },
 
   imageYl: function(event) {
-    var that = this;
+    let that = this;
     var rootPath = that.data.rootPath;
     var src = event.currentTarget.dataset.src; //获取data-src
     var imgList = event.currentTarget.dataset.list; //获取data-list
@@ -159,7 +159,7 @@ Page({
   /**我要取消 */
 
   cancelServ: function(event) {
-    var that = this;
+    let that = this;
     var serviceId = event.currentTarget.dataset.serviceid;
     var orderid = event.currentTarget.dataset.orderid;
     var userid = that.data.userInfo.id
@@ -212,7 +212,7 @@ Page({
   },
   getServDetaInfo: function() {
 
-    var that = this;
+    let that = this;
 
     wx.showLoading({
       title: '请稍候...',

@@ -108,7 +108,7 @@ Page({
 
   bindKeyInput: function(event) {
 
-    var that = this;
+    let that = this;
     var value = event.detail.value;
     this.setData({
       logisticsNo: value
@@ -116,7 +116,7 @@ Page({
 
   },
   getInitPage: function() {
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var userid = that.data.userInfo.id//
@@ -143,7 +143,7 @@ Page({
 
   },
   addLogistisc: function() {
-    var that = this;
+    let that = this;
 
     var url = config.requestUrl;
     var index = that.data.index

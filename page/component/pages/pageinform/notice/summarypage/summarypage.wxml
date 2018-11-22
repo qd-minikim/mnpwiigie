@@ -1,0 +1,41 @@
+<!--page/component/pages/pageinform/notice/summarypage/summarypage.wxml-->
+<view class='container ' style='flex-direction:column;display:flex; '>
+  <view style='width:100%'>
+    <view style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+      <view class='align-center' style='margin:5rpx 5rpx;position:relative'>
+        <image style='width:100rpx;height:100rpx;border-radius:15rpx;' src='/image/head-test.jpg'></image>
+        <view class='bg-6 font-size-7 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:25rpx;min-height:25rpx;padding:3rpx;top:0;right:0'>3</view>
+      </view>
+      <view style='flex-direction:column;display:flex; margin:5rpx 15rpx;flex:1'>
+        <view class='font-size-6 align-r-center' style='height:60%'>账户通知</view>
+        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'>您有一笔收入*********10.00元</view>
+      </view>
+      <view class='font-size-7 font-color-4 align-r-center' style='flex-direction:column;display:flex;'>
+        <view class='font-size-7 align-r-center' style='height:60%'>20:12</view>
+        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'></view>
+
+      </view>
+    </view>
+
+
+    <view class='gap-line' style='margin:1rpx 130rpx'></view>
+
+    <view style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+      <view class='align-center' style='margin:5rpx 5rpx;position:relative'>
+        <image style='width:100rpx;height:100rpx;border-radius:15rpx;' src='/image/head-test.jpg'></image>
+        <view class='bg-6 font-size-7 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:25rpx;min-height:25rpx;padding:3rpx;top:0;right:0'>13</view>
+      </view>
+      <view style='flex-direction:column;display:flex; margin:5rpx 15rpx;flex:1'>
+        <view class='font-size-6 align-r-center' style='height:60%'>订单通知</view>
+        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'>您已成功下单*********消费10.00元</view>
+      </view>
+      <view class='font-size-7 font-color-4 align-r-center' style='flex-direction:column;display:flex;'>
+        <view class='font-size-7 align-r-center' style='height:60%'>20:12</view>
+        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'></view>
+
+      </view>
+    </view>
+
+  </view>
+
+</view>

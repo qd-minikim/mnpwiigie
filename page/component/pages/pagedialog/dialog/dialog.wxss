@@ -128,10 +128,11 @@
 }
 
 .view-2-1-image-ja {
-  height: 80rpx;
-  width: 90rpx;
+  height: 60rpx;
+  width: 70rpx;
   border: 1rpx solid #2223;
   border-radius: 50%;
+  margin:5rpx 15rp;
 }
 
  

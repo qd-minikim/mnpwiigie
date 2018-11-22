@@ -36,7 +36,7 @@ Page({
    */
   onLoad: function(options) {
 
-    var that = this
+    let that = this
 
 
     
@@ -143,7 +143,7 @@ Page({
   checkPromotion: function() {
 
 
-    var that = this;
+    let that = this;
 
     wx.showLoading({
       title: '请稍候...',

@@ -89,7 +89,7 @@ Page({
   /**获取用户地址列表 */
   getAddressInfo: function() {
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -115,7 +115,7 @@ Page({
   doAddressDefault: function(event) {
 
 
-    var that = this;
+    let that = this;
     var url = config.requestUrl;
 
     var userid = that.data.userInfo.id;
@@ -143,7 +143,7 @@ Page({
   /**删除地址 */
 
   deleteAddress: function(event) {
-    var that = this;
+    let that = this;
 
     wx.showModal({
       title: '提示',

@@ -168,7 +168,7 @@ Page({
 
   getDialogInfo: function() {
 
-    var that = this;
+   let that = this;
     var url = config.requestUrl;
     var userId = that.data.userInfo.id;
 
@@ -204,7 +204,7 @@ Page({
     })
   },
   getDialogDetailList: function() {
-    var that = this;
+   let that = this;
     var url = config.requestUrl;
 
     // var customDialogId = that.data.dialogInfo.id;
@@ -241,11 +241,11 @@ Page({
   },
 
   cancleattach: function() {
-    var that = this;
+   let that = this;
     rUtils.slideModal.down(that, null, false);
   },
   photos: function(event) {
-    var that = this;
+   let that = this;
     var sourcetype = event.currentTarget.dataset.sourcetype;
 
     wx.chooseImage({
@@ -331,7 +331,7 @@ Page({
 
   },
   camera: function() {
-      var that = this;
+     let that = this;
       wx.chooseImage({
         count: 9,
         sizeType: ['original', 'compressed'],
@@ -350,7 +350,7 @@ Page({
 
     ,
   sendDialog: function(event) {
-    var that = this;
+   let that = this;
     var url = config.requestUrl;
 
     var requirementId = that.data.requirementId;
@@ -464,7 +464,7 @@ Page({
 
 
   attachment: function(event) {
-    var that = this
+   let that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
     var isHtml = event.currentTarget.dataset.html
@@ -502,7 +502,7 @@ Page({
   /** */
   webSocket: function () {
 
-    var that = this;
+   let that = this;
    
     var userType = that.data.userType;
     var userId = that.data.userInfo.id;
