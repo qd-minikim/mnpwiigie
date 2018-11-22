@@ -1,6 +1,44 @@
 <!--用户收到礼品-->
 <import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
 <import src="../../../../../wxParse/wxParse.wxml" />
+<!--转送给朋友的  留言信息 -->
+ 
+<view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
+<view class="modal-dialog" style='border-radius:15rpx;'  wx:if="{{!fmodalhidden}}">
+  <view class="modal-title " style='font-size:30rpx;'>送礼留言</view>
+  
+  <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
+
+    <view class='font-size-7 font-color-4' style='flex:1;display:flex;flex-direction:row;text-align:right'>
+    <view style='flex:1;text-align:left'><view  wx:if="{{giftInfo.newGiftRecord.fromTime&&giftInfo.newGiftRecord.fromTime!=''}}">上次转送留言时间:{{giftInfo.newgiftrecord.from_time}}</view></view>
+    
+    <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
+   </view>
+    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
+  </view>
+  <view class="modal-footer">
+
+    <button catchtap='fmodalcancel' class='font-size-5 align-center' type="warn" style='width:60%;border-radius:0'>取消</button>
+    <block wx:if="{{nofmodalMsg}}">
+      <button class='font-size-5 align-center' type="primary" open-type="{{nofmodalMsg?'share':''}}" style='width:60%;border-radius:0' disabled='true'>{{nofmodalTip}}
+      </button>
+    </block>
+    <block wx:else>
+      <button class='font-size-4' type="primary" open-type="share" style='width:60%;border-radius:0'>{{nofmodalTip}}
+      </button>
+    </block>
+
+
+  </view>
+</view>
+
+<!--转送给朋友的  留言信息 -->
+
+
+
+
+
+
 <template is="tabbar" data="{{tabbar}}" />
 <scroll-view style='height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
   <view class='container ' style='flex-direction:colum;display:flex; '>
@@ -30,11 +68,7 @@
         倒计时{{timerDown.day}}天{{timerDown.hou}}时{{timerDown.min}}分{{timerDown.sec}}秒
       </view>
     </block>
-    <block wx:if="{{giftInfo.process=='-1'}}">
-      <view class='gr-view-3 font-size-6' style='margin:2rpx 25rpx'>
-      {{configMsgInfo.GIFT_READ}}
-       </view>
-    </block>
+    
     <view class='gr-view-5'>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-5-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
@@ -52,7 +86,7 @@
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
 
         <view class='gr-view-5-1'>
-          <button catchtap='giftdetar' data-oper='1' class='gr-view-5-1-btn font-size-5' type='default'>提交收货信息</button>
+          <button catchtap='receiveAddress' data-oper='1' class='gr-view-5-1-btn font-size-5' type='default'>提交收货信息</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='23'}}">
@@ -75,6 +109,8 @@
       </block>
 
     </view>
+
+
     <view class='gr-view-7'>
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
@@ -94,7 +130,7 @@
         <block wx:else>
           <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
 
-            上传转送留言时间：{{giftInfo.newgiftrecord.fromTime}}
+            上次转送留言时间：{{giftInfo.newgiftrecord.from_time}}
           </view>
         </block>
 
@@ -104,7 +140,7 @@
 
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-7-1'>
-          <button catchtap='giftdetar' data-oper='2' class='gr-view-7-1-btn font-size-5' type='default'>转送给其他朋友</button>
+          <button catchtap='forwardfriend' data-oper='2' class='gr-view-7-1-btn font-size-5' type='default'>转送给其他朋友</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
@@ -160,7 +196,7 @@
 
       <block wx:if="{{giftInfo.process=='0' ||  giftInfo.process=='2'}}">
         <view class='gr-view-9-1'>
-          <button catchtap='giftdetar' data-oper='3' class='gr-view-9-1-btn font-size-5' type='default'>拒绝</button>
+          <button catchtap='reject' data-oper='3' class='gr-view-9-1-btn font-size-5' type='default'>拒绝</button>
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='21'}}">

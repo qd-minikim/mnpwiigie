@@ -129,15 +129,13 @@
         </view>
       </navigator>
 
-
-
-
-      <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'&&item.last_process_status=='99'}}">
+ 
+      <block wx:if="{{item.delivery_type =='2'&& item.status_code=='9'&&item.last_process_status=='99'}}">
         <view class="gap-line" style="flex-direction:column;"></view>
       </block>
       <view class='ordergift-view-3 '>
         <view style='flex:1'></view>
-        <block wx:if="{{item.delivery_type =='2'&& item.status_code=='0'&&item.last_process_status=='99'}}">
+        <block wx:if="{{item.delivery_type =='2'&& item.status_code=='9'&&item.last_process_status=='99'}}">
           <view style='margin:2rpx 5rpx'>
             <button catchtap='cancelOrder' data-orderid='{{item.id}}' class='font-size-7 align-center' style='padding:0 20rpx;line-height:2.2;'>
               <image style='width:30rpx;height:30rpx;' src='/image/figure_b_100.png'></image>

@@ -20,7 +20,7 @@ Page({
     configMsgInfo: {},
 
     /**留言 */
-    inputValue: '',
+    // inputValue: '',
     /**下单信息 */
     orderData: null,
   },
@@ -120,18 +120,18 @@ Page({
     var url = config.orderPayUrl;
 
 
-    var fromLeaveMessage = that.data.inputValue;
+    // var fromLeaveMessage = that.data.inputValue;
 
-    if (fromLeaveMessage == '') {
-      wx.showToast({
-        title: '请输入送礼留言',
-        image: '/image/icon_warn.png',
-        duration: 1500,
-        success: function() {}
-      })
-      return false;
-    }
-
+    // if (fromLeaveMessage == '') {
+    //   wx.showToast({
+    //     title: '请输入送礼留言',
+    //     image: '/image/icon_warn.png',
+    //     duration: 1500,
+    //     success: function() {}
+    //   })
+    //   return false;
+    // }
+    var fromLeaveMessage = '';
     var orderData = that.data.orderData;
 
     var orderInfo = { ...orderData,
@@ -190,14 +190,14 @@ Page({
 
 
   },
-  //字数限制
-  bindWordLimit: function(e) {
-    var value = e.detail.value,
-      len = parseInt(value.length);
-    if (len > this.data.noteMaxLen) return;
-    this.setData({
-      currentNoteLen: len, //当前字数
-      inputValue: value
-    });
-  }
+  // //字数限制
+  // bindWordLimit: function(e) {
+  //   var value = e.detail.value,
+  //     len = parseInt(value.length);
+  //   if (len > this.data.noteMaxLen) return;
+  //   this.setData({
+  //     currentNoteLen: len, //当前字数
+  //     inputValue: value
+  //   });
+  // }
 })

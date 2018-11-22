@@ -119,6 +119,15 @@
 
 
    },
+   shutdown: function () {
+
+     var this_ = this;
+     if (this_.timer) {
+       clearTimeout(this_.timer)
+ 
+     }
+
+   },
    checkTime: function(i) { //将0-9的数字前面加上0，例1变为01
      var r = i;
      if (i < 10) {

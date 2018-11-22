@@ -1,7 +1,7 @@
 <!--page/component/pages/pagegift/giftorder/giftorder.wxml-->
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 <view class='container ' style="flex-direction:column;display:flex; ">
-  <view class='  giftorder-view-1  ' bindtap='selectUserAddr'>
+  <!-- <view class='  giftorder-view-1  ' bindtap='selectUserAddr'>
 
     <view class='giftorder-view-1-1 font-size-5'  >
       <view>送礼留言：</view>
@@ -12,7 +12,7 @@
     </view>
 
   </view>
-  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class="gap-line" style="flex-direction:column;"></view> -->
   <view class='giftorder-view-2'>
     <view class='giftorder-view-row font-size-5 align-r-center'>
       <view class='giftorder-view-title'>已选规格：</view>

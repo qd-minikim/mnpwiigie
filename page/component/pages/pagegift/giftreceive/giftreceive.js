@@ -26,7 +26,7 @@ Page({
       newGiftRecordId: '',
       giftStatusImage: config.imageUrl + "/wiigie/background/gift/give_gift_icon.png", //展示的图片路径
       recordInfo: {},
-      newgiftrecord:{}
+      newgiftrecord: {}
     },
     /** */
     actionprocess: '',
@@ -51,6 +51,13 @@ Page({
     //hasUserInfo: false,
     userIData: false,
     userWxInfo: {},
+
+    /**送礼弹框 */
+    fmodalhidden: true,
+    fmodaltextareaMaxLen: 40, //字数限制
+    fmodalMsg: '', //送礼留言
+    nofmodalMsg: true, //是否输入留言
+    nofmodalTip: '输入留言',
   },
 
   /**
@@ -59,7 +66,7 @@ Page({
   onLoad: function(options) {
 
     let that = this
-     /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
+    /****调用函数设置tabbar及页面(修改参数时同步修改app.js中getUsersInfo中参数)*****/
     app.editTabBar();
     var giftRecordId = options.gr;
     var fuserid = options.fu;
@@ -78,37 +85,29 @@ Page({
 
     if (app.globalData.userWxInfo) {
       that.setData({
-        'userWxInfo':app.globalData.userWxInfo,
-        'userIData':app.globalData.userIData,
-        'userInfo':app.globalData.userInfo,
+        'userWxInfo': app.globalData.userWxInfo,
+        'userIData': app.globalData.userIData,
+        'userInfo': app.globalData.userInfo,
       }) /****调用函数设置tabbar及页面*****/
-         that.setData({
-          
-            'userInfo.id': 'fsadfasdfadsf',
-          })
-      that.getGiftReceive();
-    } 
-    else {
 
-      rUserInfo.getUserInfoApp(that, function (rdata) {
+      that.getGiftReceive();
+    } else {
+
+      rUserInfo.getUserInfoApp(that, function(rdata) {
         if (app.globalData.userWxInfo) {
-       
+
           that.setData({
-            'userWxInfo':app.globalData.userWxInfo,
-            'userIData':app.globalData.userIData,
-            'userInfo':app.globalData.userInfo,
+            'userWxInfo': app.globalData.userWxInfo,
+            'userIData': app.globalData.userIData,
+            'userInfo': app.globalData.userInfo,
           })
- 
+
           that.getGiftReceive();
         }
-      
+
       })
 
-     // app.userLogin();
     }
-  
-   
-    
 
   },
 
@@ -124,7 +123,20 @@ Page({
    */
   onShow: function() {
     if (app.globalData.userWxInfo) {
-     this.getGiftReceive();
+      
+      let that = this;
+
+      var showFlg = that.data.showFlg;
+
+      if (showFlg == 'share') {
+        that.setData({
+          'showFlg': '',
+          'fmodalhidden': true,
+        })
+
+
+      }
+      that.getGiftReceive()
     }
   },
 
@@ -160,11 +172,64 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    let that = this;
+    var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+    var userid = that.data.userInfo.id;
+
+    var giftRecordId = that.data.giftInfo.giftRecordId;
+
+
+    var fromLeaveMessage = that.data.fmodalMsg;
+
+    var tUserId = '';
+    var url = config.requestUrl;
+    var data = {
+      code_: 'x_doProcess',
+      "processStatus": '24', //24已转送
+      "giftRecordId": giftRecordId,
+      "fUserId": userid,
+      "newGiftRecordId": newGiftRecordId,
+      "tUserId": tUserId,
+      "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+
+
+    })
+    that.setData({
+      'showPage': 'share'
+    });
+
+
+    that.setData({
+      fmodalhidden: true,
+    });
+    // path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
+    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "& fu=" + userid
+    return {
+      title: fromLeaveMessage,
+      path: pagaPath,
+      imageUrl: that.data.giftInfo.recordInfo.cover_image_url,//that.data.myOrderInfo.mySkuInfo.image_url,
+      success: function() {
+
+      },
+      fail: function() {
+
+      },
+      complete: function() {
+
+      }
+
+    };
 
   },
 
   /**倒计时  this.getTimerDown() */
   getTimerDown: function() {
+
+    rUtils.timerDown.shutdown();
+    
     let that = this;
     var currentTime = that.data.giftInfo.recordInfo.current_time;
     var endTime = that.data.giftInfo.recordInfo.end_time;
@@ -232,38 +297,41 @@ Page({
       code_: 'x_getGiftReceive',
       gr: giftRecordId,
       fu: fu,
-       u: userid,
+      u: userid,
 
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
-        var touserId = rdata.info.to_person ? rdata.info.to_person:'';
+        // that.setData({
+        //   'giftInfo.recordInfo': rdata.info,
+        //   'giftInfo.process': rdata.info.process_status,
+        //   'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
+        //   'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+        // })
 
-        if (touserId == '' || touserId ==userid){
+        that.setData({
+          //   'opinionInfo.dataInfo': rdata.info,
 
-          that.setData({
-            'giftInfo.recordInfo': rdata.info,
-            'giftInfo.process': rdata.info.process_status,
-            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
-            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
-          })
-        }else{
+          'giftInfo.recordInfo': rdata.info.giftRecordInfo,
+          'giftInfo.process': rdata.info.giftRecordInfo.process_status,
+          'giftInfo.giftInfo': rdata.info.giftInfo,
+          'giftInfo.giftRecordInfo': rdata.info.giftRecordInfo,
+          // 'giftInfo.fUserNickname': rdata.info.fUserNickname,
+          // 'giftInfo.tUserNickname': rdata.info.tUserNickname,
+          'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+          'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
 
-          that.setData({
-            'giftInfo.recordInfo': rdata.info,
-            // 'giftInfo.process': rdata.info.process_status,
-            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
-            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
-          })
+          'giftInfo.skuinfo': rdata.info.skuinfo,
+          'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
+          'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
 
 
-        }
+        })
 
-       
-
-        if (rdata.info.process_status == '0' || rdata.info.process_status == '2') {
+        //fmodalMsg
+        if (that.data.giftInfo.process == '0' || that.data.giftInfo.process == '2') {
           that.getTimerDown()
         }
 
@@ -319,10 +387,12 @@ Page({
     let that = this;
     var url = config.requestUrl;
 
-    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.fusernickname);
+    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname);
 
-    var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.to_person_nickname);
-    
+
+    var tUserNickname = that.data.giftInfo.newgiftrecord && that.data.giftInfo.newgiftrecord.to_person_nickname ? that.data.giftInfo.newgiftrecord.to_person_nickname : ''
+    tUserNickname = encodeURIComponent(tUserNickname);
+
     var values = [{
         code: 'GIFT_ADR_MSG',
         replace: [{
@@ -371,9 +441,16 @@ Page({
           regexp: 'nickname',
           replacement: fUserNickname
         }, {
-            regexp: 'receiveruser_nickname',
-            replacement: tUserNickname
-          }]}
+          regexp: 'receiveruser_nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'REJECT_TIP',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }
 
     ];
 
@@ -400,13 +477,13 @@ Page({
 
         var process = that.data.giftInfo.process;
 
-        if (process=='-1'){
+        if (process == '-1') {
           wx.showModal({
             title: '提示',
             content: rdata.info.GIFT_READ,
             showCancel: false,
             confirmText: '知道了',
-            success: function (res) {
+            success: function(res) {
 
             }
           })
@@ -422,11 +499,129 @@ Page({
     let that = this;
     var giftRecordId = that.data.giftInfo.giftRecordId;
     var t = event.currentTarget.dataset.oper;
-     
+
     wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftdetar/giftdetar?gr=' + giftRecordId +'&t='+t,
+      url: '/page/component/pages/pagegift/giftdetar/giftdetar?gr=' + giftRecordId + '&t=' + t,
     })
 
-  }
+  },
+  /**提交收货信息 */
 
+  receiveAddress: function() {
+    let that = this;
+    var giftData = {
+
+      sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc,
+      buyCash: Number(that.data.myOrderInfo.mySkuInfo.list_price) * Number(that.data.myOrderInfo.orderCopies),
+      buycopies: that.data.myOrderInfo.orderCopies,
+      unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
+
+      oper: '1',
+      /**当前是什么操作 1 提交收货 2 转发朋友 3 拒绝 */
+
+      buyId: that.data.giftInfo.giftInfo.orderId,
+      giftRecordId: that.data.giftInfo.giftRecordId,
+      fUserId: that.data.giftInfo.giftRecordInfo.from_person,
+      newGiftRecordId: that.data.giftInfo.newGiftRecordId,
+      tUserId: that.data.giftInfo.giftRecordInfo.to_person
+    }
+    app.globalData.giftData = giftData
+    wx.navigateTo({
+      url: '/page/component/pages/pagegift/giftaddr/giftaddr',
+    })
+  },
+
+
+  /**转送给其他朋友 */
+  forwardfriend: function() {
+    let that = this;
+    that.setData({
+      fmodalhidden: false,
+
+    });
+
+
+  },
+  //字数限制
+  fmodalWordLimit: function(e) {
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > this.data.fmodaltextareaMaxLen) return;
+    if (len == 0) {
+      this.setData({
+        fmodalcurrentNoteLen: len, //当前字数
+        fmodalMsg: e.detail.value,
+        nofmodalMsg: true,
+        nofmodalTip: '输入留言'
+      });
+    } else {
+      this.setData({
+        fmodalcurrentNoteLen: len, //当前字数
+        fmodalMsg: e.detail.value,
+        nofmodalMsg: false,
+        nofmodalTip: '继续'
+      });
+    }
+  },
+
+  fmodalcancel: function() {
+    this.setData({
+      fmodalhidden: true,
+
+    });
+  },
+
+
+  /**拒绝 */
+
+  reject: function() {
+
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: that.data.configMsgInfo.REJECT_TIP,
+      success: function(res) {
+
+        if (res.confirm) {
+          var giftRecordId = that.data.giftInfo.giftRecordId;
+
+          var fUserId = that.data.giftInfo.giftRecordInfo.from_person;
+          var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+          var fromLeaveMessage = '';
+
+          var tUserId = '';
+          var data = {
+            code_: 'x_doProcess',
+            "processStatus": '21', //21人工拒绝
+            "giftRecordId": giftRecordId,
+            "fUserId": fUserId,
+            "newGiftRecordId": newGiftRecordId,
+            "tUserId": tUserId,
+            "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
+          }
+          rRequest.doRequest(url, data, that, function(rdata) {
+
+
+            wx.showToast({
+              title: '成功拒绝',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+            setTimeout(function() {
+              wx.redirectTo({
+                url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId,
+              })
+            }, 1500)
+          })
+        } else if (res.cancel) {
+
+        }
+
+
+
+
+      }
+    })
+  },
 })

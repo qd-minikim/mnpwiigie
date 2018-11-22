@@ -52,7 +52,7 @@ Page({
     nofmodalMsg: true, //是否输入留言
     nofmodalTip: '输入留言',
     /** */
-    showFlg:''
+    showFlg: ''
   },
 
   /**
@@ -120,7 +120,7 @@ Page({
 
     })
 
-  
+
   },
 
   /**
@@ -132,15 +132,15 @@ Page({
 
     var showFlg = that.data.showFlg;
 
-    if (showFlg == 'share'){
-       
-      that.getGiveGiftRecordInfo()
-
-      
+    if (showFlg == 'share') {
       that.setData({
         'showFlg': '',
         'fmodalhidden': true,
       })
+      that.getGiveGiftRecordInfo()
+
+
+
     }
 
 
@@ -182,7 +182,7 @@ Page({
     let that = this;
 
     that.setData({
-      'showFlg':'share'
+      'showFlg': 'share'
     })
 
 
@@ -194,7 +194,7 @@ Page({
 
     var giftRecordId = that.data.giftInfo.giftRecordId;
     var userid = that.data.userInfo.id;
-  
+
     var oper = that.data.giftInfo.oper;
     var tUserId = '';
     var url = config.requestUrl;
@@ -209,14 +209,17 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-     
+
 
     })
-   
+
     var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
+    // var pagaPath = "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid
+    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "& fu=" + userid
+
     return {
       title: fromLeaveMsg,
-      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid,
+      path: pagaPath,
       imageUrl: imageUrl,
       success: function() {
 
@@ -231,7 +234,7 @@ Page({
 
 
   },
-  forwardfriend: function () {
+  forwardfriend: function() {
     let that = this;
     that.setData({
       fmodalhidden: false,
@@ -241,7 +244,7 @@ Page({
 
   },
   //字数限制
-  fmodalWordLimit: function (e) {
+  fmodalWordLimit: function(e) {
     var value = e.detail.value,
       len = parseInt(value.length);
     if (len > this.data.fmodaltextareaMaxLen) return;
@@ -262,7 +265,7 @@ Page({
     }
   },
 
-  fmodalcancel: function () {
+  fmodalcancel: function() {
     this.setData({
       fmodalhidden: true,
 
@@ -300,7 +303,7 @@ Page({
 
     let that = this
     var giftRecordId = that.data.giftInfo.giftRecordId;
-   
+
     var url = config.requestUrl
     var data = {
       code_: 'x_getGiveGiftRecord',
@@ -316,7 +319,7 @@ Page({
 
         if (process == '0') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png";
-          wx.showShareMenu();
+          // wx.showShareMenu();
         }
         if (process == '1') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_1.png"; //展示的图片路径
@@ -348,7 +351,7 @@ Page({
           'giftInfo.process': process,
           'giftInfo.giftStatusImage': giftStatusImage,
 
-          'fromLeaveMsg': rdata.info.from_leave_message,
+          'fromLeaveMsg': rdata.info.from_leave_message ? rdata.info.from_leave_message : '',
         })
 
         if (rdata.info.from_leave_message) {

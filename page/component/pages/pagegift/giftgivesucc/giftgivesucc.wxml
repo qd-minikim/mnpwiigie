@@ -1,17 +1,19 @@
 <import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
 <import src="/page/common/pages/pagemask/pagemask.wxml" />
 <!--转送给朋友的  留言信息 -->
- 
+
 <view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
-<view class="modal-dialog" style='border-radius:15rpx;'  wx:if="{{!fmodalhidden}}">
+<view class="modal-dialog" style='border-radius:15rpx;' wx:if="{{!fmodalhidden}}">
   <view class="modal-title " style='font-size:30rpx;'>送礼留言</view>
-  
+
   <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
     <view class='font-size-7 font-color-4' style='flex:1;display:flex;flex-direction:row'>
-    <view style='flex:1'>上次留言时间:{{giftInfo.recordInfo.from_time}}</view>
-    <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
+      <view style='flex:1;text-align:left'>
+        <view wx:if="{{giftInfo.recordInfo.from_time&&giftInfo.recordInfo.from_time!=''}}">上次留言时间:{{giftInfo.recordInfo.from_time}}</view>
+      </view>
+      <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
     </view>
-    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
+    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6' cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
   </view>
   <view class="modal-footer">
 
@@ -38,7 +40,7 @@
     <view class='ggs-view-1 align-center'>
       <image class='ggs-view-1-image' src='{{giftInfo.giftStatusImage}}'></image>
     </view>
- 
+
     <view class='ggs-view-3 align-center font-size-5'>
 
       <block wx:if="{{giftInfo.process=='0'}}">

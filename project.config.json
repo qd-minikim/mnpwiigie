@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wxa95ca6d0de960e0d",
+	"appid": "wx1718994f5d471b54",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 54,
 			"list": [
 				{
 					"id": -1,
@@ -366,6 +366,13 @@
 					"name": "收到礼品-三大按钮",
 					"pathName": "page/component/pages/pagegift/giftreceive/giftreceive",
 					"query": "gr=1534212656312139&fu=1527673151198212",
+					"scene": "1011"
+				},
+				{
+					"id": 54,
+					"name": "送礼小程序卡片",
+					"pathName": "page/component/pages/pagegift/giftinform/giftinform",
+					"query": "gr=1534212656312139&fu=1527671283933540",
 					"scene": "1011"
 				}
 			]

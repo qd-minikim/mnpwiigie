@@ -51,7 +51,7 @@
       </view>
     </view>
     <!-- 出品商 -->
-    <view class='view-2 font-color-3 font-size-4' style='  '>
+    <view class='view-2 font-color-3 font-size-5' style='  '>
       <view class='view-2-1'>出品商:</view>
       <view class='view-2-2 view-ellipsis-1'>{{spuInfo.spuinfo.producer_brand_name}}</view>
       <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
@@ -72,13 +72,13 @@
         </block>
       </swiper>
     </view>
-    <view class='view-4 align-center'>
-      <view class='view-4-1 font-size-6'>{{spuInfo.spuinfo.description}}</view>
+    <view class='view-4 align-center' style='margin:5rpx 15rpx;'>
+      <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
     </view>
 
     <view class="gap-line" style="flex-direction:column;"></view>
-    <view class='view-5 align-center'>
-      <view class='view-5-1 font-size-6 font-color-11'>{{requirementInfo.wxdescription}}</view>
+    <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
+      <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
     </view>
     <view class="gap-line" style="flex-direction:column;"></view>
 
@@ -99,7 +99,7 @@
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
-    <view class='view-7  font-size-4'>
+    <view class='view-7  font-size-5'>
       <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
         <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
           <view class='  align-center'>
@@ -146,13 +146,13 @@
         </view>
 
 
-        <view class='view-7-2-1 align-r-center font-size-6'>
+        <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
           <view class='view-7-2-1-2 align-center '>链团份数(份)</view>
           <view class='view-7-2-1-2 align-center  '>链团折扣</view>
         </view>
         <block wx:for="{{requirementInfo.cfggroupgradeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
 
-          <view class='view-7-2-1 align-r-center font-size-6'>
+          <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
             <view class='view-7-2-1-2 align-center '>{{item.min_copies_grade}}~
               <block wx:if="{{ item.max_copies_grade=='9999999'}}">不限 </block>
               <block wx:else>{{item.max_copies_grade}}</block>

@@ -97,6 +97,7 @@ Page({
           // that.setData({
           //   ordergiftArray: rdata.infolist,
           // })
+          that.getOrdersInfo();
         }
 
 

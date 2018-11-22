@@ -182,7 +182,7 @@ Page({
             setTimeout(function() {
 
               wx.redirectTo({
-                url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+                url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId ,
               })
 
             }, 1500)
