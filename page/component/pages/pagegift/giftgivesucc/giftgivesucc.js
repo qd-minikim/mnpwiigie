@@ -3,7 +3,11 @@ var config = require('../../../../../config.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
 var rUserInfo = require('../../../../../utils/rUserInfo.js');
+var rSocket = require('../../../../../utils/rSocket.js');
 var app = getApp();
+var socketOpen = false;
+
+var SocketTask;
 Page({
 
   /**
@@ -28,7 +32,7 @@ Page({
 
     /**分享时的title */
     shareTitle: '',
-    fromLeaveMsg: '',
+    // fromLeaveMsg: '',
     /**分享时的留言 如果为''(理论不会)时 用shareTitle  */
     /**转发蒙板 */
     pagemask: {
@@ -119,7 +123,10 @@ Page({
       'pageScrollView.height': swiperHeight + "px",
 
     })
-
+    wx.setStorage({
+      key: "cardpage",
+      data: "",
+    })
 
   },
 
@@ -143,7 +150,17 @@ Page({
 
     }
 
+    if (!SocketTask) {
 
+
+      that.webSocket()
+    } else {
+
+      if (SocketTask.readyState !== 0 && SocketTask.readyState !== 1) {
+
+        that.webSocket()
+      }
+    }
 
   },
 
@@ -184,7 +201,10 @@ Page({
     that.setData({
       'showFlg': 'share'
     })
-
+    wx.setStorage({
+      key: "refresh",
+      data: "1",
+    })
 
     var fromLeaveMsg = that.data.fmodalMsg;
     // if (fromLeaveMsg =''){
@@ -215,7 +235,7 @@ Page({
 
     var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
     // var pagaPath = "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid
-    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "& fu=" + userid
+    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "&fu=" + userid
 
     return {
       title: fromLeaveMsg,
@@ -321,25 +341,25 @@ Page({
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png";
           // wx.showShareMenu();
         }
-        if (process == '1') {
+        else if (process == '1') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_1.png"; //展示的图片路径
         }
-        if (process == '2') {
+        else if (process == '2') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_2.png"; //展示的图片路径
         }
-        if (process == '21') {
+        else if (process == '21') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
         }
-        if (process == '22') {
+        else if (process == '22') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_22.png"; //展示的图片路径
         }
-        if (process == '23') {
+        else if (process == '23') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
         }
-        if (process == '24') {
+        else if (process == '24') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
         }
-        if (process == '99') {
+        else if (process == '99') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
 
           wx.showShareMenu();
@@ -351,7 +371,7 @@ Page({
           'giftInfo.process': process,
           'giftInfo.giftStatusImage': giftStatusImage,
 
-          'fromLeaveMsg': rdata.info.from_leave_message ? rdata.info.from_leave_message : '',
+          //'fromLeaveMsg': rdata.info.from_leave_message ? rdata.info.from_leave_message : '',
         })
 
         if (rdata.info.from_leave_message) {
@@ -465,6 +485,43 @@ Page({
       }
 
     });
+
+  },
+
+  /** */
+  webSocket: function () {
+
+    let that = this;
+
+     
+    var userId = that.data.userInfo.id;
+  
+    var relationId = "gift_"
+    var url = config.socketUrl + "/" + relationId
+    var data = {}
+    SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
+      console.log('WebSocket连接创建--', rdata)
+
+    })
+
+    SocketTask.onOpen(function (res) {
+      console.log('WebSocket连接已打开！readyState=' + SocketTask.readyState)
+
+    })
+    SocketTask.onMessage(function (res) {
+       that.setData({
+        'fmodalhidden': true,
+      })
+      that.getGiveGiftRecordInfo()
+      // console.log('WebSocketonMessage！readyState=' + res)
+    })
+    SocketTask.onError(function (res) {
+      // console.log('onError====readyState=')
+    })
+    SocketTask.onClose(function (res) {
+      // console.log('WebSocket连接已关闭！readyState=')
+      that.webSocket()
+    })
 
   },
 })

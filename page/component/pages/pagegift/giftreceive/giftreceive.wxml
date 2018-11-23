@@ -10,7 +10,7 @@
   <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
 
     <view class='font-size-7 font-color-4' style='flex:1;display:flex;flex-direction:row;text-align:right'>
-    <view style='flex:1;text-align:left'><view  wx:if="{{giftInfo.newGiftRecord.fromTime&&giftInfo.newGiftRecord.fromTime!=''}}">上次转送留言时间:{{giftInfo.newgiftrecord.from_time}}</view></view>
+    <view style='flex:1;text-align:left'><view  wx:if="{{giftInfo.newgiftrecord.from_time&&giftInfo.newgiftrecord.from_time!=''}}">上次转送留言时间:{{giftInfo.newgiftrecord.from_time}}</view></view>
     
     <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
    </view>
@@ -121,7 +121,7 @@
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
 
-        <block wx:if="{{giftInfo.newgiftrecord.processStatus !='0'}}">
+        <block wx:if="{{giftInfo.newgiftrecord.process_status !='0'}}">
           <view class='gr-view-7-1 font-size-7 align-center' style='padding:2rpx 5rpx'>
 
             <template is="wxParse" data="{{wxParseData:FORWARD_GIFT.nodes}}" />
@@ -144,7 +144,7 @@
         </view>
       </block>
       <block wx:if="{{giftInfo.process=='24' }}">
-        <block wx:if="{{giftInfo.newgiftrecord.processStatus!='0' }}">
+        <block wx:if="{{giftInfo.newgiftrecord.process_status!='0' }}">
 
 
           <view class='gr-view-7-1  '>
@@ -155,7 +155,7 @@
 
         <block wx:else>
           <view class='gr-view-7-1'>
-            <button catchtap='giftdetar' data-oper='2' class='gr-view-7-1-btn font-size-5' type='default'>转送中</button>
+            <button catchtap='forwardfriend' data-oper='2' class='gr-view-7-1-btn font-size-5' type='default'>转送中</button>
           </view>
         </block>
       </block>

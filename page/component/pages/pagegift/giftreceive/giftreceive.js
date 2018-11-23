@@ -6,7 +6,11 @@ var rUserInfo = require('../../../../../utils/rUserInfo.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
 var WxParse = require('../../../../../wxParse/wxParse.js');
+var rSocket = require('../../../../../utils/rSocket.js');
 var app = getApp();
+var socketOpen = false;
+
+var SocketTask;
 Page({
 
   /**
@@ -122,10 +126,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    let that = this;
     if (app.globalData.userWxInfo) {
-      
-      let that = this;
-
+     
       var showFlg = that.data.showFlg;
 
       if (showFlg == 'share') {
@@ -133,10 +136,29 @@ Page({
           'showFlg': '',
           'fmodalhidden': true,
         })
-
+        // var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
+        var giftRecordId = that.data.giftInfo.giftRecordId;
+        var url = "/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=" + giftRecordId
+        ///page/component/pages/pagegift/giftreceivesucc/giftreceivesucc
+        wx.redirectTo({
+          url: url,
+        })
+        
 
       }
       that.getGiftReceive()
+    }
+
+    if (!SocketTask) {
+
+
+      that.webSocket()
+    } else {
+
+      if (SocketTask.readyState !== 0 && SocketTask.readyState !== 1) {
+
+        that.webSocket()
+      }
     }
   },
 
@@ -198,7 +220,7 @@ Page({
 
     })
     that.setData({
-      'showPage': 'share'
+      'showFlg': 'share'
     });
 
 
@@ -206,7 +228,7 @@ Page({
       fmodalhidden: true,
     });
     // path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
-    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "& fu=" + userid
+    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "&fu=" + userid
     return {
       title: fromLeaveMessage,
       path: pagaPath,
@@ -229,7 +251,7 @@ Page({
   getTimerDown: function() {
 
     rUtils.timerDown.shutdown();
-    
+
     let that = this;
     var currentTime = that.data.giftInfo.recordInfo.current_time;
     var endTime = that.data.giftInfo.recordInfo.end_time;
@@ -329,11 +351,33 @@ Page({
 
 
         })
+        if (rdata.info.newgiftrecord&&rdata.info.newgiftrecord.from_leave_message) {
 
+          var from_leave_message = rdata.info.newgiftrecord.from_leave_message
+          var len = parseInt(from_leave_message.length);
+          if (len == 0) {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: true,
+              nofmodalTip: '输入留言'
+            });
+          } else {
+            that.setData({
+              fmodalcurrentNoteLen: len, //当前字数
+              fmodalMsg: from_leave_message,
+              nofmodalMsg: false,
+              nofmodalTip: '继续'
+            });
+          }
+
+        }
         //fmodalMsg
         if (that.data.giftInfo.process == '0' || that.data.giftInfo.process == '2') {
           that.getTimerDown()
         }
+
+
 
         that.getConfigMsgInfo()
       }
@@ -609,8 +653,10 @@ Page({
               success: function() {}
             })
             setTimeout(function() {
+              var url = "/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=" + giftRecordId
+        ///page/component/pages/pagegift/giftreceivesucc/giftreceivesucc
               wx.redirectTo({
-                url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId,
+                url: url,
               })
             }, 1500)
           })
@@ -623,5 +669,42 @@ Page({
 
       }
     })
+  },
+  /** */
+  webSocket: function () {
+
+    let that = this;
+
+
+    var userId = that.data.userInfo.id;
+    var giftid = that.data.giftInfo.giftInfo.id
+    
+    var relationId = "gift_"
+    var url = config.socketUrl + "/" + relationId
+    var data = {}
+    SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
+      console.log('WebSocket连接创建--', rdata)
+
+    })
+
+    SocketTask.onOpen(function (res) {
+      console.log('WebSocket连接已打开！readyState=' + SocketTask.readyState)
+
+    })
+    SocketTask.onMessage(function (res) {
+      that.setData({
+        'fmodalhidden': true,
+      })
+      that.getGiftReceive()
+      // console.log('WebSocketonMessage！readyState=' + res)
+    })
+    SocketTask.onError(function (res) {
+      // console.log('onError====readyState=')
+    })
+    SocketTask.onClose(function (res) {
+      // console.log('WebSocket连接已关闭！readyState=')
+      that.webSocket()
+    })
+
   },
 })

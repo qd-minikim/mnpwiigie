@@ -66,14 +66,14 @@
 					"id": 4,
 					"name": "送到礼品-succ",
 					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
-					"query": "gr=1534212656312139",
+					"query": "gr=1542941199005395",
 					"scene": "1011"
 				},
 				{
 					"id": 5,
 					"name": "收到礼品-succ",
 					"pathName": "page/component/pages/pagegift/giftreceivesucc/giftreceivesucc",
-					"query": "gr=1534212656312139&t=2",
+					"query": "gr=1542942315777568",
 					"scene": "1011"
 				},
 				{
@@ -372,7 +372,7 @@
 					"id": 54,
 					"name": "送礼小程序卡片",
 					"pathName": "page/component/pages/pagegift/giftinform/giftinform",
-					"query": "gr=1534212656312139&fu=1527671283933540",
+					"query": "gr=1542942411654322&fu=1528869953018820",
 					"scene": "1011"
 				}
 			]

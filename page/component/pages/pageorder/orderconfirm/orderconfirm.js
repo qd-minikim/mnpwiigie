@@ -194,12 +194,22 @@ Page({
               wx.navigateBack({
                 delta: 1,
               })
-            }, 2000)
+            }, 1000)
 
 
           },
           fail: function (res) {
-             
+            wx.showToast({
+              title: '下单失败',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function () { }
+            })
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1,
+              })
+            }, 1000)
           },
           complete: function (res) {
 

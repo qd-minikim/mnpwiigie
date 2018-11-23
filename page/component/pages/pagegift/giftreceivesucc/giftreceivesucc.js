@@ -3,6 +3,10 @@ var config = require('../../../../../config.js');
 var rCommon = require('../../../../../utils/rCommon.js');
 var rRequest = require('../../../../../utils/rRequest.js');
 var rUserInfo = require('../../../../../utils/rUserInfo.js');
+
+var rSocket = require('../../../../../utils/rSocket.js');
+var SocketTask;
+var socketOpen = false;
 var app = getApp();
 Page({
 
@@ -12,8 +16,8 @@ Page({
   data: {
     giftInfo: {
       giftRecordId: '',
-      process: '1',
-      giftStatusImage: config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png", //展示的图片路径
+      process: '',
+      giftStatusImage: "", //展示的图片路径
 
       recordInfo: {}
     },
@@ -39,6 +43,9 @@ Page({
     fmodalMsg: '', //送礼留言
     nofmodalMsg: true, //是否输入留言
     nofmodalTip: '输入留言',
+
+    /** */
+    showPage: ''
   },
 
   /**
@@ -52,25 +59,25 @@ Page({
 
 
     var giftRecordId = options.gr;
-    var t = options.t;
+    // var t = options.t;
 
-    var process = t;
-    var giftStatusImage = '';
-    if (t == '1') {
+    // var process = t;
+    // var giftStatusImage = '';
+    // if (t == '1') {
 
-      giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
-    }
-    if (t == '2') {
-      giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
-    }
-    if (t == '3') {
-      giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
-    }
+    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
+    // }
+    // if (t == '2') {
+    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
+    // }
+    // if (t == '3') {
+    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
+    // }
 
     that.setData({
       'giftInfo.giftRecordId': giftRecordId,
-      'giftInfo.process': process,
-      'giftInfo.giftStatusImage': giftStatusImage,
+      // 'giftInfo.process': process,
+      // 'giftInfo.giftStatusImage': giftStatusImage,
     })
 
     if (app.globalData.userWxInfo) {
@@ -121,15 +128,36 @@ Page({
     })
 
   },
-
+ 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (app.globalData.userWxInfo) {
-   
-      this.getGiveGiftRecordInfo()
-    } 
+    let that = this;
+
+    var showPage = that.data.showPage;
+
+    if (showPage == 'share') {
+      that.setData({
+        'showPage': '',
+        'fmodalhidden': true,
+      })
+      that.getGiveGiftRecordInfo()
+ 
+
+    }
+
+    if (!SocketTask) {
+
+
+      that.webSocket()
+    } else {
+
+      if (SocketTask.readyState !== 0 && SocketTask.readyState !== 1) {
+
+        that.webSocket()
+      }
+    }
   },
 
   /**
@@ -163,6 +191,12 @@ Page({
   /**
    * 用户点击右上角分享
    */
+   // that.setData({
+
+  //   'giftInfo.recordInfo': rdata.info,
+  //   'giftInfo.process': process,
+  //   'giftInfo.giftStatusImage': giftStatusImage,
+  // })
   onShareAppMessage: function() {
     let that = this;
     // giftInfo.recordInfo
@@ -200,7 +234,7 @@ Page({
 
     return {
       title: fmodalMsg,
-      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
+      path: "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "&fu=" + userid,
       imageUrl: that.data.myOrderInfo.mySkuInfo.image_url,
       success: function() {
 
@@ -269,13 +303,49 @@ Page({
 
       if (rdata.info) {
 
-        that.setData({
-          'giftInfo.recordInfo': rdata.info
 
+        var process = rdata.info.process_status;
+        var giftStatusImage = '';
+
+        if (process == '0') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_0.png";
+          // wx.showShareMenu();
+        }
+        else if (process == '1') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_1.png"; //展示的图片路径
+        }
+        else if (process == '2') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_2.png"; //展示的图片路径
+        }
+        else if (process == '21') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
+        }
+        else if (process == '22') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_22.png"; //展示的图片路径
+        }
+        else if (process == '23') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
+        }
+        else if (process == '24') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
+        }
+        else if (process == '99') {
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
+
+          
+        }
+
+       
+        that.setData({
+          
+          'giftInfo.recordInfo': rdata.info,
+          'giftInfo.process': process,
+          'giftInfo.giftStatusImage': giftStatusImage,
         })
+        
         if (rdata.info.newgiftrecord) {
 
-          var from_leave_message = rdata.info.newgiftrecord.fromLeaveMessage ? rdata.info.newgiftrecord.fromLeaveMessage : ''
+          var from_leave_message = rdata.info.newgiftrecord.from_leave_message ? rdata.info.newgiftrecord.from_leave_message : ''
           var len = parseInt(from_leave_message.length);
           if (len == 0) {
             that.setData({
@@ -321,9 +391,63 @@ Page({
     let that = this;
     var url = config.requestUrl;
 
-    var fUserNickname = that.data.giftInfo.recordInfo.from_person_nickname;
-    fUserNickname = encodeURIComponent(fUserNickname);
-    var values = [{
+    var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname);
+    
+    var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.newgiftrecord.to_person_nickname);
+
+    var currentStatus = that.data.giftInfo.process;
+    var newGiftStatus = that.data.giftInfo.recordInfo.newgiftrecord.process_status ? that.data.giftInfo.newgiftrecord.process_status:'';
+ 
+    if (currentStatus =='24'){
+       
+      
+
+      if (newGiftStatus !='0'){
+
+         
+      }else{
+
+
+      }
+    
+    }else{
+
+
+    }
+   
+
+    var values = [
+      {
+        code: 'RESULT_0',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'RESULT_1',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'RESULT_2',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'RESULT_21',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
+        code: 'RESULT_22',
+        replace: [{
+          regexp: 'nickname',
+          replacement: fUserNickname
+        }]
+      }, {
         code: 'RESULT_23',
         replace: [{
           regexp: 'nickname',
@@ -336,20 +460,76 @@ Page({
           replacement: fUserNickname
         }]
       }, {
-        code: 'RESULT_24_0',
+        code: 'RESULT_99',
         replace: [{
           regexp: 'nickname',
           replacement: fUserNickname
         }]
-      }
-    
-      , {
-        code: 'RESULT_21',
+      } ,
+         {
+           code: 'RESULT_24_0',
         replace: [{
           regexp: 'nickname',
           replacement: fUserNickname
         }]
+      },
+      {
+        code: 'PROCESS_0',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_1',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_2',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_21',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_22',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_23',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_24',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      }, {
+        code: 'PROCESS_99',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
+      },
+      {
+        code: 'PROCESS_24_0',
+        replace: [{
+          regexp: 'nickname',
+          replacement: tUserNickname
+        }]
       }
+     
 
     ];
 
@@ -370,6 +550,43 @@ Page({
       }
 
     });
+
+  },
+  /** */
+  webSocket: function () {
+
+    let that = this;
+
+
+    var userId = that.data.userInfo.id;
+    var giftid = that.data.giftInfo.recordInfo.gift_id
+    
+    var relationId = "gift_"
+    var url = config.socketUrl + "/" + relationId
+    var data = {}
+    SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
+      console.log('WebSocket连接创建--', rdata)
+
+    })
+
+    SocketTask.onOpen(function (res) {
+      console.log('WebSocket连接已打开！readyState=' + SocketTask.readyState)
+
+    })
+    SocketTask.onMessage(function (res) {
+      that.setData({
+        fmodalhidden: true,
+      });
+      that.getGiveGiftRecordInfo()
+      // console.log('WebSocketonMessage！readyState=' + res)
+    })
+    SocketTask.onError(function (res) {
+      // console.log('onError====readyState=')
+    })
+    SocketTask.onClose(function (res) {
+      // console.log('WebSocket连接已关闭！readyState=')
+      that.webSocket()
+    })
 
   },
 })

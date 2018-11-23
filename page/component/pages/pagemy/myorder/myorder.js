@@ -83,9 +83,14 @@ Page({
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
       // var index = that.data.clickindex;
-      if (value && value == '1'   ) {
- 
+      if (value && value == '1') {
+
         if (currentTab == '0') {
+
+          that.setData({
+            orderbuyEndRow: 0,
+            orderbuyAllRows: 0,
+          });
           that.getOrdersInfo();
           // var orderbuyArray = that.data.orderbuyArray;
           // orderbuyArray[index].evaluable = '1';
@@ -97,13 +102,17 @@ Page({
           // that.setData({
           //   ordergiftArray: rdata.infolist,
           // })
+          that.setData({
+            ordergiftEndRow: 0,
+            ordergiftAllRows: 0,
+          });
           that.getOrdersInfo();
         }
 
 
       }
     } catch (e) {
-     
+
     }
     wx.setStorage({
       key: "refresh",
@@ -177,7 +186,7 @@ Page({
   swichNav: function(e) {
 
     let that = this;
- 
+
     if (this.data.currentTab === e.currentTarget.dataset.current) {
       return false;
     } else {
@@ -293,66 +302,88 @@ Page({
     })
   },
   /*取消订单*/
-  cancelOrder: function (event){
+  cancelOrder: function(event) {
 
     var orderid = event.currentTarget.dataset.orderid;
     wx.navigateTo({
       url: '/page/component/pages/pageorder/ordercancel/ordercancel?o=' + orderid,
     })
-    
-    
+
+
   },
-  /*确认收货*/
-surereceve:function(e){
-  let that = this;
-  var orderid = e.currentTarget.dataset.orderid;
-  var promotionid = e.currentTarget.dataset.proid;
-  var requirementid = e.currentTarget.dataset.reqid;
-  var receiveSuccessCS = e.currentTarget.dataset.recs;
-  var dealtype = e.currentTarget.dataset.detype;
-  var deliverytype = e.currentTarget.dataset.deltype;
-  var logisticsstatus = e.currentTarget.dataset.lstatus;
+  /*继续付款*/
+  continuePayOrder: function(event) {
 
-  var userid = that.data.userInfo.id;
-  if (deliverytype == '2' && logisticsstatus == '1') {
-
-    wx.showModal({
-      title: '提示',
-      content: '确定收到了商品了吗？',
-      success: function (res) {
-        if (res.confirm) {
-          var data = {
-            code_: 'x_doreceive',
-            "orderid": orderid,
-            "promotion_id": promotionid,
-            "requirementid": requirementid,
-            "userid": userid
-          }
-
-          rCommon.doOrder.orderAction(that, data, function (rdata) {
-
-            wx.showToast({
-              title: '确认成功',
-              image: '/image/icon_ok.png',
-              duration: 2000,
-              success: function () {
-
-
-              }
-            })
-
-
-            that.getOrdersInfo();
-          });
-        } else if (res.cancel) {
-
-        }
-
-      }
+    var orderid = event.currentTarget.dataset.orderid;
+    wx.navigateTo({
+      url: '/page/component/pages/pageorder/orderdetail/orderdetail?o=' + orderid,
     })
 
-  }
 
-}
+  },
+    /*赠送好友*/
+  forwardFriend: function (event) {
+
+    var gr = event.currentTarget.dataset.gr;
+    wx.navigateTo({
+      url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + gr,
+    })
+
+
+  },
+
+
+  /*确认收货*/
+  surereceve: function(e) {
+    let that = this;
+    var orderid = e.currentTarget.dataset.orderid;
+    var promotionid = e.currentTarget.dataset.proid;
+    var requirementid = e.currentTarget.dataset.reqid;
+    var receiveSuccessCS = e.currentTarget.dataset.recs;
+    var dealtype = e.currentTarget.dataset.detype;
+    var deliverytype = e.currentTarget.dataset.deltype;
+    var logisticsstatus = e.currentTarget.dataset.lstatus;
+
+    var userid = that.data.userInfo.id;
+    if (deliverytype == '2' && logisticsstatus == '1') {
+
+      wx.showModal({
+        title: '提示',
+        content: '确定收到了商品了吗？',
+        success: function(res) {
+          if (res.confirm) {
+            var data = {
+              code_: 'x_doreceive',
+              "orderid": orderid,
+              "promotion_id": promotionid,
+              "requirementid": requirementid,
+              "userid": userid
+            }
+
+            rCommon.doOrder.orderAction(that, data, function(rdata) {
+
+              wx.showToast({
+                title: '确认成功',
+                image: '/image/icon_ok.png',
+                duration: 2000,
+                success: function() {
+
+
+                }
+              })
+
+
+              that.getOrdersInfo();
+            });
+          } else if (res.cancel) {
+
+          }
+
+        }
+      })
+
+    }
+
+  }
 
 })

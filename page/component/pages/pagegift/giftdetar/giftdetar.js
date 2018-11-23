@@ -218,13 +218,13 @@ Page({
 
     var giftRecordId = that.data.giftInfo.giftRecordId;
 
-    var oper = that.data.giftInfo.oper;
+    // var oper = that.data.giftInfo.oper;
     if (showPage == 'share') {
       that.setData({
         'showPage': ''
       });
       wx.navigateTo({
-        url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+        url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId ,
       })
 
 
@@ -290,9 +290,7 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-      // wx.redirectTo({
-      //   url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
-      // })
+     
 
     })
     that.setData({
@@ -934,7 +932,7 @@ Page({
           rRequest.doRequest(url, data, that, function(rdata) {
 
             wx.redirectTo({
-              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId + '&t=' + oper,
+              url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + giftRecordId ,
             })
 
           })

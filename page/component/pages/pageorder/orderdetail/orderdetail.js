@@ -10,7 +10,7 @@ Page({
    */
   data: {
 
-    orderid:'',
+    orderid: '',
     orderDetail: {},
 
     configMsgInfo: {},
@@ -37,7 +37,7 @@ Page({
     }
     var orderid = options.o
     that.setData({
-      orderid: orderid//'1537499430418714'
+      orderid: orderid //'1537499430418714'
     })
 
     that.getOrderDetail();
@@ -122,28 +122,25 @@ Page({
                 }
               })
 
-            }
-            else if (customerServiceStatus == 0) {
+            } else if (customerServiceStatus == 0) {
               wx.showModal({
                 title: '提示',
                 content: '不支持售后服务',
                 // confirmText:'',
                 showCancel: false,
-                success: function () {
+                success: function() {
 
                 }
               })
 
-            }
-           else  if (customerServiceStatus == 3) {
+            } else if (customerServiceStatus == 3) {
               wx.navigateTo({
 
                 url: '/page/component/pages/pagemy/customserv/servdeta/servdeta?s=' + csId,
 
               })
 
-            }
-            else if('1,2,9'.indexOf(customerServiceStatus) > -1) {
+            } else if ('1,2,9'.indexOf(customerServiceStatus) > -1) {
 
               wx.navigateTo({
 
@@ -178,10 +175,7 @@ Page({
             }
           })
         }
-      }
-
-
-      else if (orderType == '3') {
+      } else if (orderType == '3') {
 
         var orderDstip = that.data.configMsgInfo.ORDER_DSTIP;
         wx.showModal({
@@ -197,7 +191,7 @@ Page({
 
       }
 
- 
+
     }
 
     ,
@@ -254,4 +248,61 @@ Page({
     });
 
   },
+  /***继续付款 */
+  continuePay: function(event) {
+    let that = this;
+    var orderid = event.currentTarget.dataset.orderid;
+    // orderCPayUrl: `https://${host}/wiigie/xcx/preContinuePayOrder`,
+    var userid = that.data.userInfo.id
+    var url = config.orderCPayUrl;
+
+    var data = {
+      orderid: orderid,
+      userid: userid
+    };
+
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        wx.requestPayment({
+          timeStamp: rdata.info.timeStamp, //时间戳
+          nonceStr: rdata.info.nonceStr, //随机字符串
+          package: rdata.info.package, //统一下单接口返回的 prepay_id 参数值
+          signType: rdata.info.signType, //签名算法
+          paySign: rdata.info.paySign, //签名
+          success: function(res) {
+            //刷新当前页面
+            that.getOrderDetail();
+            
+            wx.showToast({
+              title: '付款成功',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+
+            wx.setStorage({
+              key: "refresh",
+              data: "1",
+            })
+            
+          },
+          fail: function(res) {
+            wx.showToast({
+              title: '下单失败',
+              image: '/image/icon_ok.png',
+              duration: 2000,
+              success: function() {}
+            })
+
+          },
+          complete: function(res) {
+
+          }
+        })
+      }
+    })
+
+  }
 })

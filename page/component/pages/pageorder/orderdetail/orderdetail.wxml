@@ -60,12 +60,19 @@
         </view>
         <view>交易状态:</view>
         <view>
-          <block wx:if="{{orderDetail.order_type =='2'}}">
-            {{orderDetail.status_code_name}}
+
+          <block wx:if="{{orderDetail.buy_status =='0'}}">
+            未付款
           </block>
-          <block wx:if="{{orderDetail.order_type =='3'}}">
-            {{orderDetail.process_status_name}}
+          <block wx:else>
+            <block wx:if="{{orderDetail.order_type =='2'}}">
+              {{orderDetail.status_code_name}}
+            </block>
+            <block wx:if="{{orderDetail.order_type =='3'}}">
+              {{orderDetail.process_status_name}}
+            </block>
           </block>
+
 
         </view>
       </view>
@@ -155,43 +162,58 @@
       </navigator>
     </view>
 
-    <block wx:if="{{orderDetail.order_type=='2'}}">
-      <block wx:if="{{orderDetail.deal_type=='1'||orderDetail.deal_type=='2'}}">
-        <block wx:if="{{orderDetail.delivery_type=='2' }}">
+    <block wx:if="{{orderDetail.buy_status=='0'}}">
 
-          <block wx:if="{{orderDetail.status_code=='0'}}">
+      <view catchtap='continuePay' data-orderid='{{orderDetail.id}}' class='align-center  bottom-view bg-6' style='flex:1; width:50%;height:100%'>
 
-            <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
+        <view class='bottom-view-1 align-r-center font-size-7 font-color-2'>继续付款
+        </view>
+      </view>
 
-              <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>待收货
+    </block>
+    <block wx:else>
+
+      <block wx:if="{{orderDetail.order_type=='2'}}">
+        <block wx:if="{{orderDetail.deal_type=='1'||orderDetail.deal_type=='2'}}">
+          <block wx:if="{{orderDetail.delivery_type=='2' }}">
+
+            <block wx:if="{{orderDetail.status_code=='0'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>待收货
+                </view>
               </view>
-            </view>
+
+            </block>
+
+            <block wx:if="{{orderDetail.status_code=='1'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-6' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-2'>确认收货
+                </view>
+              </view>
+
+            </block>
+            <block wx:if="{{orderDetail.status_code=='2'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>已收货
+                </view>
+              </view>
+
+            </block>
 
           </block>
-
-          <block wx:if="{{orderDetail.status_code=='1'}}">
-
-            <view catchtap='' class='align-center  bottom-view bg-6' style='flex:1; width:50%;height:100%'>
-
-              <view class='bottom-view-1 align-r-center font-size-7 font-color-2'>确认收货
-              </view>
-            </view>
-
-          </block>
-          <block wx:if="{{orderDetail.status_code=='2'}}">
-
-            <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
-
-              <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>已收货
-              </view>
-            </view>
-
-          </block>
-
         </block>
+
       </block>
 
     </block>
+
+
 
 
   </view>

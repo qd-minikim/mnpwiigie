@@ -1,4 +1,4 @@
-var host = "wx.yihuby.com"
+var host = ""
 var config = {
 
   // 下面的地址配合云端 Server 工作
@@ -18,6 +18,8 @@ var config = {
   imageUrl: `https://${host}/wiigie/image/getImage?addr=`,
   
   orderPayUrl: `https://${host}/wiigie/xcx/prePayOrder`,
+
+  orderCPayUrl: `https://${host}/wiigie/xcx/preContinuePayOrder`,
 
   commissionPayUrl: `https://${host}/wiigie/xcx/preCommission`,
  

@@ -151,6 +151,7 @@ Page({
       if (rdata.info) {
 
         var isOrder = rdata.info.isOrder
+         
         that.setData({
           'checkStatus.isOrder': isOrder,
           'checkStatus.downtimes': that.data.initdowntime,
@@ -161,6 +162,15 @@ Page({
 
             wx.redirectTo({
               url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '&fu=' + fromUserId,
+            })
+          })
+
+        }
+        if (isOrder == '2') { //0不是下单人  1 是下单人
+          rUtils.countSecondDown.countSecondDown(that, that.data.initdowntime, "checkStatus.downtimes", function () {
+
+            wx.redirectTo({
+              url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + rdata.info.oldgift.id + '&fu=' + rdata.info.oldgift.from_person,
             })
           })
 

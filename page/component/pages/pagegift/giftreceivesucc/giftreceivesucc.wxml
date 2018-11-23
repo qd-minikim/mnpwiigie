@@ -2,19 +2,19 @@
 
 
 <!--转送给朋友的  留言信息 -->
- 
+
 <view id='mo' class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{!fmodalhidden}}"></view>
-<view class="modal-dialog" style='border-radius:15rpx;'  wx:if="{{!fmodalhidden}}">
+<view class="modal-dialog" style='border-radius:15rpx;' wx:if="{{!fmodalhidden}}">
   <view class="modal-title " style='font-size:30rpx;'>送礼留言</view>
-  
+
   <view style=' flex-direction: column;display: flex;padding:2rpx 10rpx;margin-bottom:10rpx;margin-top:10rpx;'>
     <view class='font-size-7 font-color-4' style='flex:1;display:flex;flex-direction:row;text-align:right'>
-    <view style='flex:1;text-align:left'>
-    <view  wx:if="{{giftInfo.recordInfo.newgiftrecord.fromTime&&giftInfo.recordInfo.newgiftrecord.fromTime!=''}}">上次留言时间:{{giftInfo.recordInfo.newgiftrecord.fromTime}}</view>
+      <view style='flex:1;text-align:left'>
+        <view wx:if="{{giftInfo.recordInfo.newgiftrecord.from_time&&giftInfo.recordInfo.newgiftrecord.from_time!=''}}">上次留言时间:{{giftInfo.recordInfo.newgiftrecord.from_time}}</view>
+      </view>
+      <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
     </view>
-     <view>{{fmodalcurrentNoteLen|0}}/{{fmodaltextareaMaxLen}}</view>
-    </view>
-    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6'cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
+    <textarea class='font-size-6' style='  border: 1px solid #ccc;border-radius: 5rpx;width:100%;height:5em' maxlength='40' auto-focus='true' bindinput='fmodalWordLimit' value='{{fmodalMsg}}' placeholder-class='font-size-6' cursor-spacing='110' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}'></textarea>
   </view>
   <view class="modal-footer">
 
@@ -38,27 +38,72 @@
 <scroll-view style='max-height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
   <view class='container ' style='flex-direction:colum;display:flex; '>
     <view class='grs-view-1 align-center'>
+
+
       <image class='grs-view-1-image' src='{{giftInfo.giftStatusImage}}'></image>
+
     </view>
 
-    <view class='grs-view-3 align-center'>
+    <view class='grs-view-3 align-center font-size-5'>
+
+      <block wx:if="{{giftInfo.process=='0'}}">
+        {{configMsgInfo.RESULT_0}}
+      </block>
       <block wx:if="{{giftInfo.process=='1'}}">
-        {{configMsgInfo.RESULT_23}}
+        {{configMsgInfo.RESULT_1}}
       </block>
-
       <block wx:if="{{giftInfo.process=='2'}}">
-          <block wx:if="{{giftInfo.recordInfo.newgiftrecord.processStatus!='0'}}">
-               {{configMsgInfo.RESULT_24}}
-          </block>
-            <block wx:else>
-              {{configMsgInfo.RESULT_24_0}}
-          </block>
-        
+        {{configMsgInfo.RESULT_2}}
       </block>
-
-      <block wx:if="{{giftInfo.process=='3'}}">
+      <block wx:if="{{giftInfo.process=='21'}}">
         {{configMsgInfo.RESULT_21}}
       </block>
+      <block wx:if="{{giftInfo.process=='22'}}">
+        {{configMsgInfo.RESULT_22}}
+      </block>
+      <block wx:if="{{giftInfo.process=='23'}}">
+        {{configMsgInfo.RESULT_23}}
+      </block>
+      <block wx:if="{{giftInfo.process=='24'}}">
+
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='0'}}">
+
+          {{configMsgInfo.RESULT_24_0}}
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='1'}}">
+
+          {{configMsgInfo.PROCESS_1}}
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='2'}}">
+          {{configMsgInfo.PROCESS_2}}
+
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='21'}}">
+          {{configMsgInfo.PROCESS_21}}
+
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='22'}}">
+
+          {{configMsgInfo.PROCESS_22}}
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='23'}}">
+
+          {{configMsgInfo.PROCESS_23}}
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='24'}}">
+
+          {{configMsgInfo.PROCESS_24}}
+        </block>
+        <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='99'}}">
+
+          {{configMsgInfo.PROCESS_99}}
+        </block>
+      </block>
+      <block wx:if="{{giftInfo.process=='99'}} ">
+        {{configMsgInfo.RESULT_99}}
+      </block>
+
+ 
 
     </view>
 
@@ -81,8 +126,11 @@
 
 </scroll-view>
 
-<block wx:if="{{giftInfo.process=='2'}}">
-  <view class='flex-bottom-2 align-center'>
-    <button class='font-size-5 align-center' type="primary" catchtap='forwardfriend'   style='width:60%;height:100%;'>转送给其他朋友</button>
-  </view>
+<block wx:if="{{giftInfo.process=='24'}}">
+  <block wx:if="{{giftInfo.recordInfo.newgiftrecord.process_status=='0'}} ">
+    <view class='flex-bottom-2 align-center'>
+      <button class='font-size-5 align-center' type="primary" catchtap='forwardfriend' style='width:60%;height:100%;'>转送给其他朋友</button>
+    </view>
+
+  </block>
 </block>
