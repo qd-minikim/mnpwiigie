@@ -21,7 +21,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     pcuserid: '',
 
@@ -41,9 +41,10 @@ Page({
 
       pcuserid: pcuserid
     })
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       this.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })

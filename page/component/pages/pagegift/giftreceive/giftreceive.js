@@ -54,7 +54,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     /**送礼弹框 */
     fmodalhidden: true,
@@ -87,9 +87,10 @@ Page({
     })
 
 
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        'userWxInfo': app.globalData.userWxInfo,
+        // 'userWxInfo': app.globalData.userWxInfo,
         'userIData': app.globalData.userIData,
         'userInfo': app.globalData.userInfo,
       }) /****调用函数设置tabbar及页面*****/
@@ -98,10 +99,10 @@ Page({
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        if (app.globalData.userWxInfo) {
-
+        // if (app.globalData.userWxInfo) {
+        if (app.globalData.userIData) {
           that.setData({
-            'userWxInfo': app.globalData.userWxInfo,
+            // 'userWxInfo': app.globalData.userWxInfo,
             'userIData': app.globalData.userIData,
             'userInfo': app.globalData.userInfo,
           })
@@ -127,7 +128,8 @@ Page({
    */
   onShow: function() {
     let that = this;
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+      if (app.globalData.userIData) {
      
       var showFlg = that.data.showFlg;
 

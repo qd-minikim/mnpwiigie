@@ -26,7 +26,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
     /**提示信息 */
     configMsgInfo: {},
 
@@ -79,9 +79,10 @@ Page({
       data: url,
     })
     /****调用函数设置tabbar及页面*****/
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
@@ -90,9 +91,10 @@ Page({
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        if (app.globalData.userWxInfo) {
+        // if (app.globalData.userWxInfo) {
+          if (app.globalData.userIData) {
           that.setData({
-            userWxInfo: app.globalData.userWxInfo,
+            // userWxInfo: app.globalData.userWxInfo,
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })

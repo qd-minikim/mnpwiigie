@@ -20,6 +20,12 @@ Page({
     },
     initdowntime: 3,
     windowHeight: 0,
+
+    /**用户信息 */
+    userInfo: {},
+    //hasUserInfo: false,
+    userIData: false,
+    // userWxInfo: {},
   },
 
   /**
@@ -40,16 +46,17 @@ Page({
     })
 
 
-    var url = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "& fu=" + fromUserId
+    var url = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "&fu=" + fromUserId
 
     wx.setStorage({
       key: "cardpage",
       data: url,
     })
 
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
@@ -58,9 +65,10 @@ Page({
 
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        if (app.globalData.userWxInfo) {
+        // if (app.globalData.userWxInfo) {
+        if (app.globalData.userIData) {
           that.setData({
-            userWxInfo: app.globalData.userWxInfo,
+            // userWxInfo: app.globalData.userWxInfo,
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })

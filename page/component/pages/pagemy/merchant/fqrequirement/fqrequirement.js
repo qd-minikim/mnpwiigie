@@ -55,7 +55,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
   },
 
   /**
@@ -72,9 +72,10 @@ Page({
       requirementid: requirementid
     })
 
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+      if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
@@ -84,9 +85,9 @@ Page({
       that.getPcPromotion()
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        console.log("rUserInfo is ", app.globalData);
+        if (app.globalData.userIData) {
         that.setData({
-          userWxInfo: app.globalData.userWxInfo,
+          // userWxInfo: app.globalData.userWxInfo,
           userIData: app.globalData.userIData,
           userInfo: app.globalData.userInfo,
         })
@@ -95,6 +96,7 @@ Page({
         that.getConfigMsgInfo()
 
         that.getPcPromotion()
+        }
       })
 
     }

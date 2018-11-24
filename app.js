@@ -101,11 +101,29 @@ App({
           code: res.code
         }
         rRequest.doRequest(url, data, that, function(rdata) {
-
+          console.log("------------------")
           if (rdata.info) {
 
-            that.globalData.loginInfo = rdata.info
-            that.getSettingInfo();
+            if (rdata.info.loginfo.loginstatus =='ok'){//存在老用户
+
+              that.globalData.loginInfo = rdata.info.loginfo
+              that.globalData.userInfo = rdata.info.userinfo
+              that.globalData.userIData = true
+             
+              rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
+ 
+              that.redirectPage()
+            }
+            else if (rdata.info.loginfo.loginstatus == 'noexist') {//不存在老用户
+              that.globalData.loginInfo = rdata.info
+              that.getSettingInfo();
+            }else{
+
+
+            }
+
+          
+            
           }
         })
 
@@ -162,106 +180,11 @@ App({
             that.globalData.userInfo = rdata.info;
             that.globalData.userIData = true;
 
-            var pages = getCurrentPages() //获取加载的页面
-
-            var currentPage = pages[pages.length - 1] //获取当前页面的对象
-
-            var url = currentPage && currentPage.route ? currentPage.route : '' //当前页面url
-            var page = ""
-            try {
-              page = wx.getStorageSync('cardpage')
-              wx.setStorage({
-                key: "cardpage",
-                data: "",
-              })
-            } catch (e) {
-
-            }
- 
-
-            if (page != "") {
-              if (page.indexOf("/page/component/pages/pagexdd/pagexdd") > -1) {
-
-                wx.reLaunch({
-                  url: page,
-                })
-              }
-              if (page.indexOf("/page/component/pages/pagegift/giftreceive/giftreceive") > -1) {
-                wx.reLaunch({
-                  url: page,
-                })
-              }
-              if (page.indexOf("/page/component/pages/pagecount/counthome/counthome") > -1) {
-                wx.reLaunch({
-                  url: page,
-                })
-              }
-              if (page.indexOf("/page/component/pages/pagegift/giftgivesucc/giftgivesucc") > -1) {
-                wx.reLaunch({
-                  url: page,
-                })
-              }
-              if (page.indexOf("/page/component/pages/pageinform/scanpage/scanpage") > -1) {
-                wx.reLaunch({
-                  url: page,
-                })
-              }
-
-
-
-            } else {
-              wx.switchTab({
-                url: '/pages/pagehome/pagehome',
-              })
-
-            }
-
-
-
-            // if ("page/component/pages/pagegift/giftreceive/giftreceive" == url) {
-            //   var options = currentPage.options
-            //   var giftRecordId = options.gr;
-            //   var fuserid = options.fu;
-            //   wx.reLaunch({
-            //     url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + giftRecordId + '& fu=' + fuserid,
-            //   })
-
-            // }
-            /**详情 */
-            // if ("page/component/pages/pagexdd/pagexdd" == url) {
-            //   var options = currentPage.options
-            //   var fm = options.m;
-            //   var r = options.r;
-            //   wx.reLaunch({
-            //     url: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
-            //   })
-            // }
-            // if ("page/component/pages/pagecount/counthome/counthome" == url) {
-
-            //   wx.reLaunch({
-            //     url: "/page/component/pages/pagecount/counthome/counthome",
-            //   })
-
-            // }
-            // if ("page/component/pages/pagegift/giftgivesucc/giftgivesucc" == url) {
-            //   var options = currentPage.options
-            //   var gr = options.gr;
-            //   wx.reLaunch({
-            //     url: "/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=" + gr,
-            //   })
-
-            // }
-            // if ("pages/pagewelcome/pagewelcome" == url) {
-            //   wx.switchTab({
-            //     url: '/pages/pagehome/pagehome',
-            //   })
-
-            // }
-
-
+       
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
 
 
+            that.redirectPage()
           }
 
 
@@ -279,7 +202,61 @@ App({
     })
   },
 
+  redirectPage:function(){
+    var pages = getCurrentPages() //获取加载的页面
 
+    var currentPage = pages[pages.length - 1] //获取当前页面的对象
+
+    var url = currentPage && currentPage.route ? currentPage.route : '' //当前页面url
+    var page = ""
+    try {
+      page = wx.getStorageSync('cardpage')
+      wx.setStorage({
+        key: "cardpage",
+        data: "",
+      })
+    } catch (e) {
+
+    }
+
+
+    if (page != "") {
+      if (page.indexOf("/page/component/pages/pagexdd/pagexdd") > -1) {
+
+        wx.reLaunch({
+          url: page,
+        })
+      }
+      if (page.indexOf("/page/component/pages/pagegift/giftreceive/giftreceive") > -1) {
+        wx.reLaunch({
+          url: page,
+        })
+      }
+      if (page.indexOf("/page/component/pages/pagecount/counthome/counthome") > -1) {
+        wx.reLaunch({
+          url: page,
+        })
+      }
+      if (page.indexOf("/page/component/pages/pagegift/giftgivesucc/giftgivesucc") > -1) {
+        wx.reLaunch({
+          url: page,
+        })
+      }
+      if (page.indexOf("/page/component/pages/pageinform/scanpage/scanpage") > -1) {
+        wx.reLaunch({
+          url: page,
+        })
+      }
+
+
+
+    } else {
+      wx.switchTab({
+        url: '/pages/pagehome/pagehome',
+      })
+
+    }
+  },
   /**导航栏 */
   editTabBar: function() {
     var tabbar = this.globalData.tabbar,

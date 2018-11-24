@@ -14,7 +14,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     /**用户默认地址 */
     userDefAddr: null,
@@ -29,9 +29,10 @@ Page({
   onLoad: function(options) {
 
     let that = this;
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })

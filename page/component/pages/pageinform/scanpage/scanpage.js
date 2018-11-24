@@ -17,7 +17,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     checkStatus: {
       isused: '0',
@@ -58,18 +58,20 @@ Page({
       console.log("no scene");
     }
 
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
       that.checkPromotion()
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        if (app.globalData.userWxInfo) {
+        // if (app.globalData.userWxInfo) {
+        if (app.globalData.userIData) {
           that.setData({
-            userWxInfo: app.globalData.userWxInfo,
+            // userWxInfo: app.globalData.userWxInfo,
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })

@@ -34,7 +34,7 @@
             </view>
 
             <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-my'></view>
-            <image class='view-1-2-image' src='{{userWxInfo.avatarUrl}}'></image>
+            <image class='view-1-2-image' src='{{userInfo.imageUrl}}'></image>
         
           </view>
 

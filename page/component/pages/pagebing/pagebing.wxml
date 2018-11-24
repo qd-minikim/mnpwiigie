@@ -1,7 +1,7 @@
 <!--page/component/pages/pagebing/pagebing.wxml-->
 <view class='container' bindtap='cancleattach'>
   <view class='b-view-1 align-center'>
-    <image style='width:180rpx;height:180rpx;border-radius:50%' src='{{userWxInfo.avatarUrl}}'></image>
+    <image style='width:180rpx;height:180rpx;border-radius:50%' src='{{userInfo.imageUrl}}'></image>
   </view>
   <view class='b-view-2  font-size-5'>
     <view style='flex-direction:row;display:flex;margin:5rpx 15rpx '>

@@ -115,7 +115,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     /**送礼弹框 */
     fmodalhidden: true,
@@ -140,9 +140,10 @@ Page({
       'giftInfo.oper': oper
 
     })
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+      if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
@@ -150,9 +151,10 @@ Page({
     } else {
 
       rUserInfo.getUserInfoApp(that, function (rdata) {
-        if (app.globalData.userWxInfo) {
+        // if (app.globalData.userWxInfo) {
+        if (app.globalData.userIData) {
           that.setData({
-            userWxInfo: app.globalData.userWxInfo,
+            // userWxInfo: app.globalData.userWxInfo,
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })

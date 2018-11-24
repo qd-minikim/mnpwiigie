@@ -9,7 +9,7 @@
           <image class="home-1-h-i" src="/image/default_head.png" mode="cover"></image>
         </block>
         <block wx:else>
-          <image catchtap='mypage' class="home-1-h-i" src="{{userWxInfo.avatarUrl}}" mode="cover"></image>
+          <image catchtap='mypage' class="home-1-h-i" src="{{userInfo.imageUrl}}" mode="cover"></image>
         </block>
       </view>
 

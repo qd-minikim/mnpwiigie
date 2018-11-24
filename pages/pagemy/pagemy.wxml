@@ -3,11 +3,11 @@
 
   <view class='pagemy-view-1'>
     <view class='pagemy-view-1-1'>
-      <image class='pagemy-view-1-1-image' src='{{userWxInfo.avatarUrl}}'></image>
+      <image class='pagemy-view-1-1-image' src='{{userInfo.imageUrl}}'></image>
     </view>
 
     <view class='pagemy-view-1-2 align-c-center'>
-      <view class='font-size-5' style=';padding:0rpx 12rpx;'>{{userWxInfo.nickName}}</view>
+      <view class='font-size-5' style=';padding:0rpx 12rpx;'>{{userInfo.nickname}}</view>
       <view style='flex-direction:row;display:flex'>
         <view>
           <block wx:if="{{initPagaInfo.isbunding =='0'}}">

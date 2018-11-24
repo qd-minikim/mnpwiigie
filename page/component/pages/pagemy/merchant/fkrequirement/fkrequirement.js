@@ -56,7 +56,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
   },
 
   /**
@@ -73,9 +73,10 @@ Page({
       requirementid: requirementid
     })
 
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
@@ -85,17 +86,19 @@ Page({
       that.getPcPromotion()
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        console.log("rUserInfo is ", app.globalData);
-        that.setData({
-          userWxInfo: app.globalData.userWxInfo,
-          userIData: app.globalData.userIData,
-          userInfo: app.globalData.userInfo,
-        })
 
-        that.initPage()
-        that.getConfigMsgInfo()
+        if (app.globalData.userIData) {
+          that.setData({
+            // userWxInfo: app.globalData.userWxInfo,
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
 
-        that.getPcPromotion()
+          that.initPage()
+          that.getConfigMsgInfo()
+
+          that.getPcPromotion()
+        }
       })
 
     }
@@ -536,7 +539,7 @@ Page({
     var markid = that.data.initFq.markid;
 
     var dataInfo = {
-      
+
       "userid": userid,
       "fee": commission,
       "prepaytype": prepaytype,

@@ -15,9 +15,27 @@ function userLogin(that, callback) {
 
         if (rdata.info) {
 
-          app.globalData.loginInfo = rdata.info
+          // app.globalData.loginInfo = rdata.info
 
-          getSettingInfo(that, callback);
+          if (rdata.info.loginfo.loginstatus == 'ok') {//存在老用户
+
+            that.globalData.loginInfo = rdata.info.loginfo
+            that.globalData.userInfo = rdata.info.userinfo
+            that.globalData.userIData = true
+
+            rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
+ 
+          }
+          else if (rdata.info.loginfo.loginstatus == 'noexist') {//不存在老用户
+            that.globalData.loginInfo = rdata.info
+            getSettingInfo(that, callback);
+          } else {
+
+
+          }
+
+
+         
           
         }
       })

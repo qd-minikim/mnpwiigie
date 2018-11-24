@@ -161,7 +161,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    userWxInfo: {},
+    // userWxInfo: {},
 
     treetype: 'ZFC12_1'
   },
@@ -184,9 +184,10 @@ Page({
       key: "cardpage",
       data: url,
     })
-    if (app.globalData.userWxInfo) {
+    // if (app.globalData.userWxInfo) {
+    if (app.globalData.userIData) {
       that.setData({
-        userWxInfo: app.globalData.userWxInfo,
+        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
 
@@ -206,9 +207,10 @@ Page({
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        if (app.globalData.userWxInfo) {
+        // if (app.globalData.userWxInfo) {
+        if (app.globalData.userIData) {
           that.setData({
-            userWxInfo: app.globalData.userWxInfo,
+            // userWxInfo: app.globalData.userWxInfo,
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })
