@@ -16,7 +16,7 @@ Page({
     /** */
     swiperHeight: 0,
 
-    searched: false,
+    // searched: false,
     /**自购 */
     orderbuysearched: false,
     orderbuyArray: [],
@@ -26,13 +26,17 @@ Page({
     ordergiftArray: [],
 
     /**分页 */
-    itemsPerPage: 100,
+    itemsPerPage: 10,
     orderbuyEndRow: 0,
     orderbuyAllRows: 0,
 
     ordergiftEndRow: 0,
     ordergiftAllRows: 0,
 
+    isPullDownRefresh: false,
+    //是否上拉更多
+    isReachBottom: false,
+    isRefresh: false,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -83,34 +87,30 @@ Page({
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
       // var index = that.data.clickindex;
-      if (value && value == '1') {
+       if (value && value == '1') {
 
         if (currentTab == '0') {
 
           that.setData({
-            orderbuyEndRow: 0,
-            orderbuyAllRows: 0,
+            // orderbuyEndRow: 0,
+            // orderbuyAllRows: 0,
+            isRefresh: true,
           });
           that.getOrdersInfo();
-          // var orderbuyArray = that.data.orderbuyArray;
-          // orderbuyArray[index].evaluable = '1';
-          // that.setData({
-          //   orderbuyArray: orderbuyArray,
-          // })
+
         }
         if (currentTab == '1') {
-          // that.setData({
-          //   ordergiftArray: rdata.infolist,
-          // })
+
           that.setData({
-            ordergiftEndRow: 0,
-            ordergiftAllRows: 0,
+            // ordergiftEndRow: 0,
+            // ordergiftAllRows: 0,
+            isRefresh: true,
           });
           that.getOrdersInfo();
         }
 
 
-      }
+       }
     } catch (e) {
 
     }
@@ -147,6 +147,30 @@ Page({
   onReachBottom: function() {
 
   },
+  scroll: function(e) {
+
+  },
+
+  upper: function(e) {
+
+  },
+  lower: function(e) {
+
+    var isReachBottom = this.data.isReachBottom;
+
+    if (isReachBottom) {
+
+    } else {
+
+      this.setData({
+        isReachBottom: true
+      })
+      this.getOrdersInfo();
+    }
+
+
+
+  },
 
   /**
    * 用户点击右上角分享
@@ -159,16 +183,21 @@ Page({
     let that = this;
 
     var currentTab = e.detail.current;
+
     that.setData({
       currentTab: currentTab,
-      searched: false,
-    });
+      // searched: false,
 
+      isPullDownRefresh: false,
+      isReachBottom: false,
+      isRefresh: false,
+    });
 
     if (currentTab == '0') {
       var orderbuysearched = that.data.orderbuysearched;
 
       if (!orderbuysearched) {
+
         that.getOrdersInfo()
       }
     }
@@ -200,6 +229,10 @@ Page({
   getOrdersInfo: function() {
 
     let that = this;
+    var isPullDownRefresh = that.data.isPullDownRefresh;
+    var isReachBottom = that.data.isReachBottom;
+    var isRefresh = that.data.isRefresh;
+
     var currentTab = that.data.currentTab;
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;
@@ -224,6 +257,27 @@ Page({
       endRow = that.data.ordergiftEndRow;
       allRows = that.data.ordergiftAllRows;
     }
+    if (isRefresh ) {
+
+
+      endRow = 0;
+      itemsPerPage = allRows;
+    }
+  
+    if (isReachBottom && allRows == endRow) {
+
+      that.setData({
+        isReachBottom: false,
+      })
+      wx.showToast({
+        title: '没有更多了',
+        icon: 'none',
+        duration: 1500,
+        success: function() {}
+      })
+      return false
+    }
+
 
 
     var url = config.requestUrl;
@@ -240,36 +294,84 @@ Page({
       orderType: orderType
 
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    // rRequest.doRequest(url, data, that, function(rdata) {
+    wx.request({
+      url: url, //对外地址
+      data: data,
+      header: {
+        'content-type': 'application/json'
+      },
+      success: res => {
+        if (res.data.infolist) {
 
-      if (rdata.infolist) {
+          if (currentTab == '0') {
 
-        if (currentTab == '0') {
-          that.setData({
-            orderbuysearched: true,
-            orderbuyEndRow: rdata.endRow,
-            orderbuyAllRows: rdata.infocounts,
-            orderbuyArray: rdata.infolist,
-          })
+
+            var orderbuyArray = [];
+            var orderbuyArrayNew = [];
+            if (isPullDownRefresh) {
+              orderbuyArray = [];
+
+              wx.stopPullDownRefresh();
+            }
+            if (isReachBottom) {
+              orderbuyArray = that.data.orderbuyArray;
+
+            }
+
+            orderbuyArrayNew = orderbuyArray.concat(res.data.infolist);
+
+            that.setData({
+              orderbuysearched: true,
+              orderbuyEndRow: res.data.endRow,
+              orderbuyAllRows: res.data.infocounts,
+              orderbuyArray: orderbuyArrayNew,
+            })
+
+          }
+
+          if (currentTab == '1') {
+
+            var ordergiftArray = [];
+            var ordergiftArrayNew = [];
+            if (isPullDownRefresh) {
+              ordergiftArray = [];
+
+              wx.stopPullDownRefresh();
+            }
+            if (isReachBottom) {
+              ordergiftArray = that.data.ordergiftArray;
+
+            }
+
+            ordergiftArrayNew = ordergiftArray.concat(res.data.infolist);
+
+
+            that.setData({
+              ordergiftsearched: true,
+              ordergiftArray: ordergiftArrayNew,
+              ordergiftEndRow: res.data.endRow,
+              ordergiftAllRows: res.data.infocounts,
+            })
+          }
 
         }
+  
+        
+      },
+      fail: res => {
 
-        if (currentTab == '1') {
-          that.setData({
-            ordergiftsearched: true,
-            ordergiftArray: rdata.infolist,
-            ordergiftEndRow: rdata.endRow,
-            ordergiftAllRows: rdata.infocounts,
-          })
-        }
+      },
+      complete: res => {
+        console.log("-----complete---")
+        that.setData({
 
+          isPullDownRefresh: false,
+          isReachBottom: false,
+          isRefresh: false,
+        })
+        wx.hideLoading();
       }
-      that.setData({
-        searched: true,
-
-      })
-      wx.hideLoading();
-
     })
 
 
@@ -321,8 +423,8 @@ Page({
 
 
   },
-    /*赠送好友*/
-  forwardFriend: function (event) {
+  /*赠送好友*/
+  forwardFriend: function(event) {
 
     var gr = event.currentTarget.dataset.gr;
     wx.navigateTo({

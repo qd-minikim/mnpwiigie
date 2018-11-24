@@ -25,8 +25,17 @@
               <view class='font-size-6 font-color-4' style='height:30%'>订单数量：{{item.buy_copies}}</view>
               <view class='font-size-6 font-color-4' style='height:30%'>订单金额：￥{{filters.toFix(item.buy_cash,2)}}</view>
             </view>
-            <view class='font-size-6 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
+
+            <block wx:if="{{item.process_status =='99' && item.buy_status =='3'}}">
+              <view class='font-size-6 bg-9 font-color-3' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 10rpx'>已取消</view>
+
+            </block>
+            <block wx:else>
+              <view class='font-size-6 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 10rpx'>{{item.process_status_name}}</view>
+
+            </block>
           </view>
+
 
         </view>
       </view>

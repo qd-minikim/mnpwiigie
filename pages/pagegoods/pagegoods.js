@@ -3,10 +3,10 @@ var config = require('../../config.js')
 var pagegood = require('../../page/common/pages/pagegood/pagegood.js');
 var rRequest = require('../../utils/rRequest.js');
 const app = getApp()
-//是否下拉刷新
-var isPullDownRefresh = false
-//是否上拉更多
-var isReachBottom = false
+// //是否下拉刷新
+// var isPullDownRefresh = false
+// //是否上拉更多
+// var isReachBottom = false
 Page({
 
   /**
@@ -45,7 +45,9 @@ Page({
     userWxInfo: {},
 
 
-
+    isPullDownRefresh: false,
+//是否上拉更多
+    isReachBottom:false
 
   },
 

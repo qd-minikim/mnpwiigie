@@ -11,11 +11,20 @@ Page({
   data: {
     giftgivelist:null,
     searched:false,
+    itemsPerPage: 10,
+    endRow: 0,
+    allRows: 0,
+
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
     userWxInfo: {},
+
+    isPullDownRefresh: false,
+    //是否上拉更多
+    isReachBottom: false,
+    isRefresh: false,
   },
 
   /**
@@ -71,6 +80,17 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var isReachBottom = this.data.isReachBottom;
+
+    if (isReachBottom) {
+
+    } else {
+
+      this.setData({
+        isReachBottom: true
+      })
+      this.getGiftGiveListInfo();
+    }
 
   },
 
@@ -84,9 +104,30 @@ Page({
 
     let that = this
     var userid =  that.data.userInfo.id
-    var endRow = '0';
-    var itemsPerPage = '10';
+    var isPullDownRefresh = that.data.isPullDownRefresh;
+    var isReachBottom = that.data.isReachBottom;
+    var isRefresh = that.data.isRefresh;
+    var endRow = that.data.endRow;
+    var itemsPerPage = that.data.itemsPerPage;
+    var allRows = that.data.allRows;
     var url = config.requestUrl
+
+    if (isReachBottom && allRows == endRow) {
+
+      that.setData({
+        isReachBottom: false,
+      })
+      wx.showToast({
+        title: '没有更多了',
+        icon: 'none',
+        duration: 1500,
+        success: function () { }
+      })
+      return false
+    }
+
+
+
     var data = {
       code_: 'x_getGiveGiftList',
       userid: userid,
@@ -94,17 +135,59 @@ Page({
       itemsPerPage: itemsPerPage,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
- 
-      if (rdata.infolist) {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+    })
+    wx.request({
+      url: url, //对外地址
+      data: data,
+      header: {
+        'content-type': 'application/json'
+      },
+      success: res => {
+        var rdata = res.data
+        if (rdata.infolist) {
+
+
+          var giftgivelist = [];
+          var giftgivelistNew = [];
+          if (isPullDownRefresh) {
+            giftgivelist = [];
+
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            giftgivelist = that.data.giftgivelist;
+
+          }
+
+          giftgivelistNew = giftgivelist.concat(rdata.infolist);
  
           that.setData({
-            'giftgivelist': rdata.infolist,
+            'giftgivelist': giftgivelistNew,
+            'endRow': rdata.endRow,
+            'allRows': rdata.infocounts,
             'searched': true,
           })
+        }
+
+      },
+      fail: res => {
+
+      },
+      complete: res => {
+       
+        that.setData({
+
+          isPullDownRefresh: false,
+          isReachBottom: false,
+          isRefresh: false,
+        })
+        wx.hideLoading();
       }
     })
-
+ 
   },
 
   showGiftDetail:function(event){
