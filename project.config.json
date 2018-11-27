@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wx1718994f5d471b54",
+	"appid": "wxa95ca6d0de960e0d",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -372,7 +372,17 @@
 					"id": 54,
 					"name": "送礼小程序卡片",
 					"pathName": "page/component/pages/pagegift/giftinform/giftinform",
-					"query": "gr=1542942411654322&fu=1528869953018820",
+					"query": "gr=1543246754565826&fu=1528869953018820",
+					"scene": "1036",
+					"referrerInfo": {
+						"appId": "wx1718994f5d471b54"
+					}
+				},
+				{
+					"id": 55,
+					"name": "礼品已被抢先一步",
+					"pathName": "page/component/pages/pagegift/giftreceivefail/giftreceivefail",
+					"query": "",
 					"scene": "1011"
 				}
 			]

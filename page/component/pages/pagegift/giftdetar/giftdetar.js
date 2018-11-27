@@ -165,9 +165,7 @@ Page({
        
     }
 
-
  
-
     wx.hideShareMenu();
 
 
@@ -307,7 +305,7 @@ Page({
 
     return {
       title: fmodalMsg,
-      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
+      path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "&fu=" + userid,
       imageUrl: that.data.myOrderInfo.mySkuInfo.image_url,
       success: function() {
 

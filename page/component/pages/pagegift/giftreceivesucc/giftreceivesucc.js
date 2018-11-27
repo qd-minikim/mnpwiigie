@@ -56,23 +56,9 @@ Page({
     /****调用函数设置tabbar及页面*****/
     app.editTabBar();
     /****调用函数设置tabbar及页面*****/
-
-
+ 
     var giftRecordId = options.gr;
-    // var t = options.t;
-
-    // var process = t;
-    // var giftStatusImage = '';
-    // if (t == '1') {
-
-    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
-    // }
-    // if (t == '2') {
-    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
-    // }
-    // if (t == '3') {
-    //   giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
-    // }
+ 
 
     that.setData({
       'giftInfo.giftRecordId': giftRecordId,
@@ -233,11 +219,11 @@ Page({
     that.setData({
       fmodalhidden: true,
     });
-
+    var path = "/page/component/pages/pagegift/giftinform/giftinform?gr="+ newGiftRecordId+"&fu="+ userid;
     return {
-      title: fmodalMsg,
-      path: "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "&fu=" + userid,
-      imageUrl: that.data.myOrderInfo.mySkuInfo.image_url,
+      title: fmodalMsg   ,
+      path: path,
+      imageUrl: that.data.giftInfo.recordInfo.cover_image_url,
       success: function() {
 
 
@@ -329,7 +315,27 @@ Page({
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
         }
         else if (process == '24') {
-          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
+         
+          var newprocess = rdata.info.newgiftrecord.process_status
+
+          if (newprocess =='0'){
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
+          } else if (newprocess == '1') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_1.png"; //展示的图片路径
+          } else if (newprocess == '2') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_2.png"; //展示的图片路径
+          } else if (newprocess == '21') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_21.png"; //展示的图片路径
+          } else if (newprocess == '22') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_22.png"; //展示的图片路径
+          } else if (newprocess == '23') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
+          } else if (newprocess == '24') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
+          } else if (newprocess == '99') {
+            giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
+
+          }
         }
         else if (process == '99') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
@@ -381,7 +387,7 @@ Page({
       var t = event.currentTarget.dataset.oper;
 
       wx.navigateTo({
-        url: '/page/component/pages/pagegift/giftdeta/giftdeta?gr=' + id + "&t=6",
+    
         url: '/page/component/pages/pagegift/giftdetar/giftdetar?gr=' + giftRecordId + '&t=' + t,
       })
 
@@ -397,27 +403,7 @@ Page({
     
     var tUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.newgiftrecord.to_person_nickname);
 
-    var currentStatus = that.data.giftInfo.process;
-    var newGiftStatus = that.data.giftInfo.recordInfo.newgiftrecord.process_status ? that.data.giftInfo.newgiftrecord.process_status:'';
- 
-    if (currentStatus =='24'){
-       
-      
-
-      if (newGiftStatus !='0'){
-
-         
-      }else{
-
-
-      }
-    
-    }else{
-
-
-    }
    
-
     var values = [
       {
         code: 'RESULT_0',
@@ -561,9 +547,9 @@ Page({
 
 
     var userId = that.data.userInfo.id;
-    var giftid = that.data.giftInfo.recordInfo.gift_id
+    // var giftid = that.data.giftInfo.recordInfo.gift_id
     
-    var relationId = "gift_"
+    var relationId = "gift_" + userId
     var url = config.socketUrl + "/" + relationId
     var data = {}
     SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {

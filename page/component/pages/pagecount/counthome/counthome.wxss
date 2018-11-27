@@ -1,4 +1,6 @@
 /* page/component/pages/pagecount/counthome/counthome.wxss */
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
 .counthome-view-0{
 
 flex-direction: column;

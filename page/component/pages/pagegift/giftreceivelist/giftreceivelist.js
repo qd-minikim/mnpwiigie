@@ -347,9 +347,22 @@ Page({
 
     var id = event.currentTarget.dataset.id;
     var fu = event.currentTarget.dataset.fu;
-    wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + id + '&fu=' + fu,
-    })
+    var process = event.currentTarget.dataset.process;
+
+    if (process =='2'){
+      wx.navigateTo({
+        
+        url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + id + '&fu=' + fu,
+      })
+
+    }else{
+
+      wx.navigateTo({
+        //url: '/page/component/pages/pagegift/giftreceive/giftreceive?gr=' + id + '&fu=' + fu,
+        url: '/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=' + id,
+      })
+    }
+  
 
 
   }

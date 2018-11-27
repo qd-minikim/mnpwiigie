@@ -11,15 +11,6 @@
   height: 400rpx;
 }
 
-.grs-view-1 {
-  width: 100%;
-}
-
-.grs-view-1-image {
-  width: 400rpx;
-  height: 400rpx;
-}
-
 .grs-view-3 {
   width: 100%;
 }

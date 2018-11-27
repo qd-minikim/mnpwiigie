@@ -1,0 +1,39 @@
+/* page/component/pages/pagegift/giftreceivefail/giftreceivefail.wxss */
+
+/* page/component/pages/pagegift/giftgivesucc/giftgivesucc.wxss */
+
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
+.grs-view-1 {
+  width: 100%;
+  margin-top:50rpx;
+
+}
+
+.grs-view-1-image {
+  width: 350rpx;
+  height: 250rpx;
+}
+
+.grs-view-3 {
+  /* width: 100%; */
+}
+
+.grs-view-5 {
+  width: 100%;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.grs-view-5-image {
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.grs-view-5-2 {
+  width: 100%;
+  position: absolute;
+  right: 1rpx;
+  bottom: 20rpx;
+}
+ 

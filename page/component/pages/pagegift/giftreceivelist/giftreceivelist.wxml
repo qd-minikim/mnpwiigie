@@ -8,11 +8,11 @@
     <block wx:if="{{index>0}}">
       <view class="gap-bg" style="flex-direction:column;"></view>
     </block>
-    <view bindtap='showReceiveDetail' data-id='{{item.id}}' data-fu='{{item.from_person}}' style='margin:2rpx 15rpx'>
+    <view bindtap='showReceiveDetail' data-id='{{item.id}}' data-fu='{{item.from_person}}' style='margin:2rpx 15rpx' data-process='{{item.process_status}}'>
       <view class='grlist-view-1 font-size-6  '>
         <view>订单编号：</view>
         <view style='flex:1'>{{item.order_id}}</view>
-        <view class='bg-15 font-color-2' style='border-radius:15rpx;padding:3rpx 5rpx'>{{item.process_status_name}}</view>
+       
       </view>
 
       <view class="gap-line" style="flex-direction:column;"></view>
@@ -27,6 +27,8 @@
             <view class='font-size-6 font-color-4' style='height:30%'>订单数量：{{item.buy_copies}}</view>
             <view class='font-size-6 font-color-4' style='height:30%'>订单金额：￥{{filters.toFix(item.buy_cash,2)}}</view>
           </view>
+
+         <view class='font-size-6 bg-15 font-color-2' style='position:absolute;right:1rpx;;bottom:20%;border-radius:15rpx;padding:3rpx 10rpx'>{{item.process_status_name}}</view>
 
         </view>
 

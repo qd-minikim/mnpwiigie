@@ -41,6 +41,10 @@ Page({
       home6Array: [],
       home6Count: 0
     },
+    scrollView: {
+      width: 0,
+      height: 0
+    },
     /**msg配置信息 */
     configMsgInfo: {},
 
@@ -88,7 +92,17 @@ Page({
 
   },
   onReady: function() {
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
+    var screenHeight = app.globalData.systemInfo.screenHeight
 
+    var pixelRatio = app.globalData.systemInfo.pixelRatio
+    var percent = windowWidth / 750
+    var scrollViewHeight = windowHeight - 80 * percent - 130  * percent
+    this.setData({
+ 
+      'scrollView.height': scrollViewHeight
+    })
     wx.hideShareMenu()
 
   },

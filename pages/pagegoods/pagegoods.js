@@ -2,6 +2,7 @@
 var config = require('../../config.js')
 var pagegood = require('../../page/common/pages/pagegood/pagegood.js');
 var rRequest = require('../../utils/rRequest.js');
+var rUserInfo = require('../../utils/rUserInfo.js');
 const app = getApp()
 // //是否下拉刷新
 // var isPullDownRefresh = false
@@ -55,18 +56,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+let that = this
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
-      this.setData({
+      that.setData({
         // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
+      that.promotionTag();
+      that.getGoods();
+    }else{
+      rUserInfo.getUserInfoApp(that, function (rdata) {
+      
+        if (app.globalData.userIData) {
+
+          that.setData({
+            // userWxInfo: app.globalData.userWxInfo,
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+          that.promotionTag();
+          that.getGoods();
+        }
+
+      })
+
+
     }
 
-    this.promotionTag();
-    this.getGoods();
+  
   },
 
   /**

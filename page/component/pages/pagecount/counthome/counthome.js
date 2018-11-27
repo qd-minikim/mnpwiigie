@@ -15,6 +15,14 @@ Page({
     //hasUserInfo: false,
     userIData: false,
     // userWxInfo: {},
+
+    /**tabbar */
+    pageScrollView: {
+      height: 0
+    },
+    tabbar: {}, //tabbar 信息
+    tabbarPage: '/pages/pagemy/pagemy', //当前页面属于哪个tabbar 默认是null
+
   },
 
   /**
@@ -22,7 +30,7 @@ Page({
    */
   onLoad: function(options) {
 
-
+    app.editTabBar();
     var url = "/page/component/pages/pagecount/counthome/counthome"
     wx.setStorage({
       key: "cardpage",

@@ -28,180 +28,184 @@
     </view>
 
   </view>
-  <view class="gap-bg" style="flex-direction:column;"></view>
 
-  <view class="home-2" style="flex-direction:column;">
-    <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}" style='height:96px' class='align-center'>
-      <block wx:for="{{defaultInfo.swiperImgUrls}}" wx:for-item="item" wx:key="*this">
-        <swiper-item>
-          <image catchtap='webPage' data-webpath='{{item.redirecturl}}' src='{{item.image_url}}' mode='widthFix' style='height:100%;width:100%'></image>
-        </swiper-item>
-      </block>
-    </swiper>
+  <scroll-view style='  padding-top: 5rpx;padding-bottom: 5rpx;height:{{scrollView.height}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class="home-2" style="flex-direction:column;">
+      <swiper indicator-dots="{{defaultInfo.swiperIndicatorDots}}" autoplay="{{defaultInfo.swiperAutoplay}}" interval="{{defaultInfo.swiperInterval}}" duration="{{defaultInfo.swiperDuration}}" style='height:96px' class='align-center'>
+        <block wx:for="{{defaultInfo.swiperImgUrls}}" wx:for-item="item" wx:key="*this">
+          <swiper-item>
+            <image catchtap='webPage' data-webpath='{{item.redirecturl}}' src='{{item.image_url}}' mode='widthFix' style='height:100%;width:100%'></image>
+          </swiper-item>
+        </block>
+      </swiper>
 
 
-  </view>
-  <view class="gap-bg" style="flex-direction:column;"></view>
-  <view class="home-3 font-size-7" style="flex-direction:row;">
-    <view class='align-center' style="flex-direction:row;flex:1">
-      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
-      <text>{{defaultInfo.home3Text[0]}}</text>
     </view>
-    <view class='align-center' style="flex-direction:row;flex:1">
-      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
-      <text>{{defaultInfo.home3Text[1]}}</text>
-    </view>
-    <view class='align-center' style="flex-direction:row;flex:1">
-      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
-      <text>{{defaultInfo.home3Text[2]}}</text>
-    </view>
-    <view class='align-center' style="flex-direction:row;flex:1">
-      <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
-      <text>{{defaultInfo.home3Text[3]}}</text>
-    </view>
-  </view>
-  <view class="gap-bg" style="flex-direction:column;"></view>
-  <view style='width:100%'>
-    <view class="home-4" style="flex-direction:row;">
-      <view class="home-4-1 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homePerson'>
-        <view class="home-4-1-1" style="flex-direction:column;">
-          <view class="home-4-1-1-1 font-size-5">
-            <view>{{defaultInfo.home4Text1[0]}}</view>
-            <view class='align-r-center' style='position:relative'>
-              <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
-              <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品味</view>
-            </view>
-
-          </view>
-          <view class="home-4-1-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[0]}}</view>
-        </view>
-        <view class="align-center home-4-1-2">
-          <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
-        </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class="home-3 font-size-7" style="flex-direction:row;">
+      <view class='align-center' style="flex-direction:row;flex:1">
+        <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+        <text>{{defaultInfo.home3Text[0]}}</text>
       </view>
-      <view class='gap-bg-v ' style="flex-direction:column;"></view>
-      <view class="home-4-2 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homeGoods'>
-        <view class="home-4-2-1" style="flex-direction:column;">
-          <view class="home-4-2-1-1 font-size-5">
-            <view>{{defaultInfo.home4Text1[1]}}</view>
-            <view class='align-r-center' style='position:relative'>
-              <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
-              <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品质</view>
-            </view>
-          </view>
-          <view class="home-4-2-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[1]}}</view>
-        </view>
-        <view class="align-center home-4-2-2">
-          <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
-        </view>
+      <view class='align-center' style="flex-direction:row;flex:1">
+        <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+        <text>{{defaultInfo.home3Text[1]}}</text>
+      </view>
+      <view class='align-center' style="flex-direction:row;flex:1">
+        <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+        <text>{{defaultInfo.home3Text[2]}}</text>
+      </view>
+      <view class='align-center' style="flex-direction:row;flex:1">
+        <image class="home-3-image" src='{{defaultInfo.home3Figure1}}'></image>
+        <text>{{defaultInfo.home3Text[3]}}</text>
       </view>
     </view>
-  </view>
-  <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view style='width:100%'>
+      <view class="home-4" style="flex-direction:row;">
+        <view class="home-4-1 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homePerson'>
+          <view class="home-4-1-1" style="flex-direction:column;">
+            <view class="home-4-1-1-1 font-size-5">
+              <view>{{defaultInfo.home4Text1[0]}}</view>
+              <view class='align-r-center' style='position:relative'>
+                <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
+                <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品味</view>
+              </view>
 
-  <!-- 好友动态 -->
-  <view style='width:100%'>
-    <view class="home-5" style="flex-direction:column;">
-      <view class="home-5-1 font-size-4 font-color-4">{{defaultInfo.home5Text1}}</view>
-
-
-      <view class="gap-line" style="flex-direction:column;"></view>
-      <block wx:if="{{home5Array.length>0}}">
-        <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
-        <block wx:if="{{home5Count>8}}">
-          <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
-
-            <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;'>查看更多</button>
+            </view>
+            <view class="home-4-1-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[0]}}</view>
           </view>
-
-        </block>
-
-      </block>
-      <block wx:if="{{home5Selected && home5Array.length<=0}}">
-
-        <view class="home-5-1 font-size-6 font-color-4">
-
-          {{configMsgInfo.FDYNAMIC_MSG}}
+          <view class="align-center home-4-1-2">
+            <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[0]}}'></image>
+          </view>
         </view>
-      </block>
-
-    </view>
-
-
-
-
-
-  </view>
-  <view class="gap-bg" style="flex-direction:column;"></view>
-  <!-- 人气推荐 -->
-  <view class="home-6" style="flex-direction:column;">
-    <view class="home-6-1 font-size-4 font-color-4">{{defaultInfo.home6Text1}}</view>
-    <view class="gap-line" style="flex-direction:column;"></view>
-    <view class='home-6-2' style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
-
-      <block wx:for="{{home6Array}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-        <block wx:if="{{index >1 && index%2==0}}">
-          <view class="gap-line" style="flex-direction:column;"></view>
-        </block>
-        <view style='width:49%'>
-          <view catchtap='rqtjShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}' class='home-6-2-1' style="flex-direction:row;display:flex;">
-            <view class='home-6-2-1-1' style='flex-direction:column;flex:1;position:relative'>
-              <view class='home-6-2-1-1-1 font-size-6 view-ellipsis-2'>{{item.title}}</view>
-
-              <view class='home-6-2-1-1-2 align-r-center' style="position:absolute;flex-direction:row;display:flex; justify-content:flex-end ;bottom:0rpx;width:100%;">
-                <view class='align-r-center' style='flex:1;text-align:right;'>
-                  <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-6-2-1-1-2-image" src='{{itemi.friend_image_url}}'></image>
-                </view>
-                <view class='align-r-center'>
-
-                  <block wx:if="{{item.deal_type=='0'}}">
-                    <view class='align-center home-6-2-1-1-2-view-figure4 bg-16 font-color-2  font-size-7 '>{{item.link_price_name}}
-                    </view>
-
-                  </block>
-                  <block wx:elif="{{item.deal_type=='3'}}">
-                    <!-- 零售 -->
-                    <block wx:if="{{item.keep_storage<=0}}">
-                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>
-                    </block>
-                    <block wx:else>
-                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-17 font-color-12  font-size-7 '>{{item.link_price_name}}</view>
-                    </block>
-
-                  </block>
-                  <block wx:else>
-                    <block wx:if="{{item.keep_storage<=0}}">
-                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>
-                    </block>
-                    <block wx:else>
-                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-16 font-color-2  font-size-7 '>{{item.link_price_name}}</view>
-                    </block>
-                  </block>
-
-
-
-
-                </view>
+        <view class='gap-bg-v ' style="flex-direction:column;"></view>
+        <view class="home-4-2 align-center" style="flex-direction:row;display:flex;flex:1" bindtap='homeGoods'>
+          <view class="home-4-2-1" style="flex-direction:column;">
+            <view class="home-4-2-1-1 font-size-5">
+              <view>{{defaultInfo.home4Text1[1]}}</view>
+              <view class='align-r-center' style='position:relative'>
+                <image style='width:80rpx;height:100%' src='/image/figure_35.png'></image>
+                <view style='position:absolute;bottom:0rpx;right:15%;height:100%;' class='font-size-7 font-color-2 align-center'>品质</view>
               </view>
             </view>
-            <view class='home-6-2-1-2'>
-              <image class="home-6-2-1-2-image" src='{{item.theme_img_url}}'></image>
-            </view>
+            <view class="home-4-2-1-2 font-size-6 font-color-4">{{defaultInfo.home4Text2[1]}}</view>
+          </view>
+          <view class="align-center home-4-2-2">
+            <image class='home-4-figure2' src='{{defaultInfo.home4Figure2[1]}}'></image>
           </view>
         </view>
-        <block wx:if="{{index%2==0 && (home6Array.length)%2==0}}">
-          <view style="width:2%" class='align-center'>
-            <view class="gap-line-v" style="flex-direction:column;height:100%;"></view>
+      </view>
+    </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <!-- 好友动态 -->
+    <view style='width:100%'>
+      <view class="home-5" style="flex-direction:column;">
+        <view class="home-5-1 font-size-4 font-color-4">{{defaultInfo.home5Text1}}</view>
+
+
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <block wx:if="{{home5Array.length>0}}">
+          <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+          <block wx:if="{{home5Count>8}}">
+            <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
+
+              <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;'>查看更多</button>
+            </view>
+
+          </block>
+
+        </block>
+        <block wx:if="{{home5Selected && home5Array.length<=0}}">
+
+          <view class="home-5-1 font-size-6 font-color-4">
+
+            {{configMsgInfo.FDYNAMIC_MSG}}
           </view>
-
-        </block>
-        <block wx:else>
-          <view style="width:2%"></view>
         </block>
 
-      </block>
+      </view>
+
+
+
 
 
     </view>
-  </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <!-- 人气推荐 -->
+    <view class="home-6" style="flex-direction:column;">
+      <view class="home-6-1 font-size-4 font-color-4">{{defaultInfo.home6Text1}}</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='home-6-2' style='display:flex;flex-wrap:true;flex-flow:row wrap;'>
+
+        <block wx:for="{{home6Array}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+          <block wx:if="{{index >1 && index%2==0}}">
+            <view class="gap-line" style="flex-direction:column;"></view>
+          </block>
+          <view style='width:49%'>
+            <view catchtap='rqtjShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}' class='home-6-2-1' style="flex-direction:row;display:flex;">
+              <view class='home-6-2-1-1' style='flex-direction:column;flex:1;position:relative'>
+                <view class='home-6-2-1-1-1 font-size-6 view-ellipsis-2'>{{item.title}}</view>
+
+                <view class='home-6-2-1-1-2 align-r-center' style="position:absolute;flex-direction:row;display:flex; justify-content:flex-end ;bottom:0rpx;width:100%;">
+                  <view class='align-r-center' style='flex:1;text-align:right;'>
+                    <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-6-2-1-1-2-image" src='{{itemi.friend_image_url}}'></image>
+                  </view>
+                  <view class='align-r-center'>
+
+                    <block wx:if="{{item.deal_type=='0'}}">
+                      <view class='align-center home-6-2-1-1-2-view-figure4 bg-16 font-color-2  font-size-7 '>{{item.link_price_name}}
+                      </view>
+
+                    </block>
+                    <block wx:elif="{{item.deal_type=='3'}}">
+                      <!-- 零售 -->
+                      <block wx:if="{{item.keep_storage<=0}}">
+                        <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>
+                      </block>
+                      <block wx:else>
+                        <view class='align-center home-6-2-1-1-2-view-figure4 bg-17 font-color-12  font-size-7 '>{{item.link_price_name}}</view>
+                      </block>
+
+                    </block>
+                    <block wx:else>
+                      <block wx:if="{{item.keep_storage<=0}}">
+                        <view class='align-center home-6-2-1-1-2-view-figure4 bg-4 font-color-4  font-size-7 '>售罄</view>
+                      </block>
+                      <block wx:else>
+                        <view class='align-center home-6-2-1-1-2-view-figure4 bg-16 font-color-2  font-size-7 '>{{item.link_price_name}}</view>
+                      </block>
+                    </block>
+
+
+
+
+                  </view>
+                </view>
+              </view>
+              <view class='home-6-2-1-2'>
+                <image class="home-6-2-1-2-image" src='{{item.theme_img_url}}'></image>
+              </view>
+            </view>
+          </view>
+          <block wx:if="{{index%2==0 && (home6Array.length)%2==0}}">
+            <view style="width:2%" class='align-center'>
+              <view class="gap-line-v" style="flex-direction:column;height:100%;"></view>
+            </view>
+
+          </block>
+          <block wx:else>
+            <view style="width:2%"></view>
+          </block>
+
+        </block>
+
+
+      </view>
+    </view>
+  </scroll-view>
 </view>

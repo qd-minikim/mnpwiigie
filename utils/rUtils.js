@@ -67,8 +67,11 @@
    countDown: function(that, currentTime, enddate, callback) {
 
      var this_ = this;
+     var currentTimeD = new Date(currentTime.replace(/-/g, "/"));
+     var enddateD = new Date(enddate.replace(/-/g, "/"));
+    //  var leftTime = (new Date(enddate)) - (new Date(currentTime)); //计算剩余的毫秒数
+     var leftTime = (enddateD) - (currentTimeD); //计算剩余的毫秒数
 
-     var leftTime = (new Date(enddate)) - (new Date(currentTime)); //计算剩余的毫秒数
      var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
      var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
      var minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟
@@ -108,8 +111,9 @@
 
 
      this_.timer = setTimeout(function() {
-
-       var date1 = new Date(Date.parse(currentTime.replace(/-/g, "/")));
+       var date1 = new Date(currentTime.replace(/-/g, "/"));
+     
+      //  var date1 = new Date(Date.parse(currentTime.replace(/-/g, "/")));
        date1.setTime(date1.getTime() + 1000);
 
 

@@ -68,7 +68,8 @@
         "pages/pagemy/merchant/fkrequirement/fkrequirement",
         "pages/pageinform/notice/summarypage/summarypage",
         "pages/pageinform/notice/detailpage/detailpage",
-        "pages/pagegift/giftinform/giftinform"
+        "pages/pagegift/giftinform/giftinform",
+        "pages/pagegift/giftreceivefail/giftreceivefail"
       ]
     }
   ],

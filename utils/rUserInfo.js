@@ -19,15 +19,16 @@ function userLogin(that, callback) {
 
           if (rdata.info.loginfo.loginstatus == 'ok') {//存在老用户
 
-            that.globalData.loginInfo = rdata.info.loginfo
-            that.globalData.userInfo = rdata.info.userinfo
-            that.globalData.userIData = true
+            app.globalData.loginInfo = rdata.info.loginfo
+            app.globalData.userInfo = rdata.info.userinfo
+            app.globalData.userIData = true
 
-            rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
- 
+            rCommon.userDefAddr.getUserDefAddr(that, rdata.info.userinfo.id);
+            typeof callback == "function" && callback(rdata)
+
           }
           else if (rdata.info.loginfo.loginstatus == 'noexist') {//不存在老用户
-            that.globalData.loginInfo = rdata.info
+            app.globalData.loginInfo = rdata.info.loginfo
             getSettingInfo(that, callback);
           } else {
 

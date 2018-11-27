@@ -110,7 +110,7 @@ App({
               that.globalData.userInfo = rdata.info.userinfo
               that.globalData.userIData = true
              
-              rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
+              rCommon.userDefAddr.getUserDefAddr(that, rdata.info.userinfo.id);
  
               that.redirectPage()
             }

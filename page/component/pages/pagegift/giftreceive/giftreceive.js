@@ -9,7 +9,7 @@ var WxParse = require('../../../../../wxParse/wxParse.js');
 var rSocket = require('../../../../../utils/rSocket.js');
 var app = getApp();
 var socketOpen = false;
-
+ 
 var SocketTask;
 Page({
 
@@ -86,11 +86,9 @@ Page({
       data: url,
     })
 
-
-    // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       that.setData({
-        // 'userWxInfo': app.globalData.userWxInfo,
+
         'userIData': app.globalData.userIData,
         'userInfo': app.globalData.userInfo,
       }) /****调用函数设置tabbar及页面*****/
@@ -99,10 +97,10 @@ Page({
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
-        // if (app.globalData.userWxInfo) {
+
         if (app.globalData.userIData) {
           that.setData({
-            // 'userWxInfo': app.globalData.userWxInfo,
+
             'userIData': app.globalData.userIData,
             'userInfo': app.globalData.userInfo,
           })
@@ -129,8 +127,8 @@ Page({
   onShow: function() {
     let that = this;
     // if (app.globalData.userWxInfo) {
-      if (app.globalData.userIData) {
-     
+    if (app.globalData.userIData) {
+
       var showFlg = that.data.showFlg;
 
       if (showFlg == 'share') {
@@ -145,10 +143,14 @@ Page({
         wx.redirectTo({
           url: url,
         })
-        
+        // that.getGiftReceive()
 
       }
-      that.getGiftReceive()
+
+      if (showFlg == 'addr') {
+
+        that.getGiftReceive()
+      } 
     }
 
     if (!SocketTask) {
@@ -217,9 +219,7 @@ Page({
       "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-
-
-
+ 
     })
     that.setData({
       'showFlg': 'share'
@@ -229,12 +229,12 @@ Page({
     that.setData({
       fmodalhidden: true,
     });
-    // path: "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + newGiftRecordId + "& fu=" + userid,
-    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + newGiftRecordId + "&fu=" + userid
+
+    var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr="+newGiftRecordId +"&fu=" + userid
     return {
-      title: fromLeaveMessage,
+      title: fromLeaveMessage   ,
       path: pagaPath,
-      imageUrl: that.data.giftInfo.recordInfo.cover_image_url,//that.data.myOrderInfo.mySkuInfo.image_url,
+      imageUrl: that.data.giftInfo.recordInfo.cover_image_url,  
       success: function() {
 
       },
@@ -255,13 +255,17 @@ Page({
     rUtils.timerDown.shutdown();
 
     let that = this;
-    var currentTime = that.data.giftInfo.recordInfo.current_time;
-    var endTime = that.data.giftInfo.recordInfo.end_time;
+    var currentTime  = that.data.giftInfo.recordInfo.current_time;
+    var endTime  = that.data.giftInfo.recordInfo.end_time;
+   
     var process = that.data.giftInfo.process
 
     if (process == '0') {
-      var date1 = new Date(currentTime),
-        date2 = new Date(endTime); //计算剩余的毫秒数
+      // var date1 = new Date(currentTime),
+      //   date2 = new Date(endTime); //计算剩余的毫秒数
+      var date1 = new Date(Date.parse(currentTime.replace(/-/g, "/")));
+      var date2 = new Date(Date.parse(endTime.replace(/-/g, "/")));
+
 
       if (date2 < date1) {
         /**超时未获知 */
@@ -271,30 +275,33 @@ Page({
 
         that.doProcessGift();
       } else {
-        that.setData({
-          'actionprocess': '2',
-        })
-        that.doProcessGift();
+        // that.setData({
+        //   'actionprocess': '2',
+        // })
+        // that.doProcessGift();
         rUtils.timerDown.countDown(that, currentTime, endTime, function() {
           that.setData({
             'actionprocess': '22',
           })
-          that.doProcessGift();
+           that.doProcessGift();
         });
       }
 
     }
     if (process == '2') {
-      var date1 = new Date(currentTime),
-        date2 = new Date(endTime); //计算剩余的毫秒数
-
+    
+      // var date1 = new Date(currentTime),
+      //   date2 = new Date(endTime); //计算剩余的毫秒数
+      var date1 = new Date(currentTime.replace(/-/g, "/"));
+      var date2 = new Date(endTime.replace(/-/g, "/"));
+    
       if (date2 < date1) {
         /**超时未获知 */
 
         that.setData({
           'actionprocess': '22',
         })
-        that.doProcessGift();
+         that.doProcessGift();
       } else {
 
         rUtils.timerDown.countDown(that, currentTime, endTime, function() {
@@ -328,58 +335,70 @@ Page({
 
       if (rdata.info) {
 
-        // that.setData({
-        //   'giftInfo.recordInfo': rdata.info,
-        //   'giftInfo.process': rdata.info.process_status,
-        //   'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
-        //   'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
-        // })
+        var toUserId = rdata.info.giftRecordInfo.to_person ? rdata.info.giftRecordInfo.to_person : ''
+        if (toUserId == userid || toUserId == '') {
+          that.setData({
 
-        that.setData({
-          //   'opinionInfo.dataInfo': rdata.info,
+            'giftInfo.recordInfo': rdata.info.giftRecordInfo,
+            'giftInfo.process': rdata.info.giftRecordInfo.process_status,
+            'giftInfo.giftInfo': rdata.info.giftInfo,
+            'giftInfo.giftRecordInfo': rdata.info.giftRecordInfo,
+            // 'giftInfo.fUserNickname': rdata.info.fUserNickname,
+            // 'giftInfo.tUserNickname': rdata.info.tUserNickname,
+            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
 
-          'giftInfo.recordInfo': rdata.info.giftRecordInfo,
-          'giftInfo.process': rdata.info.giftRecordInfo.process_status,
-          'giftInfo.giftInfo': rdata.info.giftInfo,
-          'giftInfo.giftRecordInfo': rdata.info.giftRecordInfo,
-          // 'giftInfo.fUserNickname': rdata.info.fUserNickname,
-          // 'giftInfo.tUserNickname': rdata.info.tUserNickname,
-          'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
-          'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
+            'giftInfo.skuinfo': rdata.info.skuinfo,
+            'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
+            'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
 
-          'giftInfo.skuinfo': rdata.info.skuinfo,
-          'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
-          'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
+          })
+          if (rdata.info.newgiftrecord && rdata.info.newgiftrecord.from_leave_message) {
 
+            var from_leave_message = rdata.info.newgiftrecord.from_leave_message
+            var len = parseInt(from_leave_message.length);
+            if (len == 0) {
+              that.setData({
+                fmodalcurrentNoteLen: len, //当前字数
+                fmodalMsg: from_leave_message,
+                nofmodalMsg: true,
+                nofmodalTip: '输入留言'
+              });
+            } else {
+              that.setData({
+                fmodalcurrentNoteLen: len, //当前字数
+                fmodalMsg: from_leave_message,
+                nofmodalMsg: false,
+                nofmodalTip: '继续'
+              });
+            }
 
-        })
-        if (rdata.info.newgiftrecord&&rdata.info.newgiftrecord.from_leave_message) {
-
-          var from_leave_message = rdata.info.newgiftrecord.from_leave_message
-          var len = parseInt(from_leave_message.length);
-          if (len == 0) {
-            that.setData({
-              fmodalcurrentNoteLen: len, //当前字数
-              fmodalMsg: from_leave_message,
-              nofmodalMsg: true,
-              nofmodalTip: '输入留言'
-            });
-          } else {
-            that.setData({
-              fmodalcurrentNoteLen: len, //当前字数
-              fmodalMsg: from_leave_message,
-              nofmodalMsg: false,
-              nofmodalTip: '继续'
-            });
+          }
+          //fmodalMsg
+          if (that.data.giftInfo.process == '0' || that.data.giftInfo.process == '2') {
+            that.getTimerDown()
           }
 
-        }
-        //fmodalMsg
-        if (that.data.giftInfo.process == '0' || that.data.giftInfo.process == '2') {
-          that.getTimerDown()
-        }
+        }else{
+          that.setData({
 
+            'giftInfo.recordInfo': rdata.info.giftRecordInfo,
+            // 'giftInfo.process': rdata.info.giftRecordInfo.process_status,
+            'giftInfo.giftInfo': rdata.info.giftInfo,
+            'giftInfo.giftRecordInfo': rdata.info.giftRecordInfo,
+            // 'giftInfo.fUserNickname': rdata.info.fUserNickname,
+            // 'giftInfo.tUserNickname': rdata.info.tUserNickname,
+            'giftInfo.newgiftrecord': rdata.info.newgiftrecord ? rdata.info.newgiftrecord : {},
+            'giftInfo.newGiftRecordId': rdata.info.newgiftrecordid,
 
+            'giftInfo.skuinfo': rdata.info.skuinfo,
+            'myOrderInfo.mySkuInfo': rdata.info.skuinfo,
+            'myOrderInfo.orderCopies': rdata.info.orderInfo.buyCopies,
+
+          })
+         
+          
+        }
 
         that.getConfigMsgInfo()
       }
@@ -426,17 +445,15 @@ Page({
     })
 
   },
-
-
+ 
   /**获取配置描述 */
   getConfigMsgInfo: function() {
     let that = this;
     var url = config.requestUrl;
 
     var fUserNickname = encodeURIComponent(that.data.giftInfo.recordInfo.from_person_nickname);
-
-
-    var tUserNickname = that.data.giftInfo.newgiftrecord && that.data.giftInfo.newgiftrecord.to_person_nickname ? that.data.giftInfo.newgiftrecord.to_person_nickname : ''
+ 
+    var tUserNickname = that.data.giftInfo.recordInfo && that.data.giftInfo.recordInfo.to_person_nickname ? that.data.giftInfo.recordInfo.to_person_nickname : ''
     tUserNickname = encodeURIComponent(tUserNickname);
 
     var values = [{
@@ -496,8 +513,10 @@ Page({
           regexp: 'nickname',
           replacement: fUserNickname
         }]
+      },{
+        code: 'GIFT_ADR_MSG_TIP', replace: []
       }
-
+ 
     ];
 
 
@@ -512,29 +531,15 @@ Page({
         that.setData({
           configMsgInfo: rdata.info,
         })
-
-        WxParse.wxParse('GIFT_ADR_MSG', 'html', rdata.info.GIFT_ADR_MSG, that, 5);
+  
+        WxParse.wxParse('GIFT_ADR_MSG', 'md', rdata.info.GIFT_ADR_MSG, that, 5);
         WxParse.wxParse('ACCEPT_GIFT', 'html', rdata.info.ACCEPT_GIFT, that, 5);
         WxParse.wxParse('GIFT_FOR_MSG', 'html', rdata.info.GIFT_FOR_MSG, that, 5);
         WxParse.wxParse('FORWARD_GIFT', 'html', rdata.info.FORWARD_GIFT, that, 5);
         WxParse.wxParse('GIFT_REJ_MSG', 'html', rdata.info.GIFT_REJ_MSG, that, 5);
         WxParse.wxParse('REJECT_GIFT', 'html', rdata.info.REJECT_GIFT, that, 5);
         WxParse.wxParse('REJECT_GIFT_1', 'html', rdata.info.REJECT_GIFT_1, that, 5);
-
-        var process = that.data.giftInfo.process;
-
-        if (process == '-1') {
-          wx.showModal({
-            title: '提示',
-            content: rdata.info.GIFT_READ,
-            showCancel: false,
-            confirmText: '知道了',
-            success: function(res) {
-
-            }
-          })
-
-        }
+ 
       }
 
     });
@@ -634,7 +639,7 @@ Page({
           var fUserId = that.data.giftInfo.giftRecordInfo.from_person;
           var newGiftRecordId = that.data.giftInfo.newGiftRecordId;
           var fromLeaveMessage = '';
-
+          var url = config.requestUrl;
           var tUserId = '';
           var data = {
             code_: 'x_doProcess',
@@ -645,6 +650,7 @@ Page({
             "tUserId": tUserId,
             "fromLeaveMessage": encodeURIComponent(fromLeaveMessage)
           }
+        
           rRequest.doRequest(url, data, that, function(rdata) {
 
 
@@ -656,7 +662,7 @@ Page({
             })
             setTimeout(function() {
               var url = "/page/component/pages/pagegift/giftreceivesucc/giftreceivesucc?gr=" + giftRecordId
-        ///page/component/pages/pagegift/giftreceivesucc/giftreceivesucc
+              ///page/component/pages/pagegift/giftreceivesucc/giftreceivesucc
               wx.redirectTo({
                 url: url,
               })
@@ -665,45 +671,42 @@ Page({
         } else if (res.cancel) {
 
         }
-
-
-
+ 
 
       }
     })
   },
   /** */
-  webSocket: function () {
+  webSocket: function() {
 
     let that = this;
 
 
     var userId = that.data.userInfo.id;
-    var giftid = that.data.giftInfo.giftInfo.id
-    
-    var relationId = "gift_"
+  
+    var relationId = "gift_" + userId
     var url = config.socketUrl + "/" + relationId
     var data = {}
-    SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
+    SocketTask = rSocket.connectSocket(url, data, that, function(rdata) {
       console.log('WebSocket连接创建--', rdata)
 
     })
 
-    SocketTask.onOpen(function (res) {
+    SocketTask.onOpen(function(res) {
       console.log('WebSocket连接已打开！readyState=' + SocketTask.readyState)
 
     })
-    SocketTask.onMessage(function (res) {
+    SocketTask.onMessage(function(res) {
       that.setData({
         'fmodalhidden': true,
       })
       that.getGiftReceive()
       // console.log('WebSocketonMessage！readyState=' + res)
     })
-    SocketTask.onError(function (res) {
+    SocketTask.onError(function(res) {
       // console.log('onError====readyState=')
     })
-    SocketTask.onClose(function (res) {
+    SocketTask.onClose(function(res) {
       // console.log('WebSocket连接已关闭！readyState=')
       that.webSocket()
     })

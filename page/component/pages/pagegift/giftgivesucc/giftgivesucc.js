@@ -236,7 +236,7 @@ Page({
     })
 
     var imageUrl = that.data.giftInfo.recordInfo.cover_image_url
-    // var pagaPath = "/page/component/pages/pagegift/giftreceive/giftreceive?gr=" + giftRecordId + "& fu=" + userid
+     
     var pagaPath = "/page/component/pages/pagegift/giftinform/giftinform?gr=" + giftRecordId + "&fu=" + userid
 
     return {
@@ -359,7 +359,8 @@ Page({
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
         }
         else if (process == '24') {
-          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
+          giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_23.png"; //展示的图片路径
+          // giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_24.png"; //展示的图片路径
         }
         else if (process == '99') {
           giftStatusImage = config.imageUrl + "/wiigie/background/gift/give_gift_result_99.png"; //展示的图片路径
@@ -498,7 +499,7 @@ Page({
      
     var userId = that.data.userInfo.id;
   
-    var relationId = "gift_"
+    var relationId = "gift_" + userId
     var url = config.socketUrl + "/" + relationId
     var data = {}
     SocketTask = rSocket.connectSocket(url, data, that, function (rdata) {
