@@ -64,12 +64,30 @@
           <block wx:if="{{orderDetail.buy_status =='0'}}">
             未付款
           </block>
+ 
+          <block wx:elif="{{orderDetail.buy_status =='3'}}">
+            <block wx:if="{{orderDetail.order_type =='2'}}">
+              已取消
+            </block>
+            <block wx:if="{{orderDetail.order_type =='3'}}">
+              <block wx:if="{{!orderDetail.last_process_status||orderDetail.last_process_status =='99'}}">
+                已取消
+              </block>
+              <block wx:else>
+                {{orderDetail.process_status_name}}
+              </block>
+            </block>
+          </block>
+
+
           <block wx:else>
             <block wx:if="{{orderDetail.order_type =='2'}}">
               {{orderDetail.status_code_name}}
             </block>
             <block wx:if="{{orderDetail.order_type =='3'}}">
+
               {{orderDetail.process_status_name}}
+
             </block>
           </block>
 

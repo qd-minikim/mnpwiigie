@@ -1,5 +1,8 @@
 <import src="../../wxParse/wxParse.wxml" />
 <import src="../../page/common/pages/pagehydt/pagehydt.wxml" />
+
+<!-- <official-account></official-account> -->
+
 <view class="container" style="flex-direction:column;">
 
   <view style="width:100%">
@@ -13,17 +16,27 @@
         </block>
       </view>
 
-      <view class="home-1-s font-size-7 align-r-center" catchtap='homeSerarch'>
+      <view class="home-1-s font-size-7 align-r-center font-color-4" catchtap='homeSerarch'>
         {{defaultInfo.searchHolder}}
       </view>
 
-      <view class='home-1-a' style="flex-direction:column" catchtap='homeNotice'>
+      <view class='home-1-a' style="flex-direction:column;position:relative" catchtap='homeNotice'>
         <view class='home-1-a-v align-center'>
           <image class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
         </view>
-        <view class='home-1-a-t font-size-7 align-center'>
+        <view class='home-1-a-t font-size-8 align-center'>
           <text>{{defaultInfo.askText}}</text>
         </view>
+           <block wx:if="{{noticeNoReadNum>0}}">
+            <view class='bg-6 font-size-10 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:18rpx;min-height:18rpx;padding:0rpx 2rpx;top:0rpx;right:0'>
+            	<block wx:if="{{noticeNoReadNum>99}}">99+
+            </block>
+              <block wx:else>{{noticeNoReadNum}}
+            </block>
+            </view>
+
+           </block>
+           
       </view>
     </view>
 

@@ -1,6 +1,6 @@
 var filters = {
   toFix: function(value, num) {
-
+    console.log("--------3---------" )
     return value.toFixed(num)
   },
   toContain: function(str, strR) {

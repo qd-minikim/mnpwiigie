@@ -206,6 +206,10 @@ Page({
               duration: 2000,
               success: function () { }
             })
+            wx.setStorage({
+              key: "refresh",
+              data: "3",
+            })
             setTimeout(function () {
               wx.navigateBack({
                 delta: 1,

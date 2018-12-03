@@ -57,6 +57,10 @@ Page({
     // loginInfo: {},
     // // systemBaseInfo: {},
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
+
+    noticeNoReadNum:0,
+
+    clickpageflg:''
   },
 
   //事件处理函数
@@ -66,7 +70,7 @@ Page({
     })
   },
   onLoad: function() {
-
+    console.log("-------------------")
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       
@@ -84,12 +88,15 @@ Page({
       this.getPopularity();
       //配置信息
       this.getConfigMsgInfo()
+
+      
     }
 
   },
   onShow: function() {
-
-
+ 
+      this.getNoticeSumNum()
+   
   },
   onReady: function() {
     var windowWidth = app.globalData.systemInfo.windowWidth
@@ -116,9 +123,11 @@ Page({
   },
   //通知
   homeNotice: function() {
-
+    //url: "/page/component/pages/pagewait/pagewait"
+  
     wx.navigateTo({
-      url: "/page/component/pages/pagewait/pagewait"
+     
+     url :"/page/component/pages/pageinform/notice/summarypage/summarypage"
     })
 
   },
@@ -254,7 +263,30 @@ Page({
 
 
   },
+  //获取好友动态
+  getNoticeSumNum: function () {
 
+
+    let that = this;
+    var url = config.requestUrl;
+    var usreId = that.data.userInfo.id
+    var data = {
+      code_: 'x_getNoticeSumNum',
+      userid: usreId,
+      
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+
+      if (rdata.info) {
+          that.setData({
+            noticeNoReadNum: rdata.info.cou ?rdata.info.cou:0
+          })
+          //cou
+      }
+    })
+
+
+  },
   /**更多好友动态 */
   morehydt: function(e) {
 

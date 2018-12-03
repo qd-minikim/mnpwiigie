@@ -1,40 +1,36 @@
 <!--page/component/pages/pageinform/notice/summarypage/summarypage.wxml-->
 <view class='container ' style='flex-direction:column;display:flex; '>
   <view style='width:100%'>
-    <view style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
-      <view class='align-center' style='margin:5rpx 5rpx;position:relative'>
-        <image style='width:100rpx;height:100rpx;border-radius:15rpx;' src='/image/head-test.jpg'></image>
-        <view class='bg-6 font-size-7 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:25rpx;min-height:25rpx;padding:3rpx;top:0;right:0'>3</view>
-      </view>
-      <view style='flex-direction:column;display:flex; margin:5rpx 15rpx;flex:1'>
-        <view class='font-size-6 align-r-center' style='height:60%'>账户通知</view>
-        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'>您有一笔收入*********10.00元</view>
-      </view>
-      <view class='font-size-7 font-color-4 align-r-center' style='flex-direction:column;display:flex;'>
-        <view class='font-size-7 align-r-center' style='height:60%'>20:12</view>
-        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'></view>
 
-      </view>
-    </view>
+    <block wx:for="{{sumNotices}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+      <block wx:if="{{index>0}}">
+        <view class='gap-line' style='margin:1rpx 130rpx'></view>
+      </block>
 
+      <view catchtap='notices' style='flex-direction:row;display:flex;margin:5rpx 15rpx' data-noticessumid='{{item.id}}' data-idex='{{index}}' data-noticessumtype='{{item.notice_type_name}}'>
+        <view class='align-center' style='margin:5rpx 5rpx;position:relative'>
+          <image style='width:100rpx;height:100rpx;border-radius:15rpx;' src='{{item.notice_type_image}}'></image>
+          <block wx:if="{{item.no_read_num>0}}">
+            <view class='bg-6 font-size-8 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:21rpx;min-height:21rpx;padding:0rpx 2rpx;top:-5rpx;right:0'>{{item.no_read_num}}</view>
+          </block>
+        </view>
+        <view style='flex-direction:column;display:flex; margin:5rpx 15rpx;flex:1'>
+          <view class='font-size-6 align-r-center' style='height:60%'>{{item.notice_type_name}}</view>
+          <view class=' view-ellipsis-1 font-size-7 font-color-4' style=''>{{item.new_notice_msg}}</view>
+        </view>
+        <view class='font-size-7 font-color-4 align-r-center' style='flex-direction:column;display:flex;'>
+          <view class='font-size-7 align-r-center' style='height:60%'>{{item.showtime}}</view>
+          <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'></view>
 
-    <view class='gap-line' style='margin:1rpx 130rpx'></view>
+        </view>
+      </view>
 
-    <view style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
-      <view class='align-center' style='margin:5rpx 5rpx;position:relative'>
-        <image style='width:100rpx;height:100rpx;border-radius:15rpx;' src='/image/head-test.jpg'></image>
-        <view class='bg-6 font-size-7 align-center font-color-2' style='position:absolute;border-radius:20rpx;min-width:25rpx;min-height:25rpx;padding:3rpx;top:0;right:0'>13</view>
+    </block>
+    <block wx:if="{{selected && sumNotices.length==0}}">
+      <view class='ordergift-view font-size-6 align-center'>
+        没有通知
       </view>
-      <view style='flex-direction:column;display:flex; margin:5rpx 15rpx;flex:1'>
-        <view class='font-size-6 align-r-center' style='height:60%'>订单通知</view>
-        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'>您已成功下单*********消费10.00元</view>
-      </view>
-      <view class='font-size-7 font-color-4 align-r-center' style='flex-direction:column;display:flex;'>
-        <view class='font-size-7 align-r-center' style='height:60%'>20:12</view>
-        <view class=' view-ellipsis-1 font-size-7 font-color-4' style='height:40%;line-height:1rem;'></view>
-
-      </view>
-    </view>
+    </block>
 
   </view>
 

@@ -280,18 +280,7 @@ Page({
         if (value && value == '1') {
           that.getOpinionInfo()
         }
-        if (value && value == '2') { //下单成功
-
-          var role = that.data.initDetail.role;
-
-          if (role == "XQ") {
-            that.getPcPromotionGroupOrderInfo()
-            that.getProgressRouteInfo()
-          }
-
-        }
-
-
+      
       } catch (e) {
 
       }
@@ -301,6 +290,64 @@ Page({
       })
 
 
+    }
+    if (backpage == 'order') {
+      try {
+        var value = wx.getStorageSync('refresh')
+ 
+        if (value && value == '2') { //下单成功
+
+          var role = that.data.initDetail.role;
+
+          if (role == "XQ") {
+            that.getSpuInfo()
+            that.getPcPromotionGroupOrderInfo()
+            that.getProgressRouteInfo()
+          }
+
+        }
+        if (value && value == '3') { //下单失败
+
+          var role = that.data.initDetail.role;
+
+          if (role == "XQ") {
+
+            that.getSpuInfo()
+          }
+
+        }
+
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
+    }
+    if (backpage == 'gift') {
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '2') { //送礼成功/失败
+
+          var role = that.data.initDetail.role;
+
+          if (role == "XQ") {
+            that.getSpuInfo()
+         
+          }
+
+        }
+       
+
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
     }
     if (backpage == 'storage') {
 
@@ -728,6 +775,10 @@ Page({
     if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       app.globalData.orderData = orderData
 
+      
+      that.setData({
+        'backpage': 'order',
+      })
       wx.navigateTo({
         //url: '/page/component/pages/pageorder/pageorder',
         url: '/page/component/pages/pageorder/orderconfirm/orderconfirm',
@@ -736,6 +787,10 @@ Page({
 
     if (orderType == '3') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       app.globalData.orderData = orderData
+
+      that.setData({
+        'backpage': 'gift',
+      })
       wx.navigateTo({
         url: '/page/component/pages/pagegift/giftorder/giftorder',
       })
@@ -773,9 +828,36 @@ Page({
 
 
         if (maySkuInfo) {
+          var skuInfo = that.data.spuInfo.skuinfo;
+          var storage = maySkuInfo.storage
+          for (let i = 0; i < skuInfo.length; i++) {
 
+            if (skuInfo[i].id == maySkuInfo.id ){
 
+              storage = skuInfo[i].storage
+            }
 
+          }
+          
+          that.setData({
+            'myOrderInfo.mySkuInfo.storage': storage,
+          })
+          var spuname = that.data.spuInfo.spuname;
+
+          for (var i = 0; i < spuname.length; i++) {
+
+            for (var x = 0; x < spuname[i].skuspecvalues.length; x++) {
+              var dataskuids = spuname[i].skuspecvalues[x].sku_id;
+
+              if (dataskuids.indexOf(maySkuInfo.id) >= 0) {
+                pagekskujs.selectSpuSku.doSelectSpuSku(i, x, dataskuids, that)
+
+              }
+
+            }
+
+          }
+       
         } else {
           var skuInfo = that.data.spuInfo.skuinfo;
 

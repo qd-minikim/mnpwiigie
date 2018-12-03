@@ -88,6 +88,12 @@
 .font-size-8 {
   font-size: 21rpx;
 }
+.font-size-9 {
+  font-size: 18rpx;
+}
+.font-size-10 {
+  font-size: 15rpx;
+}
 /* 字体颜色 */
 
 .font-color-1 {
@@ -206,7 +212,17 @@
 	background-color: #f5eeee;
  
 }
-
+.bg-18{
+	border:1px solid #f7f7f7;
+	background-color: #f7f7f7;
+ 
+}
+.bg-19{
+	border:1px solid #b1b3b4;
+	background-color: #b1b3b4;
+ 
+}
+ 
 /* 超出范围省略号显示 */
 
 .view-ellipsis-1 {

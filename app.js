@@ -3,6 +3,8 @@ var config = require('/config.js')
 var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
+
+var defauthtime=3;
 App({
 
   //启动时执行的初始化工作
@@ -101,29 +103,47 @@ App({
           code: res.code
         }
         rRequest.doRequest(url, data, that, function(rdata) {
-          console.log("------------------")
+
           if (rdata.info) {
 
-            if (rdata.info.loginfo.loginstatus =='ok'){//存在老用户
+            if (rdata.info.loginfo.loginstatus == 'ok') { //存在老用户
 
               that.globalData.loginInfo = rdata.info.loginfo
               that.globalData.userInfo = rdata.info.userinfo
               that.globalData.userIData = true
-             
               rCommon.userDefAddr.getUserDefAddr(that, rdata.info.userinfo.id);
- 
-              that.redirectPage()
-            }
-            else if (rdata.info.loginfo.loginstatus == 'noexist') {//不存在老用户
+
+              var authtime = rdata.info.authtime && rdata.info.authtime != '' && parseInt(rdata.info.authtime)>0 ? rdata.info.authtime :defauthtime
+              var authorizetime = wx.getStorageSync('authorizetime')
+              var d = new Date()
+              var longintimme = d.getTime();
+              var t = parseInt(longintimme) - parseInt(authorizetime == '' ? 0 : authorizetime)
+
+              var s = Number(authtime)*24*60*60*1000;
+              if (authorizetime == '' || t > s) {//3天
+
+                wx.setStorage({
+                  key: "authorizetime",
+                  data: longintimme,
+                })
+                that.getSettingInfo();
+
+              } else {
+
+                that.redirectPage()
+              }
+        
+
+            } else if (rdata.info.loginfo.loginstatus == 'noexist') { //不存在老用户
               that.globalData.loginInfo = rdata.info
               that.getSettingInfo();
-            }else{
+            } else {
 
 
             }
 
-          
-            
+
+
           }
         })
 
@@ -180,7 +200,7 @@ App({
             that.globalData.userInfo = rdata.info;
             that.globalData.userIData = true;
 
-       
+
             rCommon.userDefAddr.getUserDefAddr(that, rdata.info.id);
 
 
@@ -202,7 +222,7 @@ App({
     })
   },
 
-  redirectPage:function(){
+  redirectPage: function() {
     var pages = getCurrentPages() //获取加载的页面
 
     var currentPage = pages[pages.length - 1] //获取当前页面的对象

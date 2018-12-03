@@ -1,8 +1,15 @@
 // page/component/pages/pagemy/myorder/myorder.js
 var config = require('../../../../../config.js');
 var rRequest = require('../../../../../utils/rRequest.js');
-
+var rUtils = require('../../../../../utils/rUtils.js');
 const app = getApp()
+var unpayordernum = 0;
+var unpaygiftnum = 0;
+var giftTimerDown = []
+
+var gifttime = null;
+
+var ordertime = null;
 Page({
 
   /**
@@ -88,7 +95,7 @@ Page({
       var value = wx.getStorageSync('refresh')
       var currentTab = that.data.currentTab;
       // var index = that.data.clickindex;
-       if (value && value == '1') {
+      if (value && value == '1') {
 
         if (currentTab == '0') {
 
@@ -111,7 +118,7 @@ Page({
         }
 
 
-       }
+      }
     } catch (e) {
 
     }
@@ -258,13 +265,12 @@ Page({
       endRow = that.data.ordergiftEndRow;
       allRows = that.data.ordergiftAllRows;
     }
-    if (isRefresh ) {
-
+    if (isRefresh) {
 
       endRow = 0;
       itemsPerPage = allRows;
     }
-  
+
     if (isReachBottom && allRows == endRow) {
 
       that.setData({
@@ -307,7 +313,6 @@ Page({
 
           if (currentTab == '0') {
 
-
             var orderbuyArray = [];
             var orderbuyArrayNew = [];
             if (isPullDownRefresh) {
@@ -321,13 +326,58 @@ Page({
             }
 
             orderbuyArrayNew = orderbuyArray.concat(res.data.infolist);
-
             that.setData({
               orderbuysearched: true,
               orderbuyEndRow: res.data.endRow,
               orderbuyAllRows: res.data.infocounts,
               orderbuyArray: orderbuyArrayNew,
             })
+
+            var unpayorder = [];
+            for (let i = 0; i < orderbuyArrayNew.length; i++) {
+              if (orderbuyArrayNew[i].buy_status == '0') {
+                orderbuyArrayNew[i].unpayindex = i;
+                unpayorder.push(orderbuyArrayNew[i])
+
+                /////////////////////////////////////////////
+                let currentTime = orderbuyArrayNew[i].now_time
+                let enddate = orderbuyArrayNew[i].buy_end_time
+
+                let currentTimeD = new Date(currentTime.replace(/-/g, "/"));
+                let enddateD = new Date(enddate.replace(/-/g, "/"));
+
+                let leftTime = (enddateD) - (currentTimeD); //计算剩余的毫秒数
+                if (leftTime>0){
+                  let days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+                  let hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+                  let minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟
+                  let seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数
+
+                  let daysT = checkTime(days);
+                  let hoursT = checkTime(hours);
+                  let minutesT = checkTime(minutes);
+                  let secondsT = checkTime(seconds);
+
+                  orderbuyArrayNew[i].cHours = hoursT
+                  orderbuyArrayNew[i].cMinutes = minutesT
+                  orderbuyArrayNew[i].cCseconds = secondsT
+                }else{
+
+                  orderbuyArrayNew[i].cHours = '00'
+                  orderbuyArrayNew[i].cMinutes = '00'
+                  orderbuyArrayNew[i].cCseconds = '00'
+                }
+             
+
+              }
+
+            }
+
+            that.setData({
+              orderbuyArray: orderbuyArrayNew,
+              unpayorder: unpayorder
+            })
+            that.operation('order');
 
           }
 
@@ -354,11 +404,58 @@ Page({
               ordergiftEndRow: res.data.endRow,
               ordergiftAllRows: res.data.infocounts,
             })
+
+            var unpaygiftorder = [];
+            for (let i = 0; i < ordergiftArrayNew.length; i++) {
+              if (ordergiftArrayNew[i].buy_status == '0') {
+                ordergiftArrayNew[i].unpayindex = i;
+                unpaygiftorder.push(ordergiftArrayNew[i])
+
+                /////////////////////////////////////////////
+                let currentTime = ordergiftArrayNew[i].now_time
+                let enddate = ordergiftArrayNew[i].buy_end_time
+
+                let currentTimeD = new Date(currentTime.replace(/-/g, "/"));
+                let enddateD = new Date(enddate.replace(/-/g, "/"));
+
+                let leftTime = (enddateD) - (currentTimeD); //计算剩余的毫秒数
+
+                if (leftTime > 0) {
+                  let days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+                  let hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+                  let minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟
+                  let seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数
+
+                  let daysT = checkTime(days);
+                  let hoursT = checkTime(hours);
+                  let minutesT = checkTime(minutes);
+                  let secondsT = checkTime(seconds);
+
+                  ordergiftArrayNew[i].cHours = hoursT
+                  ordergiftArrayNew[i].cMinutes = minutesT
+                  ordergiftArrayNew[i].cCseconds = secondsT
+                }else{
+                  ordergiftArrayNew[i].cHours = '00'
+                  ordergiftArrayNew[i].cMinutes = '00'
+                  ordergiftArrayNew[i].cCseconds = '00'
+
+                }
+      
+              }
+
+            }
+
+            that.setData({
+              ordergiftArray: ordergiftArrayNew,
+              unpaygiftorder: unpaygiftorder
+            })
+            that.operation('gift');
+
           }
 
         }
-  
-        
+
+
       },
       fail: res => {
 
@@ -394,10 +491,6 @@ Page({
     let that = this
 
     var index = event.currentTarget.dataset.index;
-    // that.setData({
-    //   clickindex: index,
-
-    // })
 
     var evalid = event.currentTarget.dataset.evalid;
     wx.navigateTo({
@@ -487,6 +580,213 @@ Page({
 
     }
 
+  },
+
+
+  unPayOrderCancel: function(orderid) {
+
+    var that = this;
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id //1528869953018820
+    var data = {
+      code_: 'x_unPayOrderCancel',
+      orderid: orderid,
+      userid: userid,
+
+    }
+
+    rRequest.doRequest(url, data, that, function(rdata) {
+      that.setData({
+
+        isRefresh: true,
+      });
+      that.getOrdersInfo();
+    })
+
+  },
+
+  /** */
+  operation: function(type) { // 接收到没有结束的订单信息
+    var that = this;
+    if (type == 'gift') {
+      if (gifttime) {
+        clearInterval(gifttime)
+      } 
+        gifttime = setInterval(function() { // 循环执行
+
+          that.resetGiftState(); // 设置未到结束时间订单的状态
+
+        }, 1000);
+
+       
+    }
+    if (type == 'order') {
+      if (ordertime) {
+         
+          clearInterval(ordertime)
+         
+      }  
+        ordertime = setInterval(function () { // 循环执行
+
+          that.resetOrderState(); // 设置未到结束时间订单的状态
+
+        }, 1000);
+
+       
+    }
+  },
+  resetGiftState: function() {
+    let that = this
+
+    let result = that.data.unpaygiftorder
+
+    for (let i = 0; i < result.length; i++) { // 循环添加 倒计时
+      let currentTime = result[i].now_time
+      let enddate = result[i].buy_end_time
+      let unindex = result[i].unpayindex
+
+      let currentTimeD = new Date(currentTime.replace(/-/g, "/"));
+      let enddateD = new Date(enddate.replace(/-/g, "/"));
+
+      let leftTime = (enddateD) - (currentTimeD); //计算剩余的毫秒数
+
+     
+
+
+      if (leftTime > 0) {
+        let days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+        let hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+        let minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟
+        let seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数
+
+        let daysT = checkTime(days);
+        let hoursT = checkTime(hours);
+        let minutesT = checkTime(minutes);
+        let secondsT = checkTime(seconds);
+
+        let date1 = new Date(currentTime.replace(/-/g, "/"));
+
+        date1.setTime(date1.getTime() + 1000);
+        currentTime = format(date1, "yyyy-MM-dd hh:mm:ss")
+
+        let ordergiftArray = that.data.ordergiftArray;
+
+        ordergiftArray[unindex].cHours = hoursT
+        ordergiftArray[unindex].cMinutes = minutesT
+        ordergiftArray[unindex].cCseconds = secondsT
+
+        result[i].now_time = currentTime
+        that.setData({
+          ordergiftArray: ordergiftArray,
+          unpaygiftorder: result
+        })
+
+
+      } else {
+
+        that.unPayOrderCancel(result[i].id)
+
+        result.splice(i, 1);
+        that.setData({
+          unpaygiftorder: result
+        })
+
+      }
+      if (result.length == 0) { // 如果没有可支付订单 则停止这个订单
+        clearInterval(gifttime);
+      }
+
+
+    }
+  }
+,
+  resetOrderState: function () {
+    let that = this
+
+    let result = that.data.unpayorder
+
+    for (let i = 0; i < result.length; i++) { // 循环添加 倒计时
+      let currentTime = result[i].now_time
+      let enddate = result[i].buy_end_time
+      let unindex = result[i].unpayindex
+
+      let currentTimeD = new Date(currentTime.replace(/-/g, "/"));
+      let enddateD = new Date(enddate.replace(/-/g, "/"));
+
+      let leftTime = (enddateD) - (currentTimeD); //计算剩余的毫秒数
+
+  
+
+
+      if (leftTime > 0) {
+        let days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+        let hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+        let minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟
+        let seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数
+
+        let daysT = checkTime(days);
+        let hoursT = checkTime(hours);
+        let minutesT = checkTime(minutes);
+        let secondsT = checkTime(seconds);
+        let date1 = new Date(currentTime.replace(/-/g, "/"));
+
+        date1.setTime(date1.getTime() + 1000);
+        currentTime = format(date1, "yyyy-MM-dd hh:mm:ss")
+
+        let orderbuyArray = that.data.orderbuyArray;
+
+        orderbuyArray[unindex].cHours = hoursT
+        orderbuyArray[unindex].cMinutes = minutesT
+        orderbuyArray[unindex].cCseconds = secondsT
+
+        result[i].now_time = currentTime
+        that.setData({
+          orderbuyArray: orderbuyArray,
+          unpayorder: result
+        })
+
+
+      } else {
+
+        that.unPayOrderCancel(result[i].id)
+
+        result.splice(i, 1);
+        that.setData({
+          unpayorder: result
+        })
+
+      }
+      if (result.length == 0) { // 如果没有可支付订单 则停止这个订单
+        clearInterval(ordertime);
+      }
+
+
+    }
   }
 
 })
+
+function checkTime(i) { //将0-9的数字前面加上0，例1变为01
+  let r = i;
+  if (i < 10) {
+    r = "0" + i;
+  }
+  return r;
+}
+
+function format(date, fmt) { //author: meizz
+  let o = {
+    "M+": date.getMonth() + 1, //月份
+    "d+": date.getDate(), //日
+    "h+": date.getHours(), //小时
+    "m+": date.getMinutes(), //分
+    "s+": date.getSeconds(), //秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+    "S": date.getMilliseconds() //毫秒
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (let k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
+}

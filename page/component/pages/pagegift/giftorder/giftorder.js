@@ -159,6 +159,10 @@ Page({
               duration: 2000,
               success: function() {}
             })
+            wx.setStorage({
+              key: "refresh",
+              data: "2",
+            })
 
             setTimeout(function() {
 
@@ -174,6 +178,10 @@ Page({
               image: '/image/icon_err.png',
               duration: 2000,
               success: function() {}
+            })
+            wx.setStorage({
+              key: "refresh",
+              data: "2",
             })
             setTimeout(function() {
               wx.navigateBack({

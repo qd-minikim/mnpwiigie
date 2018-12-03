@@ -134,9 +134,17 @@ Page({
       app.getUsersInfo();
     } else {
       ///console.log('拒绝授权')
-      wx.reLaunch({ ///pages/pagehome/pagehome
-        url: '/page/component/pages/pageauth/pageauth',
-      })
+      
+      if (app.globalData.userIData){
+
+        app.redirectPage()
+      }else{
+
+        wx.reLaunch({ ///pages/pagehome/pagehome
+          url: '/page/component/pages/pageauth/pageauth',
+        })
+      }
+   
     }
   }
 })
