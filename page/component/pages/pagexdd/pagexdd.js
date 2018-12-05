@@ -184,7 +184,7 @@ Page({
       key: "cardpage",
       data: url,
     })
-    // if (app.globalData.userWxInfo) {
+   
     if (app.globalData.userIData) {
       that.setData({
         // userWxInfo: app.globalData.userWxInfo,
@@ -200,10 +200,8 @@ Page({
       that.getRequirementKeepInfo()
       // this.getProgressRouteInfo()
 
-      that.getConfigMsgInfo()
-
-
-
+       that.getConfigMsgInfo()
+ 
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
@@ -221,7 +219,7 @@ Page({
           that.getRequirementKeepInfo()
           // this.getProgressRouteInfo()
 
-          that.getConfigMsgInfo()
+         that.getConfigMsgInfo()
         }
 
       })
@@ -429,14 +427,7 @@ Page({
       "markid": markid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-      // wx.showToast({
-      //   title: '分享成功',
-      //   image: '/image/icon_ok.png',
-      //   duration: 2000,
-      //   success: function () {
-
-      //   }
-      // })
+      
       that.getProgressRouteInfo()
 
     })
@@ -462,18 +453,9 @@ Page({
 
 
   },
-
-
-  // test: function() {
-
-  //   rCommon.canvaProgressRoute.doProgressRouteInfoImpl("ddd")
-  // },
-
+ 
   clickView_7x: function(event) {
-    /**
-     *  data-lx='default' data-code='CBDJSM' data-html='true'
-     *  data-lx='sku' data-code='' data-html='false'
-     */
+    
     let that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
@@ -624,7 +606,7 @@ Page({
       }, {
         code: 'ZJSM',
         replace: []
-      },
+      } ,
 
     ];
 
@@ -885,31 +867,25 @@ Page({
 
           }
 
-
-
-
-
+ 
         }
 
         that.orderBtn()
         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
       }
-
-
+ 
     })
 
 
   },
-
-
+ 
   orderBtn: function() {
     let that = this;
     var available = that.data.myOrderInfo.mySkuInfo.available_status;
 
     var storage = that.data.requirementInfo.keep_storage;
-
-
+ 
     if (available != '0') {
 
       that.setData({
@@ -949,9 +925,7 @@ Page({
         })
 
       }
-
-
-
+ 
     }
 
   },
@@ -977,9 +951,7 @@ Page({
           requirementInfo: rdata.info /**keep_storage */
 
         })
-
-
-
+ 
         if (rdata.info.requirement_person != usreId) {
 
 
@@ -1014,8 +986,7 @@ Page({
         that.getSpuInfo()
         that.getRequirementRichtext()
         that.getAttribute()
-
-
+ 
       }
 
 
@@ -1132,11 +1103,26 @@ Page({
       rRequest.doRequest(url, data, that, function(rdata) {
 
         if (rdata.info) {
+          ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'EARN_READ:''} */
           that.setData({
-            'initDetail': rdata.info, ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'} */
+            'initDetail': rdata.info, 
           })
 
+          if (rdata.info.EARN_READ && rdata.info.EARN_READ !=''){
+            wx.showModal({
+              title: '恭喜',
+              content: rdata.info.EARN_READ,
+              showCancel: false,
+              confirmText: '知道了',
+              success: function (res) {
+
+              }
+            })
+           
+          }
         }
+
+         
       })
 
     }

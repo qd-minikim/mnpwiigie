@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wx1718994f5d471b54",
+	"appid": "wxa95ca6d0de960e0d",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 51,
 			"list": [
 				{
 					"id": -1,
@@ -349,10 +349,10 @@
 					"scene": "1047"
 				},
 				{
-					"id": 52,
+					"id": 51,
 					"name": "文案发布二维码扫码",
 					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
-					"query": "scene=1542538314906196",
+					"query": "scene=1543986182910543",
 					"scene": "1011"
 				},
 				{
