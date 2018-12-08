@@ -1,0 +1,43 @@
+<!--page/component/pages/pagemy/merchant/benefactor/benefactor.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='view-1 bg-4 '>
+    <view class='view-1-1 font-color-4'>
+      <view class='font-size-5 align-c-center' style='flex:1'>粉丝（{{allRows}}人）</view>
+      <view class='font-size-5 align-c-center' style='width:5em'>关系强度</view>
+    
+      <view class='font-size-5 align-c-center' style='width:1em'></view>
+    </view>
+  </view>
+
+  <scroll-view style='max-height:{{scrollHeight}};width: 100%;' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+    <block wx:for="{{benefactors}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+      <block wx:if="{{inde>0}}">
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+      <view class='view-1-1 align-center' catchtap='friendset' data-friendid='{{item.id}}'>
+        <view class='font-size-5 align-center' style='flex:1;flex-direction:row;display:flex'>
+          <view>
+            <image style='width:100rpx;height:100rpx;border-radius:50%' src='{{item.imagurl}}'></image>
+          </view>
+          <view class='font-color-4' style='flex:1;margin:2rpx 5rpx'>{{item.nickname}}</view>
+        </view>
+  
+        <view class='font-color-4 font-size-5 align-c-center' style='width:5em'>{{item.customer_merchant_strength}}</view>
+        <view class='font-size-5 align-c-center' style='width:1em'></view>
+      </view>
+
+
+    </block>
+
+  <block wx:if="{{selected && benefactors.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有粉丝
+    </view>
+  </block>
+
+
+
+  </scroll-view>
+
+</view>

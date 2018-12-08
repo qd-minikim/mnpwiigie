@@ -1,0 +1,215 @@
+<!--page/component/pages/pagemy/merchant/fqrequirement/fqrequirement.wxml-->
+<import src="../../../../../../wxParse/wxParse.wxml" />
+<wxs module="filters" src="../../../../../../utils/rFiltersUtils.wxs"></wxs>
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+
+  <scroll-view class=' ' style='width:100%;height:{{contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+    <view class='view-1'>
+
+      <view class='view-1-1 align-r-center'>
+        <view class='font-size-5'>{{initFq.contentname}}-</view>
+        <view style='flex:1'>
+          <input class='font-size-5 view-input' value='{{title}}' maxlength='100' bindinput='titleinput'></input>
+        </view>
+      </view>
+
+    </view>
+    <view class='view-1'>
+      <view class='view-1-2 align-center'>
+
+        <view wx:if="{{richtextMore}}" class='align-center view-1-2-1' bindtap='showRichtext'>
+          <view class=' font-size-6 font-color-8'>展看查看详情</view>
+          <image class='view-1-2-2-image' src='/image/arrow_down_1.png'></image>
+        </view>
+      </view>
+    </view>
+
+
+    <block wx:if="{{richtextShow}}">
+      <view class='gap-bg'></view>
+      <view class='view-1'>
+        <view class='view-1-2 align-center'>
+          <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
+            <view style='width:100%'>
+              <view class='font-size-5' style='margin:10rpx 15rpx;'>商品参数</view>
+              <view class='gap-dashed'></view>
+              <view class='font-size-5 font_color_4' style='flex-direction:column;display:flex; '>
+
+                <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+                  <block wx:if="{{index>0}}">
+                    <view class='gap-dashed'></view>
+                  </block>
+                  <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+                    <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
+                    <view style='flex:1'>{{item.attribute_value}}</view>
+                  </view>
+
+                </block>
+              </view>
+            </view>
+          </block>
+          <view>
+            <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+
+    <view class='gap-bg'></view>
+    <view class='view-2'>
+
+      <view class='view-2-1 font-size-7 font-color-4' wx:if="{{commissionfocus}}">
+        <view>{{configMsgInfo.ZGCJ}}</view>
+
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5 '>{{configMsgInfo.CJZWSS}}：</view>
+        <view style='flex:1; position:relative'>
+          <input class='view-input font-size-5' type='digit' placeholder='{{configMsgInfo.ZGCJJE}}' value='{{commission}}' maxlength='6' focus='true' bindfocus='commissionfocus' bindblur='commissionblur' bindinput='commissioninput'></input>
+          <view class='font-size-5 align-center' style='position:absolute;bottom:0;top:0;right:10rpx'>元</view>
+        </view>
+      </view>
+      <block wx:if="{{initFq.content_settlement_type =='1'}}">
+        <view class='view-2-1 font-size-7 font-color-4' wx:if="{{singlepricefocus}}">
+          <view>
+            <template is="wxParse" data="{{wxParseData:cbdjms.nodes}}" />
+          </view>
+
+        </view>
+        <view class='view-2-2 align-r-center'>
+          <view class='  align-center'>
+            <image class='view-2-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view class='font-size-5'>传播单价：</view>
+          <view style='flex:1; position:relative'>
+            <input class='view-input font-size-5' type='digit' placeholder='{{configMsgInfo.CBDJJE}}' value='{{singleprice}}' maxlength='6' bindfocus='singlepricefocus' bindblur='singlepriceblur' bindinput='singlepriceinput' disabled='{{singlepricedisable}}'></input>
+            <view class='font-size-5 align-center' style='position:absolute;bottom:0;top:0;right:10rpx'>元/受众</view>
+          </view>
+        </view>
+      </block>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5'>门市价格：</view>
+        <view class='font-size-5' style='flex:1;text-decoration:line-through;'>
+          {{pcPromotion.listPrice}}元
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5'>活动价格：</view>
+        <view class='font-size-5' style='flex:1'>
+          {{pcPromotion.promotionPrice}}元
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_14.png'></image>
+        </view>
+        <view class='font-size-5'>链购方案：</view>
+        <view class='align-r-center' style='flex:1;text-align:right' catchtap='showGroupGrade'>
+          <image style='width:50rpx;height:50rpx' src='{{showGroupGradeArrow}}'></image>
+        </view>
+      </view>
+      <!-- 链购方案 -->
+      <view class='view-2-3 align-r-center' wx:if="{{showGroupGrade}}">
+        <view class=' align-r-center font-size-7 font-color-11' style='flex-direction: row;display: flex;width:100%'>
+          <view class=' align-center ' style='width:33%'>链团份数(起)</view>
+          <view class=' align-center ' style='width:33%'>链团份数(止)</view>
+          <view class=' align-center  ' style='width:33%'>链团折扣</view>
+        </view>
+        <block wx:for="{{pcPromotion.vPcPromotionCfgGroupGradeInfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+          <view class='align-r-center font-size-7 font-color-11' style='flex-direction: row;display: flex;width:100%'>
+            <view class='  align-center ' style='width:33%'>{{item.minCopiesGrade}}
+
+            </view>
+            <view class='  align-center ' style='width:33%'>
+              <block wx:if="{{ item.maxCopiesGrade=='9999999'}}">不限 </block>
+              <block wx:else>{{item.maxCopiesGrade}}</block>
+
+            </view>
+
+            <view class='  align-center ' style='width:33%'>{{item.discount}}</view>
+          </view>
+        </block>
+
+        <view class='view-2-1 font-size-7 font-color-4'>
+          <view>
+            <template is="wxParse" data="{{wxParseData:cfg_group_msg.nodes}}" />
+          </view>
+
+        </view>
+
+
+
+      </view>
+
+
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>活动截止：</view>
+        <view style='flex:1 ; position:relative'>
+          <picker mode="date" value="{{initFq.the_day}}" start="{{initFq.y}}-{{initFq.m}}-{{initFq.d}}" end="{{initFq.yl}}-{{initFq.ml}}-{{initFq.dl}}" bindchange="bindDateChange">
+            <input disabled='true' class='view-input font-size-5' value='{{deadlinetime}}'></input>
+            <view class='font-size-5 align-center' style='position:absolute;bottom:0;top:0;right:10rpx'>
+              <image style='width:50rpx;height:50rpx' src='/image/figure_45.png'></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>退货周期：</view>
+        <view class='font-size-5' style='flex:1 ; position:relative'>
+             <block wx:if="{{ pcPromotion.isReturn=='0'}}">
+              {{pcPromotion.isReturnName}}{{pcPromotion.returnDays}}天退货
+            </block>
+            <block wx:else>
+              {{pcPromotion.isReturnName}}退货
+            </block>
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>换货周期：</view>
+        <view class='font-size-5' style='flex:1 ; position:relative'>
+          <block wx:if="{{ pcPromotion.isChange=='0'}}">
+              {{pcPromotion.isChangeName}}{{pcPromotion.changeDays}}天换货
+            </block>
+            <block wx:else>
+              {{pcPromotion.isChangeName}}换货
+            </block>
+        </view>
+      </view>
+
+
+
+    </view>
+
+
+  </scroll-view>
+
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-5 align-center' type="default" catchtap='submit' style='width:50%;border-bottom-right-radius:0;border-top-right-radius:0;' data-addtype='4'>暂存</button>
+    <button class='font-size-5 align-center' type="primary" catchtap='submit' style='width:50%;border-bottom-left-radius:0;border-top-left-radius:0; ' data-addtype='0'>下一步</button>
+  </view>
+
+
+</view>

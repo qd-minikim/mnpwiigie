@@ -1,0 +1,33 @@
+<!--page/component/pages/pagebing/pagebing.wxml-->
+<view class='container' bindtap='cancleattach'>
+  <view class='b-view-1 align-center'>
+    <image style='width:180rpx;height:180rpx;border-radius:50%' src='{{userInfo.imageUrl}}'></image>
+  </view>
+  <view class='b-view-2  font-size-5'>
+    <view style='flex-direction:row;display:flex;margin:5rpx 15rpx '>
+      <input style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputPhone' type='number' maxlength='11' placeholder='请输入手机号'></input>
+    </view>
+  </view>
+  <view class='b-view-3  font-size-5'>
+
+    <view class='align-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx '>
+      <view style='flex:1;border-top-left-radius:10rpx;border-bottom-left-radius:10rpx;border-left:1rpx solid #ccc;border-top:1rpx solid #ccc;border-bottom:1rpx solid #ccc;'>
+        <input bindinput='bindKeyInputYzm' type='number' style='padding:8rpx 5rpx;' placeholder='请输入验证码' value='{{yzm}}'></input>
+      </view>
+      <view catchtap="{{clickTip?'getYzm':''}}" class='align-center' style='padding:8rpx 5rpx;width:180rpx;height:1.4rem; border-left:1rpx solid #ccc;border-right:1rpx solid #ccc;border-top:1rpx solid #ccc;border-bottom:1rpx solid #ccc;border-top-right-radius:10rpx;border-bottom-right-radius:10rpx;background:#ccc'>{{showTipMsg}}</view>
+
+    </view>
+  </view>
+  <view class='b-view-4  '>
+    <view class='' style='margin:5rpx 15rpx;height:85rpx'>
+      <button catchtap='submitBing' class='font-size-5 align-center' style='height:100%'>提交绑定</button>
+    </view>
+
+  </view>
+  <view class='b-view-5  '>
+    <view class='font-size-6 font-color-4' style='margin:5rpx 15rpx;'>
+      {{configMsgInfo.BIND_MSG}}
+    </view>
+  </view>
+
+</view>

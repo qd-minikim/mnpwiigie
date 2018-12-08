@@ -1,0 +1,238 @@
+<!--page/component/pages/pageorder/orderdetail/orderdetail.wxml-->
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view style='width:100%'>
+
+    <navigator url="/page/component/pages/pagexdd/pagexdd?m={{orderDetail.upper_mark_id}}&r={{orderDetail.requirement_id}}" hover-class="navigator-hover" open-type="redirect">
+      <view class='od_view-1 align-r-center font-size-3'>
+        <view class='od_view-1-1'></view>
+        <view class='od_view-1-2 view-ellipsis-1'>{{orderDetail.title}}</view>
+
+        <view class='align-center  '>
+          <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+
+        </view>
+      </view>
+    </navigator>
+
+  </view>
+
+  <view class='gap-bg'></view>
+  <view style='width:100%'>
+    <view class='font-size-5' style='margin:10rpx 15rpx;'>
+      <view style='' class='od_view-2-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='od_view-2-1-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view>购买单价:</view>
+        <view>￥{{filters.toFix(orderDetail.unit_price?orderDetail.unit_price*1:0,2)}}</view>
+      </view>
+      <view class='gap-line'></view>
+      <view style='' class='od_view-2-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='od_view-2-1-figure' src='/image/figure_37.png'></image>
+        </view>
+        <view>购买份数:</view>
+        <view>{{orderDetail.buy_copies}}份</view>
+      </view>
+      <view class='gap-line'></view>
+
+      <view style='' class='od_view-2-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='od_view-2-1-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view>支付金额:</view>
+        <view>￥{{filters.toFix(orderDetail.buy_cash?orderDetail.buy_cash*1:0,2)}}</view>
+      </view>
+      <view class='gap-line'></view>
+      <view style='' class='od_view-2-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='od_view-2-1-figure' src='/image/figure_38.png'></image>
+        </view>
+        <view>下单时间:</view>
+        <view>{{orderDetail.buy_datetime}}</view>
+      </view>
+      <view class='gap-line'></view>
+      <view style='' class='od_view-2-1 align-r-center'>
+        <view class='  align-center'>
+          <image class='od_view-2-1-figure' src='/image/figure_39.png'></image>
+        </view>
+        <view>交易状态:</view>
+        <view>
+
+          <block wx:if="{{orderDetail.buy_status =='0'}}">
+            未付款
+          </block>
+ 
+          <block wx:elif="{{orderDetail.buy_status =='3'}}">
+            <block wx:if="{{orderDetail.order_type =='2'}}">
+              已取消
+            </block>
+            <block wx:if="{{orderDetail.order_type =='3'}}">
+              <block wx:if="{{!orderDetail.last_process_status||orderDetail.last_process_status =='99'}}">
+                已取消
+              </block>
+              <block wx:else>
+                {{orderDetail.process_status_name}}
+              </block>
+            </block>
+          </block>
+
+
+          <block wx:else>
+            <block wx:if="{{orderDetail.order_type =='2'}}">
+              {{orderDetail.status_code_name}}
+            </block>
+            <block wx:if="{{orderDetail.order_type =='3'}}">
+
+              {{orderDetail.process_status_name}}
+
+            </block>
+          </block>
+
+
+        </view>
+      </view>
+      <block wx:if="{{orderDetail.order_type =='2'}}">
+
+        <block wx:if="{{ orderDetail.delivery_type=='1'  }}">
+          <block wx:if="{{ orderDetail.deal_type=='1'||orderDetail.deal_type=='2'  }}">
+            <view class='gap-line'></view>
+            <view style='' class='od_view-2-1 align-r-center'>
+              <view class='  align-center'>
+                <image class='od_view-2-1-figure' src='/image/figure_41.png'></image>
+              </view>
+              <view>联系方式:</view>
+              <view>{{orderDetail.phone}}</view>
+            </view>
+
+          </block>
+
+        </block>
+        <block wx:if="{{ orderDetail.delivery_type=='2'  }}">
+          <block wx:if="{{ orderDetail.deal_type=='1'||orderDetail.deal_type=='2'  }}">
+
+            <view class='gap-line'></view>
+            <view style='' class='od_view-2-1 align-r-center'>
+              <view class='  align-center'>
+                <image class='od_view-2-1-figure' src='/image/figure_40.png'></image>
+              </view>
+              <view style='flex-direction: row;display: flex;white-space: nowrap;'>
+                <view style='width:1.5em'>收</view>
+                <view>货</view>
+                <view style='width:1.5em;text-align:right'>人</view>:
+              </view>
+              <view>{{orderDetail.order_username}}</view>
+            </view>
+            <view class='gap-line'></view>
+            <view style='' class='od_view-2-1 align-r-center'>
+              <view class='  align-center'>
+                <image class='od_view-2-1-figure' src='/image/figure_41.png'></image>
+              </view>
+              <view>联系方式:</view>
+              <view>{{orderDetail.phone}}</view>
+            </view>
+            <view class='gap-line'></view>
+            <view style='' class='od_view-2-1 align-r-center'>
+              <view class='  align-center'>
+                <image class='od_view-2-1-figure' src='/image/figure_42.png'></image>
+              </view>
+              <view>收货地址:</view>
+              <view>{{orderDetail.addr}}</view>
+            </view>
+          </block>
+        </block>
+      </block>
+    </view>
+  </view>
+
+  <!-- 服务类暂时没有 -->
+
+
+  <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+
+
+    <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:50%; '>
+      <navigator url="/pages/pagehome/pagehome" hover-class="navigator-hover" open-type="switchTab">
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7' style='flex:1;width:100%'>首页</view>
+      </navigator>
+    </view>
+
+    <view catchtap='customdialog' data-requir="{{orderDetail.requirement_id}}" data-ordertype="{{orderDetail.order_type}}" data-deliverytype="{{orderDetail.delivery_type}}" data-customerservicestatus="{{orderDetail.customer_service_status}}" data-csid="{{orderDetail.cs_id}}"
+      data-orderid="{{orderDetail.id}}" data-statuscode="{{orderDetail.status_code}}" class='align-c-center bottom-view' style='flex:1;width:50% '>
+
+      <view class='bottom-view-1 align-c-center'>
+        <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+      </view>
+      <view class='bottom-view-1 align-c-center font-size-7'>售后服务</view>
+    </view>
+
+    <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:50% '>
+      <navigator url="/page/component/pages/pagexdd/pagexdd?m={{orderDetail.maxupmarkid}}&r={{orderDetail.requirement_id}}" hover-class="navigator-hover" open-type="redirect">
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/figure_43.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7'>再次购买</view>
+      </navigator>
+    </view>
+
+    <block wx:if="{{orderDetail.buy_status=='0'}}">
+
+      <view catchtap='continuePay' data-orderid='{{orderDetail.id}}' class='align-center  bottom-view bg-6' style='flex:1; width:50%;height:100%'>
+
+        <view class='bottom-view-1 align-r-center font-size-7 font-color-2'>继续付款
+        </view>
+      </view>
+
+    </block>
+    <block wx:else>
+
+      <block wx:if="{{orderDetail.order_type=='2'}}">
+        <block wx:if="{{orderDetail.deal_type=='1'||orderDetail.deal_type=='2'}}">
+          <block wx:if="{{orderDetail.delivery_type=='2' }}">
+
+            <block wx:if="{{orderDetail.status_code=='0'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>待收货
+                </view>
+              </view>
+
+            </block>
+
+            <block wx:if="{{orderDetail.status_code=='1'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-6' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-2'>确认收货
+                </view>
+              </view>
+
+            </block>
+            <block wx:if="{{orderDetail.status_code=='2'}}">
+
+              <view catchtap='' class='align-center  bottom-view bg-4' style='flex:1; width:50%;height:100%'>
+
+                <view class='bottom-view-1 align-r-center font-size-7 font-color-4'>已收货
+                </view>
+              </view>
+
+            </block>
+
+          </block>
+        </block>
+
+      </block>
+
+    </block>
+
+
+
+
+  </view>
+</view>

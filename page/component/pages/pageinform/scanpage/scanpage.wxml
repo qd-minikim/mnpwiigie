@@ -1,0 +1,156 @@
+<!--page/component/pages/pageinform/scanpage/scanpage.wxml-->
+
+<view class='container v-bgimage ' style='height:{{windowHeight}}px;position:relative;flex-direction:column;display:flex; '>
+  <!-- A -->
+  <block wx:if="{{haschecked && checkStatus.isused == '0' && checkStatus.isbind == '0'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_00_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+  <!-- B -->
+  <block wx:if="{{haschecked && checkStatus.isused == '0' && checkStatus.isbind == '1'&& checkStatus.isfqr == '0'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_010_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- C -->
+  <block wx:if="{{haschecked && checkStatus.isused == '0' && checkStatus.isbind == '1'&& checkStatus.isfqr == '1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_011_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- D -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '0'&& checkStatus.isedit == '-1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_10a_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+  <!-- E -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '0'&& checkStatus.isedit == '0'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_100_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+  <!-- F -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '0'&& checkStatus.isedit == '1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_101_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+  <!-- G -->
+
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '0'&& checkStatus.isedit != '-1'&& checkStatus.isedit != '0'&& checkStatus.isedit != '1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_102_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+
+
+  <!-- H -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '-1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_11a_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- I -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '0'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_110_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- J -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit == '1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_111_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- K -->
+  <block wx:if="{{haschecked && checkStatus.isused == '1'&& checkStatus.isfqr == '1'&& checkStatus.isedit != '-1'&& checkStatus.isedit != '0'&& checkStatus.isedit != '1'}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-5' style='text-align:center;'>{{checkStatus.statusmsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}{{configMsgInfo.SCAN_MSG_112_T}}</view>
+
+      </view>
+
+    </view>
+
+  </block>
+</view>

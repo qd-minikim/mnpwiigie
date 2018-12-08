@@ -1,0 +1,39 @@
+<!--page/component/pages/pagegift/giftreceivefail/giftreceivefail.wxml-->
+
+<import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
+
+<!--转送给朋友的  留言信息 -->
+
+<template is="tabbar" data="{{tabbar}}" />
+<scroll-view style='max-height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+  <view class='container ' style='flex-direction:colum;display:flex; '>
+    <view class='grs-view-1 align-center'>
+
+      <image class='grs-view-1-image' src='{{giftStatusImage}}'></image>
+
+    </view>
+
+    <view class='grs-view-3 align-center font-size-5 font-color-7 ' style='margin:50rpx 20rpx;'>
+
+      {{configMsgInfo.GIFT_READ}}
+
+    </view>
+
+
+    <view class='grs-view-5 align-center'>
+      <view>
+
+        <image class='grs-view-5-image' src='{{giftInfo.recordInfo.cover_image_url}}'></image>
+      </view>
+
+      <view class='grs-view-5-2 align-center'>
+
+
+        <view class='font-size-7 font-color-2 bg-15' catchtap='showGiftRequirementDetail' data-id='{{giftRecordId}}' data-oper='0' style='padding:5rpx 15rpx ;border-radius:10rpx;'>打开看看</view>
+      </view>
+    </view>
+
+
+  </view>
+
+</scroll-view>

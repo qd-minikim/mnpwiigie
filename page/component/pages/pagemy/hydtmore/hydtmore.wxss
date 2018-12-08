@@ -1,0 +1,103 @@
+/* page/component/pages/pagemy/hydtmore/hydtmore.wxss */
+
+.home-5 {
+  display: flex;
+   margin: 5rpx 10rpx
+}
+
+.home-5-1 {
+   
+  width: 100%;
+  text-align: center;
+  margin:10rpx 0;
+
+}
+
+.home-5-2 {
+  width: 100%;
+  height: 180rpx;
+}
+
+.home-5-2-1 {
+  width: 120rpx;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-1-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.home-5-2-2 {
+  width: 130rpx;
+  min-width: 130rpx; 
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-2-1 {
+   
+  text-align: center;
+}
+
+.home-5-2-2-2 {
+   
+  text-align: center;
+}
+
+.home-5-2-3 {
+  width: 160rpx;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-5-2-3-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 5%;
+}
+
+.home-5-2-4 {
+  padding: 10rpx 10rpx;
+  
+}
+
+.home-5-2-4-1 {
+ 
+}
+
+.home-5-2-4-2 {
+   
+  flex-direction: row;
+  display: flex
+}
+
+.home-5-2-4-3 {
+  
+}
+
+.home-5-2-4-4-image {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+.home-5-2-4-4-view-figure4{
+
+   width: 120rpx;
+   height: 40rpx;
+   background-size: 100% 100%;  
+	 -moz-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
+   text-align: center;
+    
+   border-radius:50rpx; 
+}

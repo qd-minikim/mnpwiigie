@@ -1,0 +1,40 @@
+/* page/component/pages/pageaddr/addradd/addradd.wxss */
+.addradd-view-0 {
+/* width: 95%; */
+ margin:5rpx 15rpx;
+
+}
+.addradd-view-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 10rpx;
+  
+}
+
+ .addradd-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 10rpx;
+  
+}
+.addradd-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 10rpx;
+  
+}
+.addradd-view-3-2{
+  flex-direction: row;
+  display: flex;
+}
+
+
+.addradd-view-4 {
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 10rpx;
+ 
+}
+.addradd-view-9 {
+  width: 100%;
+}

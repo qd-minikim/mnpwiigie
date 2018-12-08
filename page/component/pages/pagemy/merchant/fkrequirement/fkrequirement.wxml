@@ -1,0 +1,220 @@
+<!--page/component/pages/pagemy/merchant/fkrequirement/fkrequirement.wxml-->
+
+<import src="../../../../../../wxParse/wxParse.wxml" />
+<wxs module="filters" src="../../../../../../utils/rFiltersUtils.wxs"></wxs>
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <view  style='width:100%;;height:{{headHeight}}rpx'>
+    <view class='view-1' style=''>
+
+      <view class='view-1-1 align-r-center'>
+        <view class='font-size-5'>{{initFq.contentname}}-</view>
+        <view class='font-size-5 view-ellipsis-1' style='flex:1'>
+          {{title}}
+        </view>
+      </view>
+      <!-- 出品商 -->
+      <view class=' font-color-3 font-size-5' style=' flex-direction: row;display: flex;  '>
+        <view class='font-size-5'>出品商:</view>
+        <view class=' font-size-5 view-ellipsis-1' style='max-width: 5rem;'>{{pcPromotion.producerBrandName}}</view>
+        <view class=' font-size-5 view-ellipsis-1'>>>{{pcPromotion.merchantBrandName}}</view>
+
+        <view class='font-size-5' style='color: #4395f5;'>@友托帮</view>
+      </view>
+    </view>
+
+   </view> 
+  <scroll-view class=' ' style='width:100%;height:{{contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <view class='view-1'>
+      <view class='view-1-2 align-center'>
+
+        <view wx:if="{{richtextMore}}" class='align-center view-1-2-1' bindtap='showRichtext'>
+          <view class=' font-size-6 font-color-8'>展看查看详情</view>
+          <image class='view-1-2-2-image' src='/image/arrow_down_1.png'></image>
+        </view>
+      </view>
+    </view>
+
+
+    <block wx:if="{{richtextShow}}">
+      <view class='gap-bg'></view>
+      <view class='view-1'>
+        <view class='view-1-2 align-center'>
+          <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
+            <view style='width:100%'>
+              <view class='font-size-5' style='margin:10rpx 15rpx;'>商品参数</view>
+              <view class='gap-dashed'></view>
+              <view class='font-size-5 font_color_4' style='flex-direction:column;display:flex; '>
+
+                <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+                  <block wx:if="{{index>0}}">
+                    <view class='gap-dashed'></view>
+                  </block>
+                  <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+                    <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
+                    <view style='flex:1'>{{item.attribute_value}}</view>
+                  </view>
+
+                </block>
+              </view>
+            </view>
+          </block>
+          <view>
+            <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+
+    <view class='gap-bg'></view>
+    <view class='view-2'>
+
+      <view class='view-2-1 font-size-7 font-color-4' wx:if="{{commissionfocus}}">
+        <view>{{configMsgInfo.ZGCJ}}</view>
+
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5 '>{{configMsgInfo.CJZWSS}}：</view>
+        <view class='font-size-5 ' style='flex:1; position:relative'>
+          {{commission}}元
+        </view>
+        <view class='font-size-7 font-color-7'>待付款￥{{commission}}</view>
+      </view>
+      <block wx:if="{{initFq.content_settlement_type =='1'}}">
+        <view class='view-2-1 font-size-7 font-color-4' wx:if="{{singlepricefocus}}">
+          <view>
+            <template is="wxParse" data="{{wxParseData:cbdjms.nodes}}" />
+          </view>
+
+        </view>
+        <view class='view-2-2 align-r-center'>
+          <view class='  align-center'>
+            <image class='view-2-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view class='font-size-5'>传播单价：</view>
+          <view class='font-size-5' style='flex:1; position:relative'>
+            {{singleprice}}元/受众
+
+          </view>
+        </view>
+      </block>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5'>门市价格：</view>
+        <view class='font-size-5' style='flex:1;text-decoration:line-through;'>
+          {{pcPromotion.listPrice}}元
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_5.png'></image>
+        </view>
+        <view class='font-size-5'>活动价格：</view>
+        <view class='font-size-5' style='flex:1'>
+          {{pcPromotion.promotionPrice}}元
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_14.png'></image>
+        </view>
+        <view class='font-size-5'>链购方案：</view>
+        <view class='align-r-center' style='flex:1;text-align:right' catchtap='showGroupGrade'>
+          <image style='width:50rpx;height:50rpx' src='{{showGroupGradeArrow}}'></image>
+        </view>
+      </view>
+      <!-- 链购方案 -->
+      <view class='view-2-3 align-r-center' wx:if="{{showGroupGrade}}">
+        <view class=' align-r-center font-size-7 font-color-11' style='flex-direction: row;display: flex;width:100%'>
+          <view class=' align-center ' style='width:33%'>链团份数(起)</view>
+          <view class=' align-center ' style='width:33%'>链团份数(止)</view>
+          <view class=' align-center  ' style='width:33%'>链团折扣</view>
+        </view>
+        <block wx:for="{{pcPromotion.vPcPromotionCfgGroupGradeInfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+          <view class='align-r-center font-size-7 font-color-11' style='flex-direction: row;display: flex;width:100%'>
+            <view class='  align-center ' style='width:33%'>{{item.minCopiesGrade}}
+
+            </view>
+            <view class='  align-center ' style='width:33%'>
+              <block wx:if="{{ item.maxCopiesGrade=='9999999'}}">不限 </block>
+              <block wx:else>{{item.maxCopiesGrade}}</block>
+
+            </view>
+
+            <view class='  align-center ' style='width:33%'>{{item.discount}}</view>
+          </view>
+        </block>
+
+        <view class='view-2-1 font-size-7 font-color-4'>
+          <view>
+            <template is="wxParse" data="{{wxParseData:cfg_group_msg.nodes}}" />
+          </view>
+
+        </view>
+
+
+
+      </view>
+
+
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>活动截止：</view>
+        <view class='font-size-5' style='flex:1 ; position:relative'>
+          {{deadlinetime}}
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>退货周期：</view>
+        <view class='font-size-5' style='flex:1 ; position:relative'>
+          <block wx:if="{{ pcPromotion.isReturn=='0'}}">
+            {{pcPromotion.isReturnName}}{{pcPromotion.returnDays}}天退货
+          </block>
+          <block wx:else>
+            {{pcPromotion.isReturnName}}退货
+          </block>
+        </view>
+      </view>
+      <view class='view-2-2 align-r-center'>
+        <view class='  align-center'>
+          <image class='view-2-figure' src='/image/figure_6.png'></image>
+        </view>
+        <view class='font-size-5'>换货周期：</view>
+        <view class='font-size-5' style='flex:1 ; position:relative'>
+          <block wx:if="{{ pcPromotion.isChange=='0'}}">
+            {{pcPromotion.isChangeName}}{{pcPromotion.changeDays}}天换货
+          </block>
+          <block wx:else>
+            {{pcPromotion.isChangeName}}换货
+          </block>
+        </view>
+      </view>
+
+
+
+    </view>
+
+
+  </scroll-view>
+
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-5 align-center' type="warn" catchtap='continuePay' style='width:100%;border-bottom-left-radius:0;border-top-left-radius:0; ' data-addtype='0'>继续付款</button>
+  </view>
+
+
+</view>

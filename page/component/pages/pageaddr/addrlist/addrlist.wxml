@@ -1,0 +1,49 @@
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <scroll-view style='height:{{pageview.scrollviewHeight}};' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+    <block wx:for="{{addressInfo}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+      <block wx:if="{{index >0}}">
+
+        <view class="gap-bg" style="flex-direction:column;"></view>
+
+      </block>
+      <view class='addrlist-view-1' style='flex-direction:colum; ' catchtap='selectAddress' data-index='{{index}}'>
+        <view class='addrlist-view-1-1 font-size-5'>
+          <view style='flex:1' class='view-ellipsis-1 '>{{item.orderUsername}}</view>
+          <view>{{item.phone}}</view>
+        </view>
+        <view class='addrlist-view-1-2 font-color-4 font-size-6'>
+          {{item.address}}
+        </view>
+        <view class='gap-line'></view>
+        <view class='addrlist-view-1-4'>
+          <!-- <icon class="icon-small" type="success" size="23"></icon> -->
+          <view class='align-r-center font-size-6' style='flex:1' bindtap='doAddressDefault' data-id='{{item.id}}'>
+            <block wx:if="{{ item.isDefault=='1'}}">
+              <icon class="icon-small" type="success" size="16"></icon>默认地址
+            </block>
+            <block wx:else>
+              <icon class="icon-small" type="circle" size="16"></icon>设为默认
+            </block>
+          </view>
+          <view class='align-center'>
+            <button class='addrlist-view-1-4-btn font-size-7 align-center' style='  margin-right:10rpx'  catchtap= 'editAddr' data-id='{{item.id}}'>
+              <image class='addrlist-view-1-4_figure' src='/image/figure_17.png'></image> 编辑</button>
+            <button button class='addrlist-view-1-4-btn font-size-7 align-center' catchtap='deleteAddress' data-id='{{item.id}}'>
+              <image class='addrlist-view-1-4_figure' src='/image/figure_18.png'></image>删除</button>
+          </view>
+        </view>
+      </view>
+
+    </block>
+    <block wx:if="{{addressInfo.length ==0}}">
+    <view class='align-center font-size-6' style='width:100%'>还没有收货地址</view>
+
+    </block>
+
+  </scroll-view>
+  <view class='addrlist-view-4 flex-bottom  '>
+    <button class='font-size-5 align-center' type="default" style='width:100%' bindtap='addAddr'>新建地址</button>
+  </view>
+
+</view>

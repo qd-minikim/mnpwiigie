@@ -1,0 +1,11 @@
+<!--page/component/pages/pageserch/serchmoref/serchmoref.wxml-->
+<!-- 检索的好友的 更多  -->
+ 
+<import src="../../../../common/pages/pageserch/pageserch.wxml" />
+<view class='container ' style="flex-direction:column;display:flex; ">
+ <scroll-view class='serchmoref-view-1'>
+<view class='serchmoref-view-1-active '>
+ <template is="pageserch" data="{{serchListA}}"/>
+</view>
+</scroll-view>
+</view>

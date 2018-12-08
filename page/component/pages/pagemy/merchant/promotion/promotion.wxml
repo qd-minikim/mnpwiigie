@@ -1,0 +1,57 @@
+<!--page/component/pages/pagemy/merchant/promotion/promotion.wxml-->
+
+
+<import src="../../../../../../page/common/pages/pagemy/pagemy.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class="myp-view-1">
+    <view class="myp-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">编辑中</view>
+    <view class="myp-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">待付款</view>
+
+    <view class="myp-view-1-1 {{currentTab==2 ? 'tab-on' : ''}}" data-current="2" bindtap="swichNav">活动中</view>
+    <view class="myp-view-1-1 {{currentTab==3 ? 'tab-on' : ''}}" data-current="3" bindtap="swichNav">冻结中</view>
+    <view class="myp-view-1-1 {{currentTab==4 ? 'tab-on' : ''}}" data-current="4" bindtap="swichNav">已下线</view>
+  </view>
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
+    <!-- 编辑中-->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+        <template is="promotionbjz" data="{{bjzArray,bjzsearched}}" />
+      </scroll-view>
+    </swiper-item>
+
+       <!--待付款-->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+        <template is="promotiondfk" data="{{dfkArray,dfksearched}}" />
+      </scroll-view>
+    </swiper-item>
+    <!-- 活动中 -->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+        <template is="promotionhdz" data="{{hdzArray,hdzsearched}}" />
+      </scroll-view>
+    </swiper-item>
+    <!-- 冻结中 -->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+        <template is="promotiondjz" data="{{djzArray,djzsearched}}" />
+      </scroll-view>
+    </swiper-item>
+    <!-- 已下线 -->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false"
+      bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+        <template is="promotionyxx" data="{{yxxArray,yxxsearched}}" />
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+
+
+  <!-- <view class='flex-bottom  '>
+
+    <button class='font-size-5 align-center' type="default" catchtap='addRequirement' style='width:100%'>发起</button>
+  </view> -->
+</view>

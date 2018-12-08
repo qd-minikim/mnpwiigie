@@ -1,0 +1,15 @@
+/* page/component/pages/pagemy/merchant/baseinfo/baseinfo.wxss */
+
+
+.view-row{
+
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 0
+}
+
+.view-row-title{
+
+  text-align: right;
+  width: 5em
+}

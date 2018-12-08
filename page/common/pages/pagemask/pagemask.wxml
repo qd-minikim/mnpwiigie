@@ -1,0 +1,19 @@
+<!--page/common/pages/pagemask/pagemask.wxml-->
+ 
+<template name="pagemask">
+  <view wx:if="{{pagemask.isForward}}" style='position:relative;width: 100%; height: 100%; position: fixed; top: 0;  left: 0; background: #000; z-index: 9000; opacity: 0.7;' bindtap='closeforwardfriend'>
+    <view class='align-center' style="position:absolute;right:100rpx">
+      <image src='/image/figure_32.png' style='width:100rpx;height:100rpx'></image>
+    </view>
+    <view wx:if="{{pagemask.msgTitle}}" class='align-center font-size-5 font-color-2' style='width:80%;position:absolute;top:40%;color:#fff;left:10%;flex-direction:colum;display:flex;'>
+
+      <view class="font-size-5 {{!!!pagemask.msgTitleColor?'font-color-2': pagemask.msgTitleColor}}"  >
+        {{pagemask.msgTitle}}
+      </view>
+      <view wx:if="{{pagemask.msgDesc}}" class="font-size-6 {{!!!pagemask.msgDescColor?'font-color-2': pagemask.msgDescColor}}"  >
+        {{pagemask.msgDesc}}
+      </view>
+    </view>
+
+  </view>
+</template>

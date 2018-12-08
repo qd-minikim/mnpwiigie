@@ -1,0 +1,21 @@
+/* page/component/pages/pagegift/giftaddr/giftaddr.wxss */
+  
+.giftaddr-view-1 {
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+}
+
+.giftaddr-view-row {
+  flex-direction: row;
+  display: flex;
+  margin: 8rpx 10rpx;
+}
+.giftaddr-view-title {
+   width: 5rem;
+}
+.giftaddr-view-2 {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}

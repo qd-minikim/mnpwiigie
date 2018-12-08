@@ -1,0 +1,5 @@
+<!--page/component/pages/pageweb/pageweb.wxml-->
+<web-view src="{{webpath}}">
+
+
+</web-view>

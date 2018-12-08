@@ -1,0 +1,59 @@
+<!--page/component/pages/pagemy/customserv/servaddr/servaddr.wxml-->
+<!-- 售后服务回填地址 -->
+
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <view class='view-1'>
+    <view class='view-1-1'>
+      <view class='font-size-5'>买家信息:</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+        <view style='width:6em;text-align:right'>买家姓名：</view>
+        <view style='flex:1'>{{initPageInfo.order_username}}</view>
+      </view>
+
+      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+        <view style='width:6em;text-align:right'>买家电话：</view>
+        <view style='flex:1'>{{initPageInfo.phone}}</view>
+      </view>
+
+
+      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+        <view style='width:6em;text-align:right'>买家地址：</view>
+        <view style='flex:1'>{{initPageInfo.addr}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="gap-bg" style="flex-direction:column;"></view>
+  <view class='view-1'>
+    <view class='view-1-1'>
+      <view class='font-size-5'>物流信息:</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='font-size-6' style='flex-direction:row;display:flex;margin:8rpx 0'>
+        <view style='width:6em;text-align:right'>承运物流：</view>
+        <view style='flex:1'>
+           <picker bindchange="bindPickerChange" value="{{index}}" range="{{companysArray}}">
+              <view class="weui-input">{{companysArray[index]}}</view>
+            </picker>
+        </view>
+      </view>
+
+      <view class='font-size-6 align-r-center' style='flex-direction:row;display:flex;margin:8rpx 0'>
+        <view style='width:6em;text-align:right'>物流单号：</view>
+        <view style='flex:1'>
+          <input bindinput="bindKeyInput" maxlength='30' placeholder='物流单号'></input>
+        </view>
+      </view>
+
+
+
+    </view>
+  </view>
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-4 align-center' type="primary" catchtap='addLogistisc' style='width:100%'>提交</button>
+  </view>
+</view>

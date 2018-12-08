@@ -1,0 +1,63 @@
+<!--page/component/pages/pagedialog/dialoglist/dialoglist.wxml-->
+<view class='container'>
+
+
+  <view class='view-1'>
+
+    <block wx:if="{{searched}}">
+      <block wx:if="{{allRows >0}}">
+        <scroll-view>
+          <block wx:for="{{dialogList}}" wx:key="" wx:for-index="inde" wx:for-item="item">
+
+            <block wx:if="{{inde >0}}">
+              <block wx:if="{{item.requirement_group !=''}}">
+                <view class='gap-bg'></view>
+
+              </block>
+              <block wx:else>
+                <view class='gap-line'></view>
+
+              </block>
+            </block>
+ 
+            <view style='flex-direction:column;display:flex' catchtap='dialogpage' data-require='{{item.requirement_id}}' data-dialogid='{{item.id}}'>
+
+
+              <block wx:if="{{item.requirement_group !=''}}">
+
+                <view class=' bg-4 align-center' style='flex-direction:row;display:flex;padding:15rpx 0'>
+                  <view class='align-center' style='margin:1rpx 15rpx'>
+                    <image style='width:60rpx;height:60rpx;border-radius:5rpx' src='{{item.image_url}}'></image>
+                  </view>
+                  <view class=' font-size-5' style='flex:1'>
+                    {{item.requirement_titile}}
+                  </view>
+                </view>
+
+
+              </block>
+
+              <view class='align-center' style='flex-direction:row;display:flex; margin:1rpx 15rpx'>
+                <view class='align-center' style='margin:1rpx 5rpx'>
+                  <image style='width:80rpx;height:80rpx;border-radius:50%' src='{{item.new_head_image_url}}'></image>
+                </view>
+                <view class='font-size-5' style='flex:1'>{{item.newest_dialog}}</view>
+                <view><image style='width:40rpx;height:40rpx;' src='/image/arrow_right_1.png'></image></view>
+              </view>
+              <view class='font-size-6 font-color-4' style='text-align:right'> {{item.update_time}}</view>
+            </view>
+
+
+
+          </block>
+        </scroll-view>
+
+      </block>
+      <block wx:else>
+        <view class='font-size-5 align-center' style='margin:1rpx 15rpx'>还没有数据</view>
+      </block>
+    </block>
+  </view>
+
+
+</view>

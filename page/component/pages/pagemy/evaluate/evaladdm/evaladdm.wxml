@@ -1,0 +1,57 @@
+<!--page/component/pages/pagemy/evaluate/evaladdm/evaladdm.wxml-->
+ 
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='evaladdm-view-0'>
+    <view class='evaladdm-view-0-1'>
+      <view>
+        <image class='evaladdm-view-0-image' src='{{evalinfo.coverimageurl}}'></image>
+      </view>
+      <view style=' flex-direction: column;display: flex;margin:5rpx 25rpx'>
+        <view class='font-size-5' style='margin-left:10rpx'>评分</view>
+        <view>
+          <block wx:for="{{stars}}">
+            <image class="star-image" style="left: 5rpx" src="{{key > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+         
+            </image>
+          </block>
+
+        </view>
+      </view>
+    </view>
+
+
+    <view class='evaladdm-view-0-2'>
+      <view style='flex-direction:row;display:flex'>
+       <view class='font-size-5  '>追加评论</view>
+       <view class='font-size-7 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
+      </view>
+     
+      <textarea class='evaladdm-view-0-2-textarea font-size-6' placeholder='输入追加评价' placeholder-style=' ' placeholder-class='font-size-6' maxlength='200' bindinput='bindWordLimit'></textarea>
+    </view>
+<!-- bindtap='selectImage' bindlongtap='deleimage' -->
+    <view class='evaladdm-view-0-3'>
+      <block wx:for="{{pics}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+          <image class='evaladdm-view-0-3-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{item}}' 
+          bindtap='selectImage' bindlongtap='deleimage' bindtouchstart="touchStart" bindtouchend="touchEnd"
+
+           data-index="{{index}}"  ></image> 
+
+        </view>
+      </block>
+
+      <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+        <image class='evaladdm-view-0-3-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='/image/figure_21.png'  data-index="-1"  catchtap='selectImage'></image>
+      </view>
+
+
+
+    </view>
+
+  </view>
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-4 align-center' type="primary" catchtap='submitEval' style='width:100%'>提交</button>
+  </view>
+</view>

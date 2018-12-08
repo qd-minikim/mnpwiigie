@@ -1,0 +1,40 @@
+/* page/component/pages/pagemy/evaluate/evalimge/evalimge.wxss */
+ 
+
+.evalimge-view-0 {
+  width: 100%;
+}
+
+.evalimge-view-0-1 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+}
+
+.evalimge-view-0-image {
+  width: 200rpx;
+  height: 200rpx;
+}
+ 
+
+.evalimge-view-0-3 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.evalimge-view-0-3-figure {
+  /* width: 120rpx;
+  height: 120rpx; */
+}
+
+.star-image {
+  /* position: absolute; */
+  position: relative;
+  top: 0rpx;
+  width: 40rpx;
+  height: 40rpx;
+  src: "/image/normal.png";
+}
+ 

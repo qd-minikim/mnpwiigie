@@ -1,0 +1,32 @@
+/* page/component/pages/pagemy/myorder/myorder.wxss */
+
+@import "../../../../../page/common/pages/pagemy/pagemy.wxss";
+.myorder-view-1 {
+  width: 100%;
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.myorder-view-1-1 {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 50%;
+  color: #777;
+}
+
+.tab-on {
+  color: #da7c0c;
+  border-bottom: 5rpx solid #da7c0c;
+}
+
+.swiper-box {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-box view {
+  text-align: center;
+}

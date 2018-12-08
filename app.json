@@ -1,0 +1,114 @@
+{
+  "pages": [
+    "pages/pagewelcome/pagewelcome",
+    "pages/pagehome/pagehome",
+    "pages/pagegoods/pagegoods",
+    "pages/pagemy/pagemy",
+    "pages/logs/logs",
+    "pages/index/index"
+   
+  ],
+  "subPackages": [
+    {
+      "root": "page/component/",
+      "pages": [
+        "pages/pagexdd/pagexdd",
+        "pages/pagewait/pagewait",
+        "pages/pageauth/pageauth",
+        "pages/pagedialog/dialog/dialog",
+        "pages/pagegift/giftreceive/giftreceive",
+        "pages/pagegift/giftreceivesucc/giftreceivesucc",
+        "pages/pagegift/giftgivesucc/giftgivesucc",
+        "pages/pageaddr/addrlist/addrlist",
+        "pages/pageaddr/addradd/addradd",
+        "pages/pagegift/giftdeta/giftdeta",
+        "pages/pagegift/giftgivelist/giftgivelist",
+        "pages/pagegift/giftorder/giftorder",
+        "pages/pageserch/serchlist/serchlist",
+        "pages/pageserch/serchmoref/serchmoref",
+        "pages/pageopin/opinadd/opinadd",
+        "pages/pageopin/opinlist/opinlist",
+        "pages/pagegift/giftdetar/giftdetar",
+        "pages/pagegift/giftaddr/giftaddr",
+        "pages/pagecount/counthome/counthome",
+        "pages/pagecount/countout/countout",
+        "pages/pagemy/myorder/myorder",
+        "pages/pagemy/waybill/waybill",
+        "pages/pagemy/evaluate/evaladd/evaladd",
+        "pages/pagemy/evaluate/evallist/evallist",
+        "pages/pagemy/evaluate/evaldeta/evaldeta",
+        "pages/pagemy/evaluate/evalimge/evalimge",
+        "pages/pagemy/evaluate/evaladdm/evaladdm",
+        "pages/pagemy/customserv/servlist/servlist",
+        "pages/pagemy/customserv/servdeta/servdeta",
+        "pages/pagemy/customserv/servjd/servjd",
+        "pages/pagemy/customserv/servaddm/servaddm",
+        "pages/pagemy/customserv/servadd/servadd",
+        "pages/pagemy/customserv/servaddr/servaddr",
+        "pages/pagemy/friends/myfriends/myfriends",
+        "pages/pagemy/friends/friendset/friendset",
+        "pages/pagemy/keeps/keeps",
+        "pages/pagemy/myhelps/myhelps",
+        "pages/pagebing/pagebing",
+        "pages/pagedialog/dialoglist/dialoglist",
+        "pages/pagegift/giftreceivelist/giftreceivelist",
+        "pages/pagespu/storage/storage",
+        "pages/pageweb/pageweb",
+        "pages/pageorder/orderdetail/orderdetail",
+        "pages/pageorder/orderconfirm/orderconfirm",
+        "pages/pageorder/ordercancel/ordercancel",
+        "pages/pagemy/hydtmore/hydtmore",
+        "pages/pagemy/merchant/baseinfo/baseinfo",
+        "pages/pagemy/merchant/benefactor/benefactor",
+        "pages/pagemy/merchant/promotion/promotion",
+        "pages/pagemy/merchant/fqrequirement/fqrequirement",
+        "pages/pagemy/merchant/orderhandle/orderhandle",
+        "pages/pagemy/selcarrier/selcarrier",
+        "pages/pagemy/merchant/orderpromotion/orderpromotion",
+        "pages/pageinform/scanpage/scanpage",
+        "pages/pagemy/merchant/fkrequirement/fkrequirement",
+        "pages/pageinform/notice/summarypage/summarypage",
+        "pages/pageinform/notice/detailpage/detailpage",
+        "pages/pagegift/giftinform/giftinform",
+        "pages/pagegift/giftreceivefail/giftreceivefail",
+        "pages/test/testpagexdd/testpagexdd"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "友托帮",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a0a0a0",
+    "selectedColor": "#00c003",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/pagehome/pagehome",
+        "text": "好友",
+        "iconPath": "image/home_0.png",
+        "selectedIconPath": "image/home_1.png"
+      },
+      {
+        "pagePath": "pages/pagegoods/pagegoods",
+        "text": "好物",
+        "iconPath": "image/goods_0.png",
+        "selectedIconPath": "image/goods_1.png"
+      },
+      {
+        "pagePath": "pages/pagemy/pagemy",
+        "text": "我的",
+        "iconPath": "image/my_0.png",
+        "selectedIconPath": "image/my_1.png"
+      }
+    ],
+    "position": "bottom"
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx1edf489cb248852c"
+  ]
+}

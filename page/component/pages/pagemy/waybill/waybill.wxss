@@ -1,0 +1,101 @@
+/* page/component/pages/pagemy/waybill/waybill.wxss */
+
+.waybill-view-1 {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  height: 120rpx;
+}
+
+.waybill-view-1-1 {
+  margin: 10rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+}
+
+ 
+.waybill-view-2 {
+  position: relative;
+  width: 100%;
+  height: 170rpx;
+  text-align: center;
+  /* background-color: red; */
+}
+.line {
+  width: 1px;
+  height: 100%;
+  background-color: rgb(218, 216, 216);
+  position: absolute;
+  left: 10rpx;
+  z-index: -1;
+  top: 50rpx;
+}
+.line_point {
+  position: absolute;
+  left: -8rpx;
+  top: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.botome_line {
+  position: absolute;
+  width: 80%;
+  bottom: -20rpx;
+  border-bottom: 1rpx solid #ddd;
+  left: 100rpx;
+}
+.waybill-view-2-2 {
+  position: relative;
+  width: 100%;
+  top: 25%;
+  /* background-color: red; */
+  left: 40rpx;
+}
+.waybill-view-2-2-1 {
+  position: relative;
+  text-align: left;
+  font-size: 30rpx;
+  width: 600rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.waybill-view-2-2-2{
+ 
+  position: relative;
+  width: 100%;
+  top: 30%;
+  color: #aaa;
+  text-align: left;
+  font-size: 30rpx;
+  /* background-color: yellow; */
+  left: 40rpx;
+ 
+}
+
+.list {
+  position: relative;
+  display: inline-block;
+  width: 85%;
+  height: 170rpx;
+  /* border-left: 1rpx solid #ddd; *//* background-color: yellow; */
+}
+
+.waybill-view-3 {
+ 
+  width: 100%;
+  
+  text-align: center;
+  margin-top: 20rpx;
+ 
+}
+
+
+
+
+
+
+
+ 

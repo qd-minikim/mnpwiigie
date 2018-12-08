@@ -1,0 +1,31 @@
+/* page/component/pages/pagemy/customserv/servaddm/servaddm.wxss */
+ 
+.servaddm-view-0 {
+  width: 100%;
+}
+
+ 
+
+.servaddm-view-0-2 {
+  margin: 15rpx 15rpx;
+  flex-direction: column;
+  display: flex;
+}
+
+.servaddm-view-0-2-textarea {
+  width: 100%;
+  border: 1px solid #f7f7f7;
+  border-radius: 5rpx;
+  padding: 5rpx 3rpx;
+  height: 9em;
+  /* padding: 5rpx 15rpx; */
+}
+
+.servaddm-view-0-3 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap
+}
+
+ 

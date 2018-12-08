@@ -1,0 +1,59 @@
+<!--page/component/pages/pagegift/giftaddr/giftaddr.wxml-->
+ 
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view class='giftaddr-view-1 align-center' bindtap='selectUserAddr'>
+    <block wx:if="{{userDefAddr}}">
+      <view style='flex-direction:column;display:flex;flex:1'>
+        <view class='giftaddr-view-row'>
+
+          <view class='align-center font-size-5 ' style='flex:1;flex-direction:row;display:flex;'>
+            <view class='view-ellipsis-1 ' style='width:200rpx'>{{userDefAddr.orderUsername}}</view>
+            <view style='flex:1;'>{{userDefAddr.phone}}</view>
+          </view>
+        </view>
+        <view class='giftaddr-view-row align-r-center font-size-6 font-color-4'>
+          <view class='font-size-6' style='flex:1'>{{userDefAddr.address}}</view>
+        </view>
+
+      </view>
+    </block>
+    <block wx:else>
+      <view class='giftaddr-view-row font-color-9 font-size-5' style='flex-direction:column;display:flex;flex:1'>
+        请选择收货信息
+      </view>
+    </block>
+    <view>
+      <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+    </view>
+
+  </view>
+
+
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class='giftaddr-view-2'>
+    <view class='giftaddr-view-row font-size-5 align-r-center'>
+      <view class='giftaddr-view-title'>礼品规格：</view>
+      <view style='flex:1'>{{giftData.sku_desc}} {{giftData.buycopies}}份</view>
+    </view>
+    <view class='giftaddr-view-row font-size-5'>
+      <view class='giftaddr-view-title'>礼品单价：</view>
+      <view>￥{{filters.toFix(giftData.unitPrice*1,2)}}</view>
+    </view>
+    <view class='giftaddr-view-row font-size-5'>
+      <view class='giftaddr-view-title'>礼品金额：</view>
+      <view class=' font-color-7'>￥{{filters.toFix(giftData.buyCash*1,2)}}</view>
+    </view>
+  </view>
+
+
+  <view class='flex-bottom align-center'>
+    <block wx:if="{{userDefAddr}}">
+      <button class='font-size-5 align-center' type="warn" bindtap='acceptgift' style='width:100%;height:100%;'>收礼</button>
+    </block>
+    <block wx:else>
+      <button class='font-size-5 align-center' type="warn" bindtap='orderpay' disabled='disabled' style='width:100%;height:100%;'>请选择收货信息</button>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,75 @@
+/* pages/pagegoods/pagegoods.wxss */
+
+ 
+
+.view_1 {
+ width: 100%;
+  white-space: nowrap;
+  height: 100rpx;
+  overflow: hidden;
+  margin: 1px auto ;
+  border-top:1px solid #e4e5e4;
+  border-bottom:1px solid #e4e5e4
+}
+
+.view_1_scroll-view {
+  width: 100%;
+  white-space: nowrap;
+  height: 100rpx;
+  overflow: hidden;
+}
+
+.view_select_style {
+/*    
+  padding-left: 10rpx;
+  padding-right: 10rpx; */
+}
+
+.view_select_height {
+  height: 100rpx;
+}
+
+.view_select_halfheight {
+  height: 50rpx;
+}
+
+.view_select_right {
+  border-right: 1px solid #e4e5e4;
+}
+.view_select_left {
+  border-left: 1px solid #e4e5e4;
+}
+.view_select_top {
+  border-top: 1px solid #e4e5e4;
+}
+.view_select_bottom {
+  border-bottom: 1px solid #e4e5e4;
+}
+
+.view_select_color{
+
+ color:#ffffff;
+	background: #e36c09
+}
+
+
+
+.scroll-view-friend-image{
+   width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: auto 5rpx;
+}
+
+.scroll-view-figure4{
+
+    width: 120rpx;
+   height: 40rpx;
+   background-size: 100% 100%;  
+	 -moz-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
+   text-align: center;
+   /* color: #fff; */
+    border-radius:50rpx;
+    /*  background-image:'' 在app.wxss bg-figure4-image*/
+}

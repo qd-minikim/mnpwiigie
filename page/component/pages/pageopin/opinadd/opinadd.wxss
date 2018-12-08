@@ -1,0 +1,87 @@
+/* page/component/pages/pageopin/opinadd/opinadd.wxss */
+ 
+/* @import "../../../../../wxParse/wxParse.wxss"; */
+
+.view-0 {
+  width:100%;
+
+}
+
+.view-1 {
+  /* width: 100%; */
+  padding: 5rpx 15rpx;
+}
+
+.view-2 {
+  margin: 5rpx;
+  /* width: 100%; */
+}
+
+.view-2-1 {
+  border: 1px solid #a0a0a0;
+  padding: 5rpx 15rpx;
+  border-radius: 10rpx;
+  margin: 5rpx;
+}
+.view-2-1-select{
+
+background: #a0a0a0
+}
+.view-3 {
+  margin: 5rpx 15rpx;
+  /* width: 100%; */
+}
+
+.view-3-1 {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.view-3-1-image {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.view-3-2 {
+  padding: 5rpx 10rpx;
+  flex:1;
+
+}
+
+.view-4 {
+  margin: 5rpx;
+  /* width: 100%; */
+}
+
+.view-4-1 {
+  /* width: 100%; */
+  flex-direction: row;
+  display: flex;
+  padding: 5rpx 15rpx;
+}
+
+.view-4-2 {
+}
+
+.view-4-2-textarea {
+  /* width: 95%; */
+  border: 1px solid #f7f7f7;
+  border-radius: 5rpx;
+  padding: 5rpx 3rpx;
+  height: 9em;
+  /* padding: 5rpx 15rpx; */
+}
+
+
+
+.view-5 {
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.view-5-figure {
+  /* width: 120rpx;
+  height: 120rpx; */
+}

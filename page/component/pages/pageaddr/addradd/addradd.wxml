@@ -1,0 +1,56 @@
+<!--page/component/pages/pageaddr/addradd/addradd.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex;padding:0rp 10rpx '>
+  <form catchsubmit="formSubmit" catchreset="formReset" style='width:100%;'>
+  <view class='addradd-view-0 font-size-5' style='flex-direction:colum; '>
+    <view class='addradd-view-1 align-r-center'>
+      <view>姓名：</view>
+      <view style='flex:1'>
+        <input placeholder='姓名' name="order_username" value='{{myAddressInfo.orderUserName}}' style='border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;'></input>
+      </view>
+    </view>
+    <view class='addradd-view-2 align-r-center'>
+      <view>电话：</view>
+      <view style='flex:1'>
+        <input placeholder='联系电话' name="phone" value='{{myAddressInfo.phone}}' style='border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;'></input>
+      </view>
+    </view>
+    <view class='addradd-view-3 align-r-center'>
+      <view>地区：</view>
+      <view style='flex:1;' class='addradd-view-3-2 '>
+        <view style='width:33%;border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;;margin-right:5rpx'>
+          <picker bindchange="bindPickerChange" value="{{addrInfo.provinceInfo.index}}" range="{{addrInfo.provinceInfo.provice}}" range-key="{{'name'}}" bindchange='changeProvince' name="province">
+            <view class="picker">
+              {{addrInfo.provinceInfo.provice[addrInfo.provinceInfo.index].name}}
+            </view>
+          </picker>
+        </view>
+        <view style='width:33%;border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;;margin-right:5rpx'>
+          <picker bindchange="bindPickerChange" value="{{addrInfo.cityInfo.index}}" range="{{addrInfo.cityInfo.city}}"  range-key="{{'name'}}"  bindchange='changeCity' name="city">
+            <view class="picker">
+              {{addrInfo.cityInfo.city[addrInfo.cityInfo.index].name}}
+            </view>
+          </picker>
+        </view>
+        <view style='width:33%;border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;margin-right:5rpx'>
+          <picker bindchange="bindPickerChange" value="{{addrInfo.districtInfo.index}}" range="{{addrInfo.districtInfo.district}}" range-key="{{'name'}}" bindchange='changeDistrict' name="district">
+            <view class="picker">
+              {{addrInfo.districtInfo.district[addrInfo.districtInfo.index].name}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class='addradd-view-4 align-r-center'>
+      <view>地址：</view>
+      <view style='flex:1'>
+        <input placeholder='门楼地址' name="address_house" value='{{myAddressInfo.addressHouse}}' style='border:1rpx solid #e4e5e4;border-radius:10rpx;padding:2rpx 8rpx;'></input>
+      </view>
+    </view>
+
+  </view>
+
+  <view class='addradd-view-9 flex-bottom  '>
+    <button class='align-center font-size-5' type="primary" style='width:100%' formType="submit">保存</button>
+  </view>
+   </form>
+</view>

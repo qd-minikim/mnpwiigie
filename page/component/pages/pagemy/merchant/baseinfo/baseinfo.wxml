@@ -1,0 +1,66 @@
+<!--page/component/pages/pagemy/merchant/baseinfo/baseinfo.wxml-->
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+
+  <view class='font-size-5' style='width:100%;'>
+
+    <view style='margin:5rpx 15rpx'>
+      <view class='view-row'>
+        <view class='view-row-title'>商户类型：</view>
+        <view>{{merchantBaseInfo.merchant_type_name}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>商户名称：</view>
+        <view>{{merchantBaseInfo.merchant_name}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>商户简称：</view>
+        <view>{{merchantBaseInfo.merchant_brand_name}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row align-r-center'>
+        <view class='view-row-title'>LOGO：</view>
+        <view><image catchtap='imageYl' data-src='{{rootUrl}}{{merchantBaseInfo.merchant_brand_logo}}' style='width:100rpx;height:100rpx' src='{{rootUrl}}{{merchantBaseInfo.merchant_brand_logo}}'></image></view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>正式邮箱：</view>
+        <view>{{merchantBaseInfo.contract_email}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>执照号码：</view>
+        <view>{{merchantBaseInfo.business_id}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row align-r-center'>
+        <view class='view-row-title'>营业执照：</view>
+        <view><image catchtap='imageYl' data-src='{{rootUrl}}{{merchantBaseInfo.business_id_img}}' style='width:100rpx;height:100rpx' src='{{rootUrl}}{{merchantBaseInfo.business_id_img}}'></image></view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>收款银行：</view>
+        <view>{{merchantBaseInfo.bank_name}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>支行名称：</view>
+        <view>{{merchantBaseInfo.bank_branch_name}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>银行账号：</view>
+        <view>{{merchantBaseInfo.bank_account_id}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+      <view class='view-row'>
+        <view class='view-row-title'>联系电话：</view>
+        <view>{{merchantBaseInfo.register_phone}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,409 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.0",
+	"appid": "wxa95ca6d0de960e0d",
+	"projectname": "mnpwiigie",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 57,
+			"list": [
+				{
+					"id": -1,
+					"name": "硬品",
+					"pathName": "pages/pagegoods/pagegoods",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "详情",
+					"pathName": "page/component/pages/pagexdd/pagexdd",
+					"query": "m=2d3789e782cbde91&r=1529296099516208"
+				},
+				{
+					"id": -1,
+					"name": "朋友说",
+					"pathName": "page/component/pages/pageopin/pageopin",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "对话",
+					"pathName": "page/component/pages/pagedialog/dialog/dialog",
+					"query": "type=1"
+				},
+				{
+					"id": 4,
+					"name": "送到礼品-succ",
+					"pathName": "page/component/pages/pagegift/giftgivesucc/giftgivesucc",
+					"query": "gr=1542941199005395",
+					"scene": "1011"
+				},
+				{
+					"id": 5,
+					"name": "收到礼品-succ",
+					"pathName": "page/component/pages/pagegift/giftreceivesucc/giftreceivesucc",
+					"query": "gr=1542942315777568",
+					"scene": "1011"
+				},
+				{
+					"id": 7,
+					"name": "地址列表",
+					"pathName": "page/component/pages/pageaddr/addrlist/addrlist",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "地址编辑",
+					"pathName": "page/component/pages/pageaddr/addradd/addradd",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "首页",
+					"pathName": "pages/pagehome/pagehome",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "欢迎页",
+					"pathName": "pages/pagewelcome/pagewelcome",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我送礼",
+					"pathName": "page/component/pages/pagegift/giftgivelist/giftgivelist",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "我送礼-详情",
+					"pathName": "page/component/pages/pagegift/giftdeta/giftdeta",
+					"query": "gr=1537842834692515"
+				},
+				{
+					"id": 13,
+					"name": "下单确认",
+					"pathName": "page/component/pages/pageorder/orderconfirm/orderconfirm",
+					"query": "gr=1537842834692515"
+				},
+				{
+					"id": -1,
+					"name": "送礼",
+					"pathName": "page/component/pages/pagegift/giftorder/giftorder",
+					"query": ""
+				},
+				{
+					"id": 15,
+					"name": "检索",
+					"pathName": "page/component/pages/pageserch/serchlist/serchlist",
+					"query": ""
+				},
+				{
+					"id": 16,
+					"name": "检索more",
+					"pathName": "page/component/pages/pageserch/serchmoref/serchmoref",
+					"query": "fu=1527673151198212&fn=冯冯段斌"
+				},
+				{
+					"id": 17,
+					"name": "我收礼-详情",
+					"pathName": "page/component/pages/pagegift/giftdetar/giftdetar",
+					"query": "gr=1534766566195646&t=1"
+				},
+				{
+					"id": 18,
+					"name": "账户余额",
+					"pathName": "page/component/pages/pagecount/counthome/counthome",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "账户提现",
+					"pathName": "page/component/pages/pagecount/countout/countout",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "page/component/pages/pagemy/myorder/myorder",
+					"query": ""
+				},
+				{
+					"id": 21,
+					"name": "运单跟踪",
+					"pathName": "page/component/pages/pagemy/waybill/waybill",
+					"query": "o=1534429920223631"
+				},
+				{
+					"id": 22,
+					"name": "评价晒单",
+					"pathName": "page/component/pages/pagemy/evaluate/evaladd/evaladd",
+					"query": "e=1530850601618515"
+				},
+				{
+					"id": -1,
+					"name": "评价中心",
+					"pathName": "page/component/pages/pagemy/evaluate/evallist/evallist",
+					"query": ""
+				},
+				{
+					"id": 24,
+					"name": "评价详情",
+					"pathName": "page/component/pages/pagemy/evaluate/evaldeta/evaldeta",
+					"query": "e=1530850601618515"
+				},
+				{
+					"id": 25,
+					"name": "添加配图",
+					"pathName": "page/component/pages/pagemy/evaluate/evalimge/evalimge",
+					"query": "e=1530850597742827"
+				},
+				{
+					"id": -1,
+					"name": "追加评论",
+					"pathName": "page/component/pages/pagemy/evaluate/evaladdm/evaladdm",
+					"query": "e=1530850597742827"
+				},
+				{
+					"id": -1,
+					"name": "售后申请",
+					"pathName": "page/component/pages/pagemy/customserv/servlist/servlist",
+					"query": ""
+				},
+				{
+					"id": 28,
+					"name": "服务单详情",
+					"pathName": "page/component/pages/pagemy/customserv/servdeta/servdeta",
+					"query": "s=1530855272400532"
+				},
+				{
+					"id": 29,
+					"name": "审核进度",
+					"pathName": "page/component/pages/pagemy/customserv/servjd/servjd",
+					"query": "s=1534483046682653"
+				},
+				{
+					"id": -1,
+					"name": "补充描述",
+					"pathName": "page/component/pages/pagemy/customserv/servaddm/servaddm",
+					"query": ""
+				},
+				{
+					"id": 31,
+					"name": "售后申请",
+					"pathName": "page/component/pages/pagemy/customserv/servadd/servadd",
+					"query": "o=1539954468803111"
+				},
+				{
+					"id": 32,
+					"name": "售后服务-回填地址",
+					"pathName": "page/component/pages/pagemy/customserv/servaddr/servaddr",
+					"query": "o=1534429920223639&s="
+				},
+				{
+					"id": 33,
+					"name": "分享状态设置",
+					"pathName": "page/component/pages/pagemy/friends/friendset/friendset",
+					"query": "f=1540177295455721"
+				},
+				{
+					"id": -1,
+					"name": "我的朋友",
+					"pathName": "page/component/pages/pagemy/friends/myfriends/myfriends",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "page/component/pages/pagemy/keeps/keeps",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的足迹",
+					"pathName": "page/component/pages/pagemy/myhelps/myhelps",
+					"query": ""
+				},
+				{
+					"id": 37,
+					"name": "手机绑定",
+					"pathName": "page/component/pages/pagebing/pagebing",
+					"query": ""
+				},
+				{
+					"id": 38,
+					"name": "对话列表",
+					"pathName": "page/component/pages/pagedialog/dialoglist/dialoglist",
+					"query": "r="
+				},
+				{
+					"id": 39,
+					"name": "我收的礼-list",
+					"pathName": "page/component/pages/pagegift/giftreceivelist/giftreceivelist",
+					"query": ""
+				},
+				{
+					"id": 40,
+					"name": "补库存",
+					"pathName": "page/component/pages/pagespu/storage/storage",
+					"query": "spuid=1529215126697316"
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "page/component/pages/pageorder/orderdetail/orderdetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "订单取消",
+					"pathName": "page/component/pages/pageorder/ordercancel/ordercancel",
+					"query": "o="
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/pagemy/pagemy",
+					"query": ""
+				},
+				{
+					"id": 44,
+					"name": "商户信息",
+					"pathName": "page/component/pages/pagemy/merchant/baseinfo/baseinfo",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 45,
+					"name": "粉丝互动",
+					"pathName": "page/component/pages/pagemy/merchant/benefactor/benefactor",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 46,
+					"name": "推广管理",
+					"pathName": "page/component/pages/pagemy/merchant/promotion/promotion",
+					"query": "pu=1528954092075715"
+				},
+				{
+					"id": 47,
+					"name": "发起活动",
+					"pathName": "page/component/pages/pagemy/merchant/fqrequirement/fqrequirement",
+					"query": "pro=1533264330832852&rid=1542102251017843"
+				},
+				{
+					"id": 48,
+					"name": "订单处理",
+					"pathName": "page/component/pages/pagemy/merchant/orderhandle/orderhandle",
+					"query": "pu=1528959768474228"
+				},
+				{
+					"id": -1,
+					"name": "检索快递公司",
+					"pathName": "page/component/pages/pagemy/selcarrier/selcarrier",
+					"query": ""
+				},
+				{
+					"id": 50,
+					"name": "某一文案的订单",
+					"pathName": "page/component/pages/pagemy/merchant/orderpromotion/orderpromotion",
+					"query": "pu=&p="
+				},
+				{
+					"id": -1,
+					"name": "文案发布二维码扫码",
+					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
+					"query": "p=234234234423",
+					"scene": "1047"
+				},
+				{
+					"id": 51,
+					"name": "文案发布二维码扫码",
+					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
+					"query": "scene=1543986182910543",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "通知概要",
+					"pathName": "page/component/pages/pageinform/notice/summarypage/summarypage",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": 53,
+					"name": "收到礼品-三大按钮",
+					"pathName": "page/component/pages/pagegift/giftreceive/giftreceive",
+					"query": "gr=1534212656312139&fu=1527673151198212",
+					"scene": "1011"
+				},
+				{
+					"id": 54,
+					"name": "送礼小程序卡片",
+					"pathName": "page/component/pages/pagegift/giftinform/giftinform",
+					"query": "gr=1543246754565826&fu=1528869953018820",
+					"scene": "1036",
+					"referrerInfo": {
+						"appId": "wx1718994f5d471b54"
+					}
+				},
+				{
+					"id": 55,
+					"name": "礼品已被抢先一步",
+					"pathName": "page/component/pages/pagegift/giftreceivefail/giftreceivefail",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": 56,
+					"name": "通知明细",
+					"pathName": "page/component/pages/pageinform/notice/detailpage/detailpage",
+					"query": "ns=1111&nt=下单类型",
+					"scene": "1036",
+					"referrerInfo": {
+						"appId": "wx1718994f5d471b54"
+					}
+				},
+				{
+					"id": -1,
+					"name": "详情页-新demp页",
+					"pathName": "page/component/pages/test/testpagexdd/testpagexdd",
+					"query": "",
+					"scene": "1011"
+				}
+			]
+		}
+	}
+}

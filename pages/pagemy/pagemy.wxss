@@ -1,0 +1,69 @@
+/* pages/pagemy/pagemy.wxss */
+
+
+.pagemy-view-1{
+
+flex-direction: row;
+display: flex;
+margin: 5rpx 10rpx;
+
+}
+
+.pagemy-view-1-1-image{
+
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+.pagemy-view-1-2{
+flex-direction: column;
+flex: 1;
+margin: 5rpx 10rpx;
+}
+.pagemy-view-1-3{
+flex-direction: column;
+flex: 1;
+margin: 5rpx 10rpx;
+}
+
+
+.pagemy-view-2{
+
+flex-direction: row;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+.pagemy-view-3{
+
+flex-direction: row;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+.pagemy-view-4{
+
+flex-direction: row;
+display: flex;
+margin: 5rpx 20rpx;
+
+}
+
+.pagemy-view-figure{
+
+  width: 40rpx;
+  height: 40rpx
+}
+.pagemy-view-figure-35{
+
+  width: 52rpx;
+  height: 40rpx
+}
+ 
+ .pagemy-view-5{
+
+flex-direction: row;
+display: flex;
+margin: 5rpx 20rpx;
+
+}

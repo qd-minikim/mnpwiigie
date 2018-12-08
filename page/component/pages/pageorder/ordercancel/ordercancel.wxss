@@ -1,0 +1,45 @@
+/* page/component/pages/pageorder/ordercancel/ordercancel.wxss */
+
+.oc-view-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.oc-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 10rpx 15rpx;
+}
+
+.oc-view-2-2 {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  margin-left: 10rpx;
+}
+
+.oc-view-2-2-2 {
+  flex-direction: row;
+  display: flex;
+}
+
+.oc-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+
+.oc-view-4 {
+  flex-direction: column;
+  display: flex;
+  margin: 5rpx 15rpx;
+}
+.oc-view-4-label{
+
+   
+}
+
+radio{
+  transform:scale(0.6);
+}

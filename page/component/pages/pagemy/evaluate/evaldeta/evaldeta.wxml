@@ -1,0 +1,88 @@
+<!--page/component/pages/pagemy/evaluate/evaldeta/evaldeta.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <scroll-view style='height:{{scrollHeight}}px' scroll-top="{{scrollTop}}" scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+    <view class='evaldeta-view-1'>
+      <view class='evaldeta-view-1-1 align-center'>
+        <view>
+          <image class='evaldeta-view-1-1-image' src='/image/head-test.jpg'></image>
+        </view>
+        <view class='font-size-5' style='margin-left:5rpx;flex:1'>{{evalInfo.ennickname}}</view>
+        <view class='font-size-5 font-color-4'>{{evalInfo.datetime}}</view>
+      </view>
+      <view>
+        <block wx:for="{{stars}}">
+          <image class="star-image" style="left: 5rpx" src="{{key > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+
+          </image>
+        </block>
+
+      </view>
+      <view>
+
+
+      </view>
+
+    </view>
+
+
+    <!-- evaldeta-view-2 -->
+    <view class='evaldeta-view-2'>
+      <block wx:for="{{evalInfo.evaluationevaluationcontentinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <block wx:if="{{index !=0}}">
+          <view style='margin: 5rpx 15rpx;flex-direction:row;display:flex'>
+            <view class='font-size-7 font-color-7' style='flex:1;text-align:left'>{{item.commont_type_des}}</view>
+            <view class='font-size-7 font-color-4' style='flex:1;text-align:right'>{{item.commont_datetime}}</view>
+          </view>
+
+        </block>
+        <view class='font-size-6 ' style='margin: 5rpx 15rpx;flex-direction:row;display:flex'>
+          {{item.commont_content_des}}
+        </view>
+
+        <view style='margin: 5rpx 15rpx;flex-direction: row; display: flex; flex-wrap: wrap'>
+          <block wx:if="{{item.evaluation_imgs}}">
+            <block wx:for="{{item.evaluation_imgs}}" wx:for-index="indexC" wx:for-item="itemC" wx:key="*this">
+              <view style='width:{{picsize}}px;height:{{picsize}}px'>
+                <image style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{itemC.relativeurl}}' catchtap='imageYl' data-src='{{itemC.relativeurl}}'  data-list='{{item.evaluation_imgs}}'></image>
+              </view>
+            </block>
+          </block>
+        </view>
+      </block>
+
+    </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='evaldeta-view-3'>
+
+      <view class='font-size-7 font-color-4' style='  margin: 5rpx 15rpx;'>{{evalDiscussCounts}}条评论</view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+ 
+      <block wx:for="{{evalDiscuss}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+         <view wx:if="{{index !=0}}" class="gap-line" style="flex-direction:column;"></view>
+        <view style='  margin: 5rpx 15rpx;'>
+
+          <view class='align-center' style='flex-direction:row;display:flex'>
+            <view style='width:80rpx;height:80rpx'>
+              <image style='width:80rpx;height:80rpx; border-radius: 50rpx' src='{{item.image_url}}'></image>
+            </view>
+            <view class='font-size-6' style='margin-left:5rpx;flex:1'>{{item.ennickname}}</view>
+            <view class='font-size-6 font-color-4'>{{item.timeinterval}}</view>
+          </view>
+          <view class='font-size-6'>{{item.discuss_content}}</view>
+        </view>
+      </block>
+
+
+    </view>
+  </scroll-view>
+
+  <view class='evaldeta-view-5 flex-bottom align-center'>
+    <view class='evaldeta-view-5-1 align-r-center '>
+      <input bindinput="bindKeyInput" maxlength='200' class='evaldeta-view-5-1-input' placeholder='发送信息' value='{{inputValue}}'></input>
+      <button class='evaldeta-view-5-1-button' catchtap="sendDiscuss">发送</button>
+    </view>
+
+  </view>
+</view>

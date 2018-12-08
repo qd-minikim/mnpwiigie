@@ -1,0 +1,84 @@
+<!--page/component/pages/pagemy/merchant/orderhandle/orderhandle.wxml-->
+<import src="../../../../../../page/common/pages/pagemy/pagemy.wxml" />
+<!-- 录入快递单 logistics_status=='0'-->
+<view class="view-modal {{viewModal.addLogistics.addLogisticsShow?'view-modal-show':'view-modal-hide'}}">
+  <view class='view-modal-content'>
+
+    <view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+
+      <view class='font-size-6' style='margin-left:10rpx;flex:1'>发货信息录入</view>
+      <view class='align-right' style="margin-right:10rpx;" bindtap='closeLogistics'>
+        <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
+      </view>
+    </view>
+
+    <view class='font-size-6' style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <view style='flex-direction:row;display:flex;margin:5rpx 0'>
+        <view class='align-r-center'>需求标题：</view>
+        <view style='flex:1;'>{{viewModal.addLogistics.requirementTitle}}</view>
+      </view>
+      <view style='flex-direction:row;display:flex;margin:10rpx 0'>
+        <view style='flex-direction:row;display:flex'>
+          <view style='letter-spacing:0.5em;'>收货</view>
+          <view>人：</view>
+        </view>
+        <view class='view-ellipsis-1'>{{viewModal.addLogistics.orderUsername}}</view>
+        <view style='margin-left:20rpx'>{{viewModal.addLogistics.mobilePhone}}</view>
+      </view>
+      <view style='flex-direction:row;display:flex;margin:10rpx 0'>
+        <view class='align-r-center'>收货地址：</view>
+        <view style='flex:1;'>{{viewModal.addLogistics.orderAddr}}</view>
+      </view>
+      <view class='gap-line' style='flex-direction:row;display:flex'></view>
+      <view style='flex-direction:row;display:flex;margin:10rpx 0'>
+        <view class='align-r-center'>快递单号：</view>
+        <view style='flex:1;'>
+          <input class='font-size-6' placeholder='快递单号' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputLogisticsNo' type='text' maxlength='32' value='{{viewModal.addLogistics.carrierNo}}'></input>
+        </view>
+      </view>
+      <view style='flex-direction:row;display:flex;margin:5rpx 0'>
+        <view class='align-r-center'>快递公司：</view>
+        <view style='flex:1;'>
+          <input class='font-size-6' placeholder='快递公司' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' catchtap='selectCarrier' type='text' disabled='true' value='{{viewModal.addLogistics.carrierName}}'></input>
+        </view>
+      </view>
+    </view>
+
+
+    <view style='flex-direction:row;display:flex;margin:5rpx;'>
+      <button class='font-size-5  align-center' type="warn" catchtap='addLogisticsNo' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>确定</button>
+      <button class='font-size-5 align-center' type="default" catchtap='closeLogistics' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>取消</button>
+    </view>
+
+  </view>
+
+</view>
+
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class="myoh-view-1">
+    <view class="myoh-view-1-1 {{currentTab==0 ? 'tab-on' : ''}}" data-current="0" bindtap="swichNav">待处理</view>
+    <view class="myoh-view-1-1 {{currentTab==1 ? 'tab-on' : ''}}" data-current="1" bindtap="swichNav">已处理</view>
+
+  </view>
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{swiperHeight}}" bindchange="bindChange">
+    <!-- 待处理-->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+        <template is="dclorders" data="{{dclArray,dclsearched}}" />
+      </scroll-view>
+    </swiper-item>
+    <!-- 已处理 -->
+    <swiper-item>
+      <scroll-view style='height:100%' scroll-y='true' scroll-into-view="target" scroll-with-animation="false" bindscroll="scroll" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+        <template is="yclorders" data="{{yclArray,yclsearched}}" />
+      </scroll-view>
+    </swiper-item>
+
+
+  </swiper>
+
+
+</view>

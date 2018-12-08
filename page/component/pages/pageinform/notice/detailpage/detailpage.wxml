@@ -1,0 +1,60 @@
+<!--page/component/pages/pageinform/notice/detailpage/detailpage.wxml-->
+
+<view class='container bg-18' style='min-height:{{minheight}}px;flex-direction:column;display:flex; '>
+  <view style='width:100%'>
+
+    <block wx:for="{{notices}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+      <block wx:if="{{index>0}}">
+        <view class='gap-bg' style=' height: 30rpx;'></view>
+      </block>
+
+      <view class='align-center'>
+        <view class='font-size-8 bg-19 font-color-2 ' style='padding:2rpx 6rpx;border-radius:10rpx'>{{item.notice_time}}</view>
+      </view>
+
+      <view class="bg-2 {{item.is_read=='1'?'font-color-4':''}}" style='flex-direction:column;display:flex;margin:5rpx 35rpx;border:1rpx solid #cfcfcf;border-radius:10rpx;padding:10rpx 15rpx;'   data-noticeid='{{item.id}}' data-index='{{index}}'  
+      
+      bindtap='noticeDetail' bindlongtap='deleteNotice' bindtouchstart="touchStart" bindtouchend="touchEnd"
+      
+       data-pagepath='{{item.page_path}}'>
+        <view class='font-size-6' style='flex-direction:column;display:flex;'>
+          <view>
+            <text>{{item.first_content}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.keyword1_content&&item.keyword1_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword1_name}}：{{item.keyword1_content}}</view>
+        </view>
+        <view wx:if="{{item.keyword2_content&&item.keyword2_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword2_name}}：{{item.keyword2_content}}</view>
+        </view>
+        <view wx:if="{{item.keyword3_content&&item.keyword3_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword3_name}}：{{item.keyword3_content}}</view>
+        </view>
+        <view wx:if="{{item.keyword4_content&&item.keyword4_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword4_name}}：{{item.keyword4_content}}</view>
+        </view>
+        <view wx:if="{{item.keyword5_content&&item.keyword5_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword5_name}}：{{item.keyword5_content}}</view>
+        </view>
+        <view wx:if="{{item.keyword6_content&&item.keyword6_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>{{item.keyword6_name}}：{{item.keyword6_content}}</view>
+        </view>
+
+        <view wx:if="{{item.remark_content&&item.remark_content !=''}}" style='flex-direction:column;display:flex;'>
+          <view class='font-size-6'>
+            <text>{{item.remark_content}}</text>
+          </view>
+        </view>
+
+      </view>
+
+    </block>
+    <block wx:if="{{selected && notices.length==0}}">
+      <view class='ordergift-view align-center font-size-6'>
+        没有通知
+      </view>
+    </block>
+  </view>
+
+</view>

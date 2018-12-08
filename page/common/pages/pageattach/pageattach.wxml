@@ -1,0 +1,22 @@
+<!--page/common/pages/pageattach/pageattach.wxml-->
+<template name="pageattach">
+  <view class='container ' style='flex-direction:row;display:flex;margin-top:20rpx '>
+    
+    <view catchtap='photos' data-sourcetype='album' class='align-center' style='flex-direction:column;border-radius: 10%; border:1px solid #999797;width:{{panelPage.maskPanWidth/4*0.9}}px;height:{{panelPage.maskPanWidth/4*0.9}}px'>
+      <image style='width:{{panelPage.maskPanWidth/4*0.7}}px;height:{{panelPage.maskPanWidth/4*0.7}}px' src='/image/figure_21.png'></image>
+      <text style='text-align:center'>相册</text>
+    </view>
+    <view catchtap='photos' data-sourcetype='camera' class='align-center' style='flex-direction:column;border-radius: 10%; border:1px solid #999797;width:{{panelPage.maskPanWidth/4*0.9}}px;height:{{panelPage.maskPanWidth/4*0.9}}px'>
+      <image style='width:{{panelPage.maskPanWidth/4*0.7}}px;height:{{panelPage.maskPanWidth/4*0.7}}px' src='/image/figure_22.png'></image>
+      <text style='text-align:center'>相机</text>
+    </view>
+    <view style='width:{{panelPage.maskPanWidth/4*0.9}}px;height:{{panelPage.maskPanWidth/4*0.9}}px'>
+
+    </view>
+    <view style='width:{{panelPage.maskPanWidth/4*0.9}}px;height:{{panelPage.maskPanWidth/4*0.9}}px'>
+
+    </view>
+
+    </view>
+  
+</template>

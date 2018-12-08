@@ -1,0 +1,33 @@
+<!--page/component/pages/pagemy/friends/friendset/friendset.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+
+  <view class='view-1'>
+    <view class='view-1-1'>
+      <view class='view-1-1-1 align-center'>
+        <view class='font-size-5' style='flex:1'> 不让{{initFriendInfo.sex_des}}看我的好友动态</view>
+        <view>
+          <switch bindchange="uppFriendSet" checked="{{initFriendInfo.close_own =='1'?'true':''}}" data-lx='closeown' />
+        </view>
+      </view>
+      <view class='font-size-6 font-color-4'>
+        打开后，你的好友动态，对方将无法看到
+      </view>
+    </view>
+  </view>
+  <view class="gap-line" style="flex-direction:column;"></view>
+
+  <view class='view-1'>
+    <view class='view-1-1'>
+      <view class='view-1-1-1 align-center'>
+        <view class='font-size-5' style='flex:1'>不看{{initFriendInfo.sex_des}}的好友动态</view>
+        <view>
+          <switch bindchange="uppFriendSet" checked="{{initFriendInfo.close_friend =='1'?'true':''}}" data-lx='closefriend' />
+        </view>
+      </view>
+      <view class='font-size-6 font-color-4'>
+        打开后，对方的好友动态，你将无法看到
+      </view>
+    </view>
+  </view>
+</view>

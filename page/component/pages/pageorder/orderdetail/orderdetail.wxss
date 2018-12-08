@@ -1,0 +1,57 @@
+/* page/component/pages/pageorder/orderdetail/orderdetail.wxss */
+
+
+.od_view-1 {
+  flex-direction: row;
+  display: flex;
+  margin:10rpx 15rpx;
+
+}
+
+.od_view-1-1 {
+  height: 45rpx;
+  width: 8rpx;
+  background-color: #5da3d9;
+}
+
+.od_view-1-2 {
+  white-space: nowrap;
+   flex: 1
+}
+
+
+.od_view-2 {
+   
+}
+
+.od_view-2-1 {
+     flex-direction: row;
+  display: flex;
+
+  margin:10rpx 0;
+}
+ .od_view-2-1-figure {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+
+.bottom-v {
+  flex-direction: row;
+  display: flex;
+  border-top: 1px solid #e4e5e4;
+}
+
+.bottom-view-1-image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.bottom-view-1 {
+  height: 40rpx;
+}
+
+.bottom-view {
+  display: flex;
+  flex-direction: column;
+}

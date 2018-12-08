@@ -1,0 +1,69 @@
+<!--page/component/pages/pageopin/opinadd/opinadd.wxml-->
+<!-- 朋友说 -->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view class='view-0'>
+
+
+    <view class='view-1 font-size-5'>我表态</view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='view-2' style='display:flex;flex-direction:row; '>
+
+      <block wx:for="{{initOpinion.configcodeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view catchtap='selectCode' class="{{choosecode==item.code?'view-2-1-select':''}} view-2-1 font-size-6" data-code='{{item.code}}'>{{item.codeName}}</view>
+
+      </block>
+
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='view-3' style='display:flex;flex-direction:row; '>
+      <view class='view-3-1'>
+        <image class='view-3-1-image' src='{{initOpinion.image_url}}'></image>
+      </view>
+      <view class='view-3-2 font-size-7 ' style=''>
+
+        <view class='font-size-7 view-ellipsis-2' style='width:100%'>{{initOpinion.title}}</view>
+        <view></view>
+      </view>
+
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='view-4 '>
+      <view class='view-4-1 font-size-5'>
+        <view>描述</view>
+        <view class='font-size-6 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
+      </view>
+      <view class='view-4-2 font-size-4 align-center' style='margin:2rpx 15rpx'>
+        <textarea class='view-4-2-textarea font-size-6' placeholder='输入描述信息' placeholder-style=' ' placeholder-class='font-size-6' maxlength='200' bindinput='bindWordLimit' style='width:100%'></textarea>
+      </view>
+
+    </view>
+
+    <view class='view-5'>
+      <block wx:for="{{pics}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+        <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+          <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='{{item}}' bindtap='selectImage' bindlongtap='deleimage' bindtouchstart="touchStart" bindtouchend="touchEnd" data-index="{{index}}"></image>
+
+        </view>
+      </block>
+
+      <view class='align-center' style='width:{{picsize}}px;height:{{picsize}}px'>
+        <image class='view-5-figure' style='width:{{picsize-3}}px;height:{{picsize-3}}px' src='/image/figure_21.png' data-index="-1" catchtap='selectImage'></image>
+      </view>
+
+
+
+    </view>
+
+
+
+
+  </view>
+
+  <view class='flex-bottom  '>
+
+    <button class='font-size-5 align-center' type="primary" catchtap='addopinion' style='width:100%'>提交</button>
+  </view>
+</view>

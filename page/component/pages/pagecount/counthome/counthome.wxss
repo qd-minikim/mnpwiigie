@@ -1,0 +1,53 @@
+/* page/component/pages/pagecount/counthome/counthome.wxss */
+@import "/page/common/pages/pagetabbar/pagetabbar.wxss";
+ 
+.counthome-view-0{
+
+flex-direction: column;
+display: flex;
+ padding:30rpx 0;
+
+
+}
+.counthome-view-0-1{
+
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 50%;
+  background: #ffffff
+}
+.counthome-view-0-1-image{
+
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+.counthome-view-0-2{
+flex-direction: column;
+flex: 1;
+margin: 5rpx 10rpx;
+}
+ 
+
+.counthome-view-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+
+.counthome-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+.counthome-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+
+.counthome-view-figure{
+
+  width: 40rpx;
+  height: 40rpx
+}

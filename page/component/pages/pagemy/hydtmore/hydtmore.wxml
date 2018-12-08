@@ -1,0 +1,14 @@
+<!--page/component/pages/pagemy/hydtmore/hydtmore.wxml-->
+
+<import src="../../../../common/pages/pagehydt/pagehydt.wxml" />
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view style='margin:5rpx 15rpx;'>
+
+    <block wx:if="{{home5Array.length>0}}">
+      <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
+    </block>
+
+
+  </view>
+
+</view>

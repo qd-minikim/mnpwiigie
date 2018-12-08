@@ -1,0 +1,15 @@
+<!--page/component/pages/pagegift/giftinform/giftinform.wxml-->
+ 
+<view class='container v-bgimage ' style='height:{{windowHeight}}px;position:relative;flex-direction:column;display:flex; '>
+ <block wx:if="{{checkStatus.isOrder != ''}}">
+    <view style='flex-direction:column;display:flex;position:absolute;top:30%'>
+      <view class='font-size-2' style='text-align:center;'>{{checkStatus.welcomeMsg}}</view>
+
+      <view class='font-size-7 align-center' style='flex-direction:row;display:flex;;margin-top:50rpx '>
+        <view style='text-align:center;'>{{checkStatus.downtimes}}秒跳转</view>
+
+      </view>
+
+    </view>
+ </block>
+</view>

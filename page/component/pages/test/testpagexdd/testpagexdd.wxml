@@ -1,0 +1,265 @@
+<!--page/component/pages/test/testpagexdd/testpagexdd.wxml--> 
+<view class="container" style="flex-direction:column;position:relative"> 
+  <view class='align-center font-size-5' style='flex-direction:row;display:flex;position:absolute;z-index:999;width:100% '> 
+    <view   
+     style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;border-bottom-left-radius:10rpx;border-top-left-radius:10rpx; '>方案</view> 
+    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;'>详情</view> 
+    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;'>链团</view> 
+    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;border-bottom-right-radius:10rpx;border-top-right-radius:10rpx; '>朋友说</view> 
+  </view> 
+ 
+  <view style=''> 
+ 
+    <swiper indicator-dots="false" autoplay="true" interval="5000" duration="1000" display-multiple-items='1' circular='true' style='width:{{swiperWidth}};height:{{swiperHeight}}'> 
+      <block wx:for="{{viewData2}}" wx:key="*this"> 
+        <swiper-item> 
+          <image style='width:{{swiperWidth}};height:{{swiperHeight}}' src="{{item}}"></image> 
+ 
+        </swiper-item> 
+      </block> 
+    </swiper> 
+ 
+  </view> 
+  <view style='margin:5rpx 15rpx'> 
+    <view style='flex-direction:row;display:flex   '> 
+      <view class='font-color-4' style='margin-right:20rpx'>￥100.00</view> 
+ 
+      <view class='align-r-center' style='flex:1 ;flex-direction:row;display:flex '> 
+        <view class='align-center font-color-7 font-size-6'>￥90.00</view> 
+        <view class='align-center bg-6 font-color-2 font-size-8' style='border-radius:10rpx;   '>当前链团价</view> 
+        <view class='align-center bg-4  font-size-8' style='border-radius:50%; width:30rpx  '>i</view> 
+      </view> 
+      <view class='align-center'> 
+        <image style='width:40rpx;height:40rpx' src='/image/keep_off.png'></image> 
+      </view> 
+    </view> 
+  </view> 
+  <view style='margin:5rpx 15rpx'> 
+    <view style=''> 
+      <swiper indicator-dots="false" indicator-color="#fff" indicator-active-color='#fff' autoplay="true" vertical="true" interval="3500" duration="500" style="height:40rpx" circular='true' display-multiple-items='1'> 
+        <block wx:for="{{viewData1}}" wx:key="*this"> 
+          <swiper-item> 
+            <view class='font-size-7 font-color-4'>{{item}}</view> 
+          </swiper-item> 
+        </block> 
+      </swiper> 
+    </view> 
+  </view> 
+  <view style='margin:5rpx 15rpx'> 
+    <view style='flex-direction:row;display:flex   '> 
+ 
+      <view class=' font-size-5' style='line-height:29rpx'> 
+        <text class=' bg-6 font-color-2 font-size-8' style='border-radius:10rpx;margin:4rpx 0rpx'>严选</text> 
+        <text class='font-size-5'>各种飞机模型,礼品模型，活动用机，（各型号只定做，没有现货）</text> 
+      </view> 
+    </view> 
+  </view> 
+  <view class='gap-bg'></view> 
+ 
+ 
+  <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '> 
+    <view style=';flex-direction:row;display:flex'> 
+      <view class='bg-6 font-color-2 font-size-5' style='border-radius:10rpx;;padding:2rpx 20rpx'>方案</view> 
+      <view style='flex:1'></view> 
+    </view> 
+    <view style='margin-left:30rpx'> 
+ 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>链购方案:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+      <view class='align-r-center font-size-7 font-color-11' style=';flex-direction:row;display:flex'> 
+        <view class='align-center ' style='flex:1'>链团份数(份)</view> 
+        <view class='align-center  ' style='flex:1'>链团折扣</view> 
+      </view> 
+      <view class='align-r-center font-size-7 font-color-11' style=';flex-direction:row;display:flex'> 
+        <view class='align-center ' style='flex:1'>1-1</view> 
+        <view class='align-center  ' style='flex:1'>无折扣</view> 
+      </view> 
+      <view class='align-r-center font-size-7 font-color-11' style=';flex-direction:row;display:flex'> 
+        <view class='align-center ' style='flex:1'>2-10</view> 
+        <view class='align-center  ' style='flex:1'>95折</view> 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>推广方案:</view> 
+        <view style='flex:1'>￥1.00/受众</view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>落单方案:</view> 
+        <view style='flex:1'>1.00%</view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+    </view> 
+  </view> 
+ 
+  <view class='gap-bg'></view> 
+  <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '> 
+    <view style=';flex-direction:row;display:flex'> 
+      <view class='bg-6 font-color-2 font-size-5' style='border-radius:10rpx;;padding:2rpx 20rpx'>详情</view> 
+      <view style='flex:1'></view> 
+    </view> 
+    <view style='margin-left:30rpx'> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>详情描述:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+ 
+        </view> 
+      </view> 
+      <view class='font-size-7'> 
+        此醒酒器可以使红酒充分挥发其香醇口感。红酒倒入时经不锈钢漏孔，会流过大面积的圆形瓶内壁，使红酒与空气充分氧化，口感更佳 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>商品参数:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+ 
+        </view> 
+      </view> 
+      <view class='font-size-7'> 
+        此醒酒器可以使红酒充分挥发其香醇口感。红酒倒入时经不锈钢漏孔，会流过大面积的圆形瓶内壁，使红酒与空气充分氧化，口感更佳 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>商品鉴赏:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+ 
+        </view> 
+      </view> 
+      <view class='font-size-7'> 
+        <view> 
+          <image style='width:100%' src='/image/goods_test1.jpg'></image> 
+        </view> 
+        <view> 
+          <image style='width:100%' src='/image/goods_test2.jpg'></image> 
+        </view> 
+      </view> 
+ 
+    </view> 
+  </view> 
+ 
+  <view class='gap-bg'></view> 
+ 
+  <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '> 
+    <view style=';flex-direction:row;display:flex'> 
+      <view class='bg-6 font-color-2 font-size-5' style='border-radius:10rpx;padding:2rpx 20rpx'>链团</view> 
+      <view style='flex:1'></view> 
+    </view> 
+    <view style='margin-left:30rpx'> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>我的折扣:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+      <view style='margin-bottom:10rpx'> 
+        <view class='view-9' style=';border :1px solid  #ff8400;'> 
+          <view style=';flex-direction:row;display:flex'> 
+ 
+            <view class='font-size-6 ' style='flex:1;text-align:center'>我的份数/订单数/链团份数</view> 
+            <view class='font-size-6' style='flex:1;text-align:center'>当前折扣/当前返款额(元)</view> 
+          </view> 
+          <view style=';flex-direction:row;display:flex'> 
+ 
+            <view class='font-size-6 ' style='flex:1;text-align:center'>8/8/72</view> 
+            <view class='font-size-6' style='flex:1;text-align:center'>85折/0.43</view> 
+          </view> 
+        </view> 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>我的链团:</view> 
+        <view style='flex:1'></view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+      <view> 
+        <image style='' src='/image/road_test1.jpg'></image> 
+      </view> 
+      <view class='gap-line'></view> 
+      <view class='font-size-7' style=';flex-direction:row;display:flex'> 
+        <view>其他链团:</view> 
+        <view style='flex:1'>其他链团好友（8份/4人）</view> 
+        <view class='align-center'> 
+          <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image> 
+        </view> 
+      </view> 
+      <view> 
+        <image style='height:100rpx' src='/image/road_test2.jpg'></image> 
+      </view> 
+    </view> 
+  </view> 
+ 
+ 
+  <view class='gap-bg'></view> 
+  <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '> 
+    <view style=';flex-direction:row;display:flex'> 
+      <view class='bg-6 font-color-2 font-size-5' style='border-radius:10rpx;;padding:2rpx 20rpx'>朋友说</view> 
+      <view style='flex:1'></view> 
+    </view> 
+    <view style='margin-left:30rpx'> 
+ 
+ 
+      <view class='pageopins-view-8-2-1' style=' display: flex;flex-direction: column;width:100%;'> 
+        <view class='pageopins-view-8-2-1-1 align-r-center' style='margin:2rpx 10rpx;display: flex;flex-direction: row;'> 
+          <view class='pageopins-view-8-2-1-1-1'> 
+            <image class='' style=' border-radius: 50%;width:80rpx;height:80rpx' src='/image/head-test.jpg'></image> 
+          </view> 
+          <view class='pageopins-view-8-2-1-1-2' style='flex:1'> 
+            <view class='font-size-6'>微波</view> 
+            <view class='font-size-7'>2018-11-06 23:27:04</view> 
+          </view> 
+          <view class='pageopins-view-8-2-1-1-3 font-size-6'>推荐</view> 
+        </view> 
+        <view class='font-size-6' style='margin:2rpx 10rpx;'>类型多，发货快，质量好</view> 
+        <!-- 图片 --> 
+ 
+        <view class='pageopins-view-8-2-1-3' style='  margin: 5rpx 15rpx;flex-direction: row;display: flex;flex-wrap: wrap'> 
+ 
+          <view class='align-center' style='width:50px;height:50px'> 
+            <image class='evaladd-view-0-3-figure' style='width:47px;height:47px' src='/image/goods_test2.jpg'></image> 
+ 
+          </view> 
+          <view class='align-center' style='width:50px;height:50px'> 
+            <image class='evaladd-view-0-3-figure' style='width:47px;height:47px' src='/image/goods_test2.jpg'></image> 
+ 
+          </view> 
+ 
+        </view> 
+ 
+      </view> 
+ 
+ 
+    </view> 
+  </view> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <view> 
+ 
+  </view> 
+  <view></view> 
+ 
+</view>
+ 

@@ -1,0 +1,21 @@
+<!--page/component/pages/pagemy/keeps/keeps.wxml-->
+<import src="../../../../../page/common/pages/pagemy/pagemy.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view style='width:100%'>
+
+    <block wx:if="{{searched}}">
+      <block wx:if="{{allRows >0}}">
+        <scroll-view style='margin:1rpx 15rpx'>
+          <template is="keeps" data="{{keepsInfo}}" />
+
+        </scroll-view>
+
+      </block>
+      <block wx:else>
+        <view class='font-size-6 align-center' style='margin:1rpx 15rpx'>还没有数据</view>
+      </block>
+    </block>
+  </view>
+
+</view>

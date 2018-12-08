@@ -1,0 +1,67 @@
+<!--page/component/pages/pagecount/counthome/counthome.wxml-->
+
+<import src="/page/common/pages/pagetabbar/pagetabbar.wxml" />
+
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container' bindtap='cancleattach'>
+
+
+  <view class='counthome-view-0 align-center bg-9'>
+
+
+    <view class='counthome-view-0-2 align-c-center'>
+      <view class='font-size-5' style='text-align:center'>{{userInfo.nickname}}</view>
+      <view class='font-size-7' style='text-align:center'>行为积分：{{creditInfo.actionPoint?creditInfo.actionPoint:0}}</view>
+    </view>
+    <view class='counthome-view-0-1 align-center'>
+
+      <image class='counthome-view-0-1-image' src='{{userInfo.imageUrl}}'></image>
+
+
+    </view>
+
+  </view>
+
+  <view class='counthome-view-1 align-r-center font_color_4'>
+    <view style='margin-right:20rpx'>
+      <image src='/image/figure_110.png' class='counthome-view-figure'></image>
+    </view>
+    <view class='font-size-4'>账户余额：</view>
+    <view class='font-size-4' style='flex:1;text-align:right'>￥{{filters.toFix(accountInfo.account_amount?accountInfo.account_amount*1:0,2)}}</view>
+    <view class='align-r-center'>
+      <image src='/image/arrow_right_1.png' class='counthome-view-figure'></image>
+    </view>
+  </view>
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class='counthome-view-2 align-r-center font_color_4'>
+    <view style='margin-right:20rpx'>
+      <image src='/image/figure_111.png' class='counthome-view-figure'></image>
+    </view>
+    <view class='font-size-4'>预付款项：</view>
+    <view class='font-size-4' style='flex:1;text-align:right'>￥{{filters.toFix(accountInfo.fromzen?accountInfo.fromzen*1:0,2)}}</view>
+    <view class='align-r-center'>
+      <image src='/image/arrow_right_1.png' class='counthome-view-figure'></image>
+    </view>
+  </view>
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view class='counthome-view-3 align-r-center font_color_4'>
+    <view style='margin-right:20rpx'>
+      <image src='/image/figure_112.png' class='counthome-view-figure'></image>
+    </view>
+    <view class='font-size-4 align-r-center' style="flex-direction:row;display:flex"><view>可用余额 </view><view class='font_color_8 font-size-4' catchtap='countoutPage'>(去提现)</view>  ：</view>
+    <view class='font-size-4' style='flex:1;text-align:right'>￥{{filters.toFix(accountInfo.available_amount?accountInfo.available_amount*1:0,2)}}</view>
+    <view class='align-r-center'>
+      <image src='/image/arrow_right_1.png' class='counthome-view-figure'></image>
+    </view>
+  </view>
+  <!-- <view class="gap-bg" style="flex-direction:column;"></view> -->
+
+
+
+  <!-- <view class='flex-bottom font-size-4'>
+    <button class='align-center font-size-5 font-color-7' type='default' style='width:100%;height:100%;color:#ff5858' catchtap='countoutPage'>去提现</button>
+  </view> -->
+</view>
+
+<template is="tabbar" data="{{tabbar}}" />

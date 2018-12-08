@@ -1,0 +1,37 @@
+<!--page/component/pages/pagegift/giftorder/giftorder.wxml-->
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <!-- <view class='  giftorder-view-1  ' bindtap='selectUserAddr'>
+
+    <view class='giftorder-view-1-1 font-size-5'  >
+      <view>送礼留言：</view>
+      <view class='font-size-7 font-color-4' style='flex:1;text-align:right'>{{currentNoteLen|0}}/{{textareaMaxLen}}</view>
+    </view>
+    <view style='margin:5rpx 15rpx'> 
+      <textarea class='font-size-6 giftorder-view-1-textarea ' placeholder='{{configMsgInfo.GIFT_FORWARD_MSG}}' maxlength='{{textareaMaxLen}}' style='width:100%'    auto-focus='true'  bindinput='bindWordLimit' placeholder-class='font-size-6' ></textarea>
+    </view>
+
+  </view>
+  <view class="gap-line" style="flex-direction:column;"></view> -->
+  <view class='giftorder-view-2'>
+    <view class='giftorder-view-row font-size-5 align-r-center'>
+      <view class='giftorder-view-title'>已选规格：</view>
+      <view style='flex:1'>{{orderData.sku_desc}}×{{orderData.buycopies}}份</view>
+    </view>
+    <view class='giftorder-view-row font-size-5'>
+      <view class='giftorder-view-title'>预付单价：</view>
+      <view>￥{{filters.toFix(orderData.unitPrice*1,2)}}</view>
+    </view>
+    <view class='giftorder-view-row font-size-5'>
+      <view class='giftorder-view-title'>支付金额：</view>
+      <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
+    </view>
+  </view>
+
+
+  <view class='flex-bottom align-center'>
+    
+      <button class='font-size-5 align-center' type="warn" bindtap='orderpay' style='width:100%;height:100%;border-radius:0'>提交订单</button>
+  
+  </view>
+</view>

@@ -1,0 +1,27 @@
+/* page/component/pages/pagegift/giftgivelist/giftgivelist.wxss */
+.gglist-view-1{
+
+flex-direction: row;
+display: flex;
+width: 100%;
+}
+
+.gglist-view-2{
+flex-direction: row;
+display: flex;
+  width: 100%;
+}
+.gglist-view-2-image{
+
+  width:160rpx;
+  height: 160rpx;
+  margin: 10rpx
+}
+.gglist-view-2-2{
+
+  flex-direction: column;
+}
+.gglist-view-2-2-2{
+flex-direction: column;
+
+}

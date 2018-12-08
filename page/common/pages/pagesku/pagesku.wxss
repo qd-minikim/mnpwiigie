@@ -1,0 +1,92 @@
+/* page/common/pages/pagesku/pagesku.wxss */
+
+.pagesku-view-0 {
+}
+
+.pagesku-view-1 {
+  width: 100%;
+  margin-bottom: 10rpx;
+}
+
+.pagesku-view-1-1 {
+  width: 220rpx;
+  height: 220rpx;
+}
+
+.pagesku-view-1-1-image {
+  width: 220rpx;
+  height: 220rpx;
+}
+
+.pagesku-view-1-2 {
+  flex-direction: colum;
+  padding: 5rpx 10rpx;
+}
+
+.pagesku-view-2 {
+  width: 100%;
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+}
+
+.pagesku-view-2-2-1 {
+  /* padding: 6rpx 15rpx; *//* border: 1rpx solid rgb(228, 226, 226);
+  border-radius: 10%; */
+  margin: 10rpx;
+  width: 120rpx;
+}
+
+.pagesku-view-2-2-1-1 {
+  padding: 6rpx 15rpx;
+  border: 1rpx solid rgb(228, 226, 226);
+  border-radius: 10%;
+  width: 100%;
+  position: relative;
+}
+
+.pagesku-view-3 {
+  width: 100%;
+  margin-bottom: 20rpx;
+  margin-top: 10rpx;
+}
+
+.pagesku-view-4 {
+  width: 120%;
+  height: 90rpx;
+}
+
+.view-add {
+  width: 80rpx;
+  height: 60rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-left: 1rpx solid rgb(224, 223, 223);
+  border-right: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  border-top-right-radius: 10%;
+  border-bottom-right-radius: 10%;
+  background-color: rgb(235, 230, 230);
+}
+
+.view-sub {
+  width: 80rpx;
+  height: 60rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-left: 1rpx solid rgb(224, 223, 223);
+  border-right: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+  background-color: rgb(235, 230, 230);
+}
+
+.view-num {
+  width: 100rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+}
+
+.pagesku-sku-unselect{
+
+  background-color: #f1eeee
+  
+}
