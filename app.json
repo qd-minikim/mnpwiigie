@@ -6,6 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
+   
   ],
   "subPackages": [
     {
@@ -69,7 +70,8 @@
         "pages/pageinform/notice/summarypage/summarypage",
         "pages/pageinform/notice/detailpage/detailpage",
         "pages/pagegift/giftinform/giftinform",
-        "pages/pagegift/giftreceivefail/giftreceivefail"
+        "pages/pagegift/giftreceivefail/giftreceivefail",
+        "pages/test/testpagexdd/testpagexdd"
       ]
     }
   ],
