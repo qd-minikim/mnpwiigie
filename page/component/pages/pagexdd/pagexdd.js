@@ -1327,7 +1327,7 @@ Page({
       })
       return false;
     }
-    if (Number(addToCommission) !== NaN) {
+    if (Number(addToCommission) == NaN) {
       wx.showToast({
         title: '金额不正确',
         image: '/image/icon_warn.png',
@@ -1390,7 +1390,7 @@ Page({
             that.setData({
               addToCommission: ''
             })
-
+            that.closecommission();
 
           },
           fail: function(res) {

@@ -35,7 +35,7 @@
     </view>
 
     <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
-      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='number' maxlength='8' value='{{storage}}'></input>
+      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='digit' maxlength='8' value='{{storage}}'></input>
 
     </view>
 

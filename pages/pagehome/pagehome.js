@@ -62,7 +62,31 @@ Page({
 
     clickpageflg:''
   },
+  /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+  onPullDownRefresh: function () {
 
+
+    wx.showLoading({
+      title: '刷新...',
+      mask: true,
+    })
+    this.homepageCarousel();
+    //好友动态
+    this.getFriendsActive();
+    //人气推荐
+    this.getPopularity();
+    //配置信息
+    this.getConfigMsgInfo();
+
+    this.getNoticeSumNum();
+    
+    setTimeout(function(){
+      wx.stopPullDownRefresh();
+      wx.hideLoading();
+    },2500)
+  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
