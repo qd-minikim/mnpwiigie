@@ -35,7 +35,26 @@
     </view>
 
     <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
-      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='digit' maxlength='8' value='{{storage}}'></input>
+      <block wx:if="{{requirementInfo.settlementsingleprice<=0}}">
+
+        <input class='font-size-6' placeholder='传播单价' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputSinglePrice' type='digit' maxlength='8' value='{{singlePrice}}'></input>
+
+      </block>
+      <block wx:else>
+        <view class='font-size-6' style='flex-direction:row;display:flex'>
+          <view>传播红包单价：</view>
+          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
+        </view>
+      </block>
+    </view>
+
+    <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
+      <template is="wxParse" data="{{wxParseData:codemsg1.nodes}}" />
+    </view>
+    <view class='gap-line' style='background-color:#d1cfcf'></view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='digit' maxlength='8' value='{{addToCommission}}'></input>
 
     </view>
 

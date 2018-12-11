@@ -69,7 +69,7 @@ Page({
 
 
     wx.showLoading({
-      title: '刷新...',
+      title: '正在更新...',
       mask: true,
     })
     this.homepageCarousel();

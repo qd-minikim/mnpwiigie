@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 57,
+			"current": 51,
 			"list": [
 				{
 					"id": -1,
@@ -352,7 +352,7 @@
 					"id": 51,
 					"name": "文案发布二维码扫码",
 					"pathName": "page/component/pages/pageinform/scanpage/scanpage",
-					"query": "scene=1543986182910543",
+					"query": "scene=1544507816611723",
 					"scene": "1011"
 				},
 				{

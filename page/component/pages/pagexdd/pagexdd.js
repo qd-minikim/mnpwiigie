@@ -9,7 +9,7 @@ var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
 const app = getApp()
 Page({
   /**
-   * 页面的初始数据
+   * 页面的初始数据 
    */
   data: {
 
@@ -155,7 +155,8 @@ Page({
     // 朋友说图片大小
     opinpicsize: 0,
 
-    addToCommission: '',
+    addToCommission: '', //追加预算
+    singlePrice: '',
 
     /**用户信息 */
     userInfo: {},
@@ -184,7 +185,7 @@ Page({
       key: "cardpage",
       data: url,
     })
-   
+
     if (app.globalData.userIData) {
       that.setData({
         // userWxInfo: app.globalData.userWxInfo,
@@ -200,8 +201,8 @@ Page({
       that.getRequirementKeepInfo()
       // this.getProgressRouteInfo()
 
-       that.getConfigMsgInfo()
- 
+      that.getConfigMsgInfo()
+
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
@@ -219,7 +220,7 @@ Page({
           that.getRequirementKeepInfo()
           // this.getProgressRouteInfo()
 
-         that.getConfigMsgInfo()
+          that.getConfigMsgInfo()
         }
 
       })
@@ -278,7 +279,7 @@ Page({
         if (value && value == '1') {
           that.getOpinionInfo()
         }
-      
+
       } catch (e) {
 
       }
@@ -292,7 +293,7 @@ Page({
     if (backpage == 'order') {
       try {
         var value = wx.getStorageSync('refresh')
- 
+
         if (value && value == '2') { //下单成功
 
           var role = that.data.initDetail.role;
@@ -333,11 +334,11 @@ Page({
 
           if (role == "XQ") {
             that.getSpuInfo()
-         
+
           }
 
         }
-       
+
 
       } catch (e) {
 
@@ -427,7 +428,7 @@ Page({
       "markid": markid
     }
     rRequest.doRequest(url, data, that, function(rdata) {
-      
+
       that.getProgressRouteInfo()
 
     })
@@ -453,9 +454,9 @@ Page({
 
 
   },
- 
+
   clickView_7x: function(event) {
-    
+
     let that = this
     var clicklx = event.currentTarget.dataset.lx;
     var clickcode = event.currentTarget.dataset.code;
@@ -606,7 +607,10 @@ Page({
       }, {
         code: 'ZJSM',
         replace: []
-      } ,
+      }, {
+        code: 'CBDJSM',
+        replace: []
+      },
 
     ];
 
@@ -757,7 +761,7 @@ Page({
     if (orderType == '2') { //1选择2:下单拦截选择  3:送礼拦截选择 0 查看
       app.globalData.orderData = orderData
 
-      
+
       that.setData({
         'backpage': 'order',
       })
@@ -814,13 +818,13 @@ Page({
           var storage = maySkuInfo.storage
           for (let i = 0; i < skuInfo.length; i++) {
 
-            if (skuInfo[i].id == maySkuInfo.id ){
+            if (skuInfo[i].id == maySkuInfo.id) {
 
               storage = skuInfo[i].storage
             }
 
           }
-          
+
           that.setData({
             'myOrderInfo.mySkuInfo.storage': storage,
           })
@@ -839,7 +843,7 @@ Page({
             }
 
           }
-       
+
         } else {
           var skuInfo = that.data.spuInfo.skuinfo;
 
@@ -867,25 +871,25 @@ Page({
 
           }
 
- 
+
         }
 
         that.orderBtn()
         pagekskujs.uppdateCopies.canBuyCopies(that, that.data.myOrderInfo.orderCopies);
 
       }
- 
+
     })
 
 
   },
- 
+
   orderBtn: function() {
     let that = this;
     var available = that.data.myOrderInfo.mySkuInfo.available_status;
 
     var storage = that.data.requirementInfo.keep_storage;
- 
+
     if (available != '0') {
 
       that.setData({
@@ -925,7 +929,7 @@ Page({
         })
 
       }
- 
+
     }
 
   },
@@ -951,7 +955,7 @@ Page({
           requirementInfo: rdata.info /**keep_storage */
 
         })
- 
+
         if (rdata.info.requirement_person != usreId) {
 
 
@@ -986,7 +990,7 @@ Page({
         that.getSpuInfo()
         that.getRequirementRichtext()
         that.getAttribute()
- 
+
       }
 
 
@@ -1055,8 +1059,8 @@ Page({
     })
 
   },
-  
-  
+
+
   /**执行收藏操作 */
   doRequirementKeepInfo: function() {
 
@@ -1105,24 +1109,24 @@ Page({
         if (rdata.info) {
           ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'EARN_READ:''} */
           that.setData({
-            'initDetail': rdata.info, 
+            'initDetail': rdata.info,
           })
 
-          if (rdata.info.EARN_READ && rdata.info.EARN_READ !=''){
+          if (rdata.info.EARN_READ && rdata.info.EARN_READ != '') {
             wx.showModal({
               title: '恭喜',
               content: rdata.info.EARN_READ,
               showCancel: false,
               confirmText: '知道了',
-              success: function (res) {
+              success: function(res) {
 
               }
             })
-           
+
           }
         }
 
-         
+
       })
 
     }
@@ -1304,18 +1308,75 @@ Page({
 
     })
     WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
+
+    WxParse.wxParse('codemsg1', 'html', that.data.configMsgInfo.CBDJSM, that, 5);
+
   },
   bindKeyInputCommission: function(e) {
     this.setData({
       addToCommission: e.detail.value
     })
   },
+  bindKeyInputSinglePrice: function(e) {
+    this.setData({
+      singlePrice: e.detail.value
+    })
+  },
+
+
   /**追加 */
   addcommission: function() {
 
     // commissionPayUrl
     let that = this;
     var url = config.commissionPayUrl;
+
+    //先判断红包传播单价是否是0，如果是0则
+    var settlementsingleprice = that.data.requirementInfo.settlementsingleprice;
+    /** */
+    var singlePrice = that.data.singlePrice
+    if (settlementsingleprice == '' || settlementsingleprice <= 0) {
+
+      if (singlePrice == '') {
+        wx.showToast({
+          title: '传播单价为空',
+          image: '/image/icon_warn.png',
+          duration: 1500,
+          success: function() {}
+        })
+        return false;
+      }
+      if (Number(singlePrice) == NaN) {
+        wx.showToast({
+          title: '单价金额不正确',
+          image: '/image/icon_warn.png',
+          duration: 1500,
+          success: function() {}
+        })
+        return false;
+      }
+      if (Number(singlePrice) == 0) {
+        wx.showToast({
+          title: '传播单价为零',
+          image: '/image/icon_warn.png',
+          duration: 1500,
+          success: function() {}
+        })
+        return false;
+      }
+      if (Number(singlePrice) < 0) {
+        wx.showToast({
+          title: '传播单价小于零',
+          image: '/image/icon_warn.png',
+          duration: 1500,
+          success: function() {}
+        })
+        return false;
+      }
+
+
+    }
+
     /**追加酬金 */
     var addToCommission = that.data.addToCommission
     if (addToCommission == '') {
@@ -1354,6 +1415,18 @@ Page({
       })
       return false;
     }
+
+    if (Number(addToCommission) < Number(singlePrice)) {
+      wx.showToast({
+        title: '酬金小于单价',
+        image: '/image/icon_warn.png',
+        duration: 1500,
+        success: function() {}
+      })
+      return false;
+    }
+
+
     var userid = that.data.userInfo.id
     var prepaytype = 'B'
     var requirementid = that.data.requirementId;
@@ -1385,12 +1458,23 @@ Page({
               duration: 2000,
               success: function() {}
             })
-            that.getRequirementDetail()
-
+ 
             that.setData({
-              addToCommission: ''
+              addToCommission: '',
+              singlePrice:''
             })
             that.closecommission();
+
+            if (settlementsingleprice == '' || settlementsingleprice <= 0) {
+              that.uppSingleprice(singlePrice)
+            } else {
+              setTimeout(function(){
+                that.getRequirementDetail()
+              },5000)
+            
+
+            }
+
 
           },
           fail: function(res) {
@@ -1408,6 +1492,27 @@ Page({
 
 
   },
+
+  uppSingleprice: function(singleprice) {
+
+    var that = this;
+
+    var url = config.requestUrl;
+    var requirementId = that.data.requirementId;
+    var data = {
+      code_: 'x_uppSingleprice',
+      'singleprice': singleprice,
+      'id': requirementId
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+      setTimeout(function () {
+        that.getRequirementDetail()
+      }, 5000)
+      
+
+    })
+  },
+
   /**转发蒙板 */
   forwardfriend: function() {
     this.setData({
