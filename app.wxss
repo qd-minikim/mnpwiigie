@@ -305,6 +305,27 @@
   height: 40rpx;
 }
 
+
+/* 详情页区块头样式 */
+  .slopingside{
+    	height:0px;
+    	border: 1rpx solid #fd9d4e;
+    	width: 30rpx;
+    	transform:rotate(125deg);
+    	-o-transform:rotate(125deg);
+    	-moz-transform:rotate(125deg);
+    	-webkit-transform:rotate(125deg);
+    }
+    .linear {
+    	height:0px; 
+    	border: 1rpx solid #fd9d4e;
+    	/* margin-left: 30px;
+    	margin-top: -10px; */
+    }
+ 
+
+
+
 /*链购红色背景图*/
 
 .bg-figure4-image {

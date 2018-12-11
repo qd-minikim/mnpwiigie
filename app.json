@@ -71,7 +71,9 @@
         "pages/pageinform/notice/detailpage/detailpage",
         "pages/pagegift/giftinform/giftinform",
         "pages/pagegift/giftreceivefail/giftreceivefail",
-        "pages/test/testpagexdd/testpagexdd"
+        "pages/test/testpagexdd/testpagexdd",
+        
+        "pages/test/pagexdd/pagexdd"
       ]
     }
   ],
