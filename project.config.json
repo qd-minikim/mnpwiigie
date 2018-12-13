@@ -4,15 +4,15 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
-	"appid": "wxa95ca6d0de960e0d",
+	"libVersion": "2.4.2",
+	"appid": "wx1718994f5d471b54",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []

@@ -7,10 +7,11 @@
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 <!-- 消费者详情 -->
 <!--position:absolute;transform: translateX(-200%);   -->
-<canvas style=" position:absolute;transform: translateX(-200%);width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;left:{{canvasViewInfo.canvasTop1}}px;top:{{canvasViewInfo.canvasLeft1}}px; " canvas-id="route_canvas_id" />
-<canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id"
-/>
-
+<view style='position:absolute;transform: translateX(-200%); '>
+  <canvas style=" width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;left:{{canvasViewInfo.canvasTop1}}px;top:{{canvasViewInfo.canvasLeft1}}px; " canvas-id="route_canvas_id" />
+<!--  -->
+  <canvas style=";width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px ;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id" />
+</view>
 <!-- 蒙板 -->
 <template is="pagemask" data="{{pagemask}}" />
 <!-- 蒙板 -->
@@ -74,14 +75,27 @@
 <view class="container" style="flex-direction:column;">
 
   <!--导航页签 -->
-  <view class='align-center font-size-5' style='flex-direction:row;display:flex;z-index:999;width:100% '>
-    <view style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;border-bottom-left-radius:10rpx;border-top-left-radius:10rpx; '>方案</view>
-    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;'>详情</view>
-    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;'>链团</view>
-    <view class='' style='padding:2rpx 15rpx;border:1rpx solid #cfcfcf;border-bottom-right-radius:10rpx;border-top-right-radius:10rpx; '>朋友说</view>
+  <view class='align-center font-size-6 font-color-4' style='flex-direction:row;display:flex;z-index:999;width:100% ;height:{{navigaheight}}px'>
+    <view class='align-center' style='padding:2rpx 15rpx; ' catchtap='pageNativeScroll' data-pid='part-0'>
+      <image wx:if="{{navigaSelected =='part-0'}}" style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+      <view class="{{navigaSelected =='part-0'?'font-color-11':''}}">方案</view>
+    </view>
+
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-1'>
+      <image wx:if="{{navigaSelected =='part-1'}}" style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+      <view class="{{navigaSelected =='part-1'?'font-color-11':''}}">链团</view>
+    </view>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-2'>
+      <image wx:if="{{navigaSelected =='part-2'}}" style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+      <view class="{{navigaSelected =='part-2'?'font-color-11':''}}">朋友说</view>
+    </view>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-3'>
+      <image wx:if="{{navigaSelected =='part-3'}}" style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+      <view class="{{navigaSelected =='part-3'?'font-color-11':''}}">详情</view>
+    </view>
   </view>
 
-  <scroll-view class=' ' style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+  <scroll-view class="scroll-view" style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-top="{{scrollTop}}" scroll-into-view="target" scroll-with-animation="true" bindscroll="scroll">
 
     <!-- 滚动图 -->
     <view class='view-3'>
@@ -122,17 +136,17 @@
 
     <view class="gap-bg" style="flex-direction:column;"></view>
     <!-- 方案大区 -->
-    <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex'>
+    <view class='font-size-5 part-0' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part-0'>
 
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
-          <view style='' class='slopingside'></view>
+          <view class='slopingsideL'></view>
         </view>
 
-        <view>方案</view>
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
-          <view style='' class='slopingside'></view>
+        <view class='align-center' style='width:4em'>方案</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
           <view style='width:100%' class='linear'></view>
         </view>
       </view>
@@ -187,17 +201,17 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
 
     <!-- 链团大区 -->
-    <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex'>
+    <view class='font-size-5 part-1' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part-1'>
 
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;;position:relative'>
           <view style='width:100%' class='linear'></view>
-          <view style='' class='slopingside'></view>
+          <view style='' class='slopingsideL'></view>
         </view>
 
-        <view>链团</view>
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
-          <view style='' class='slopingside'></view>
+        <view class='align-center' style='width:4em'>链团</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
           <view style='width:100%' class='linear'></view>
         </view>
       </view>
@@ -274,16 +288,16 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
     <!-- 朋友说大区 -->
     <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex'>
+      <view style=';flex-direction:row;display:flex' id='part-2'>
 
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
-          <view style='' class='slopingside'></view>
+          <view style='' class='slopingsideL'></view>
         </view>
 
-        <view>朋友说</view>
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
-          <view style='' class='slopingside'></view>
+        <view class='align-center' style='width:5em'>朋友说</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
           <view style='width:100%' class='linear'></view>
         </view>
       </view>
@@ -295,7 +309,7 @@
             <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
           </view>
         </view>
-            <view class="gap-line" style="flex-direction:column;"></view>
+        <view class="gap-line" style="flex-direction:column;"></view>
         <view style=''>
           <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
         </view>
@@ -314,16 +328,16 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
     <!-- 详情大区 -->
     <view class='font-size-5' style='flex-direction:column;display:flex '>
-      <view style='margin:5rpx 15rpx;;flex-direction:row;display:flex'>
+      <view style='margin:5rpx 15rpx;;flex-direction:row;display:flex' id='part-3'>
 
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
-          <view style='' class='slopingside'></view>
+          <view style='' class='slopingsideL'></view>
         </view>
 
-        <view>详情</view>
-        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex'>
-          <view style='' class='slopingside'></view>
+        <view class='align-center' style='width:4em'>详情</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
           <view style='width:100%' class='linear'></view>
         </view>
       </view>
@@ -378,4 +392,83 @@
 
 
   </scroll-view>
+
+
+
+  <!-- 按钮区 -->
+  <block wx:if="{{initDetail.role =='XQ'}}">
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+      </view>
+      <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+      </view>
+      <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap="{{ fixedBottom.xdClick?'order':''}}">
+        <view class='font-size-5'>{{fixedBottom.xdText}}</view>
+      </view>
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap="{{ fixedBottom.slClick?'gift':''}}">
+        <view class='font-size-5'>{{fixedBottom.slText}}</view>
+      </view>
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+
+        <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
+          </view>
+        </button>
+      </view>
+    </view>
+
+  </block>
+  <block wx:if="{{initDetail.role =='TW'}}">
+
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+      </view>
+
+      <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+      </view>
+
+      <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
+        <view class='font-size-7 font-color-2'>库存:{{requirementInfo.keep_storage}}</view>
+        <view class='font-size-6 font-color-2'>补库存</view>
+      </view>
+
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+
+        <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
+          </view>
+        </button>
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- 按钮区 end-->
 </view>

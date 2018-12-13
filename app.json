@@ -83,6 +83,10 @@
     "navigationBarTitleText": "友托帮",
     "navigationBarTextStyle": "black"
   },
+    "networkTimeout": {
+       
+      "downloadFile": 5000
+    },
   "tabBar": {
     "color": "#a0a0a0",
     "selectedColor": "#00c003",

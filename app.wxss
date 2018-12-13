@@ -307,18 +307,32 @@
 
 
 /* 详情页区块头样式 */
-  .slopingside{
+  .slopingsideL{
     	height:0px;
-    	border: 1rpx solid #fd9d4e;
+    	border-top: 1rpx solid #fd9d4e;
     	width: 30rpx;
     	transform:rotate(125deg);
     	-o-transform:rotate(125deg);
     	-moz-transform:rotate(125deg);
     	-webkit-transform:rotate(125deg);
+      position:absolute;
+      right:-15rpx;
     }
+ .slopingsideR{
+    	height:0px;
+    	border-top: 1rpx solid #fd9d4e;
+    	width: 30rpx;
+    	transform:rotate(125deg);
+    	-o-transform:rotate(125deg);
+    	-moz-transform:rotate(125deg);
+    	-webkit-transform:rotate(125deg);
+       position:absolute;
+      left:-15rpx;
+    }
+ 
     .linear {
     	height:0px; 
-    	border: 1rpx solid #fd9d4e;
+    	border-top: 1rpx solid #fd9d4e;
     	/* margin-left: 30px;
     	margin-top: -10px; */
     }
