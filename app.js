@@ -147,6 +147,12 @@ App({
           }
         })
 
+      }, fail: e => {
+
+        console.log("3333333333"+e)
+      }, complete: e => {
+
+        console.log("33333333223333" + e)
       }
     })
   },

@@ -1,0 +1,664 @@
+<!--page/component/pages/pagexdd/pagexdd.wxml-->
+<import src="../../../../wxParse/wxParse.wxml" />
+<import src="../../../common/pages/pagesign/pagesign.wxml" />
+<import src="../../../common/pages/pagesku/pagesku.wxml" />
+<import src="../../../common/pages/pagemask/pagemask.wxml" />
+<import src="../../../common/pages/pageopins/pageopins.wxml" />
+<wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
+<!-- 消费者详情 -->
+<!--position:absolute;transform: translateX(-200%);   -->
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;left:{{canvasViewInfo.canvasTop1}}px;top:{{canvasViewInfo.canvasLeft1}}px; " canvas-id="route_canvas_id" />
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id"
+/>
+
+<!-- 蒙板 -->
+<template is="pagemask" data="{{pagemask}}" />
+<!-- 蒙板 -->
+<view class="view-modal {{viewModal.isModalShow?'view-modal-show':'view-modal-hide'}}" bindtap='closeModal'>
+  <view class='view-modal-content'>
+    <template is="pagesign" />
+  </view>
+</view>
+
+<!-- 追加赏金 -->
+
+<view class="view-modal {{viewModal.addtoComossionShow?'view-modal-show':'view-modal-hide'}}">
+
+  <view class='view-modal-content'>
+
+    <view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+
+      <view class='font-size-6' style='margin-left:10rpx;flex:1'>追加赏金</view>
+      <view class='align-right' style="margin-right:10rpx;" bindtap='closecommission'>
+        <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
+      </view>
+    </view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <block wx:if="{{requirementInfo.settlementsingleprice<=0}}">
+
+        <input class='font-size-6' placeholder='传播单价' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputSinglePrice' type='digit' maxlength='8' value='{{singlePrice}}'></input>
+
+      </block>
+      <block wx:else>
+        <view class='font-size-6' style='flex-direction:row;display:flex'>
+          <view>传播红包单价：</view>
+          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
+        </view>
+      </block>
+    </view>
+
+    <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
+      <template is="wxParse" data="{{wxParseData:codemsg1.nodes}}" />
+    </view>
+    <view class='gap-line' style='background-color:#d1cfcf'></view>
+
+    <view style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <input class='font-size-6' placeholder='追加赏金' style='padding:8rpx 5rpx;border-radius:10rpx;border:1rpx solid #ccc;width:100%' bindinput='bindKeyInputCommission' type='digit' maxlength='8' value='{{addToCommission}}'></input>
+
+    </view>
+
+    <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
+      <template is="wxParse" data="{{wxParseData:codemsg.nodes}}" />
+    </view>
+
+    <view style='flex-direction:row;display:flex;margin:5rpx;'>
+      <button class='font-size-5  align-center' type="warn" catchtap='addcommission' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>确定</button>
+      <button class='font-size-5 align-center' type="default" catchtap='closecommission' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>取消</button>
+    </view>
+
+  </view>
+
+</view>
+
+
+
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <!-- 标题 -->
+  <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
+    <view class='align-r-center view-1 font-size-3 ' style=''>
+      <view class='view-1-1'></view>
+      <view class='view-1-2  '>硬品:</view>
+      <view class='view-ellipsis-1 ' style='flex:1'>{{requirementInfo.title}}</view>
+      <view class='view-1-4'>
+        <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
+      </view>
+    </view>
+    <!-- 出品商 -->
+    <view class='view-2 font-color-3 font-size-5' style='  '>
+      <view class='view-2-1'>出品商:</view>
+      <view class='view-2-2 view-ellipsis-1'>{{spuInfo.spuinfo.producer_brand_name}}</view>
+      <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
+
+      <view class='' style='color: #4395f5;'>@友托帮</view>
+    </view>
+
+
+  </view>
+
+
+  <scroll-view class=' ' style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+
+    <!-- 滚动图 -->
+    <view class='view-3'>
+      <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
+        <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="key">
+          <swiper-item>
+
+            <image style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}' bindtap="imageYl" data-list="{{swiperArea.swiperImgUrlsArry}}" data-src="{{itemyl}}" wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:for-item="itemyl" src="{{item}}"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 描述 -->
+    <view class='view-4 align-center' style='margin:5rpx 15rpx;'>
+      <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
+    </view>
+
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <block wx:if="{{requirementInfo.dealtype !='3'}}">
+      <!--微信传播描述 -->
+      <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
+        <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
+      </view>
+      <view class="gap-line" style="flex-direction:column;"></view>
+    </block>
+    <view class='view-6 align-center'>
+
+
+      <view wx:if="{{richtextInfo.richtextMore}}" class='align-center view-6-1' bindtap='showRichtext'>
+        <view class='view-6-1-1 font-size-5 font-color-8'>展看查看详情</view>
+        <view class='view-6-1-2'>
+          <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
+        </view>
+      </view>
+      <block wx:if="{{richtextInfo.richtextShow}}">
+        <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
+          <view style='width:100%'>
+            <view class='font-size-5' style='margin:10rpx 15rpx;'>商品参数</view>
+            <view class='gap-dashed'></view>
+            <view class='font-size-5 font_color_4' style='flex-direction:column;display:flex; '>
+
+              <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+                <block wx:if="{{index>0}}">
+                  <view class='gap-dashed'></view>
+                </block>
+                <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+                  <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
+                  <view style='flex:1'>{{item.attribute_value}}</view>
+                </view>
+
+              </block>
+            </view>
+          </view>
+        </block>
+        <view>
+          <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+        </view>
+
+      </block>
+    </view>
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+    <view class='view-7  font-size-5'>
+
+      <block wx:if="{{initDetail.role =='TW'}}">
+
+        <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%'>传播红包单价：</view>
+          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+
+        <view class='view-7-0 align-r-center'>
+          <view class='align-center' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>传播预算余额：</view>
+          <view style='flex:1' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>￥{{filters.toFix(requirementInfo.commission*1,2)}}</view>
+          <view class='align-center'>
+            <view catchtap='opencommission' class='align-center font-color-5' style='flex-direction:row;display:flex'>
+              <image class='view-7-figure' src='/image/figure_44.png'></image>
+              <view>追加</view>
+            </view>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+
+
+        <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%'>下级落单返点：</view>
+          <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent*1,2)}}%</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
+          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
+            <view class='  align-center'>
+              <image class='view-7-figure' src='/image/figure_5.png'></image>
+            </view>
+            <view style='height100%'>传播红包单价：</view>
+            <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
+            <view class='align-center'>
+              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+          <view class="gap-line" style="flex-direction:column;"></view>
+
+
+        </block>
+
+        <block wx:if="{{requirementInfo.sowerpercent>0}}">
+          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
+            <view class='  align-center'>
+              <image class='view-7-figure' src='/image/figure_5.png'></image>
+            </view>
+            <view style='height100%'>下级落单返点：</view>
+            <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent*1,2)}}%</view>
+            <view class='align-center'>
+              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+          <view class="gap-line" style="flex-direction:column;"></view>
+
+        </block>
+      </block>
+
+
+
+
+      <!-- 链购方案  -->
+      <block wx:if="{{requirementInfo.dealtype =='2'}}">
+        <view class='view-7-2 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CFG_GROUP_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_14.png'></image>
+          </view>
+          <view style='height100%'>链购方案：</view>
+          <view style='flex:1' class='font-size-5'>(门市价格:￥{{requirementInfo.listprice}})</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+
+
+        <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
+          <view class='view-7-2-1-2 align-center '>链团份数(份)</view>
+          <view class='view-7-2-1-2 align-center  '>链团折扣</view>
+        </view>
+        <block wx:for="{{requirementInfo.cfggroupgradeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+          <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
+            <view class='view-7-2-1-2 align-center '>{{item.min_copies_grade}}~
+              <block wx:if="{{ item.max_copies_grade=='9999999'}}">不限 </block>
+              <block wx:else>{{item.max_copies_grade}}</block>
+
+            </view>
+            <view class='view-7-2-1-2 align-center '>{{item.discount}}</view>
+          </view>
+        </block>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+
+      <!-- view-7-1  start -->
+
+      <block wx:if="{{requirementInfo.dealtype =='1'}}">
+        <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='MSJG_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%'>门市价格：</view>
+          <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+
+      </block>
+
+      <block wx:elif="{{requirementInfo.dealtype =='3'}}">
+        <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='MSJG_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </view>
+          <view style='height100%'>门市价格：</view>
+          <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+
+      </block>
+
+
+      <!-- view-7-1  end -->
+
+
+      <block wx:if="{{ requirementInfo.dealtype!='3'}}">
+        <view class='view-7-4 align-r-center'>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='height100%'>活动截至：</view>
+          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='flex:1'>{{requirementInfo.deadlinetime}}</view>
+          <view class='align-center'>
+            <block wx:if="{{initDetail.role =='TW'}}">
+              <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
+                <view class='align-center font-color-5' style='flex-direction:row;display:flex'>
+                  <image class='view-7-figure' src='/image/figure_36.png'></image>
+                  <view>延期</view>
+                </view>
+              </picker>
+
+            </block>
+            <block wx:if="{{initDetail.role =='XQ'}}">
+              <image catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+            </block>
+
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+
+
+
+
+      <block wx:if="{{ requirementInfo.deliverytype=='1'}}">
+        <view class='view-7-5 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='FWJZ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>服务截至：</view>
+          <view style='flex:1'>{{requirementInfo.deliverydeadline}}</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+      <block wx:if="{{ requirementInfo.deliverytype=='2'}}">
+
+
+
+        <view class='view-7-6 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='THZQ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>退货周期：</view>
+          <view style='flex:1'>
+            <block wx:if="{{ requirementInfo.isreturn=='0'}}">
+              {{requirementInfo.isreturnname}}{{requirementInfo.returndays}}天退货
+            </block>
+            <block wx:else>
+              {{requirementInfo.isreturnname}}退货
+            </block>
+          </view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='view-7-8 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='HHZQ_MSG' data-html='true'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_6.png'></image>
+          </view>
+          <view style='height100%'>换货周期：</view>
+          <view style='flex:1'>
+            <block wx:if="{{ requirementInfo.ischange=='0'}}">
+              {{requirementInfo.ischangename}}{{requirementInfo.changedays}}天换货
+            </block>
+            <block wx:else>
+              {{requirementInfo.ischangename}}换货
+            </block>
+          </view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+      </block>
+
+
+      <block wx:if="{{initDetail.role =='TW'}}">
+
+      </block>
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <view class='view-7-11 align-r-center' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
+          <view class='  align-center'>
+            <image class='view-7-figure' src='/image/figure_7.png'></image>
+          </view>
+          <view style='flex-direction:row;display:flex'>已
+            <view style="color:#ffffff ">白白</view>选：</view>
+          <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
+          <view class='align-center'>
+            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+          </view>
+        </view>
+      </block>
+
+
+      <view></view>
+      <view></view>
+    </view>
+
+    <block wx:if="{{initDetail.role =='XQ'}}">
+
+
+      <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+      <view class='view-8  font-size-5'>
+        <view class='view-8-1 align-r-center'>
+
+          <view class='  align-center'>
+            <image class='view-8-figure' src='/image/figure_8.png'></image>
+          </view>
+          <view style=' '>朋友态度：</view>
+          <view class='view-ellipsis-1' style='flex:1'></view>
+          <view class='align-center font-color-5' catchtap='addopinion'>
+            我要说
+          </view>
+
+        </view>
+        <view class="gap-line" style="flex-direction:column;"></view>
+        <view class='view-8-2 align-c-center'>
+
+          <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
+
+        </view>
+
+        <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
+          <view style='padding:10rpx 2rpx'>还没有朋友说</view>
+        </view>
+        <view wx:if="{{opinionInfo.allrows>opinionInfo.pageSize}}" class='view-8-3 align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
+
+          <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
+        </view>
+      </view>
+    </block>
+
+
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view class='view-9'>
+      <view class='view-9-1'>
+        <view class='align-center view-9-1-1' style='flex:1' bindtap='openModal'>
+          <view class='align-center '>
+            <image class='view-9-1-figure' src='/image/figure_9.png'></image>
+          </view>
+          <view class='font-color-5 font-size-5'>图例说明</view>
+        </view>
+        <view class='align-center font-size-3' style='flex:1;{{filters.progressColor(requirementInfo.progress_status)}}'>{{requirementInfo.progress_status_name}}</view>
+
+
+
+
+        <view class='align-center view-9-1-3' style='flex:1'>
+          <!-- <view class='align-center '>
+            <image class='view-9-1-figure' src='/image/figure_11.png'></image>
+          </view>
+          <view class='font-color-5 font-size-4'>对话展示</view> -->
+        </view>
+      </view>
+      <block wx:if="{{requirementInfo.dealtype =='2'}}">
+        <block wx:if="{{initDetail.role =='XQ'}}">
+          <view class='view-9' style=';border :1px solid  #ff8400;'>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+
+              <view class='font-size-6 ' style='flex:1;text-align:center'>我的份数/订单数/链团份数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>当前折扣/当前返款额(元)</view>
+            </view>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+
+              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies}}/{{pcPromotionGroupOrderInfo.myOrders}}/{{pcPromotionGroupOrderInfo.combinedCopies}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund*1,2)}}</view>
+            </view>
+          </view>
+        </block>
+        <!-- 需求 -->
+        <block wx:if="{{initDetail.role =='TW'}}">
+          <view class='view-9' style=';border :1px solid  #ff8400;'>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+
+              <view class='font-size-6 ' style='flex:1;text-align:center'>总用户</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>总单数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>总份数</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>动态折扣</view>
+            </view>
+            <view class='view-9-1' style='margin:0rpx 15rpx'>
+              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalDealers}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalOrders}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalCopies}}</view>
+              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.discountLeave}}</view>
+
+
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class='view-9' style=''>
+
+      <scroll-view style=' position:relative;' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+        <image style="width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
+        <block wx:if="{{!downSuccess}}">
+          <view style='position:absolute;width:100%;top:45%' class='align-center'>
+            <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+          </view>
+
+        </block>
+      </scroll-view>
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <block wx:if="{{requirementInfo.dealtype =='2'}}">
+          <view class='gap-line'></view>
+          <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
+          <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+            <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
+            <block wx:if="{{nolinkCanvasViewInfo.orders>0 && !downNoLinkSuccess}}">
+              <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
+                <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+              </view>
+
+            </block>
+          </scroll-view>
+
+        </block>
+      </block>
+    </view>
+
+
+  </scroll-view>
+
+
+
+  <view></view>
+  <!-- 详情区 -->
+  <view></view>
+
+  <!-- 基本信息区 -->
+
+  <view></view>
+
+  <!-- 朋友说区 -->
+  <view></view>
+  <!-- 活动进展区 -->
+  <view></view>
+
+
+  <!--隐藏区域  -->
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
+  <scroll-view class="{{panelPage.panelPageTop?'choose_top':'choose' }} font-size-4" wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
+    <block wx:if="{{ panelPage.chooseType=='default'}}">
+
+      <view class='choose_view'>
+        <block wx:if="{{panelPage.isHtml }}">
+          <template is="wxParse" data="{{wxParseData:codemsg.nodes}}" />
+        </block>
+        <block wx:if="{{!panelPage.isHtml}}">
+          {{panelPage.msginfo}}
+        </block>
+      </view>
+
+    </block>
+    <block wx:elif="{{ panelPage.chooseType=='sku'}}">
+      <view class='choose_view'>
+        <template is="pagesku" data="{{spuInfo,myOrderInfo,panelPage}}" />
+      </view>
+    </block>
+
+
+
+  </scroll-view>
+
+
+  <block wx:if="{{initDetail.role =='XQ'}}">
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+      </view>
+      <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+      </view>
+      <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap="{{ fixedBottom.xdClick?'order':''}}">
+        <view class='font-size-5'>{{fixedBottom.xdText}}</view>
+      </view>
+      <view class='align-center {{fixedBottom.slClassName}}' style='flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap="{{ fixedBottom.slClick?'gift':''}}">
+        <view class='font-size-5'>{{fixedBottom.slText}}</view>
+      </view>
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+
+        <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
+          </view>
+        </button>
+      </view>
+    </view>
+
+  </block>
+  <block wx:if="{{initDetail.role =='TW'}}">
+
+    <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; '>
+        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+          <image class='bottom-view-1-image' src='/image/home_0.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+      </view>
+
+      <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}} '>
+        <view class='bottom-view-1 align-c-center'>
+          <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
+        </view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+      </view>
+
+      <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
+        <view class='font-size-7 font-color-2'>库存:{{requirementInfo.keep_storage}}</view>
+        <view class='font-size-6 font-color-2'>补库存</view>
+      </view>
+
+      <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
+
+        <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
+          <view style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style='flex:1'>
+              <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
+            </view>
+            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            </view>
+          </view>
+        </button>
+      </view>
+
+    </view>
+
+  </block>
+</view>

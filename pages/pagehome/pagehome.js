@@ -158,13 +158,10 @@ Page({
   //人以群分
   homePerson: function() {
 
-    // wx.navigateTo({
-    //   url: "/page/component/pages/pagemy/friends/myfriends/myfriends"
-    // })
-
     wx.navigateTo({
-      url: "/page/component/pages/test/pagexdd/pagexdd?m=2d3789e782cbde91&r=1529296099516208"
+      url: "/page/component/pages/pagemy/friends/myfriends/myfriends"
     })
+ 
 
     
   },

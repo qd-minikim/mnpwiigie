@@ -71,35 +71,87 @@
 
 </view>
 
+<!-- 我的链团价 -->
 
+<view class="view-modal {{viewModal.myLinkPriceShow?'view-modal-show':'view-modal-hide'}}">
 
+  <view class='view-modal-content'>
 
-<view class='container ' style='flex-direction:colum;display:flex; '>
-  <!-- 标题 -->
-  <view style='width:100%;height:{{pagePard.headHeight}}rpx'>
-    <view class='align-r-center view-1 font-size-3 ' style=''>
-      <view class='view-1-1'></view>
-      <view class='view-1-2  '>硬品:</view>
-      <view class='view-ellipsis-1 ' style='flex:1'>{{requirementInfo.title}}</view>
-      <view class='view-1-4'>
-        <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
+    <view class='align-left' style='width:100%;background-color: #dad6d6;padding:15rpx 0rpx'>
+
+      <view class='font-size-6' style='margin-left:10rpx;flex:1'>我的链团价</view>
+      <view class='align-right' style="margin-right:10rpx;" bindtap='closelinkprice'>
+        <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
       </view>
     </view>
-    <!-- 出品商 -->
-    <view class='view-2 font-color-3 font-size-5' style='  '>
-      <view class='view-2-1'>出品商:</view>
-      <view class='view-2-2 view-ellipsis-1'>{{spuInfo.spuinfo.producer_brand_name}}</view>
-      <view class='view-2-3 view-ellipsis-1'>>>{{requirementInfo.merchantbrandname}}</view>
 
-      <view class='' style='color: #4395f5;'>@友托帮</view>
+    <view class='font-size-5' style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
+      <template is="wxParse" data="{{wxParseData:codemsg8.nodes}}" />
     </view>
 
+    <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
+      <template is="wxParse" data="{{wxParseData:codemsg9.nodes}}" />
+    </view>
+
+    <view style='flex-direction:row;display:flex;margin:5rpx;'>
+      <button class='font-size-5  align-center' type="warn" catchtap='closelinkprice' style='padding:8rpx 30rpx;line-height:1.6;margin:2rpx 10rpx;'>我知道了</button>
+
+    </view>
 
   </view>
 
+</view>
 
-  <scroll-view class=' ' style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+
+  <!--导航页签 -->
+  <view class='align-center font-size-6 font-color-4' style='flex-direction:row;display:flex; width:100% ;height:{{navigaheight}}px'>
+    <view class='align-center' style='padding:2rpx 15rpx; ' catchtap='pageNativeScroll' data-pid='part-0'>
+
+      <block wx:if="{{navigaSelected =='part0'}}">
+        <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+        <view class="font-color-11">活动</view>
+      </block>
+      <block wx:else>
+        <view>活动</view>
+      </block>
+
+    </view>
+
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-1'>
+
+      <block wx:if="{{navigaSelected =='part1'}}">
+        <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+        <view class="font-color-11">链团</view>
+      </block>
+      <block wx:else>
+        <view>链团</view>
+      </block>
+    </view>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-2'>
+
+      <block wx:if="{{navigaSelected =='part2'}}">
+        <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+        <view class="font-color-11">朋友说</view>
+      </block>
+      <block wx:else>
+        <view>朋友说</view>
+      </block>
+    </view>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-3'>
+
+      <block wx:if="{{navigaSelected =='part3'}}">
+        <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
+        <view class="font-color-11">详情</view>
+      </block>
+      <block wx:else>
+        <view>详情</view>
+      </block>
+    </view>
+  </view>
+  <scroll-view class="scroll-view" style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-top="{{scrollTop}}" scroll-into-view="target" scroll-with-animation="true" bindscroll="scroll">
     <!-- 滚动图 -->
     <view class='view-3'>
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
@@ -111,340 +163,407 @@
         </block>
       </swiper>
     </view>
-    <!-- 描述 -->
-    <view class='view-4 align-center' style='margin:5rpx 15rpx;'>
-      <view class='view-4-1 font-size-5'>{{spuInfo.spuinfo.description}}</view>
-    </view>
 
-    <view class="gap-line" style="flex-direction:column;"></view>
-    <block wx:if="{{requirementInfo.dealtype !='3'}}">
-      <!--微信传播描述 -->
-      <view class='view-5 align-center' style='margin:5rpx 15rpx;'>
-        <view class='view-5-1 font-size-5 font-color-11'>{{requirementInfo.wxdescription}}</view>
+    <!-- 好友动态区 -->
+
+    <view style='margin:5rpx 15rpx'>
+      <view style=''>
+        <swiper indicator-dots="false" indicator-color="#fff" indicator-active-color='#fff' autoplay="true" vertical="true" interval="3500" duration="500" style="height:40rpx" circular='true' display-multiple-items='1'>
+          <block wx:for="{{friendActiveArray}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+            <swiper-item>
+              <view class='font-size-7 font-color-5' style='flex-direction:row;display:flex  '>
+                <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
+                <view style='margin:2rpx 15rpx'>{{item.actiontypename}}</view>
+                <view style='margin:2rpx 10rpx'>{{item.actiontypetime}}</view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
       </view>
-      <view class="gap-line" style="flex-direction:column;"></view>
-    </block>
-    <view class='view-6 align-center'>
+    </view>
+    <!-- 标题 -->
+    <view style='margin:5rpx 15rpx'>
+      <view style='flex-direction:row;display:flex   '>
 
-
-      <view wx:if="{{richtextInfo.richtextMore}}" class='align-center view-6-1' bindtap='showRichtext'>
-        <view class='view-6-1-1 font-size-5 font-color-8'>展看查看详情</view>
-        <view class='view-6-1-2'>
-          <image class='view-6-1-2-image' src='/image/arrow_down_1.png'></image>
+        <view class=' font-size-5'>
+          <text class=' bg-6 font-color-2 font-size-7' style='border-radius:10rpx;padding:4rpx 2rpx'>{{requirementInfo.merchantbrandname}}</text>
+          <text class='font-size-5'>{{requirementInfo.title}}</text>
         </view>
       </view>
-      <block wx:if="{{richtextInfo.richtextShow}}">
-        <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
-          <view style='width:100%'>
-            <view class='font-size-5' style='margin:10rpx 15rpx;'>商品参数</view>
-            <view class='gap-dashed'></view>
-            <view class='font-size-5 font_color_4' style='flex-direction:column;display:flex; '>
+      <view class=' font-size-6' style='flex-direction:row;display:flex   '>
 
-              <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-                <block wx:if="{{index>0}}">
-                  <view class='gap-dashed'></view>
-                </block>
-                <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
-                  <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
-                  <view style='flex:1'>{{item.attribute_value}}</view>
-                </view>
+        <text class='font-size-6 font-color-11'>{{requirementInfo.wxdescription}}</text>
 
-              </block>
-            </view>
+      </view>
+      <block wx:if="{{initDetail.role =='XQ'}}">
+        <view class='gap-line'></view>
+        <view class='font-size-5' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
+          <view style='flex-direction:row;display:flex'>已
+            <view style="color:#ffffff ">白白</view>选：</view>
+          <view style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
+          <view class='align-center'>
+            <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
           </view>
-        </block>
-        <view>
-          <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+        </view>
+
+        <view class='gap-line'></view>
+        <view class='font-size-5' style=';flex-direction:row;display:flex'>
+          <view style='flex-direction:row;display:flex' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>门市价格：</view>
+          <view style='flex:1;flex-direction:row;display:flex'>
+            <view style="{{requirementInfo.dealtype =='2'?'text-decoration:line-through':''}};margin-right:15rpx" catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
+            <block wx:if="{{requirementInfo.dealtype =='2'}}">
+              <view catchtap='openlinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:10rpx;   '>我的链团价</view>
+
+            </block>
+            <view style='flex:1;flex-direction:row;display:flex' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'></view>
+          </view>
+          <view class='align-center' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>
+            <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+          </view>
         </view>
 
       </block>
+
+
     </view>
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
-    <view class='view-7  font-size-5'>
 
-      <block wx:if="{{initDetail.role =='TW'}}">
+    <!-- 方案大区 -->
+    <view class='font-size-5 part-0' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part-0'>
 
-        <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_5.png'></image>
-          </view>
-          <view style='height100%'>传播红包单价：</view>
-          <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='width:100%' class='linear'></view>
+          <view class='slopingsideL'></view>
         </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
 
-        <view class='view-7-0 align-r-center'>
-          <view class='align-center' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>
-            <image class='view-7-figure' src='/image/figure_5.png'></image>
-          </view>
-          <view style='height100%' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>传播预算余额：</view>
-          <view style='flex:1' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>￥{{filters.toFix(requirementInfo.commission*1,2)}}</view>
-          <view class='align-center'>
-            <view catchtap='opencommission' class='align-center font-color-5' style='flex-direction:row;display:flex'>
-              <image class='view-7-figure' src='/image/figure_44.png'></image>
-              <view>追加</view>
+        <view class='align-center font-color-13' style='width:6em'>活动方案</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
+          <view style='width:100%' class='linear'></view>
+        </view>
+      </view>
+      <view style=''>
+
+
+
+        <block wx:if="{{requirementInfo.dealtype =='2'}}">
+          <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='CFG_GROUP_MSG' data-html='true'>
+            <view>链购方案：</view>
+            <view style='flex:1'></view>
+            <view class='align-center'>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
             </view>
           </view>
-        </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-
-
-        <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          <view class='align-r-center font-size-7 font-color-11' style=';flex-direction:row;display:flex'>
+            <view class='align-center ' style='flex:1'>链团份数(份)</view>
+            <view class='align-center  ' style='flex:1'>链团折扣</view>
           </view>
-          <view style='height100%'>下级落单返点：</view>
-          <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent*1,2)}}%</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
 
-      <block wx:if="{{initDetail.role =='XQ'}}">
-        <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
-          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
-            <view class='  align-center'>
-              <image class='view-7-figure' src='/image/figure_5.png'></image>
+
+          <block wx:for="{{requirementInfo.cfggroupgradeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+
+            <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
+              <view class='view-7-2-1-2 align-center '>{{item.min_copies_grade}}~
+                <block wx:if="{{ item.max_copies_grade=='9999999'}}">不限 </block>
+                <block wx:else>{{item.max_copies_grade}}</block>
+
+              </view>
+              <view class='view-7-2-1-2 align-center '>{{item.discount}}</view>
             </view>
-            <view style='height100%'>传播红包单价：</view>
+          </block>
+
+        </block>
+
+
+        <block wx:if="{{initDetail.role =='TW'}}">
+          <view class='gap-line'></view>
+          <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
+            <view>推广方案：</view>
             <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
             <view class='align-center'>
-              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
             </view>
           </view>
-          <view class="gap-line" style="flex-direction:column;"></view>
-
-
-        </block>
-
-        <block wx:if="{{requirementInfo.sowerpercent>0}}">
-          <view class='view-7-0 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
-            <view class='  align-center'>
-              <image class='view-7-figure' src='/image/figure_5.png'></image>
+          <view class='gap-line'></view>
+          <view class='font-size-7' style=';flex-direction:row;display:flex' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>
+            <view catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>推广预算：</view>
+            <view style='flex:1' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>￥{{filters.toFix(requirementInfo.commission*1,2)}}</view>
+            <view class='align-center'>
+              <view catchtap='opencommission' class='align-center font-color-5' style='flex-direction:row;display:flex'>
+                <image class='view-7-figure' src='/image/figure_44.png'></image>
+                <view>追加</view>
+              </view>
             </view>
-            <view style='height100%'>下级落单返点：</view>
+          </view>
+          <view class='gap-line'></view>
+          <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
+            <view>落单方案：</view>
             <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent*1,2)}}%</view>
             <view class='align-center'>
-              <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
             </view>
           </view>
-          <view class="gap-line" style="flex-direction:column;"></view>
-
-        </block>
-      </block>
-
-
-
-
-      <!-- 链购方案  -->
-      <block wx:if="{{requirementInfo.dealtype =='2'}}">
-        <view class='view-7-2 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='CFG_GROUP_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_14.png'></image>
-          </view>
-          <view style='height100%'>链购方案：</view>
-          <view style='flex:1' class='font-size-5'>(门市价格:￥{{requirementInfo.listprice}})</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-
-
-        <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
-          <view class='view-7-2-1-2 align-center '>链团份数(份)</view>
-          <view class='view-7-2-1-2 align-center  '>链团折扣</view>
-        </view>
-        <block wx:for="{{requirementInfo.cfggroupgradeinfos}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-
-          <view class='view-7-2-1 align-r-center font-size-7 font-color-11'>
-            <view class='view-7-2-1-2 align-center '>{{item.min_copies_grade}}~
-              <block wx:if="{{ item.max_copies_grade=='9999999'}}">不限 </block>
-              <block wx:else>{{item.max_copies_grade}}</block>
-
+          <block wx:if="{{ requirementInfo.dealtype!='3'}}">
+            <view class='gap-line'></view>
+            <view class='font-size-7' style=';flex-direction:row;display:flex'>
+              <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default'>活动截至：</view>
+              <view style='flex:1' catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default'>{{requirementInfo.deadlinetime}}</view>
+              <view class='align-center'>
+                <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
+                  <view class='align-center font-color-5' style='flex-direction:row;display:flex'>
+                    <image class='view-7-figure' src='/image/figure_36.png'></image>
+                    <view>延期</view>
+                  </view>
+                </picker>
+              </view>
             </view>
-            <view class='view-7-2-1-2 align-center '>{{item.discount}}</view>
-          </view>
+
+          </block>
         </block>
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
+        <block wx:if="{{initDetail.role =='XQ'}}">
+          <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
+            <view class='gap-line'></view>
+            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
+              <view>推广方案：</view>
+              <view style='flex:1'>￥{{filters.toFix(requirementInfo.settlementsingleprice*1,2)}}/受众</view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
 
-      <!-- view-7-1  start -->
+          </block>
+          <block wx:if="{{requirementInfo.sowerpercent>0}}">
+            <view class='gap-line'></view>
+            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='SOWER_PER_MSG' data-html='true'>
+              <view>落单方案：</view>
+              <view style='flex:1'>{{filters.toFix(requirementInfo.sowerpercent*1,2)}}%</view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
 
-      <block wx:if="{{requirementInfo.dealtype =='1'}}">
-        <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='MSJG_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_5.png'></image>
+          </block>
+          <block wx:if="{{ requirementInfo.dealtype!='3'}}">
+            <view class='gap-line'></view>
+            <view class='font-size-7' style=';flex-direction:row;display:flex' catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default'>
+              <view>活动截止：</view>
+              <view style='flex:1'>{{requirementInfo.deadlinetime}}</view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
+          </block>
+        </block>
+
+
+
+        <block wx:if="{{ requirementInfo.deliverytype=='2'}}">
+          <view class='gap-line'></view>
+          <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex' catchtap='clickView_7x' data-code='DETAIL_MSG_6' data-html='false' data-lx='default'>
+            <view>售后服务：</view>
+            <view style='flex:1;flex-direction:row;display:flex'>
+              <view class='align-r-center' style='margin-right:10rpx;text-align:left'>
+                <block wx:if="{{ requirementInfo.isreturn=='0'}}">
+
+                  <image style='width: 40rpx; height: 40rpx;' src='/image/figure_7.png'></image>
+                  <text>{{requirementInfo.isreturnname}}{{requirementInfo.returndays}}天退货</text>
+                </block>
+                <block wx:else>
+                  {{requirementInfo.isreturnname}}退货
+                </block>
+              </view>
+              <view class='align-r-center' style='margin-right:10rpx;text-align:left'>
+                <block wx:if="{{ requirementInfo.ischange=='0'}}">
+                  <image style='width: 40rpx; height: 40rpx;' src='/image/figure_7.png'></image>
+
+                  <text>{{requirementInfo.ischangename}}{{requirementInfo.changedays}}天换货</text>
+                </block>
+                <block wx:else>
+                  {{requirementInfo.ischangename}}换货
+                </block>
+              </view>
+            </view>
+            <view class='align-center'>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+            </view>
           </view>
-          <view style='height100%'>门市价格：</view>
-          <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
+
+        </block>
+
+
+      </view>
+    </view>
+    <!-- 方案大区 end -->
+    <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+
+    <!-- 链团大区 -->
+    <view class='font-size-5 part-1' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part-1'>
+
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;;position:relative'>
+          <view style='width:100%' class='linear'></view>
+          <view style='' class='slopingsideL'></view>
         </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
 
-      </block>
-
-      <block wx:elif="{{requirementInfo.dealtype =='3'}}">
-        <view class='view-7-1 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='MSJG_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_5.png'></image>
-          </view>
-          <view style='height100%'>门市价格：</view>
-          <view style='flex:1'>￥{{requirementInfo.listprice}}</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
+        <view class='align-center font-color-13' style='width:4em'>链团</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
+          <view style='width:100%' class='linear'></view>
         </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
+      </view>
+      <view style=''>
+        <block wx:if="{{requirementInfo.dealtype =='2'}}">
+          <block wx:if="{{initDetail.role =='XQ'}}">
+            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_1' data-html='false'>
+              <view>我的折扣：</view>
+              <view style='flex:1'></view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
+            <view style='margin-bottom:10rpx'>
+              <view class='view-9' style=';border :1px solid  #ff8400;'>
+                <view style=';flex-direction:row;display:flex'>
 
-      </block>
-
-
-      <!-- view-7-1  end -->
-
-
-      <block wx:if="{{ requirementInfo.dealtype!='3'}}">
-        <view class='view-7-4 align-r-center'>
-          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_6.png'></image>
-          </view>
-          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='height100%'>活动截至：</view>
-          <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' style='flex:1'>{{requirementInfo.deadlinetime}}</view>
-          <view class='align-center'>
-            <block wx:if="{{initDetail.role =='TW'}}">
-              <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
-                <view class='align-center font-color-5' style='flex-direction:row;display:flex'>
-                  <image class='view-7-figure' src='/image/figure_36.png'></image>
-                  <view>延期</view>
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>我的份数/订单数/链团份数</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>当前折扣/当前返款额(元)</view>
                 </view>
-              </picker>
+                <view style=';flex-direction:row;display:flex'>
 
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies}}/{{pcPromotionGroupOrderInfo.myOrders}}/{{pcPromotionGroupOrderInfo.combinedCopies}}</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund*1,2)}}</view>
+                </view>
+              </view>
+            </view>
+
+            <view class='gap-line'></view>
+          </block>
+          <block wx:if="{{initDetail.role =='TW'}}">
+            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_4' data-html='false'>
+              <view>动态折扣：</view>
+              <view style='flex:1'></view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
+            <view style='margin-bottom:10rpx'>
+              <view class='view-9' style=';border :1px solid  #ff8400;'>
+                <view style=';flex-direction:row;display:flex'>
+
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>总用户</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>总单数</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>总份数</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>动态折扣</view>
+                </view>
+                <view style=';flex-direction:row;display:flex'>
+
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalDealers}}</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalOrders}}</view>
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalCopies}}</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.discountLeave}}</view>
+                </view>
+              </view>
+            </view>
+
+            <view class='gap-line'></view>
+          </block>
+        </block>
+
+        <block wx:if="{{initDetail.role =='XQ'}}">
+          <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_2' data-html='false'>
+            <view>我的链团：</view>
+            <view style='flex:1'></view>
+            <view class='align-center'>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{initDetail.role =='TW'}}">
+          <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_5' data-html='false'>
+            <view>当前链购：</view>
+            <view style='flex:1'></view>
+            <view class='align-center'>
+              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+            </view>
+          </view>
+        </block>
+
+
+
+
+        <scroll-view style=' position:relative;' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+          <image style="width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
+          <block wx:if="{{!downSuccess}}">
+            <view style='position:absolute;width:100%;top:45%' class='align-center'>
+              <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+            </view>
+
+          </block>
+        </scroll-view>
+
+        <block wx:if="{{initDetail.role =='XQ'}}">
+          <block wx:if="{{requirementInfo.dealtype =='2'}}">
+            <view class='gap-line'></view>
+            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_3' data-html='false'>
+              <view>其他链团:</view>
+              <view style='flex:1'>其他链团好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
+              <view class='align-center'>
+                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
+              </view>
+            </view>
+            <block wx:if="{{nolinkCanvasViewInfo.orders>0}}">
+              <view>
+                <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+                  <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
+                  <block wx:if="{{nolinkCanvasViewInfo.orders>0 && !downNoLinkSuccess}}">
+                    <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
+                      <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+                    </view>
+
+                  </block>
+                </scroll-view>
+              </view>
             </block>
-            <block wx:if="{{initDetail.role =='XQ'}}">
-              <image catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default' class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-            </block>
+          </block>
+        </block>
 
-          </view>
-        </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
-
-
-
-
-      <block wx:if="{{ requirementInfo.deliverytype=='1'}}">
-        <view class='view-7-5 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='FWJZ_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_6.png'></image>
-          </view>
-          <view style='height100%'>服务截至：</view>
-          <view style='flex:1'>{{requirementInfo.deliverydeadline}}</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
-      <block wx:if="{{ requirementInfo.deliverytype=='2'}}">
-
-
-
-        <view class='view-7-6 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='THZQ_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_6.png'></image>
-          </view>
-          <view style='height100%'>退货周期：</view>
-          <view style='flex:1'>
-            <block wx:if="{{ requirementInfo.isreturn=='0'}}">
-              {{requirementInfo.isreturnname}}{{requirementInfo.returndays}}天退货
-            </block>
-            <block wx:else>
-              {{requirementInfo.isreturnname}}退货
-            </block>
-          </view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-
-        <view class="gap-line" style="flex-direction:column;"></view>
-        <view class='view-7-8 align-r-center' bindtap='clickView_7x' data-lx='default' data-code='HHZQ_MSG' data-html='true'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_6.png'></image>
-          </view>
-          <view style='height100%'>换货周期：</view>
-          <view style='flex:1'>
-            <block wx:if="{{ requirementInfo.ischange=='0'}}">
-              {{requirementInfo.ischangename}}{{requirementInfo.changedays}}天换货
-            </block>
-            <block wx:else>
-              {{requirementInfo.ischangename}}换货
-            </block>
-          </view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-        <view class="gap-line" style="flex-direction:column;"></view>
-      </block>
-
-
-      <block wx:if="{{initDetail.role =='TW'}}">
-
-      </block>
-      <block wx:if="{{initDetail.role =='XQ'}}">
-        <view class='view-7-11 align-r-center' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
-          <view class='  align-center'>
-            <image class='view-7-figure' src='/image/figure_7.png'></image>
-          </view>
-          <view style='flex-direction:row;display:flex'>已
-            <view style="color:#ffffff ">白白</view>选：</view>
-          <view class='view-ellipsis-1' style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
-          <view class='align-center'>
-            <image class='arrow_right_1' src='/image/arrow_right_1.png'></image>
-          </view>
-        </view>
-      </block>
-
-
-      <view></view>
-      <view></view>
+      </view>
     </view>
 
-    <block wx:if="{{initDetail.role =='XQ'}}">
+    <!-- 链团大区 end-->
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <!-- 朋友说大区 -->
+    <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part-2'>
 
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='width:100%' class='linear'></view>
+          <view style='' class='slopingsideL'></view>
+        </view>
 
-      <view class="gap-bg" style="flex-direction:column;"></view>
-
-
-      <view class='view-8  font-size-5'>
-        <view class='view-8-1 align-r-center'>
-
-          <view class='  align-center'>
-            <image class='view-8-figure' src='/image/figure_8.png'></image>
-          </view>
-          <view style=' '>朋友态度：</view>
-          <view class='view-ellipsis-1' style='flex:1'></view>
+        <view class='align-center font-color-13' style='width:5em'>朋友说</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
+          <view style='width:100%' class='linear'></view>
+        </view>
+      </view>
+      <view style=''>
+        <view class='align-r-center font-size-7' style=';flex-direction:row;display:flex'>
+          <view>我的朋友说:</view>
+          <view style='flex:1'></view>
           <view class='align-center font-color-5' catchtap='addopinion'>
             我要说
           </view>
-
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
-        <view class='view-8-2 align-c-center'>
-
+        <view style=''>
           <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
-
         </view>
-
         <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
           <view style='padding:10rpx 2rpx'>还没有朋友说</view>
         </view>
@@ -453,113 +572,75 @@
           <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
         </view>
       </view>
-    </block>
-
-
+    </view>
+    <!-- 朋友说大区 end-->
     <view class="gap-bg" style="flex-direction:column;"></view>
-    <view class='view-9'>
-      <view class='view-9-1'>
-        <view class='align-center view-9-1-1' style='flex:1' bindtap='openModal'>
-          <view class='align-center '>
-            <image class='view-9-1-figure' src='/image/figure_9.png'></image>
-          </view>
-          <view class='font-color-5 font-size-5'>图例说明</view>
+
+    <!-- 详情大区 -->
+    <view class='font-size-5' style='flex-direction:column;display:flex '>
+      <view style='margin:5rpx 15rpx;;flex-direction:row;display:flex' id='part-3'>
+
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='width:100%' class='linear'></view>
+          <view style='' class='slopingsideL'></view>
         </view>
-        <view class='align-center font-size-3' style='flex:1;{{filters.progressColor(requirementInfo.progress_status)}}'>{{requirementInfo.progress_status_name}}</view>
 
-
-
-
-        <view class='align-center view-9-1-3' style='flex:1'>
-          <!-- <view class='align-center '>
-            <image class='view-9-1-figure' src='/image/figure_11.png'></image>
-          </view>
-          <view class='font-color-5 font-size-4'>对话展示</view> -->
+        <view class='align-center font-color-13' style='width:4em'>详情</view>
+        <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
+          <view style='' class='slopingsideR'></view>
+          <view style='width:100%' class='linear'></view>
         </view>
       </view>
-      <block wx:if="{{requirementInfo.dealtype =='2'}}">
-        <block wx:if="{{initDetail.role =='XQ'}}">
-          <view class='view-9' style=';border :1px solid  #ff8400;'>
-            <view class='view-9-1' style='margin:0rpx 15rpx'>
+      <view style=''>
 
-              <view class='font-size-6 ' style='flex:1;text-align:center'>我的份数/订单数/链团份数</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>当前折扣/当前返款额(元)</view>
-            </view>
-            <view class='view-9-1' style='margin:0rpx 15rpx'>
-
-              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies}}/{{pcPromotionGroupOrderInfo.myOrders}}/{{pcPromotionGroupOrderInfo.combinedCopies}}</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund*1,2)}}</view>
-            </view>
-          </view>
-        </block>
-        <!-- 需求 -->
-        <block wx:if="{{initDetail.role =='TW'}}">
-          <view class='view-9' style=';border :1px solid  #ff8400;'>
-            <view class='view-9-1' style='margin:0rpx 15rpx'>
-
-              <view class='font-size-6 ' style='flex:1;text-align:center'>总用户</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>总单数</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>总份数</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>动态折扣</view>
-            </view>
-            <view class='view-9-1' style='margin:0rpx 15rpx'>
-              <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalDealers}}</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalOrders}}</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.totalCopies}}</view>
-              <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupsummaryInfo.discountLeave}}</view>
-
-
-            </view>
-          </view>
-        </block>
-      </block>
-    </view>
-    <view class='view-9' style=''>
-
-      <scroll-view style=' position:relative;' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
-        <image style="width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
-        <block wx:if="{{!downSuccess}}">
-          <view style='position:absolute;width:100%;top:45%' class='align-center'>
-            <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
-          </view>
-
-        </block>
-      </scroll-view>
-      <block wx:if="{{initDetail.role =='XQ'}}">
-        <block wx:if="{{requirementInfo.dealtype =='2'}}">
+        <view class='font-size-7' style='margin:1rpx 15rpx;flex-direction:row;display:flex'>
+          <view>详情描述：</view>
+          <view style='flex:1'></view>
+          <view class='align-center'></view>
+        </view>
+        <view class='font-size-7' style='margin:1rpx 15rpx'>{{spuInfo.spuinfo.description}}</view>
+        <block wx:if="{{attributeInfo.attributes && attributeInfo.attributes.length>0}}">
           <view class='gap-line'></view>
-          <view class='font-size-6' style='margin:5rpx 15rpx;'>其他传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
-          <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
-            <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
-            <block wx:if="{{nolinkCanvasViewInfo.orders>0 && !downNoLinkSuccess}}">
-              <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
-                <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+
+          <view class='font-size-7' style='margin:1rpx 15rpx;flex-direction:row;display:flex'>
+            <view>商品参数：</view>
+            <view style='flex:1'></view>
+            <view class='align-center'></view>
+          </view>
+          <view class='font-size-7' style='margin:1rpx 15rpx'>
+            <block wx:for="{{attributeInfo.attributes}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+              <block wx:if="{{index>0}}">
+                <view class='gap-dashed'></view>
+              </block>
+              <view class='align-r-center' style='flex-direction:row;display:flex;margin:5rpx 15rpx'>
+                <view style='width;5em;padding-right:1em;text-align:left'>{{item.attribute_name}}</view>
+                <view style='flex:1'>{{item.attribute_value}}</view>
               </view>
 
             </block>
-          </scroll-view>
-
+          </view>
         </block>
-      </block>
+
+        <view class='gap-line'></view>
+        <view class='font-size-7' style='margin:1rpx 15rpx;flex-direction:row;display:flex'>
+          <view>商品鉴赏：</view>
+          <view style='flex:1'></view>
+          <view class='align-center'>
+
+          </view>
+        </view>
+        <view>
+          <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
+        </view>
+
+
+
+      </view>
     </view>
-
-
+    <!-- 详情大区 end -->
   </scroll-view>
 
 
-
-  <view></view>
-  <!-- 详情区 -->
-  <view></view>
-
-  <!-- 基本信息区 -->
-
-  <view></view>
-
-  <!-- 朋友说区 -->
-  <view></view>
-  <!-- 活动进展区 -->
-  <view></view>
 
 
   <!--隐藏区域  -->

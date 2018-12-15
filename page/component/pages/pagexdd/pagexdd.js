@@ -12,7 +12,12 @@ Page({
    * 页面的初始数据 
    */
   data: {
-
+    viewData1: [
+      '微波 转发了    2018-12-12 12:12:12',
+      '赵小米 转发了  2012-12-12 12:12:12',
+      '冯段斌 购买了  2012-12-12 12:12:12',
+      '冯联通 转发了  2012-12-12 12:12:12',
+    ],
     backpage: '',
     /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
 
@@ -33,6 +38,7 @@ Page({
     viewModal: {
       isModalShow: false,
       addtoComossionShow: false, //追加赏金
+      myLinkPriceShow: false, //我的链团价
     },
     /**转发蒙板 */
     pagemask: {
@@ -76,7 +82,7 @@ Page({
 
     attributeInfo: {},
     pagePard: {
-      headHeight: '95',
+      headHeight: '40', //95
       footHeight: '90',
       contentHeight: '',
 
@@ -164,13 +170,37 @@ Page({
     userIData: false,
     // userWxInfo: {},
 
-    treetype: 'ZFC12_1'
+    treetype: 'ZFC12_1',
+
+    /**************详情页新增************** */
+    currScrollTop: 0,
+    scrollTop: 0,
+    navigaheight: 21, //页头导航的高度 
+    navigaSelected: '',
+    navigeids: {
+      'part0': {
+        top: 0
+      },
+      'part1': {
+        top: 0
+      },
+      'part2': {
+        top: 0
+      },
+      'part3': {
+        top: 0
+      }
+    },
+    friendActiveArray: [],
+    friendActiveEnd: 0,
+    friendActiveCount: 0,
+    friendActiveItemsPerPage: 50,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
     let that = this
     var fm = options.m;
@@ -199,17 +229,16 @@ Page({
       that.getRequirementDetail()
 
       that.getRequirementKeepInfo()
-      // this.getProgressRouteInfo()
 
       that.getConfigMsgInfo()
 
     } else {
 
-      rUserInfo.getUserInfoApp(that, function (rdata) {
-        // if (app.globalData.userWxInfo) {
+      rUserInfo.getUserInfoApp(that, function(rdata) {
+
         if (app.globalData.userIData) {
           that.setData({
-            // userWxInfo: app.globalData.userWxInfo,
+
             userIData: app.globalData.userIData,
             userInfo: app.globalData.userInfo,
           })
@@ -218,7 +247,6 @@ Page({
           that.getRequirementDetail()
 
           that.getRequirementKeepInfo()
-          // this.getProgressRouteInfo()
 
           that.getConfigMsgInfo()
         }
@@ -226,14 +254,20 @@ Page({
       })
     }
 
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+    })
+
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
-
+    let that = this;
     var windowWidth = app.globalData.systemInfo.windowWidth
     var windowHeight = app.globalData.systemInfo.windowHeight
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
@@ -258,15 +292,18 @@ Page({
       'swiperArea.swiperHeight': windowWidth + "px",
 
       'percent': percent,
-      'opinpicsize': opinpicsize
+      'opinpicsize': opinpicsize,
+      'navigaheight': percent * 40,
     })
+
+
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
     let that = this;
     var backpage = this.data.backpage;
@@ -375,35 +412,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
 
     let that = this;
@@ -427,7 +464,7 @@ Page({
       "upmarkid": upmarkid,
       "markid": markid
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       that.getProgressRouteInfo()
 
@@ -436,17 +473,17 @@ Page({
       title: title,
       path: "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r,
       imageUrl: swiperImgUrls[0].imageUrl,
-      success: function () {
+      success: function() {
         wx.showToast({
           title: '分享成功',
           image: '/image/icon_ok.png',
           duration: 2000,
-          success: function () {
+          success: function() {
 
           }
         })
       },
-      fail: function () {
+      fail: function() {
 
       },
 
@@ -455,7 +492,7 @@ Page({
 
   },
 
-  clickView_7x: function (event) {
+  clickView_7x: function(event) {
 
     let that = this
     var clicklx = event.currentTarget.dataset.lx;
@@ -485,13 +522,13 @@ Page({
     }
 
   },
-  hideSlideModal: function () {
+  hideSlideModal: function() {
     let that = this
     rUtils.slideModal.down(that, null, false);
 
   },
 
-  imageYl: function (event) {
+  imageYl: function(event) {
 
     var src = event.currentTarget.dataset.src; //获取data-src
     var imgList = event.currentTarget.dataset.list; //获取data-list
@@ -502,7 +539,7 @@ Page({
 
     })
   },
-  opinImageYl: function (event) {
+  opinImageYl: function(event) {
 
     let that = this;
 
@@ -524,7 +561,7 @@ Page({
     })
   },
   /**获取朋友说 */
-  getOpinionInfo: function () {
+  getOpinionInfo: function() {
     let that = this;
     var url = config.requestUrl;
 
@@ -540,7 +577,7 @@ Page({
       userid: userid,
       requirementId: requirementId,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -553,64 +590,93 @@ Page({
   },
 
 
-  openModal: function () {
+  openModal: function() {
     let that = this;
     that.setData({
       'viewModal.isModalShow': true,
     })
   },
-  closeModal: function () {
+  closeModal: function() {
     let that = this;
     that.setData({
       'viewModal.isModalShow': false,
     })
   },
   /**获取配置描述 */
-  getConfigMsgInfo: function () {
+  getConfigMsgInfo: function() {
     let that = this;
     var url = config.requestUrl;
     var values = [{
-      code: 'CBDJSM',
-      replace: []
-    },
-    {
-      code: 'THZQ_MSG',
-      replace: []
-    },
-    {
-      code: 'HHZQ_MSG',
-      replace: []
-    },
-    {
-      code: 'FWJZ_MSG',
-      replace: []
-    },
-    {
-      code: 'TGJZ_MSG',
-      replace: []
-    },
-    {
-      code: 'CBDJSM',
-      replace: []
-    },
-    {
-      code: 'SOWER_PER_MSG',
-      replace: []
-    },
-    {
-      code: 'CFG_GROUP_MSG',
-      replace: []
-    },
-    {
-      code: 'MSJG_MSG',
-      replace: []
-    }, {
-      code: 'ZJSM',
-      replace: []
-    }, {
-      code: 'CBDJSM',
-      replace: []
-    },
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'THZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'HHZQ_MSG',
+        replace: []
+      },
+      {
+        code: 'FWJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'TGJZ_MSG',
+        replace: []
+      },
+      {
+        code: 'CBDJSM',
+        replace: []
+      },
+      {
+        code: 'SOWER_PER_MSG',
+        replace: []
+      },
+      {
+        code: 'CFG_GROUP_MSG',
+        replace: []
+      },
+      {
+        code: 'MSJG_MSG',
+        replace: []
+      }, {
+        code: 'ZJSM',
+        replace: []
+      }, {
+        code: 'CBDJSET',
+        replace: []
+      },
+      {
+        code: 'DETAIL_MSG_1', //（详情页）我的折扣说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_2', //（详情页）我的链团说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_3', //（详情页）其他链团说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_4', //（详情页）动态折扣说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_5', //（详情页）当前链购说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_6', //（详情页）售后服务说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_7', //（详情页）门市价格说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_8', //（详情页）我的链团价
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_9', //（详情页）我的链团价-说明
+        replace: []
+      },
+      
 
     ];
 
@@ -620,7 +686,7 @@ Page({
       /**[{code:xxxx,replace:[{regexp:xxx,replacement:xxxx},{}]},{}] */
       values: values
     }
-    rCommon.configMsgInfo.getConfigMsg(url, data, that, function (rdata) {
+    rCommon.configMsgInfo.getConfigMsg(url, data, that, function(rdata) {
       if (rdata.info) {
 
         that.setData({
@@ -633,7 +699,7 @@ Page({
     });
 
   },
-  getPcPromotionGroupOrderInfo: function () {
+  getPcPromotionGroupOrderInfo: function() {
 
     let that = this;
 
@@ -646,7 +712,7 @@ Page({
       "promotionid": promotionId,
       "userid": userid
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       if (rdata.info) {
 
 
@@ -660,7 +726,7 @@ Page({
     })
 
   },
-  getPcPromotionGroupsummaryInfo: function () {
+  getPcPromotionGroupsummaryInfo: function() {
 
     let that = this;
 
@@ -673,7 +739,7 @@ Page({
       "promotionid": promotionId,
       "userid": userid
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       if (rdata.info) {
 
 
@@ -690,7 +756,7 @@ Page({
 
 
   /**获取SpuCoverImage*/
-  getSpuCoverImageInfo: function () {
+  getSpuCoverImageInfo: function() {
     let that = this
     var spuid = that.data.requirementInfo.spuid;
 
@@ -699,7 +765,7 @@ Page({
       code_: 'x_getSpuCoverImageInfo',
       spuid: spuid,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
         // imageUrl
@@ -717,7 +783,7 @@ Page({
     })
   },
   /**选择sku */
-  selectSku: function (event) {
+  selectSku: function(event) {
     let that = this
     var skuindex = event.currentTarget.dataset.skuindex;
     var skuids = event.currentTarget.dataset.skuids;
@@ -730,7 +796,7 @@ Page({
 
 
   /**点击确认按钮 */
-  sureSelect: function () {
+  sureSelect: function() {
     let that = this
     // pagekskujs.selectSpuSku.sureBtn(that)
     that.hideSlideModal();
@@ -787,7 +853,7 @@ Page({
 
 
   /**获取spu*/
-  getSpuInfo: function () {
+  getSpuInfo: function() {
 
     let that = this
     var spuid = that.data.requirementInfo.spuid;
@@ -800,7 +866,7 @@ Page({
       promotionid: promotionid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -884,7 +950,7 @@ Page({
 
   },
 
-  orderBtn: function () {
+  orderBtn: function() {
     let that = this;
     var available = that.data.myOrderInfo.mySkuInfo.available_status;
 
@@ -935,7 +1001,7 @@ Page({
   },
   /**获取sku */
   /**获取详情 */
-  getRequirementDetail: function () {
+  getRequirementDetail: function() {
     let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.requirementId;
@@ -947,7 +1013,7 @@ Page({
       userid: usreId,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -985,7 +1051,6 @@ Page({
         }
 
         that.getProgressRouteInfo()
-
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
@@ -997,7 +1062,7 @@ Page({
     })
 
   },
-  showRichtext: function () {
+  showRichtext: function() {
     let that = this;
     that.setData({
       'richtextInfo.richtextMore': false,
@@ -1006,7 +1071,7 @@ Page({
 
   },
   /**获取展开详情信息 */
-  getAttribute: function () {
+  getAttribute: function() {
     let that = this
 
     var spuid = that.data.requirementInfo.spuid;;
@@ -1017,7 +1082,7 @@ Page({
       spuid: spuid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -1032,7 +1097,7 @@ Page({
 
 
   /**获取展开详情信息 */
-  getRequirementRichtext: function () {
+  getRequirementRichtext: function() {
     let that = this
     var usreId = '';
     var spuid = that.data.requirementInfo.spuid;;
@@ -1043,7 +1108,7 @@ Page({
       spuid: spuid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       var richtext = rdata.info.richtext_content;
       /**
        * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -1062,7 +1127,7 @@ Page({
 
 
   /**执行收藏操作 */
-  doRequirementKeepInfo: function () {
+  doRequirementKeepInfo: function() {
 
     let that = this
 
@@ -1076,7 +1141,7 @@ Page({
       userid: userid,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       var keepstatusmsg = rdata.keepstatusmsg;
 
@@ -1084,7 +1149,7 @@ Page({
         title: keepstatusmsg,
         icon: 'success',
         duration: 2000,
-        success: function () {
+        success: function() {
           that.getRequirementKeepInfo();
         }
       })
@@ -1092,48 +1157,58 @@ Page({
     })
   },
   /**详情页初始化 */
-  getInitDetail: function () {
-    let that = this
-    var usreId = that.data.userInfo.id;
-    var requirementid = that.data.requirementId;
-    var upmarkid = that.data.upmarkid;
-    var url = config.requestUrl
-    var data = {
-      code_: 'x_initDetail',
-      m: upmarkid,
-      r: requirementid,
-      u: usreId,
-    }
-    rRequest.doRequest(url, data, that, function (rdata) {
+  getInitDetail: function() {
+      let that = this
+      var usreId = that.data.userInfo.id;
+      var requirementid = that.data.requirementId;
+      var upmarkid = that.data.upmarkid;
+      var url = config.requestUrl
+      var data = {
+        code_: 'x_initDetail',
+        m: upmarkid,
+        r: requirementid,
+        u: usreId,
+      }
+      rRequest.doRequest(url, data, that, function(rdata) {
 
-      if (rdata.info) {
-        ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'EARN_READ:''} */
-        that.setData({
-          'initDetail': rdata.info,
-        })
-
-        if (rdata.info.EARN_READ && rdata.info.EARN_READ != '') {
-          wx.showModal({
-            title: '恭喜',
-            content: rdata.info.EARN_READ,
-            showCancel: false,
-            confirmText: '知道了',
-            success: function (res) {
-
-            }
+        if (rdata.info) {
+          ///**{markid:'',upmarkid:'',fmarkid:'',role:'XQ/TW'EARN_READ:''} */
+          that.setData({
+            'initDetail': rdata.info,
           })
 
+          that.getFriendInfo();
+          setTimeout(function() {
+            wx.hideLoading();
+
+            if (rdata.info.EARN_READ && rdata.info.EARN_READ != '') {
+              wx.showModal({
+                title: '恭喜',
+                content: rdata.info.EARN_READ,
+                showCancel: false,
+                confirmText: '知道了',
+                success: function(res) {
+
+                }
+              })
+
+            }
+            // that.initNavigeiPoint()
+          }, 1000)
+
+
+
+
         }
-      }
 
 
-    })
+      })
 
-  }
+    }
 
-  ,
+    ,
   /**获取收藏信息 */
-  getRequirementKeepInfo: function () {
+  getRequirementKeepInfo: function() {
     let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.requirementId;
@@ -1145,7 +1220,7 @@ Page({
       userid: usreId,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
       var keepstatus = rdata.keepstatus;
       if (keepstatus == 1) {
         that.setData({
@@ -1159,7 +1234,7 @@ Page({
     })
   },
   //获取进展区路径图
-  getProgressRouteInfo: function () {
+  getProgressRouteInfo: function() {
     let that = this
     var usreId = that.data.userInfo.id;
     var requirementid = that.data.requirementId;
@@ -1174,7 +1249,7 @@ Page({
       role: treetype,
 
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       that.setData({
 
@@ -1189,9 +1264,10 @@ Page({
           (rdata.boder.max_width * config.routeCicleConfig.circleRM),
 
       })
-      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that);
+      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that, function() {
 
 
+      });
       if (that.data.requirementInfo.dealtype == '2') {
 
         that.setData({
@@ -1210,17 +1286,22 @@ Page({
 
         })
         if (rdata.rInfo_) {
-          rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that);
+          rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that, function() {});
         }
 
       }
+
+      that.initNavigeiPoint()
+
+
+
 
     });
   },
 
   /** */
 
-  updateCopies: function (event) {
+  updateCopies: function(event) {
     //var src = event.currentTarget.dataset.src; //获取data-src
     var doType = event.currentTarget.dataset.dotype;
     let that = this;
@@ -1233,7 +1314,7 @@ Page({
   },
 
 
-  order: function () {
+  order: function() {
 
     let that = this
 
@@ -1246,7 +1327,7 @@ Page({
 
   },
 
-  gift: function () {
+  gift: function() {
 
     let that = this
 
@@ -1260,7 +1341,7 @@ Page({
   },
 
   /**延期 */
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
 
     var newDate = e.detail.value;
 
@@ -1276,14 +1357,14 @@ Page({
       "requirement_id": requirementid,
       "userid": userid
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
-      if (rdata.info) { }
+      if (rdata.info) {}
       wx.showToast({
         title: '延期成功',
         image: '/image/icon_ok.png',
         duration: 2000,
-        success: function () { }
+        success: function() {}
       })
 
       that.setData({
@@ -1293,14 +1374,14 @@ Page({
     })
   },
   // 关闭弹窗--追加赏金
-  closecommission: function () {
+  closecommission: function() {
     let that = this;
     that.setData({
       'viewModal.addtoComossionShow': false,
     })
   },
   /**追加 */
-  opencommission: function () {
+  opencommission: function() {
 
     let that = this;
     that.setData({
@@ -1309,15 +1390,15 @@ Page({
     })
     WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
 
-    WxParse.wxParse('codemsg1', 'html', that.data.configMsgInfo.CBDJSM, that, 5);
+    WxParse.wxParse('codemsg1', 'html', that.data.configMsgInfo.CBDJSET, that, 5);
 
   },
-  bindKeyInputCommission: function (e) {
+  bindKeyInputCommission: function(e) {
     this.setData({
       addToCommission: e.detail.value
     })
   },
-  bindKeyInputSinglePrice: function (e) {
+  bindKeyInputSinglePrice: function(e) {
     this.setData({
       singlePrice: e.detail.value
     })
@@ -1325,7 +1406,7 @@ Page({
 
 
   /**追加 */
-  addcommission: function () {
+  addcommission: function() {
 
     // commissionPayUrl
     let that = this;
@@ -1342,7 +1423,7 @@ Page({
           title: '传播单价为空',
           image: '/image/icon_warn.png',
           duration: 1500,
-          success: function () { }
+          success: function() {}
         })
         return false;
       }
@@ -1351,7 +1432,7 @@ Page({
           title: '单价金额不正确',
           image: '/image/icon_warn.png',
           duration: 1500,
-          success: function () { }
+          success: function() {}
         })
         return false;
       }
@@ -1360,7 +1441,7 @@ Page({
           title: '传播单价为零',
           image: '/image/icon_warn.png',
           duration: 1500,
-          success: function () { }
+          success: function() {}
         })
         return false;
       }
@@ -1369,7 +1450,7 @@ Page({
           title: '传播单价小于零',
           image: '/image/icon_warn.png',
           duration: 1500,
-          success: function () { }
+          success: function() {}
         })
         return false;
       }
@@ -1384,7 +1465,7 @@ Page({
         title: '追加酬金为空',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1393,7 +1474,7 @@ Page({
         title: '金额不正确',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1402,7 +1483,7 @@ Page({
         title: '追加酬金为零',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1411,7 +1492,7 @@ Page({
         title: '追加酬金小于零',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1421,7 +1502,7 @@ Page({
         title: '酬金小于单价',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -1442,7 +1523,7 @@ Page({
       "markid": markid
     }
 
-    rRequest.doRequest(url, dataInfo, that, function (rdata) {
+    rRequest.doRequest(url, dataInfo, that, function(rdata) {
       if (rdata.info) {
         wx.requestPayment({
           timeStamp: rdata.info.timeStamp, //时间戳
@@ -1450,13 +1531,13 @@ Page({
           package: rdata.info.package, //统一下单接口返回的 prepay_id 参数值
           signType: rdata.info.signType, //签名算法
           paySign: rdata.info.paySign, //签名
-          success: function (res) {
+          success: function(res) {
 
             wx.showToast({
               title: '追加成功',
               image: '/image/icon_ok.png',
               duration: 2000,
-              success: function () { }
+              success: function() {}
             })
 
             that.setData({
@@ -1468,7 +1549,7 @@ Page({
             if (settlementsingleprice == '' || settlementsingleprice <= 0) {
               that.uppSingleprice(singlePrice)
             } else {
-              setTimeout(function () {
+              setTimeout(function() {
                 that.getRequirementDetail()
               }, 5000)
 
@@ -1477,10 +1558,10 @@ Page({
 
 
           },
-          fail: function (res) {
+          fail: function(res) {
 
           },
-          complete: function (res) {
+          complete: function(res) {
 
           }
         })
@@ -1493,7 +1574,7 @@ Page({
 
   },
 
-  uppSingleprice: function (singleprice) {
+  uppSingleprice: function(singleprice) {
 
     var that = this;
 
@@ -1504,8 +1585,8 @@ Page({
       'singleprice': singleprice,
       'id': requirementId
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
-      setTimeout(function () {
+    rRequest.doRequest(url, data, that, function(rdata) {
+      setTimeout(function() {
         that.getRequirementDetail()
       }, 5000)
 
@@ -1514,14 +1595,14 @@ Page({
   },
 
   /**转发蒙板 */
-  forwardfriend: function () {
+  forwardfriend: function() {
     this.setData({
       'pagemask.isForward': true,
       'pagemask.msgTitle': '请点击右上角,选择【发送给朋友】以便进行链购优享'
     })
 
   },
-  closeforwardfriend: function () {
+  closeforwardfriend: function() {
     this.setData({
       'pagemask.isForward': false,
       'pagemask.msgTitle': ''
@@ -1529,7 +1610,7 @@ Page({
 
   },
   /**首页 */
-  homepage: function () {
+  homepage: function() {
 
     wx.switchTab({
       url: '/pages/pagehome/pagehome',
@@ -1537,7 +1618,7 @@ Page({
 
   },
   /**客服聊天 */
-  customerpage: function () {
+  customerpage: function() {
     var r = this.data.requirementId;
     /**type = 1:消费者 0：商户  t == 1时 c =''*/
     wx.navigateTo({
@@ -1549,7 +1630,7 @@ Page({
   },
 
   /**客服聊天--需求者 */
-  customerpagelist: function () {
+  customerpagelist: function() {
     var r = this.data.requirementId;
 
     wx.navigateTo({
@@ -1560,7 +1641,7 @@ Page({
 
   },
   /**添加库存 */
-  addstorage: function () {
+  addstorage: function() {
     var spuid = this.data.requirementInfo.spuid;
 
     wx.navigateTo({
@@ -1574,7 +1655,7 @@ Page({
   },
 
   /**我要说 */
-  addopinion: function (event) {
+  addopinion: function(event) {
     var requirementId = this.data.requirementId;
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
@@ -1584,12 +1665,237 @@ Page({
     })
   },
   /**更多朋友说 */
-  moreopinion: function (event) {
+  moreopinion: function(event) {
     var requirementId = this.data.requirementId;
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
     })
 
   },
+
+
+  /**************详情页新增************** */
+
+  initNavigeiPoint: function() {
+
+    let that = this;
+
+
+    const query0 = wx.createSelectorQuery()
+    query0.select('#part-0').boundingClientRect()
+    query0.selectViewport().scrollOffset()
+    query0.exec(function(res) {
+      // navigetops.push(res[0].top)
+      that.setData({
+        'navigeids.part0.top': res[0].top
+      })
+    })
+
+
+    const query1 = wx.createSelectorQuery()
+    query1.select('#part-1').boundingClientRect()
+    query1.selectViewport().scrollOffset()
+    query1.exec(function(res) {
+      // navigetops.push(res[0].top)
+      that.setData({
+        'navigeids.part1.top': res[0].top
+      })
+    })
+    const query2 = wx.createSelectorQuery()
+    query2.select('#part-2').boundingClientRect()
+    query2.selectViewport().scrollOffset()
+    query2.exec(function(res) {
+      // navigetops.push(res[0].top)
+      that.setData({
+        'navigeids.part2.top': res[0].top
+      })
+    })
+    const query3 = wx.createSelectorQuery()
+    query3.select('#part-3').boundingClientRect()
+    query3.selectViewport().scrollOffset()
+    query3.exec(function(res) {
+      // navigetops.push(res[0].top)
+      that.setData({
+        'navigeids.part3.top': res[0].top
+      })
+    })
+
+
+  },
+
+  scroll: function(e) {
+    let that = this;
+    var scrollHeight = e.detail.scrollHeight;
+
+    var scrollTop = e.detail.scrollTop
+    var contentHeight = that.data.pagePard.contentHeight
+    that.setData({
+      currScrollTop: scrollTop
+    });
+
+
+    var navigeids = that.data.navigeids
+
+    // console.log(navigeids.part0.top + "-----" + scrollTop);
+    if (navigeids.part0.top == 0) {
+      that.initNavigeiPoint()
+      return
+    }
+
+    let navigetops = []
+    navigetops.push(navigeids.part0.top - scrollTop)
+    navigetops.push(navigeids.part1.top - scrollTop)
+    navigetops.push(navigeids.part2.top - scrollTop)
+    navigetops.push(navigeids.part3.top - scrollTop)
+
+    let selectnavigeid = that.checkPoint(0, navigetops, contentHeight)
+
+    if (selectnavigeid == 'part0' || selectnavigeid == 'part1' || selectnavigeid == 'part2' || selectnavigeid == 'part3') {
+      var onavigaSelected = that.data.navigaSelected;
+      if (onavigaSelected == selectnavigeid) {
+
+      } else {
+        console.log("-navigeids.part0.top +----" + selectnavigeid);
+        that.setData({
+          'navigaSelected': selectnavigeid
+        });
+
+      }
+
+
+
+    }
+
+
+  },
+  checkPoint: function(i, navigetops, contentHeight) {
+    let that = this
+    if (navigetops[i] >= 0) {
+      if (navigetops[i] <= contentHeight) {
+
+        return 'part' + i;
+      } else {
+        if (i == 0) {
+          return ''; //''
+        } else {
+
+          return null; //无操作
+        }
+
+      }
+
+    } else {
+      if (i == 3) {
+        return 'part' + i;
+
+      } else {
+
+        return that.checkPoint(i + 1, navigetops, contentHeight)
+      }
+
+    }
+
+  },
+  pageNativeScroll: function(e) {
+    let that = this;
+    let id = e.currentTarget.dataset.pid;
+    let scrollTop = that.data.scrollTop;
+    let navigaheight = that.data.navigaheight;
+
+    let currScrollTop = that.data.currScrollTop;
+
+
+    const query = wx.createSelectorQuery()
+    query.select('#' + id).boundingClientRect()
+    query.selectViewport().scrollOffset()
+    query.exec(function(res) {
+      // res[0].top // #the-id节点的上边界坐标
+      // res[1].scrollTop // 显示区域的竖直滚动位置
+
+      console.log(res[0].top + "-----" + res[1].scrollTop);
+      let top = res[0].top;
+      that.setData({
+        scrollTop: top + currScrollTop - navigaheight - 3,
+        'navigaSelected': id
+      });
+
+    })
+
+  },
+  // 关闭弹窗--我的链团价
+  openlinkprice: function() {
+    let that = this;
+    that.setData({
+      'viewModal.myLinkPriceShow': true,
+    })
+
+    var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
+    var discount = that.data.pcPromotionGroupOrderInfo.discount;
+
+    var linkprice = ''
+    if (Number(discount) > 0 && Number(discount) < 1) {
+
+      linkprice = Number(discount) * Number(skuprice)
+      linkprice = linkprice.toFixed(2)
+    } else {
+
+      linkprice = '暂无折扣'
+    }
+
+ 
+    var DETAIL_MSG_8 = that.data.configMsgInfo.DETAIL_MSG_8;
+
+    DETAIL_MSG_8 = DETAIL_MSG_8.replace("@linkprice", linkprice)
+
+    WxParse.wxParse('codemsg8', 'html', DETAIL_MSG_8, that, 5);
+
+    WxParse.wxParse('codemsg9', 'html', that.data.configMsgInfo.DETAIL_MSG_9, that, 5);
+    
+
+  },
+  // 关闭弹窗--我的链团价
+  closelinkprice: function() {
+    let that = this;
+    that.setData({
+      'viewModal.myLinkPriceShow': false,
+    })
+  },
+  // 获取好友动态
+
+  getFriendInfo: function() {
+
+
+    let that = this;
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id;
+    var requirementId = that.data.requirementId;;
+    var role = that.data.initDetail.role;
+
+    var endRow = 0;
+    var itemsPerPage = 50;
+    var data = {
+      code_: 'x_getFriendActiveInfo',
+      role: role,
+      requirementid: requirementId,
+      userid: userid,
+      endRow: endRow,
+      itemsPerPage: itemsPerPage,
+
+    }
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.infolist) {
+
+
+        that.setData({
+          friendActiveArray: rdata.infolist,
+          friendActiveEnd: rdata.endRow,
+          friendActiveCount: rdata.infocounts
+        })
+
+
+      }
+    })
+  }
 
 })
