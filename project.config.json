@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 58,
+			"current": 59,
 			"list": [
 				{
 					"id": -1,
@@ -409,6 +409,12 @@
 					"pathName": "page/component/pages/test/pagexdd/pagexdd",
 					"query": "m=2d3789e782cbde91&r=1529296099516208",
 					"scene": "1011"
+				},
+				{
+					"id": 59,
+					"name": "路径图",
+					"pathName": "page/component/pages/pagelink/pagelink",
+					"query": "dt=2&ro=TW"
 				}
 			]
 		}

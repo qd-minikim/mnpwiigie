@@ -1,0 +1,5 @@
+/* page/component/pages/pagelink/pagelink.wxss */
+
+page{
+  overflow-x: auto
+}

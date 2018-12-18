@@ -1,0 +1,66 @@
+<!--page/component/pages/pagelink/pagelink.wxml-->
+<!--  -->
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;left:{{canvasViewInfo.canvasTop1}}px;top:{{canvasViewInfo.canvasLeft1}}px; " canvas-id="route_canvas_id" />
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id"
+/>
+
+<!-- width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px; -->
+
+
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+  <view style='width:100%; '>
+    <view class='font-size-7' style='margin:5rpx 10rpx; '>
+      <block wx:if="{{role =='XQ'}}">我的链团 </block>
+     
+      <block wx:if="{{role =='TW'}}">当前链购</block>
+      
+    </view>
+  </view>
+  <view class='gap-line'></view>
+
+  <view style=" position:relative;{{canvasViewInfo.canvasHeight>=canvasViewInfo.imageMaxHeight?'width:{{canvasViewInfo.imageMaxWidth}}px;height:{{canvasViewInfo.imageMaxHeight}}px':'width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px'}}">
+    <block wx:if="{{canvasViewInfo.canvasHeight>=canvasViewInfo.imageMaxHeight}}">
+      <image mode='aspectFit' style=" width:{{canvasViewInfo.imageMaxWidth}}px;height:{{canvasViewInfo.imageMaxHeight}}px " catchtap='imageYl' src='{{canvasViewInfo.canvasSaveImage}}' data-src='{{canvasViewInfo.canvasSaveImage}}'> </image>
+    </block>
+    <block wx:else>
+      <image mode='aspectFit' style=" width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px" catchtap='imageYl' src='{{canvasViewInfo.canvasSaveImage}}' data-src='{{canvasViewInfo.canvasSaveImage}}'> </image>
+    </block>
+
+    <block wx:if="{{!downSuccess}}">
+      <view style='position:absolute;width:100%;top:45%' class='align-center'>
+        <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+      </view>
+
+    </block>
+ <block wx:if="{{downSuccess}}">
+      <view wx:if='{{animationshow}}' style='position:absolute;width:100%;top:35%' class='align-center font-color-9 font-size-2' animation="{{showaction}}">
+         点击可放大
+      </view>
+
+</block>
+  </view>
+  <block wx:if="{{role =='XQ' && dealtype =='2'}}">
+    <view style='width:100%; '>
+      <view class='font-size-7' style='margin:5rpx 10rpx; '>其他链团：其他链团好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
+    </view>
+    <block wx:if="{{nolinkCanvasViewInfo.orders>0}}">
+      <view style='position:relative;width:100%'>
+        <scroll-view style=' position:relative; ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+          <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
+          <block wx:if="{{nolinkCanvasViewInfo.orders>0 && !downNoLinkSuccess}}">
+            <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
+              <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+            </view>
+
+          </block>
+
+
+        </scroll-view>
+      </view>
+    </block>
+  </block>
+  <view>
+
+  </view>
+</view>

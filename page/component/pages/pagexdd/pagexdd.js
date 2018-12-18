@@ -39,6 +39,7 @@ Page({
       isModalShow: false,
       addtoComossionShow: false, //追加赏金
       myLinkPriceShow: false, //我的链团价
+      dynamicLinkPriceShow: false, //动态链团价
     },
     /**转发蒙板 */
     pagemask: {
@@ -338,7 +339,7 @@ Page({
           if (role == "XQ") {
             that.getSpuInfo()
             that.getPcPromotionGroupOrderInfo()
-            that.getProgressRouteInfo()
+           // that.getProgressRouteInfo()
           }
 
         }
@@ -466,7 +467,7 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-      that.getProgressRouteInfo()
+      //that.getProgressRouteInfo()
 
     })
     return {
@@ -675,8 +676,14 @@ Page({
       }, {
         code: 'DETAIL_MSG_9', //（详情页）我的链团价-说明
         replace: []
+      }, {
+        code: 'DETAIL_MSG_10', //（详情页）我的链团价-说明
+        replace: []
+      }, {
+        code: 'DETAIL_MSG_11', //（详情页）我的链团价-说明
+        replace: []
       },
-      
+
 
     ];
 
@@ -1050,7 +1057,7 @@ Page({
           })
         }
 
-        that.getProgressRouteInfo()
+        //that.getProgressRouteInfo()
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
@@ -1839,10 +1846,11 @@ Page({
       linkprice = linkprice.toFixed(2)
     } else {
 
-      linkprice = '暂无折扣'
+      linkprice = Number(skuprice)
+      linkprice = linkprice.toFixed(2)
     }
 
- 
+
     var DETAIL_MSG_8 = that.data.configMsgInfo.DETAIL_MSG_8;
 
     DETAIL_MSG_8 = DETAIL_MSG_8.replace("@linkprice", linkprice)
@@ -1850,7 +1858,7 @@ Page({
     WxParse.wxParse('codemsg8', 'html', DETAIL_MSG_8, that, 5);
 
     WxParse.wxParse('codemsg9', 'html', that.data.configMsgInfo.DETAIL_MSG_9, that, 5);
-    
+
 
   },
   // 关闭弹窗--我的链团价
@@ -1858,6 +1866,47 @@ Page({
     let that = this;
     that.setData({
       'viewModal.myLinkPriceShow': false,
+    })
+  },
+
+
+  // 关闭弹窗--动态链团价
+  opendynamiclinkprice: function() {
+    let that = this;
+    that.setData({
+      'viewModal.dynamicLinkPriceShow': true,
+    })
+
+    var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
+    var discount = that.data.pcPromotionGroupOrderInfo.average_discount;
+
+    var linkprice = ''
+    if (Number(discount) > 0 && Number(discount) < 1) {
+
+      linkprice = Number(discount) * Number(skuprice)
+      linkprice = linkprice.toFixed(2)
+    } else {
+
+      linkprice = Number(skuprice)
+      linkprice = linkprice.toFixed(2)
+    }
+
+
+    var DETAIL_MSG_10 = that.data.configMsgInfo.DETAIL_MSG_10;
+
+    DETAIL_MSG_10 = DETAIL_MSG_10.replace("@linkprice", linkprice)
+
+    WxParse.wxParse('codemsg10', 'html', DETAIL_MSG_10, that, 5);
+
+    WxParse.wxParse('codemsg11', 'html', that.data.configMsgInfo.DETAIL_MSG_11, that, 5);
+
+
+  },
+  // 关闭弹窗--动态链团价
+  closedynamiclinkprice: function() {
+    let that = this;
+    that.setData({
+      'viewModal.dynamicLinkPriceShow': false,
     })
   },
   // 获取好友动态
@@ -1896,6 +1945,18 @@ Page({
 
       }
     })
-  }
+  },
+  /**************拆出路径图新增************** */
+ 
+  linkpage: function() {
+    var that = this;
+    var dt = that.data.requirementInfo.dealtype;
+    var ro = that.data.initDetail.role;
+    var r = that.data.requirementId;
+    var u = that.data.userInfo.id;
 
+    wx.navigateTo({
+      url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' +u,
+    })
+  }
 })

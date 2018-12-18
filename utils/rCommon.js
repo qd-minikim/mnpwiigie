@@ -14,9 +14,7 @@ var canvaProgressRoute = {
   doProgressRouteInfoImpl: function(data, category, id, that, callback) {
     var info_ = data.info_
     var this_ = this;
-
     this_.callback = callback;
-
     this_.headImage = {
       url: [],
       x: [],
@@ -26,7 +24,10 @@ var canvaProgressRoute = {
       resource: []
     };
     this_.context = wx.createCanvasContext(id)
+
+    // 
     this_.context.save()
+    this_.context.fillStyle = 'rgba(255,255,255,1)';
     for (var i = 0; i < info_.length; i++) {
       var node = info_[i];
       this_.readTree(node, category, id);
@@ -46,8 +47,7 @@ var canvaProgressRoute = {
         this_.doProgressRouteInfoImpl(data, category, id, that, callback)
 
       }
-
-
+ 
     }, 10000)
 
   },
@@ -90,7 +90,7 @@ var canvaProgressRoute = {
     }
 
     image = image.replace('http:', 'https:')
-    console.log(i + "--------" + image)
+
     this_.downloadImage(image).then(function(value) {
 
       if (value != "") {
@@ -140,34 +140,32 @@ var canvaProgressRoute = {
       this_.context.restore();
 
     }
-
     let callback = this_.callback;
 
     this_.context.draw(false, function() {
+      setTimeout(function() {
 
-      wx.canvasToTempFilePath({
-        canvasId: id, //canvasId和标签里面的id对应
-        quality: 0.7,
-        fileType: 'png',
-        success: (res) => {
+        wx.canvasToTempFilePath({
+          canvasId: id, //canvasId和标签里面的id对应
+          quality: 0.9,
+          fileType: 'png',
 
-          that.setData({
-            'canvasViewInfo.canvasSaveImage': res.tempFilePath,
-            'downSuccess': true
-          })
-          if (callback != null) {
+          success: (res) => {
+            that.setData({
+              'canvasViewInfo.canvasSaveImage': res.tempFilePath,
+              'downSuccess': true
+            })
+            if (callback != null) {
+              typeof callback == "function" && callback()
+            }
 
-            typeof callback == "function" && callback()
           }
+        })
 
-        }
-      })
+      }, 100)
+
 
     });
-
-
-
-
 
   },
 
@@ -279,8 +277,6 @@ var canvaProgressRoute = {
           //   "(" + node.openChildsOnlyReadNum + ")",
           //   node.circlePoint[0] * config.routeCicleConfig.circleRM + 48 * config.routeCicleConfig.circleRM,
           //   node.circlePoint[1] * config.routeCicleConfig.circleRM + 15 * config.routeCicleConfig.circleRM, "#6b6a6a", true);
-
-
 
         }
 
@@ -518,9 +514,9 @@ var nolinkCanvaProgressRoute = {
       t: [],
       resource: []
     };
-    
-      this_.contextn = wx.createCanvasContext(id)
- 
+
+    this_.contextn = wx.createCanvasContext(id)
+
     this_.contextn.save()
     for (let i = 0; i < info_.length; i++) {
       let node = info_[i];
@@ -535,23 +531,20 @@ var nolinkCanvaProgressRoute = {
 
     let n = setTimeout(function() {
       let downNoLinkSuccess = that.data.downNoLinkSuccess;
-
-      console.log(this_.outtimecount+"------setTimeout----" + downNoLinkSuccess)
-      if (!downNoLinkSuccess ) {
-
-
+ 
+      if (!downNoLinkSuccess) {
+ 
         if (this_.outtimecount < 5) {
           this_.outtimecount++;
           this_.doProgressRouteInfoImplNolink(data, category, id, that, callback)
 
-        }  
-      }else{
+        }
+      } else {
 
         clearTimeout(n)
 
       }
-
-
+ 
     }, 10000)
   },
   readInfo: function(node, category, id) {
@@ -652,29 +645,30 @@ var nolinkCanvaProgressRoute = {
     let callback = this_.callback;
 
     this_.contextn.draw(false, function(e) {
-      console.log("------drawcallback---" + e)
+       
+      setTimeout(function() {
 
-      wx.canvasToTempFilePath({
-        canvasId: id, //canvasId和标签里面的id对应 nolinkCanvasViewInfo.canvasWidth
-        quality: 0.7,
+        wx.canvasToTempFilePath({
+          canvasId: id, //canvasId和标签里面的id对应 nolinkCanvasViewInfo.canvasWidth
+          quality: 0.9,
 
-        fileType: 'png',
-        success: (res) => {
-          console.log("------canvasToTempFilePath---success-" + res.tempFilePath)
-          that.setData({
-            'nolinkCanvasViewInfo.canvasSaveImage': res.tempFilePath,
-            'downNoLinkSuccess': true
-          })
-          if (callback != null) {
+          fileType: 'png',
+          success: (res) => {
+            console.log("------canvasToTempFilePath---success-" + res.tempFilePath)
+            that.setData({
+              'nolinkCanvasViewInfo.canvasSaveImage': res.tempFilePath,
+              'downNoLinkSuccess': true
+            })
+            if (callback != null) {
 
-            typeof callback == "function" && callback()
+              typeof callback == "function" && callback()
+            }
+
+
           }
 
-
-        }
-
-      })
-
+        })
+      }, 100)
     });
 
 

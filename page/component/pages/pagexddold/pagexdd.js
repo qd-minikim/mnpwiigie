@@ -180,7 +180,7 @@ Page({
       'upmarkid': fm
     })
 
-    var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
+    var url = "/page/component/pages/pagexdd/pagexdd?m="+fm +"&r=" + r
     wx.setStorage({
       key: "cardpage",
       data: url,
