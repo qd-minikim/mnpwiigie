@@ -1,0 +1,17 @@
+/* page/component/pages/pageopin/opinremark/opinremark.wxss */
+
+.pageopins-image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+
+.pageopins-view{
+
+  margin: 5rpx 15rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap
+
+}

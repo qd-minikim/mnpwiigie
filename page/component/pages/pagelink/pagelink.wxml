@@ -11,9 +11,9 @@
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <view style='width:100%; '>
     <view class='font-size-7' style='margin:5rpx 10rpx; '>
-      <block wx:if="{{role =='XQ'}}">我的链团 </block>
+      <block wx:if="{{role =='XQ'}}">我的传播链</block>
      
-      <block wx:if="{{role =='TW'}}">当前链购</block>
+      <block wx:if="{{role =='TW'}}">活动传播链</block>
       
     </view>
   </view>
@@ -34,7 +34,7 @@
 
     </block>
  <block wx:if="{{downSuccess}}">
-      <view wx:if='{{animationshow}}' style='position:absolute;width:100%;top:35%' class='align-center font-color-9 font-size-2' animation="{{showaction}}">
+      <view wx:if='{{animationshow}}' style='position:absolute;width:100%;top:45%' class='align-center font-color-9 font-size-2' animation="{{showaction}}">
          点击可放大
       </view>
 
@@ -42,7 +42,7 @@
   </view>
   <block wx:if="{{role =='XQ' && dealtype =='2'}}">
     <view style='width:100%; '>
-      <view class='font-size-7' style='margin:5rpx 10rpx; '>其他链团：其他链团好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
+      <view class='font-size-7' style='margin:5rpx 10rpx; '>其TA传播链上的好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
     </view>
     <block wx:if="{{nolinkCanvasViewInfo.orders>0}}">
       <view style='position:relative;width:100%'>

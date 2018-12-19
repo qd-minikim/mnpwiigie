@@ -57,11 +57,16 @@ Page({
     var r = options.r;
     var u = options.u;
     var treetype ='ZFC12_1'
-    
+    var title ='链购-我的链团' 
     if (ro == 'TW') {
-      treetype = 'TW'
+      treetype = 'TW';
+      title = '链购-活动链团' 
     }
-    
+
+
+     wx.setNavigationBarTitle({
+       title: title,
+     })
 
     that.setData({
       'role': ro,

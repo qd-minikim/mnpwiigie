@@ -73,7 +73,8 @@
         "pages/pagegift/giftreceivefail/giftreceivefail",
         "pages/test/testpagexdd/testpagexdd",
         "pages/test/pagexdd/pagexdd",
-        "pages/pagelink/pagelink"
+        "pages/pagelink/pagelink",
+        "pages/pageopin/opinremark/opinremark"
       ]
     }
   ],

@@ -1,0 +1,50 @@
+<!--page/component/pages/pageopin/opinremark/opinremark.wxml-->
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <view style='width:100% '>
+    <view style=' display: flex;flex-direction: column;width:100%;'>
+      <view class=' align-r-center' style='margin:2rpx 10rpx;display: flex;flex-direction: row;'>
+        <view class=''>
+          <image class='pageopins-image' src='/image/head-test.jpg'></image>
+        </view>
+        <view class='' style='flex:1'>
+          <view class='font-size-6'>风端斌</view>
+          <view class='font-size-7'>1212-12-12 12:12:12</view>
+        </view>
+        <view class=' font-size-6'>推荐</view>
+      </view>
+      <view class='font-size-6' style='margin:2rpx 10rpx;'>贸易是指买卖或交易行为的总称。通常指以货币为媒介的一切交换活动或行为。其活动范围，不仅包括商业所从事的商品交换活动，还包括商品生产者或他人所组织的商品买卖活动；不仅包括国内贸易，还包括国与国之间的国际贸易。在古代市场上，不仅有物质商品贸易，还有奴隶贸易</view>
+      <!-- 图片 -->
+
+      <view class='pageopins-view'>
+
+        <view class='align-center' style='width:{{opinpicsize}}px;height:{{opinpicsize}}px'>
+          <image class='' style='width:{{opinpicsize-3}}px;height:{{opinpicsize-3}}px' src='{{itemImg.imageurl}}' bindtap='opinImageYl' data-src='{{itemImg.imageurl}}' data-list='{{item.opinion_imgs}}' data-index="{{indexImg}}"></image>
+
+        </view>
+
+
+        <block wx:for="{{item.opinion_imgs}}" wx:for-index="indexImg" wx:for-item="itemImg" wx:key="*this"> </block>
+
+
+
+
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="gap-bg" style="flex-direction:column;"></view>
+  <view style='width:100%;'>
+    <view style='display:flex;flex-direction:row;margin:10rpx 15rpx '>
+      <view class="font-size-7" style='flex:1'>评论</view>
+      <view class="font-size-7 font-color-4">0</view>
+    </view>
+
+  </view>
+  <view class="gap-line" style="flex-direction:column;"></view>
+  <view style='width:100% '>
+
+  </view>
+</view>

@@ -215,7 +215,7 @@
       <view style='flex-direction:row;display:flex   '>
 
         <view class=' font-size-5'>
-          <text class=' bg-6 font-color-2 font-size-7' style='border-radius:50rpx;padding:4rpx 15rpx'>{{requirementInfo.merchantbrandname}}</text>
+          <text class=' bg-20 font-color-2 font-size-7' style='border-radius:50rpx;padding:4rpx 15rpx'>{{requirementInfo.merchantbrandname}}</text>
           <text class='font-size-5'>{{requirementInfo.title}}</text>
         </view>
       </view>
@@ -243,20 +243,7 @@
         <view style='flex:1;flex-direction:row;display:flex'>
 
           <view style="{{requirementInfo.dealtype =='2'?'text-decoration:line-through':''}};margin-right:15rpx" catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
-          <block wx:if="{{initDetail.role =='XQ'}}">
-            <block wx:if="{{requirementInfo.dealtype =='2'}}">
-              <view catchtap='openlinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团价</view>
-
-            </block>
-          </block>
-          <block wx:if="{{initDetail.role =='TW'}}">
-            <block wx:if="{{requirementInfo.dealtype =='2'}}">
-              <view catchtap='opendynamiclinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>动态链团价</view>
-
-            </block>
-          </block>
-
-
+ 
           <view style='flex:1;flex-direction:row;display:flex' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'></view>
         </view>
         <view class='align-center' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>
@@ -483,7 +470,7 @@
               </view>
             </view>
 
-            <view class='gap-line'></view>
+
           </block>
           <block wx:if="{{initDetail.role =='TW'}}">
             <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_4' data-html='false'>
@@ -512,34 +499,41 @@
               </view>
             </view>
 
-            <view class='gap-line'></view>
+
           </block>
         </block>
 
 
 
         <block wx:if="{{initDetail.role =='XQ'}}">
-          <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_2' data-html='false'>
-            <view>我的链团：</view>
+          <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex;margin:8rpx 2rpx'>
+
             <view style='flex:1;flex-direction:row;display:flex'>
-              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团</view>
-               <view style='flex:1'></view>
+              <block wx:if="{{requirementInfo.dealtype =='2'}}">
+                <view style='flex:1'></view>
+                <view catchtap='openlinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团价</view>
+              </block>
+              <view style='flex:1'></view>
+              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团图</view>
+
+              <view style='flex:1'></view>
             </view>
-            <view class='align-center'>
-              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
-            </view>
+
           </view>
         </block>
         <block wx:if="{{initDetail.role =='TW'}}">
-          <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_5' data-html='false'>
-            <view>当前链购：</view>
+          <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex;;margin:8rpx 2rpx'>
+
             <view style='flex:1;flex-direction:row;display:flex'>
-              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看当前链团</view>
+              <block wx:if="{{requirementInfo.dealtype =='2'}}">
+                <view style='flex:1'></view>
+                <view catchtap='opendynamiclinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看动态链团价</view>
+              </block>
+              <view style='flex:1'></view>
+              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看活动链团图</view>
               <view style='flex:1'></view>
             </view>
-            <view class='align-center'>
-              <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
-            </view>
+
           </view>
         </block>
 
