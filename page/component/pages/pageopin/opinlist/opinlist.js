@@ -16,7 +16,8 @@ Page({
       pageSize: 5,
       allrows: 0
     },
-
+    // 朋友说图片大小
+    opinpicsize: 0,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -47,6 +48,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    let that = this;
+    var windowWidth = app.globalData.systemInfo.windowWidth
+    var windowHeight = app.globalData.systemInfo.windowHeight
+ 
+    var percent = windowWidth / 750
+  
+    var opinpicsize = (windowWidth - 80 * percent) / 8
+    that.setData({
+ 
+      'opinpicsize': opinpicsize,
+     
+    })
     wx.hideShareMenu();
   },
 
@@ -90,6 +103,29 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  opinImageYl: function (event) {
+
+    let that = this;
+
+    var src = event.currentTarget.dataset.src; //获取data-src
+    var imgList = event.currentTarget.dataset.list; //获取data-list
+    var indexImg = event.currentTarget.dataset.index;
+    
+    var imageUrlArry = new Array();
+    for (var n = 0; n < imgList.length; n++) {
+
+      var imageUrl = imgList[n].imageurl
+      imageUrl = imageUrl.replace('160', '1024')
+      imageUrlArry.push(imageUrl)
+    }
+
+    //图片预览
+    wx.previewImage({
+      current: imageUrlArry[indexImg], // 当前显示图片的http链接
+      urls: imageUrlArry // 需要预览的图片http链接列表
+
+    })
   },
   /**获取朋友说 */
   getOpinionInfo: function () {

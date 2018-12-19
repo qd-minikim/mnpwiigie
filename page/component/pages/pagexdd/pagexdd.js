@@ -546,6 +546,8 @@ Page({
 
     var src = event.currentTarget.dataset.src; //获取data-src
     var imgList = event.currentTarget.dataset.list; //获取data-list
+    var indexImg = event.currentTarget.dataset.index;
+
     var imageUrlArry = new Array();
     for (var n = 0; n < imgList.length; n++) {
 
@@ -553,10 +555,10 @@ Page({
       imageUrl = imageUrl.replace('160', '1024')
       imageUrlArry.push(imageUrl)
     }
-
+     
     //图片预览
     wx.previewImage({
-      current: src, // 当前显示图片的http链接
+      current: imageUrlArry[indexImg], // 当前显示图片的http链接
       urls: imageUrlArry // 需要预览的图片http链接列表
 
     })

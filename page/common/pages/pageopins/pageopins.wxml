@@ -23,7 +23,7 @@
       <block wx:for="{{item.opinion_imgs}}" wx:for-index="indexImg" wx:for-item="itemImg" wx:key="*this">
         <view class='align-center' style='width:{{opinpicsize}}px;height:{{opinpicsize}}px'>
           <image class='evaladd-view-0-3-figure' style='width:{{opinpicsize-3}}px;height:{{opinpicsize-3}}px' src='{{itemImg.imageurl}}' 
-          catchtap='opinImageYl'   data-src='{{itemImg.imageurl}}'
+          bindtap='opinImageYl'   data-src='{{itemImg.imageurl}}'
 data-list='{{item.opinion_imgs}}'
            data-index="{{indexImg}}"  ></image> 
 

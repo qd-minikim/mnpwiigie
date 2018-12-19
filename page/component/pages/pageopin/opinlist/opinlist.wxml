@@ -3,6 +3,6 @@
 
 <view class='container ' style='flex-direction:colum;display:flex; '>
  
- <template is="pageopins" data="{{opinionInfo}}" />
+ <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
  
 </view>
