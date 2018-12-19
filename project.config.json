@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
-	"appid": "wxa95ca6d0de960e0d",
+	"appid": "wx1718994f5d471b54",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -417,10 +417,10 @@
 					"query": "dt=2&ro=TW"
 				},
 				{
-					"id": -1,
+					"id": 60,
 					"name": "朋友说评论",
 					"pathName": "page/component/pages/pageopin/opinremark/opinremark",
-					"query": ""
+					"query": "o=1541518024215794"
 				}
 			]
 		}

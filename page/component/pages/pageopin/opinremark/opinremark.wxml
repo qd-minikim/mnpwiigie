@@ -1,50 +1,82 @@
 <!--page/component/pages/pageopin/opinremark/opinremark.wxml-->
-<view class='container ' style='flex-direction:colum;display:flex; '>
 
-  <view style='width:100% '>
-    <view style=' display: flex;flex-direction: column;width:100%;'>
-      <view class=' align-r-center' style='margin:2rpx 10rpx;display: flex;flex-direction: row;'>
-        <view class=''>
-          <image class='pageopins-image' src='/image/head-test.jpg'></image>
+<import src="../../../../common/pages/pageopinsrmark/pageopinsrmark.wxml" />
+<import src="../../../../common/pages/pageattach/pageattach.wxml" />
+
+<view class='container ' style='flex-direction:colum;display:flex; ' bindtap='cancleattach'>
+  <scroll-view class="" scroll-top="{{scrollTop}}"  scroll-y='true' scroll-into-view="target" scroll-with-animation="false" style='width:{{scrollviewwidth}}px;height:{{scrollviewheight}}px'>
+
+
+    <view style='width:100% '>
+      <view style=' display: flex;flex-direction: column;width:100%;'>
+        <view class=' align-r-center' style='margin:2rpx 10rpx;display: flex;flex-direction: row;'>
+          <view class=''>
+            <image class='pageopins-image' src='/image/head-test.jpg'></image>
+          </view>
+          <view class='' style='flex:1'>
+            <view class='font-size-6'>{{option.user_nickname}}</view>
+            <view class='font-size-7'>{{option.datetime}}</view>
+          </view>
+          <view class=' font-size-6'>{{option.opinion_code_name}}</view>
         </view>
-        <view class='' style='flex:1'>
-          <view class='font-size-6'>风端斌</view>
-          <view class='font-size-7'>1212-12-12 12:12:12</view>
+        <view class='font-size-6' style='margin:2rpx 10rpx;'>{{option.opinion_reason}}</view>
+        <!-- 图片 1541518024215794-->
+
+        <view class='pageopins-view'>
+          <block wx:for="{{option.opinion_imgs}}" wx:for-index="indexo" wx:for-item="itemImg" wx:key="*this">
+            <view class='align-center' style='width:{{opinpicsize}}px;height:{{opinpicsize}}px'>
+              <image class='' style='width:{{opinpicsize-3}}px;height:{{opinpicsize-3}}px' src='{{itemImg.imageurl}}' bindtap='imageYl' data-src='{{itemImg.imageurl}}' data-list='{{option.opinion_imgs}}' data-index="{{indexo}}"></image>
+
+            </view>
+
+
+          </block>
+
         </view>
-        <view class=' font-size-6'>推荐</view>
-      </view>
-      <view class='font-size-6' style='margin:2rpx 10rpx;'>贸易是指买卖或交易行为的总称。通常指以货币为媒介的一切交换活动或行为。其活动范围，不仅包括商业所从事的商品交换活动，还包括商品生产者或他人所组织的商品买卖活动；不仅包括国内贸易，还包括国与国之间的国际贸易。在古代市场上，不仅有物质商品贸易，还有奴隶贸易</view>
-      <!-- 图片 -->
-
-      <view class='pageopins-view'>
-
-        <view class='align-center' style='width:{{opinpicsize}}px;height:{{opinpicsize}}px'>
-          <image class='' style='width:{{opinpicsize-3}}px;height:{{opinpicsize-3}}px' src='{{itemImg.imageurl}}' bindtap='opinImageYl' data-src='{{itemImg.imageurl}}' data-list='{{item.opinion_imgs}}' data-index="{{indexImg}}"></image>
-
-        </view>
-
-
-        <block wx:for="{{item.opinion_imgs}}" wx:for-index="indexImg" wx:for-item="itemImg" wx:key="*this"> </block>
-
-
-
 
       </view>
 
     </view>
 
-  </view>
+    <view class="gap-bg" style="flex-direction:column;"></view>
+    <view style='width:100%;'>
+      <view style='display:flex;flex-direction:row;margin:10rpx 15rpx '>
+        <view class='gap-line-v' style=' background-color:#e36c09'></view>
+        <view class="font-size-7" style='margin-left:5rpx'>{{allRows}}</view>
+        <view class="font-size-7 font-color-4" style='margin-left:5rpx'>条留言</view>
+      </view>
 
-  <view class="gap-bg" style="flex-direction:column;"></view>
-  <view style='width:100%;'>
-    <view style='display:flex;flex-direction:row;margin:10rpx 15rpx '>
-      <view class="font-size-7" style='flex:1'>评论</view>
-      <view class="font-size-7 font-color-4">0</view>
+    </view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view style='width:100% '>
+
+      <template is="opinremark" data="{{remarks,remarkopinpicsize}}" />
+
     </view>
 
-  </view>
-  <view class="gap-line" style="flex-direction:column;"></view>
-  <view style='width:100% '>
+  </scroll-view>
+  <!--隐藏区域  -->
+  <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>
+  <scroll-view class="{{panelPage.panelPageTop?'choose_top':'choose' }} font-size-4" wx:if="{{panelPage.chooseSize }}" animation='{{panelPage.animationData}}' scroll-y='false' scroll-into-view="target" scroll-with-animation="false">
+
+    <block wx:if="{{ panelPage.chooseType=='attachment'}}">
+      <view class='choose_view'>
+        <template is="pageattach" data="{{panelPage}}" />
+      </view>
+    </block>
+  </scroll-view>
+  <view class='view-2 flex-bottom'>
+    <view class='pageopins-view-2-1 align-r-center '>
+      <view style='flex:1 '>
+        <input bindinput="bindKeyInput" maxlength='200' class='font-size-6 pageopins-view-2-1-input' placeholder='朋友说评论' value='{{inputRemarkValue}}'></input>
+      </view>
+      <view style='margin:1rpx 20rpx'>
+        <button wx:if='{{sendBtnShow}}' class='pageopins-view-2-1-button' catchtap="sendRemark">发送</button>
+        <image wx:if='{{!sendBtnShow}}' catchtap="upimg1" class='pageopins-view-2-1-image-ja' src='/image/figure_13.png' catchtap='attachment' data-lx='attachment' data-code='' data-html='false'></image>
+      </view>
+
+
+    </view>
 
   </view>
 </view>

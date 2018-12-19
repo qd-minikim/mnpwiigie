@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    backpage: '',
     requirementId:'',
 
     opinionInfo: {
@@ -67,7 +67,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let that = this;
+    var backpage = this.data.backpage;
 
+    if (backpage == 'remark') {
+
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '1') {
+          that.getOpinionInfo()
+        }
+
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "1",
+      })
+
+
+    }
   },
 
   /**
@@ -153,6 +174,17 @@ Page({
           'opinionInfo.allrows': rdata.info.allrows,
         })
       }
+    })
+  },
+  /**************朋友说留言************** */
+  opinremark: function (event) {
+    var that = this;
+    var o = event.currentTarget.dataset.opinionid;
+    this.setData({
+      'backpage': 'remark',
+    })
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o,
     })
   },
 })

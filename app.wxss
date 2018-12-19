@@ -154,6 +154,10 @@
   color: #b4b3b1;
 }
 
+.font-color-14 {
+  color: #cda36b;
+}
+
 .bg-0 {
   border: 1px solid #00c003;
   background-color: #00c003;

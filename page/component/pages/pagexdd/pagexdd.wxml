@@ -536,44 +536,7 @@
 
           </view>
         </block>
-
-        <!--  
-        <scroll-view style=' position:relative;' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
-          <image style="width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;  " src='{{canvasViewInfo.canvasSaveImage}}'> </image>
-          <block wx:if="{{!downSuccess}}">
-            <view style='position:absolute;width:100%;top:45%' class='align-center'>
-              <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
-            </view>
-
-          </block>
-        </scroll-view>
  
-        <block wx:if="{{initDetail.role =='XQ'}}">
-          <block wx:if="{{requirementInfo.dealtype =='2'}}">
-            <view class='gap-line'></view>
-            <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='DETAIL_MSG_3' data-html='false'>
-              <view>其他链团:</view>
-              <view style='flex:1'>其他链团好友（{{nolinkCanvasViewInfo.copies}}份/{{nolinkCanvasViewInfo.orders}}人）</view>
-              <view class='align-center'>
-                <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
-              </view>
-            </view>
-            <block wx:if="{{nolinkCanvasViewInfo.orders>0}}">
-              <view>
-                <scroll-view style=' ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
-                  <image style="width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;  " src='{{nolinkCanvasViewInfo.canvasSaveImage}}'> </image>
-                  <block wx:if="{{nolinkCanvasViewInfo.orders>0 && !downNoLinkSuccess}}">
-                    <view style='position:absolute;width:100%;top:{{nolinkCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
-                      <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
-                    </view>
-
-                  </block>
-                </scroll-view>
-              </view>
-            </block>
-          </block>
-        </block>
--->
       </view>
     </view>
 

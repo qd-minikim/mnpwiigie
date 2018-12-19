@@ -1,0 +1,42 @@
+<!--page/common/pages/pageopinsrmark/pageopinsrmark.wxml-->
+<template name="opinremark">
+  <block wx:for="{{remarks}}" wx:for-index="index" wx:for-item="itemImg" wx:key="*this">
+
+    <view class="gap-line" wx:if="{{index>0}}" style="flex-direction:column;margin:2rpx 10rpx 2rpx 85rpx;"></view>
+    <view style=' display: flex;flex-direction: column;margin:5rpx 15rpx'>
+      <view class=' align-r-center' style=';display: flex;flex-direction: row;'>
+        <view class=''>
+          <image class='pageopins-remark-image' src='{{itemImg.image_url}}'></image>
+        </view>
+        <view class='' style='flex:1;margin-left:5rpx '>
+          <view class='align-r-center font-size-6' style=';display: flex;flex-direction: row;'>
+            <view>{{itemImg.user_nickname}}</view>
+            <block wx:if="{{itemImg.user_type=='0'}}">
+              <view class=' bg-20 font-color-2 font-size-8' style='border-radius:50rpx;padding:3rpx 15rpx;margin-left:15rpx'>商家</view>
+            </block>
+            <!-- <block wx:if="{{itemImg.isown=='1'}}">
+              <view class=' bg-20 font-color-2 font-size-8' style='border-radius:50rpx;padding:3rpx 15rpx;margin-left:15rpx'>本人</view>
+            </block> -->
+          </view>
+          <view class='font-size-7'>{{itemImg.remark_time}}</view>
+        </view>
+        <view class=' font-size-6'></view>
+      </view>
+
+      <block wx:if="{{itemImg.remark_type=='0'}}">
+        <view class='font-size-6' style='margin:2rpx 10rpx 2rpx 65rpx;'>{{itemImg.remark_content}}</view>
+      </block>
+      <block wx:if="{{itemImg.remark_type=='1'}}">
+        <view class='font-size-6' style='margin:2rpx 10rpx 2rpx 65rpx;'>
+          <block wx:for="{{itemImg.remark_imgs}}" wx:for-index="indexr" wx:for-item="itemrImg" wx:key="*this">
+            <view class='align-center' style='width:{{remarkopinpicsize}}px;height:{{remarkopinpicsize}}px'>
+              <image class='' style='width:{{remarkopinpicsize-3}}px;height:{{remarkopinpicsize-3}}px' src='{{itemrImg.imageurl}}' bindtap='imageYl' data-src='{{itemImg.imageurl}}' data-list='{{itemImg.remark_imgs}}' data-index="{{indexr}}"></image>
+
+            </view>
+          </block>
+        </view>
+      </block>
+
+    </view>
+  </block>
+</template>

@@ -328,6 +328,25 @@ Page({
 
 
     }
+    if (backpage == 'remark') {
+
+      try {
+        var value = wx.getStorageSync('refresh')
+
+        if (value && value == '1') {
+          that.getOpinionInfo()
+        }
+
+      } catch (e) {
+
+      }
+      wx.setStorage({
+        key: "refresh",
+        data: "0",
+      })
+
+
+    }
     if (backpage == 'order') {
       try {
         var value = wx.getStorageSync('refresh')
@@ -1666,16 +1685,20 @@ Page({
   /**我要说 */
   addopinion: function(event) {
     var requirementId = this.data.requirementId;
-    wx.navigateTo({
-      url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
-    })
     this.setData({
       'backpage': 'opinion',
     })
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
+    })
+ 
   },
   /**更多朋友说 */
   moreopinion: function(event) {
     var requirementId = this.data.requirementId;
+    this.setData({
+      'backpage': 'remark',
+    })
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
     })
@@ -1960,5 +1983,17 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' +u,
     })
-  }
+  },
+   /**************朋友说留言************** */
+  opinremark: function (event) {
+    var that = this;
+    var o = event.currentTarget.dataset.opinionid;
+    this.setData({
+      'backpage': 'remark',
+    })
+    wx.navigateTo({
+      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o ,
+    })
+  },
+  
 })
