@@ -11,7 +11,7 @@
       <view style=' display: flex;flex-direction: column;width:100%;'>
         <view class=' align-r-center' style='margin:2rpx 10rpx;display: flex;flex-direction: row;'>
           <view class=''>
-            <image class='pageopins-image' src='/image/head-test.jpg'></image>
+            <image class='pageopins-image' src='{{option.image_url}}'></image>
           </view>
           <view class='' style='flex:1'>
             <view class='font-size-6'>{{option.user_nickname}}</view>
@@ -67,8 +67,8 @@
   </scroll-view>
   <view class='view-2 flex-bottom'>
     <view class='pageopins-view-2-1 align-r-center '>
-      <view style='flex:1 '>
-        <input bindinput="bindKeyInput" maxlength='200' class='font-size-6 pageopins-view-2-1-input' placeholder='朋友说评论' value='{{inputRemarkValue}}'></input>
+      <view style='flex:1 ;padding:5rpx'>
+        <input bindinput="bindKeyInput" maxlength='200' class='font-size-6 pageopins-view-2-1-input' placeholder='留言' value='{{inputRemarkValue}}'></input>
       </view>
       <view style='margin:1rpx 20rpx'>
         <button wx:if='{{sendBtnShow}}' class='pageopins-view-2-1-button' catchtap="sendRemark">发送</button>

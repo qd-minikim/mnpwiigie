@@ -9,11 +9,11 @@ Page({
    */
   data: {
     backpage: '',
-    requirementId:'',
+    requirementId: '',
 
     opinionInfo: {
       dataInfo: [],
-      pageSize: 5,
+      pageSize: 100,
       allrows: 0
     },
     // 朋友说图片大小
@@ -28,7 +28,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       this.setData({
@@ -39,26 +39,34 @@ Page({
     }
     this.setData({
       'requirementId': options.r,
-      
+      'role': options.ro
     })
+
+    if (options.ro == 'TW') {
+
+      wx.setNavigationBarTitle({
+        title: '友托帮-粉丝说',
+      })
+    }
+
     this.getOpinionInfo()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     let that = this;
     var windowWidth = app.globalData.systemInfo.windowWidth
     var windowHeight = app.globalData.systemInfo.windowHeight
- 
+
     var percent = windowWidth / 750
-  
+
     var opinpicsize = (windowWidth - 80 * percent) / 8
     that.setData({
- 
+
       'opinpicsize': opinpicsize,
-     
+
     })
     wx.hideShareMenu();
   },
@@ -66,7 +74,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let that = this;
     var backpage = this.data.backpage;
 
@@ -94,45 +102,45 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  opinImageYl: function (event) {
+  opinImageYl: function(event) {
 
     let that = this;
 
     var src = event.currentTarget.dataset.src; //获取data-src
     var imgList = event.currentTarget.dataset.list; //获取data-list
     var indexImg = event.currentTarget.dataset.index;
-    
+
     var imageUrlArry = new Array();
     for (var n = 0; n < imgList.length; n++) {
 
@@ -149,7 +157,7 @@ Page({
     })
   },
   /**获取朋友说 */
-  getOpinionInfo: function () {
+  getOpinionInfo: function() {
     let that = this;
     var url = config.requestUrl;
 
@@ -165,7 +173,7 @@ Page({
       userid: userid,
       requirementId: requirementId,
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
+    rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.info) {
 
@@ -177,14 +185,15 @@ Page({
     })
   },
   /**************朋友说留言************** */
-  opinremark: function (event) {
+  opinremark: function(event) {
     var that = this;
     var o = event.currentTarget.dataset.opinionid;
+    var ro = that.data.role;
     this.setData({
       'backpage': 'remark',
     })
     wx.navigateTo({
-      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o,
+      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o + '&ro=' + ro,
     })
   },
 })

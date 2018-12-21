@@ -196,6 +196,8 @@ Page({
     friendActiveEnd: 0,
     friendActiveCount: 0,
     friendActiveItemsPerPage: 50,
+
+    opinionmsg: '朋友说'
   },
 
   /**
@@ -358,7 +360,7 @@ Page({
           if (role == "XQ") {
             that.getSpuInfo()
             that.getPcPromotionGroupOrderInfo()
-           // that.getProgressRouteInfo()
+            // that.getProgressRouteInfo()
           }
 
         }
@@ -574,7 +576,7 @@ Page({
       imageUrl = imageUrl.replace('160', '1024')
       imageUrlArry.push(imageUrl)
     }
-     
+
     //图片预览
     wx.previewImage({
       current: imageUrlArry[indexImg], // 当前显示图片的http链接
@@ -590,13 +592,14 @@ Page({
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;;
     var pageSize = that.data.opinionInfo.pageSize;
-
+    var userrole = that.data.initDetail.role;
 
     var data = {
       code_: 'x_getOpinionList',
       endRow: 0,
       itemsPerPage: pageSize,
       userid: userid,
+
       requirementId: requirementId,
     }
     rRequest.doRequest(url, data, that, function(rdata) {
@@ -1066,7 +1069,7 @@ Page({
 
           that.getPcPromotionGroupOrderInfo()
 
-          that.getOpinionInfo()
+          
         }
         if (rdata.info.requirement_person == usreId) {
 
@@ -1077,7 +1080,7 @@ Page({
 
           })
         }
-
+        that.getOpinionInfo()
         //that.getProgressRouteInfo()
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
@@ -1204,10 +1207,17 @@ Page({
           that.setData({
             'initDetail': rdata.info,
           })
+          var role = rdata.info.role;
 
+          if (role == "TW") {
+            that.setData({
+              'opinionmsg': '粉丝说',
+            })
+          }
+          wx.hideLoading();
           that.getFriendInfo();
           setTimeout(function() {
-            wx.hideLoading();
+
 
             if (rdata.info.EARN_READ && rdata.info.EARN_READ != '') {
               wx.showModal({
@@ -1222,7 +1232,7 @@ Page({
 
             }
             // that.initNavigeiPoint()
-          }, 1000)
+          }, 500)
 
 
 
@@ -1691,16 +1701,17 @@ Page({
     wx.navigateTo({
       url: '/page/component/pages/pageopin/opinadd/opinadd?r=' + requirementId,
     })
- 
+
   },
   /**更多朋友说 */
   moreopinion: function(event) {
     var requirementId = this.data.requirementId;
+    var role = this.data.initDetail.role;
     this.setData({
       'backpage': 'remark',
     })
     wx.navigateTo({
-      url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId,
+      url: '/page/component/pages/pageopin/opinlist/opinlist?r=' + requirementId + '&ro=' + role,
     })
 
   },
@@ -1903,7 +1914,7 @@ Page({
     })
 
     var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
-    var discount = that.data.pcPromotionGroupOrderInfo.average_discount;
+    var discount = that.data.pcPromotionGroupOrderInfo.averageDiscount;
 
     var linkprice = ''
     if (Number(discount) > 0 && Number(discount) < 1) {
@@ -1946,7 +1957,7 @@ Page({
     var role = that.data.initDetail.role;
 
     var endRow = 0;
-    var itemsPerPage = 50;
+    var itemsPerPage = 100;
     var data = {
       code_: 'x_getFriendActiveInfo',
       role: role,
@@ -1972,7 +1983,7 @@ Page({
     })
   },
   /**************拆出路径图新增************** */
- 
+
   linkpage: function() {
     var that = this;
     var dt = that.data.requirementInfo.dealtype;
@@ -1981,19 +1992,20 @@ Page({
     var u = that.data.userInfo.id;
 
     wx.navigateTo({
-      url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' +u,
+      url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' + u,
     })
   },
-   /**************朋友说留言************** */
-  opinremark: function (event) {
+  /**************朋友说留言************** */
+  opinremark: function(event) {
     var that = this;
     var o = event.currentTarget.dataset.opinionid;
+    var ro = that.data.initDetail.role;
     this.setData({
       'backpage': 'remark',
     })
     wx.navigateTo({
-      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o ,
+      url: '/page/component/pages/pageopin/opinremark/opinremark?o=' + o + '&ro=' + ro,
     })
   },
-  
+
 })

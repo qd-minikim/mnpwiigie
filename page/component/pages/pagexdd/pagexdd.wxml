@@ -163,10 +163,10 @@
 
       <block wx:if="{{navigaSelected =='part2'}}">
         <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
-        <view class="font-color-11">朋友说</view>
+        <view class="font-color-11">{{opinionmsg}}</view>
       </block>
       <block wx:else>
-        <view>朋友说</view>
+        <view>{{opinionmsg}}</view>
       </block>
     </view>
     <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-3'>
@@ -243,7 +243,7 @@
         <view style='flex:1;flex-direction:row;display:flex'>
 
           <view style="{{requirementInfo.dealtype =='2'?'text-decoration:line-through':''}};margin-right:15rpx" catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
- 
+
           <view style='flex:1;flex-direction:row;display:flex' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'></view>
         </view>
         <view class='align-center' catchtap='clickView_7x' data-code='DETAIL_MSG_7' data-html='false' data-lx='default'>
@@ -353,7 +353,7 @@
           </block>
         </block>
         <block wx:if="{{initDetail.role =='XQ'}}">
-          <block wx:if="{{requirementInfo.settlementsingleprice>0}}">
+          <block wx:if="{{requirementInfo.settlementsingleprice>0 && requirementInfo.commission>0}}">
             <view class='gap-line'></view>
             <view class='font-size-7' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='default' data-code='CBDJSM' data-html='true'>
               <view>传播红包：</view>
@@ -511,10 +511,10 @@
             <view style='flex:1;flex-direction:row;display:flex'>
               <block wx:if="{{requirementInfo.dealtype =='2'}}">
                 <view style='flex:1'></view>
-                <view catchtap='openlinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团价</view>
+                <view catchtap='openlinkprice' class='align-center bg-6 font-color-2 font-size-6' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团价</view>
               </block>
               <view style='flex:1'></view>
-              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团图</view>
+              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-6' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看我的链团图</view>
 
               <view style='flex:1'></view>
             </view>
@@ -527,16 +527,16 @@
             <view style='flex:1;flex-direction:row;display:flex'>
               <block wx:if="{{requirementInfo.dealtype =='2'}}">
                 <view style='flex:1'></view>
-                <view catchtap='opendynamiclinkprice' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看动态链团价</view>
+                <view catchtap='opendynamiclinkprice' class='align-center bg-6 font-color-2 font-size-6' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看动态链团价</view>
               </block>
               <view style='flex:1'></view>
-              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-8' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看活动链团图</view>
+              <view catchtap='linkpage' class='align-center bg-6 font-color-2 font-size-6' style='border-radius:50rpx;padding:4rpx 15rpx   '>查看活动链团图</view>
               <view style='flex:1'></view>
             </view>
 
           </view>
         </block>
- 
+
       </view>
     </view>
 
@@ -551,7 +551,7 @@
           <view style='' class='slopingsideL'></view>
         </view>
 
-        <view class='align-center font-color-13' style='width:5em'>朋友说</view>
+        <view class='align-center font-color-13' style='width:5em'>{{opinionmsg}}</view>
         <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='' class='slopingsideR'></view>
           <view style='width:100%' class='linear'></view>
@@ -559,22 +559,24 @@
       </view>
       <view style=''>
         <view class='align-r-center font-size-7' style=';flex-direction:row;display:flex'>
-          <view>我的朋友说:</view>
+          <view>我的{{opinionmsg}}:</view>
           <view style='flex:1'></view>
-          <view class='align-center font-color-5' catchtap='addopinion'>
-            我要说
-          </view>
+          <block wx:if="{{initDetail.role =='XQ'}}">
+            <view class='align-center font-color-5' catchtap='addopinion'>
+              我要说
+            </view>
+          </block>
         </view>
         <view class="gap-line" style="flex-direction:column;"></view>
         <view style=''>
           <template is="pageopins" data="{{opinionInfo,opinpicsize}}" />
         </view>
         <view wx:if="{{opinionInfo.allrows==0}}" class='view-8-3 align-c-center'>
-          <view style='padding:10rpx 2rpx'>还没有朋友说</view>
+          <view style='padding:10rpx 2rpx'>还没有{{opinionmsg}}</view>
         </view>
         <view wx:if="{{opinionInfo.allrows>opinionInfo.pageSize}}" class='view-8-3 align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
 
-          <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多朋友说</button>
+          <button catchtap='moreopinion' class='font-size-5' type="default" style='width:100%'>更多{{opinionmsg}}</button>
         </view>
       </view>
     </view>

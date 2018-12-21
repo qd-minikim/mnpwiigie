@@ -63,10 +63,23 @@ Page({
         userInfo: app.globalData.userInfo,
       })
     }
+  
 
+ 
     this.setData({
-      'opinionId': options.o
-       
+      'opinionId': options.o,
+        'role': options.ro
+    })
+    if (options.ro == 'TW') {
+
+      wx.setNavigationBarTitle({
+        title: '友托帮-粉丝说留言',
+      })
+    }
+
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
     })
 
     this.getOption()
@@ -288,9 +301,11 @@ Page({
 
     var url = config.requestUrl;
     var opinionId = that.data.opinionId //1528869953018820 
+    var userId = that.data.userInfo.id
     var data = {
       code_: 'x_getOpinion',
-      'opinionId': opinionId
+      'opinionId': opinionId,
+      'userId': userId
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -303,7 +318,7 @@ Page({
         })
 
       }
-
+      wx.hideLoading();
     })
   },
   sendRemark: function(event) {
@@ -311,15 +326,14 @@ Page({
     var url = config.requestUrl;
 
 
-    var userType = '1' //that.data.userType; //0  商户   1 用户
-
-
+    var userType = that.data.option.usertype; //0  商户   1 用户
+ 
     var remarkContent = that.data.inputRemarkValue;
 
     if (remarkContent == '') {
 
       wx.showToast({
-        title: '评论信息不能为空',
+        title: '留言不能为空',
         image: '/image/icon_warn.png',
         duration: 1500,
         success: function() {}
@@ -389,7 +403,7 @@ Page({
           imageFilePaths: res.tempFilePaths
         })
 
-        var userType = '1' //that.data.userType; //0  商户   1 用户
+        var userType = that.data.option.usertype;  //that.data.userType; //0  商户   1 用户
 
 
         var remarkContent = '';
