@@ -30,7 +30,7 @@ Page({
     goodsCount: 0,
     goodsSelected: false,
     goodsendRow: 0,
-    itemsPerPage: 5,
+    itemsPerPage: 10,
 
     windowWidth: app.globalData.systemInfo.windowWidth,
     screenWidth: app.globalData.systemInfo.screenWidth,
@@ -48,8 +48,8 @@ Page({
 
     isPullDownRefresh: false,
 //是否上拉更多
-    isReachBottom:false
-
+    isReachBottom: false,
+isBottom: false
   },
 
   /**
@@ -98,11 +98,11 @@ let that = this
 
     var windowHeight = app.globalData.systemInfo.windowHeight
     var percent = windowWidth / 750
-    var viewTagHeight = 100 * percent
+    var viewTagHeight = 102 * percent
 
     this.setData({
 
-      scrollViewHeight: (windowHeight - viewTagHeight * 2 - 5 * 2)
+      scrollViewHeight: (windowHeight - viewTagHeight * 2 )
     })
     wx.hideShareMenu();
   },
@@ -153,21 +153,25 @@ let that = this
   },
   scroll: function(e) {
 
-    // var scrollHeight = e.detail.scrollHeight;
-    // var scrollTop = e.detail.scrollTop
-    // var scrollViewHeight = this.data.scrollViewHeight
+    var scrollHeight = e.detail.scrollHeight;
+    var scrollTop = e.detail.scrollTop
+    var scrollViewHeight = this.data.scrollViewHeight
 
-    // var maxScrollTop = scrollHeight - scrollViewHeight
+    var maxScrollTop = scrollHeight - scrollViewHeight
+   
+    if (scrollHeight - scrollTop - scrollViewHeight <5 ) {
+      var isBottom = this.data.isBottom;
+     
+      if (isBottom) {
 
+      } else {
 
-    // if (scrollTop + 200 >= maxScrollTop) {
-
-    //   this.setData({
-    //     isReachBottom: true
-    //   })
-    //   this.getGoods()
-
-    // }
+        this.setData({
+          isBottom: true
+        })
+        this.getGoods()
+      }
+    }
 
   },
 
@@ -285,17 +289,17 @@ let that = this
     ,
 
   getGoods: function() {
-
-    console.log("--------getGoods---------")
+ 
     let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
+    var isBottom = that.data.isBottom;
 
     var endRow = that.data.goodsendRow
     var itemsPerPage = that.data.itemsPerPage
     var goodsCount = that.data.goodsCount
-
-    if (isReachBottom && goodsCount == endRow) {
+    //isReachBottom &&
+    if (isBottom && goodsCount == endRow) {
 
       that.setData({
         isReachBottom: false,
@@ -309,13 +313,20 @@ let that = this
       return false
     }
     
+    if (isReachBottom){
 
-    wx.showLoading({
-      title: '加载中...',
-      mask: true,
-    })
-
-
+      // itemsPerPage=5;
+      // wx.showLoading({
+      //   title: '加载中...',
+      //   mask: false,
+      // })
+    }else{
+      wx.showLoading({
+        title: '加载中...',
+        mask: true,
+      })
+    }
+    
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var tag = this.data.promotiontag;
@@ -330,6 +341,8 @@ let that = this
       itemsPerPage: itemsPerPage,
       promotiontag: tag,
     }
+
+    
     wx.request({
       url: url, //对外地址
       data: data,
@@ -337,7 +350,7 @@ let that = this
         'content-type': 'application/json'
       },
       success: res => {
-        console.log("-----success---")
+    
         if (res.data.infolist) {
 
           var goodsArry = [];
@@ -372,11 +385,11 @@ let that = this
 
       },
       complete: res => {
-        console.log("-----complete---")
+      
         that.setData({
-
           isPullDownRefresh: false,
           isReachBottom: false,
+          isBottom: false,
         })
         wx.hideLoading();
       }

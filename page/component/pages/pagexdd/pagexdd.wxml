@@ -6,10 +6,6 @@
 <import src="../../../common/pages/pageopins/pageopins.wxml" />
 <wxs module="filters" src="../../../../utils/rFiltersUtils.wxs"></wxs>
 <!-- 消费者详情 -->
-<!--position:absolute;transform: translateX(-200%);   -->
-<canvas style=" position:absolute;transform: translateX(-200%);width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px;left:{{canvasViewInfo.canvasTop1}}px;top:{{canvasViewInfo.canvasLeft1}}px; " canvas-id="route_canvas_id" />
-<canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id"
-/>
 
 <!-- 蒙板 -->
 <template is="pagemask" data="{{pagemask}}" />
@@ -136,8 +132,8 @@
 
 
   <!--导航页签 -->
-  <view class='align-center font-size-6 font-color-4' style='flex-direction:row;display:flex; width:100% ;height:{{navigaheight}}px'>
-    <view class='align-center' style='padding:2rpx 15rpx; ' catchtap='pageNativeScroll' data-pid='part-0'>
+  <view class='align-center font-size-6 font-color-4' style='flex-direction:row;display:flex; width:100% ;height:{{navigaheight}}px;position:position'>
+    <view class='align-center' style='padding:2rpx 15rpx; ' catchtap='pageNativeScroll' data-pid='part0'>
 
       <block wx:if="{{navigaSelected =='part0'}}">
         <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
@@ -149,7 +145,7 @@
 
     </view>
 
-    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-1'>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part1'>
 
       <block wx:if="{{navigaSelected =='part1'}}">
         <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
@@ -159,7 +155,7 @@
         <view>链团</view>
       </block>
     </view>
-    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-2'>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part2'>
 
       <block wx:if="{{navigaSelected =='part2'}}">
         <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
@@ -169,7 +165,7 @@
         <view>{{opinionmsg}}</view>
       </block>
     </view>
-    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part-3'>
+    <view class='align-center' style='padding:2rpx 15rpx;' catchtap='pageNativeScroll' data-pid='part3'>
 
       <block wx:if="{{navigaSelected =='part3'}}">
         <image style='height:25rpx;width:25rpx' src='/image/figure_119.png'></image>
@@ -179,10 +175,15 @@
         <view>详情</view>
       </block>
     </view>
+
+     <view style='position:absolute;right:0rpx'>
+          <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
+        </view>
   </view>
-  <scroll-view class="scroll-view" style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-top="{{scrollTop}}" scroll-into-view="target" scroll-with-animation="true" bindscroll="scroll">
-    <!-- 滚动图 -->
-    <view class='view-3'>
+  <scroll-view class="scroll-view" style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-top="{{scrollTop}}" scroll-into-view="{{scrollview}}" scroll-with-animation="true">
+    <!-- 滚动图bindscroll="scroll" -->
+    <view class='view-3' style=''>
+     
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
         <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="key">
           <swiper-item>
@@ -191,6 +192,7 @@
           </swiper-item>
         </block>
       </swiper>
+     
     </view>
 
     <!-- 好友动态区 -->
@@ -213,12 +215,14 @@
     <!-- 标题 -->
     <view style='margin:5rpx 15rpx'>
       <view style='flex-direction:row;display:flex   '>
-
-        <view class=' font-size-5'>
+        <view class=' font-size-5' style=' '>
           <text class=' bg-20 font-color-2 font-size-7' style='border-radius:50rpx;padding:4rpx 15rpx'>{{requirementInfo.merchantbrandname}}</text>
           <text class='font-size-5'>{{requirementInfo.title}}</text>
         </view>
+ 
+
       </view>
+
       <block wx:if="{{requirementInfo.dealtype !='3'}}">
         <view class=' font-size-6' style='flex-direction:row;display:flex   '>
 
@@ -260,8 +264,8 @@
 
 
     <!-- 方案大区 -->
-    <view class='font-size-5 part-0' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex' id='part-0'>
+    <view class='font-size-5 part0' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part0'>
 
         <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
@@ -431,8 +435,8 @@
 
 
     <!-- 链团大区 -->
-    <view class='font-size-5 part-1' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex' id='part-1'>
+    <view class='font-size-5 part1' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part1'>
 
         <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;;position:relative'>
           <view style='width:100%' class='linear'></view>
@@ -543,8 +547,8 @@
     <!-- 链团大区 end-->
     <view class="gap-bg" style="flex-direction:column;"></view>
     <!-- 朋友说大区 -->
-    <view class='font-size-5' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
-      <view style=';flex-direction:row;display:flex' id='part-2'>
+    <view class='font-size-5 part2' style='margin:5rpx 15rpx;flex-direction:column;display:flex '>
+      <view style=';flex-direction:row;display:flex' id='part2'>
 
         <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
@@ -584,8 +588,8 @@
     <view class="gap-bg" style="flex-direction:column;"></view>
 
     <!-- 详情大区 -->
-    <view class='font-size-5' style='flex-direction:column;display:flex '>
-      <view style='margin:5rpx 15rpx;;flex-direction:row;display:flex' id='part-3'>
+    <view class='font-size-5 part3' style='flex-direction:column;display:flex '>
+      <view style='margin:5rpx 15rpx;;flex-direction:row;display:flex' id='part3'>
 
         <view class='align-r-center' style='flex:1;flex-direction:row;display:flex;position:relative'>
           <view style='width:100%' class='linear'></view>
@@ -640,15 +644,10 @@
           <template is="wxParse" data="{{wxParseData:richtext.nodes}}" />
         </view>
 
-
-
       </view>
     </view>
     <!-- 详情大区 end -->
   </scroll-view>
-
-
-
 
   <!--隐藏区域  -->
   <view class='maskLayer' style='width:{{panelPage.maskLayerWidth}};height:{{panelPage.maskLayerHeight}}' wx:if="{{panelPage.chooseSize}}" bindtap='hideSlideModal'></view>

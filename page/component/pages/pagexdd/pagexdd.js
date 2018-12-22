@@ -6,6 +6,7 @@ var WxParse = require('../../../../wxParse/wxParse.js');
 
 var rUserInfo = require('../../../../utils/rUserInfo.js');
 var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
+var clickNative = false;
 const app = getApp()
 Page({
   /**
@@ -177,7 +178,7 @@ Page({
     currScrollTop: 0,
     scrollTop: 0,
     navigaheight: 21, //页头导航的高度 
-    navigaSelected: '',
+    navigaSelected: 'part0',
     navigeids: {
       'part0': {
         top: 0
@@ -299,8 +300,58 @@ Page({
       'navigaheight': percent * 40,
     })
 
+    this._observer = wx.createIntersectionObserver(this)
+    this._observer
+      .relativeTo('.scroll-view', {
+        bottom: -(contentHeight - 20)
+      }).relativeToViewport()
+      .observe('.part0', (res) => {
+        if (res.intersectionRatio > 0 && !clickNative) {
+          that.setData({
+            'navigaSelected': 'part0'
+          });
+        }
 
+      })
+    this._observer1 = wx.createIntersectionObserver(this)
+    this._observer1
+      .relativeTo('.scroll-view', {
+        bottom: -(contentHeight - 20)
+      }).relativeToViewport()
+      .observe('.part1', (res) => {
+        if (res.intersectionRatio > 0 && !clickNative) {
+          that.setData({
+            'navigaSelected': 'part1'
+          });
+        }
 
+      })
+    this._observer3 = wx.createIntersectionObserver(this)
+    this._observer3
+      .relativeTo('.scroll-view', {
+        bottom: -(contentHeight - 20)
+      }).relativeToViewport()
+      .observe('.part2', (res) => {
+        if (res.intersectionRatio > 0 && !clickNative) {
+          that.setData({
+            'navigaSelected': 'part2'
+          });
+        }
+
+      })
+    this._observer3 = wx.createIntersectionObserver(this)
+    this._observer3
+      .relativeTo('.scroll-view', {
+        bottom: -(contentHeight - 20)
+      }).relativeToViewport()
+      .observe('.part3', (res) => {
+        if (res.intersectionRatio > 0 && !clickNative) {
+          that.setData({
+            'navigaSelected': 'part3'
+          });
+        }
+
+      })
   },
 
   /**
@@ -360,7 +411,7 @@ Page({
           if (role == "XQ") {
             that.getSpuInfo()
             that.getPcPromotionGroupOrderInfo()
-            // that.getProgressRouteInfo()
+         
           }
 
         }
@@ -488,8 +539,7 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-      //that.getProgressRouteInfo()
-
+   
     })
     return {
       title: title,
@@ -1069,7 +1119,7 @@ Page({
 
           that.getPcPromotionGroupOrderInfo()
 
-          
+
         }
         if (rdata.info.requirement_person == usreId) {
 
@@ -1081,7 +1131,7 @@ Page({
           })
         }
         that.getOpinionInfo()
-        //that.getProgressRouteInfo()
+     
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
@@ -1231,7 +1281,7 @@ Page({
               })
 
             }
-            // that.initNavigeiPoint()
+            
           }, 500)
 
 
@@ -1271,71 +1321,7 @@ Page({
       }
     })
   },
-  //获取进展区路径图
-  getProgressRouteInfo: function() {
-    let that = this
-    var usreId = that.data.userInfo.id;
-    var requirementid = that.data.requirementId;
-    var treetype = that.data.treetype;
-
-
-    var url = config.requestUrl
-    var data = {
-      code_: 'x_getRelateTree',
-      id: requirementid,
-      userid: usreId,
-      role: treetype,
-
-    }
-    rRequest.doRequest(url, data, that, function(rdata) {
-
-      that.setData({
-
-        'canvasViewInfo.canvasWidth':
-          (rdata.boder.max_width * config.routeCicleConfig.circleRM),
-        'canvasViewInfo.canvasHeight':
-          (rdata.boder.max_height * config.routeCicleConfig.circleRM),
-
-        'canvasInfo.canvasTop':
-          (rdata.boder.max_height * config.routeCicleConfig.circleRM),
-        'canvasInfo.canvasLeft':
-          (rdata.boder.max_width * config.routeCicleConfig.circleRM),
-
-      })
-      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that, function() {
-
-
-      });
-      if (that.data.requirementInfo.dealtype == '2') {
-
-        that.setData({
-
-          'nolinkCanvasViewInfo.canvasWidth':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.canvasHeight':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
-
-          'nolinkCanvasViewInfo.canvasTop':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.canvasLeft':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.copies': rdata.copies ? rdata.copies : 0,
-          'nolinkCanvasViewInfo.orders': rdata.orders ? rdata.orders : 0,
-
-        })
-        if (rdata.rInfo_) {
-          rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that, function() {});
-        }
-
-      }
-
-      that.initNavigeiPoint()
-
-
-
-
-    });
-  },
+ 
 
   /** */
 
@@ -1723,9 +1709,8 @@ Page({
 
     let that = this;
 
-
     const query0 = wx.createSelectorQuery()
-    query0.select('#part-0').boundingClientRect()
+    query0.select('#part0').boundingClientRect()
     query0.selectViewport().scrollOffset()
     query0.exec(function(res) {
       // navigetops.push(res[0].top)
@@ -1736,7 +1721,7 @@ Page({
 
 
     const query1 = wx.createSelectorQuery()
-    query1.select('#part-1').boundingClientRect()
+    query1.select('#part1').boundingClientRect()
     query1.selectViewport().scrollOffset()
     query1.exec(function(res) {
       // navigetops.push(res[0].top)
@@ -1745,7 +1730,7 @@ Page({
       })
     })
     const query2 = wx.createSelectorQuery()
-    query2.select('#part-2').boundingClientRect()
+    query2.select('#part2').boundingClientRect()
     query2.selectViewport().scrollOffset()
     query2.exec(function(res) {
       // navigetops.push(res[0].top)
@@ -1754,7 +1739,7 @@ Page({
       })
     })
     const query3 = wx.createSelectorQuery()
-    query3.select('#part-3').boundingClientRect()
+    query3.select('#part3').boundingClientRect()
     query3.selectViewport().scrollOffset()
     query3.exec(function(res) {
       // navigetops.push(res[0].top)
@@ -1762,83 +1747,9 @@ Page({
         'navigeids.part3.top': res[0].top
       })
     })
-
-
+ 
   },
-
-  scroll: function(e) {
-    let that = this;
-    var scrollHeight = e.detail.scrollHeight;
-
-    var scrollTop = e.detail.scrollTop
-    var contentHeight = that.data.pagePard.contentHeight
-    that.setData({
-      currScrollTop: scrollTop
-    });
-
-
-    var navigeids = that.data.navigeids
-
-    // console.log(navigeids.part0.top + "-----" + scrollTop);
-    if (navigeids.part0.top == 0) {
-      that.initNavigeiPoint()
-      return
-    }
-
-    let navigetops = []
-    navigetops.push(navigeids.part0.top - scrollTop)
-    navigetops.push(navigeids.part1.top - scrollTop)
-    navigetops.push(navigeids.part2.top - scrollTop)
-    navigetops.push(navigeids.part3.top - scrollTop)
-
-    let selectnavigeid = that.checkPoint(0, navigetops, contentHeight)
-
-    if (selectnavigeid == 'part0' || selectnavigeid == 'part1' || selectnavigeid == 'part2' || selectnavigeid == 'part3') {
-      var onavigaSelected = that.data.navigaSelected;
-      if (onavigaSelected == selectnavigeid) {
-
-      } else {
-        console.log("-navigeids.part0.top +----" + selectnavigeid);
-        that.setData({
-          'navigaSelected': selectnavigeid
-        });
-
-      }
-
-
-
-    }
-
-
-  },
-  checkPoint: function(i, navigetops, contentHeight) {
-    let that = this
-    if (navigetops[i] >= 0) {
-      if (navigetops[i] <= contentHeight) {
-
-        return 'part' + i;
-      } else {
-        if (i == 0) {
-          return ''; //''
-        } else {
-
-          return null; //无操作
-        }
-
-      }
-
-    } else {
-      if (i == 3) {
-        return 'part' + i;
-
-      } else {
-
-        return that.checkPoint(i + 1, navigetops, contentHeight)
-      }
-
-    }
-
-  },
+  
   pageNativeScroll: function(e) {
     let that = this;
     let id = e.currentTarget.dataset.pid;
@@ -1847,23 +1758,24 @@ Page({
 
     let currScrollTop = that.data.currScrollTop;
 
+    let navigaSelected = that.data.navigaSelected;
 
-    const query = wx.createSelectorQuery()
-    query.select('#' + id).boundingClientRect()
-    query.selectViewport().scrollOffset()
-    query.exec(function(res) {
-      // res[0].top // #the-id节点的上边界坐标
-      // res[1].scrollTop // 显示区域的竖直滚动位置
+ 
+    if (navigaSelected == id) {
+      return;
+    }
+    clickNative = true;
+    that.setData({
+      'navigaSelected': id,
+      'scrollview': id,
 
-      console.log(res[0].top + "-----" + res[1].scrollTop);
-      let top = res[0].top;
-      that.setData({
-        scrollTop: top + currScrollTop - navigaheight - 3,
-        'navigaSelected': id
-      });
+    });
 
-    })
+    setTimeout(function() {
+      clickNative = false;
 
+    }, 1000)
+ 
   },
   // 关闭弹窗--我的链团价
   openlinkprice: function() {
@@ -1904,8 +1816,7 @@ Page({
       'viewModal.myLinkPriceShow': false,
     })
   },
-
-
+ 
   // 关闭弹窗--动态链团价
   opendynamiclinkprice: function() {
     let that = this;
@@ -1914,7 +1825,7 @@ Page({
     })
 
     var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
-    var discount = that.data.pcPromotionGroupOrderInfo.averageDiscount;
+    var discount = that.data.pcPromotionGroupsummaryInfo.averageDiscount;
 
     var linkprice = ''
     if (Number(discount) > 0 && Number(discount) < 1) {
