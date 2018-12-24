@@ -39,7 +39,8 @@ Page({
       //home-6
       home6Text1: '-人气推荐-',
       home6Array: [],
-      home6Count: 0
+      home6Count: 0,
+      home6Selected: false,
     },
     scrollView: {
       width: 0,
@@ -253,7 +254,7 @@ Page({
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var data = {
-      code_: 'x_getHome4',
+      code_: 'x_getHome4New',
       homepageid: 'homepage_4',
       userid: usreId,
       endRow: '0',
@@ -271,18 +272,18 @@ Page({
           home5Count: rdata.infocounts
         })
 
-        var actiontyArr = [];
+        // var actiontyArr = [];
 
-        for (let i = 0; i < rdata.infolist.length; i++) {
-          actiontyArr.push(rdata.infolist[i].actiontypename);
-        }
+        // for (let i = 0; i < rdata.infolist.length; i++) {
+        //   actiontyArr.push(rdata.infolist[i].actiontypename);
+        // }
 
-        for (let i = 0; i < actiontyArr.length; i++) {
-          WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
-          if (i === actiontyArr.length - 1) {
-            WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
-          }
-        }
+        // for (let i = 0; i < actiontyArr.length; i++) {
+        //   WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
+        //   if (i === actiontyArr.length - 1) {
+        //     WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
+        //   }
+        // }
 
       }
     })
@@ -341,7 +342,8 @@ Page({
 
         that.setData({
           home6Array: rdata.infolist,
-          home6Count: rdata.infocounts
+          home6Count: rdata.infocounts,
+          home6Selected:true
         })
       }
     })

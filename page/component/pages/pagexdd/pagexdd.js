@@ -100,7 +100,8 @@ Page({
       maskPanWidth: '',
 
       msginfo: '',
-      isHtml: false
+      isHtml: false,
+      userrole:'XQ'
     },
     swiperArea: {
       swiperImgUrls: [],
@@ -177,7 +178,7 @@ Page({
     /**************详情页新增************** */
     currScrollTop: 0,
     scrollTop: 0,
-    navigaheight: 21, //页头导航的高度 
+    navigaheight: 30, //页头导航的高度 
     navigaSelected: 'part0',
     navigeids: {
       'part0': {
@@ -198,6 +199,10 @@ Page({
     friendActiveCount: 0,
     friendActiveItemsPerPage: 50,
 
+    preCopies: 1, //查看我的链团价时的预选份数
+    mylinkprice: 0,
+    mydiscount:'',
+    
     opinionmsg: '朋友说'
   },
 
@@ -297,7 +302,7 @@ Page({
 
       'percent': percent,
       'opinpicsize': opinpicsize,
-      'navigaheight': percent * 40,
+      'navigaheight': percent * 50,
     })
 
     this._observer = wx.createIntersectionObserver(this)
@@ -411,7 +416,7 @@ Page({
           if (role == "XQ") {
             that.getSpuInfo()
             that.getPcPromotionGroupOrderInfo()
-         
+
           }
 
         }
@@ -539,7 +544,7 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
-   
+
     })
     return {
       title: title,
@@ -590,7 +595,13 @@ Page({
       }
     } else if (clicklx == 'sku') {
 
+      that.mylinkprice(that.data.myOrderInfo.orderCopies);
 
+      var userrole = that.data.initDetail.role;
+      that.setData({
+        'panelPage.userrole': userrole,
+      })
+      
     }
 
   },
@@ -642,6 +653,8 @@ Page({
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;;
     var pageSize = that.data.opinionInfo.pageSize;
+
+
     var userrole = that.data.initDetail.role;
 
     var data = {
@@ -899,6 +912,8 @@ Page({
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
     }
 
+    
+
     if (orderType == '1') {
 
       that.orderBtn()
@@ -1099,8 +1114,9 @@ Page({
       if (rdata.info) {
 
         that.setData({
-          requirementInfo: rdata.info /**keep_storage */
-
+          requirementInfo: rdata.info,
+          /**keep_storage */
+          'opinionInfo.pageSize': rdata.info.pt_opi_num ? rdata.info.pt_opi_num : 5
         })
 
         if (rdata.info.requirement_person != usreId) {
@@ -1131,7 +1147,7 @@ Page({
           })
         }
         that.getOpinionInfo()
-     
+
         that.getSpuCoverImageInfo()
         that.getSpuInfo()
         that.getRequirementRichtext()
@@ -1281,7 +1297,7 @@ Page({
               })
 
             }
-            
+
           }, 500)
 
 
@@ -1321,7 +1337,7 @@ Page({
       }
     })
   },
- 
+
 
   /** */
 
@@ -1747,9 +1763,9 @@ Page({
         'navigeids.part3.top': res[0].top
       })
     })
- 
+
   },
-  
+
   pageNativeScroll: function(e) {
     let that = this;
     let id = e.currentTarget.dataset.pid;
@@ -1760,7 +1776,7 @@ Page({
 
     let navigaSelected = that.data.navigaSelected;
 
- 
+
     if (navigaSelected == id) {
       return;
     }
@@ -1775,40 +1791,122 @@ Page({
       clickNative = false;
 
     }, 1000)
- 
+
   },
   // 关闭弹窗--我的链团价
   openlinkprice: function() {
     let that = this;
+
+    var preCopies = that.data.myOrderInfo.orderCopies
+
+
     that.setData({
       'viewModal.myLinkPriceShow': true,
+      'preCopies': preCopies
     })
 
-    var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
-    var discount = that.data.pcPromotionGroupOrderInfo.discount;
-
-    var linkprice = ''
-    if (Number(discount) > 0 && Number(discount) < 1) {
-
-      linkprice = Number(discount) * Number(skuprice)
-      linkprice = linkprice.toFixed(2)
-    } else {
-
-      linkprice = Number(skuprice)
-      linkprice = linkprice.toFixed(2)
-    }
+    // var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
+    // var discount = that.data.pcPromotionGroupOrderInfo.discount;
 
 
-    var DETAIL_MSG_8 = that.data.configMsgInfo.DETAIL_MSG_8;
 
-    DETAIL_MSG_8 = DETAIL_MSG_8.replace("@linkprice", linkprice)
+    // var linkprice = ''
+    // if (Number(discount) > 0 && Number(discount) < 1) {
 
-    WxParse.wxParse('codemsg8', 'html', DETAIL_MSG_8, that, 5);
+    //   linkprice = Number(discount) * Number(skuprice)
+    //   linkprice = linkprice.toFixed(2)
+    // } else {
+
+    //   linkprice = Number(skuprice)
+    //   linkprice = linkprice.toFixed(2)
+    // }
+
+    // that.setData({
+
+    //   'mylinkprice': linkprice
+    // })
+    
+    that.mylinkprice(preCopies)
+
+    // var DETAIL_MSG_8 = that.data.configMsgInfo.DETAIL_MSG_8;
+
+    // DETAIL_MSG_8 = DETAIL_MSG_8.replace("@linkprice", linkprice)
+
+    // WxParse.wxParse('codemsg8', 'html', DETAIL_MSG_8, that, 5);
 
     WxParse.wxParse('codemsg9', 'html', that.data.configMsgInfo.DETAIL_MSG_9, that, 5);
 
 
+
+
   },
+  subpre: function() {
+    let that = this;
+
+    var preCopies = that.data.preCopies
+
+    if (preCopies == 1) {
+      return;
+    }
+    preCopies = preCopies - 1;
+
+    that.mylinkprice(preCopies)
+ 
+
+  },
+  addpre: function() {
+    let that = this;
+    var preCopies = that.data.preCopies
+
+    if (preCopies == 9999999) {
+      return;
+
+    }
+    preCopies = preCopies + 1;
+    that.mylinkprice(preCopies)
+  },
+
+  mylinkprice: function (preCopies){
+    let that = this;
+    var role = that.data.initDetail.role;
+
+    if (role =='TW'){
+      return;
+    }
+
+    var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
+    var cfggroupgradeinfos = that.data.requirementInfo.cfggroupgradeinfos
+
+    var combinedCopies = that.data.pcPromotionGroupOrderInfo.combinedCopies
+    var mylinkCopies = combinedCopies + preCopies
+    
+    var mylinkDiscount = 1
+    var mydiscount = ''
+    for (let i = 0; i < cfggroupgradeinfos.length; i++) {
+      var minCopiesGrade = cfggroupgradeinfos[i].min_copies_grade
+      var maxCopiesGrade = cfggroupgradeinfos[i].max_copies_grade
+      var gradeDiscount = cfggroupgradeinfos[i].grade_discount
+      var discount = cfggroupgradeinfos[i].discount
+
+      if (mylinkCopies <= maxCopiesGrade && mylinkCopies >= minCopiesGrade) {
+
+        mylinkDiscount = gradeDiscount;
+        mydiscount = discount;
+        break;
+      }
+
+    }
+    var mylinkprice = preCopies * mylinkDiscount * skuprice ;
+    var myrefound = preCopies * (1 - mylinkDiscount)  * skuprice;
+    
+    that.setData({
+      'mydiscount': mydiscount,
+      'preCopies': preCopies,
+      'mylinkprice': mylinkprice.toFixed(2),
+      'myOrderInfo.myrefound': myrefound
+    })
+  },
+
   // 关闭弹窗--我的链团价
   closelinkprice: function() {
     let that = this;
@@ -1816,7 +1914,7 @@ Page({
       'viewModal.myLinkPriceShow': false,
     })
   },
- 
+
   // 关闭弹窗--动态链团价
   opendynamiclinkprice: function() {
     let that = this;

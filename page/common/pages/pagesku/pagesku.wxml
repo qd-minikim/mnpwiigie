@@ -10,16 +10,31 @@
           </view>
           <view class='pagesku-view-1-2'>
 
-            <view class='font-size-4 font-color-7' style='height:25% '>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view>
-            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+            <!-- <view class='font-size-4 font-color-7' style='height:25% '>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price,2)}}</view> -->
+            <view class='font-size-6' style='flex:1 ;;flex-direction:row;display:flex; '>
+              <block wx:if="{{panelPage.userrole !='TW'}}">
+                <view style='white-space:nowrap;'>预付：</view>
+              </block>
+               <block wx:if="{{panelPage.userrole =='TW'}}">
+                <view style='white-space:nowrap;'>金额：</view>
+              </block>
+              <view class='font-color-7'>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price*myOrderInfo.orderCopies,2)}}</view>
+            </view>
+            <block wx:if="{{panelPage.userrole !='TW'}}">
+              <view class='font-size-6' style='flex:1 ;;flex-direction:row;display:flex; '>
+                <view style='white-space:nowrap;'>待反：</view>
+                <view class='font-color-7'>￥{{filters.toFix(myOrderInfo.myrefound,2)}}</view>
+              </view>
+            </block>
+            <view class='font-size-6' style='flex:1 ;flex-direction:row;display:flex; '>
               <view style='white-space:nowrap;'>库存：</view>
               <view>{{myOrderInfo.mySkuInfo.storage}}</view>
             </view>
-            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+            <view class='font-size-6' style='flex:1 ; ;flex-direction:row;display:flex; '>
               <view style='white-space:nowrap;'>限购：</view>
               <view>{{spuInfo.spuinfo.min_copies}}~{{spuInfo.spuinfo.max_copies}}</view>
             </view>
-            <view class='font-size-6' style='height:25% ;flex-direction:row;display:flex; '>
+            <view class='font-size-6' style='flex:1 ; ;flex-direction:row;display:flex; '>
               <view style='white-space:nowrap;'>已选：</view>
               <block wx:if="{{myOrderInfo.orderType !='0'}}">
                 <view>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>

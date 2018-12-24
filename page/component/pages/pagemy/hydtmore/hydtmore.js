@@ -25,12 +25,13 @@ Page({
     home5Selected: false,
     home5endRow: 0,
     itemsPerPage: 10,
-
+    scrollViewHeight: 0,
 
     //是否下拉刷新
     isPullDownRefresh: false,
     //是否上拉更多
     isReachBottom: false,
+    isBottom: false
   },
 
   /**
@@ -53,7 +54,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    var windowWidth = app.globalData.systemInfo.windowWidth
 
+    var windowHeight = app.globalData.systemInfo.windowHeight
+    var percent = windowWidth / 750
+  
+    this.setData({
+
+      scrollViewHeight: windowHeight
+    })
   },
 
   /**
@@ -97,12 +106,56 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.setData({
-      isReachBottom: true
-    })
-    this.getFriendsActive()
+    // this.setData({
+    //   isReachBottom: true
+    // })
+    // this.getFriendsActive()
+  },
+  scroll: function (e) {
+
+    var scrollHeight = e.detail.scrollHeight;
+    var scrollTop = e.detail.scrollTop
+    var scrollViewHeight = this.data.scrollViewHeight
+
+    var maxScrollTop = scrollHeight - scrollViewHeight
+
+    
+    // console.log(scrollTop + "______________________" + (scrollHeight - scrollTop - scrollViewHeight))
+    if (scrollHeight - scrollTop - scrollViewHeight >= 0 && scrollHeight - scrollTop - scrollViewHeight  < 5) {
+      var isBottom = this.data.isBottom;
+
+      if (isBottom) {
+
+      } else {
+
+        this.setData({
+          isBottom: true
+        })
+        this.getFriendsActive()
+      }
+    }
+
   },
 
+  upper: function (e) {
+     
+  },
+  lower: function (e) {
+
+    var isReachBottom = this.data.isReachBottom;
+    
+    if (isReachBottom) {
+
+    } else {
+
+      this.setData({
+        isReachBottom: true
+      })
+      this.getFriendsActive()
+    }
+ 
+
+  },
   /**
    * 用户点击右上角分享
    */
@@ -128,6 +181,7 @@ Page({
     let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
+    var isBottom = that.data.isBottom;
 
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
@@ -136,17 +190,17 @@ Page({
     var itemsPerPage = that.data.itemsPerPage
     var home5Count = that.data.home5Count
     var data = {
-      code_: 'x_getHome4',
+      code_: 'x_getHome4New',
       homepageid: 'homepage_4',
       userid: usreId,
       endRow: endRow,
       itemsPerPage: itemsPerPage,
       windowWidth: app.globalData.systemInfo.windowWidth
     }
-    if (isReachBottom && home5Count == endRow) {
+    if (isBottom && home5Count == endRow) {
 
       that.setData({
-        isReachBottom: false,
+        isBottom: false,
       })
       wx.showToast({
         title: '没有更多了',
@@ -157,11 +211,24 @@ Page({
       return
     }
 
+    if (isReachBottom){
+      if (home5Count == endRow) {
 
-    wx.showLoading({
-      title: '加载中...',
-      mask: true,
-    })
+        that.setData({
+          isReachBottom: false,
+        })
+
+        return false
+      }
+
+    }else{
+
+      wx.showLoading({
+        title: '加载中...',
+        mask: true,
+      })
+    }
+   
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.infolist) {
@@ -178,6 +245,20 @@ Page({
         }
         var home5ArrayNew = [...home5Array, ...rdata.infolist]
 
+    
+
+        // var actiontyArr = [];
+
+        // for (let i = 0; i < home5ArrayNew.length; i++) {
+        //   actiontyArr.push(home5ArrayNew[i].actiontypename);
+        // }
+
+        // for (let i = 0; i < actiontyArr.length; i++) {
+        //   WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
+        //   if (i === actiontyArr.length - 1) {
+        //     WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
+        //   }
+        // }
         that.setData({
           home5Array: home5ArrayNew,
           home5Selected: true,
@@ -185,21 +266,8 @@ Page({
           home5endRow: rdata.endRow,
           isPullDownRefresh: false,
           isReachBottom: false,
+          isBottom: false,
         })
-
-        var actiontyArr = [];
-
-        for (let i = 0; i < home5ArrayNew.length; i++) {
-          actiontyArr.push(home5ArrayNew[i].actiontypename);
-        }
-
-        for (let i = 0; i < actiontyArr.length; i++) {
-          WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
-          if (i === actiontyArr.length - 1) {
-            WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
-          }
-        }
-
       }
 
 

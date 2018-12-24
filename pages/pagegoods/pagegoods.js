@@ -47,16 +47,16 @@ Page({
 
 
     isPullDownRefresh: false,
-//是否上拉更多
+    //是否上拉更多
     isReachBottom: false,
-isBottom: false
+    isBottom: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-let that = this
+    let that = this
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       that.setData({
@@ -66,9 +66,9 @@ let that = this
       })
       that.promotionTag();
       that.getGoods();
-    }else{
-      rUserInfo.getUserInfoApp(that, function (rdata) {
-      
+    } else {
+      rUserInfo.getUserInfoApp(that, function(rdata) {
+
         if (app.globalData.userIData) {
 
           that.setData({
@@ -85,7 +85,7 @@ let that = this
 
     }
 
-  
+
   },
 
   /**
@@ -102,7 +102,7 @@ let that = this
 
     this.setData({
 
-      scrollViewHeight: (windowHeight - viewTagHeight * 2 )
+      scrollViewHeight: (windowHeight - viewTagHeight * 2)
     })
     wx.hideShareMenu();
   },
@@ -158,10 +158,10 @@ let that = this
     var scrollViewHeight = this.data.scrollViewHeight
 
     var maxScrollTop = scrollHeight - scrollViewHeight
-   
-    if (scrollHeight - scrollTop - scrollViewHeight <5 ) {
+
+    if (scrollHeight - scrollTop - scrollViewHeight >0&&scrollHeight - scrollTop - scrollViewHeight < 10) {
       var isBottom = this.data.isBottom;
-     
+
       if (isBottom) {
 
       } else {
@@ -184,7 +184,7 @@ let that = this
     // this.getGoods();
   },
   lower: function(e) {
-   
+
     var isReachBottom = this.data.isReachBottom;
     console.log("-----lower---" + isReachBottom)
     if (isReachBottom) {
@@ -278,6 +278,7 @@ let that = this
           promotiontag: tagCode,
           isPullDownRefresh: false,
           isReachBottom: false,
+          isBottom: false,
         })
 
         this.getGoods();
@@ -289,7 +290,7 @@ let that = this
     ,
 
   getGoods: function() {
- 
+
     let that = this;
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
@@ -302,7 +303,7 @@ let that = this
     if (isBottom && goodsCount == endRow) {
 
       that.setData({
-        isReachBottom: false,
+        isBottom: false,
       })
       wx.showToast({
         title: '没有更多了',
@@ -312,21 +313,28 @@ let that = this
       })
       return false
     }
-    
-    if (isReachBottom){
 
+    if (isReachBottom) {
+      if ( goodsCount == endRow) {
+
+        that.setData({
+          isReachBottom: false,
+        })
+       
+        return false
+      }
       // itemsPerPage=5;
       // wx.showLoading({
       //   title: '加载中...',
       //   mask: false,
       // })
-    }else{
+    } else {
       wx.showLoading({
         title: '加载中...',
         mask: true,
       })
     }
-    
+
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
     var tag = this.data.promotiontag;
@@ -342,7 +350,7 @@ let that = this
       promotiontag: tag,
     }
 
-    
+
     wx.request({
       url: url, //对外地址
       data: data,
@@ -350,7 +358,7 @@ let that = this
         'content-type': 'application/json'
       },
       success: res => {
-    
+
         if (res.data.infolist) {
 
           var goodsArry = [];
@@ -366,7 +374,7 @@ let that = this
           }
 
           goodsArryNew = goodsArry.concat(res.data.infolist);
-        
+
           that.setData({
 
             goodsArry: goodsArryNew,
@@ -377,15 +385,15 @@ let that = this
             // isPullDownRefresh: false,
             // isReachBottom: false,
           })
-        
-          
+
+
         }
       },
       fail: res => {
 
       },
       complete: res => {
-      
+
         that.setData({
           isPullDownRefresh: false,
           isReachBottom: false,

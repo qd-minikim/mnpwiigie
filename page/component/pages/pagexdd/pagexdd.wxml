@@ -80,9 +80,27 @@
         <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
       </view>
     </view>
-
-    <view class='font-size-5' style='flex-direction:colum;width:95% ;padding:10rpx 0rpx'>
-      <template is="wxParse" data="{{wxParseData:codemsg8.nodes}}" />
+      <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
+      <view style='flex-direction:row;display:flex '>已<view style="color:#ffffff ">已选</view>选：</view>
+      <view style='flex-direction:row;display:flex ;'>
+        {{myOrderInfo.mySkuInfo.sku_desc}} 
+      </view>
+    </view>
+    <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
+      <view>预购份数：</view>
+      <view style='flex-direction:row;display:flex ;'>
+        <view class='precopies-sub align-center' data-dotype='subpre' catchtap='subpre'>-</view>
+        <view class='precopies-num align-center'>{{preCopies}}</view>
+        <view class='precopies-add align-center' data-dotype='addpre' catchtap='addpre'>+</view>
+      </view>
+    </view>
+    <view class='font-size-5' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
+      <!-- <template is="wxParse" data="{{wxParseData:codemsg8.nodes}}" /> -->
+       <view>我的链团价(<text class='font-color-7'>{{mydiscount}}</text>)：</view>
+      <view class='font-color-7' style='flex-direction:row;display:flex ;'>
+         ￥{{mylinkprice}}
+      </view>
+       
     </view>
 
     <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
@@ -176,14 +194,14 @@
       </block>
     </view>
 
-     <view style='position:absolute;right:0rpx'>
-          <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
-        </view>
+    <view style='position:absolute;right:15rpx'>
+      <image class='view-1-4-image' src='{{keepinfo.keepstatus}}' bindtap='doRequirementKeepInfo'></image>
+    </view>
   </view>
   <scroll-view class="scroll-view" style='height:{{pagePard.contentHeight}}px' scroll-y='true' scroll-top="{{scrollTop}}" scroll-into-view="{{scrollview}}" scroll-with-animation="true">
     <!-- 滚动图bindscroll="scroll" -->
     <view class='view-3' style=''>
-     
+
       <swiper indicator-dots="{{swiperArea.swiperIndicatorDots}}" autoplay="{{swiperArea.swiperAutoplay}}" interval="{{swiperArea.swiperInterval}}" duration="{{swiperArea.swiperDuration}}" style='width:{{swiperArea.swiperWidth}};height:{{swiperArea.swiperHeight}}'>
         <block wx:for="{{swiperArea.swiperImgUrlsArry}}" wx:key="key">
           <swiper-item>
@@ -192,7 +210,7 @@
           </swiper-item>
         </block>
       </swiper>
-     
+
     </view>
 
     <!-- 好友动态区 -->
@@ -219,7 +237,7 @@
           <text class=' bg-20 font-color-2 font-size-7' style='border-radius:50rpx;padding:4rpx 15rpx'>{{requirementInfo.merchantbrandname}}</text>
           <text class='font-size-5'>{{requirementInfo.title}}</text>
         </view>
- 
+
 
       </view>
 
@@ -677,17 +695,17 @@
 
   <block wx:if="{{initDetail.role =='XQ'}}">
     <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
-      <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}}; '>
-        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}};height:100% '>
+        <view class='bottom-view-1 align-c-center' >
           <image class='bottom-view-1-image' src='/image/home_0.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>首页</view>
       </view>
-      <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}} '>
+      <view catchtap='customerpage' class='align-c-center bottom-view' style='width:{{oneGridWidth}};height:100% '>
         <view class='bottom-view-1 align-c-center'>
           <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>客服</view>
       </view>
       <view class='align-center {{fixedBottom.xdClassName}}' style='flex-direction:column;display:flex;width:{{twoGridWidth}} ;height:100%' catchtap="{{ fixedBottom.xdClick?'order':''}}">
         <view class='font-size-5'>{{fixedBottom.xdText}}</view>
@@ -713,18 +731,18 @@
   <block wx:if="{{initDetail.role =='TW'}}">
 
     <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
-      <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; '>
-        <view class='bottom-view-1 align-c-center' style='flex:1;width:100%'>
+      <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; ;height:100%'>
+        <view class='bottom-view-1 align-c-center'  >
           <image class='bottom-view-1-image' src='/image/home_0.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='flex:1;width:100%'>首页</view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>首页</view>
       </view>
 
-      <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}} '>
-        <view class='bottom-view-1 align-c-center'>
+      <view catchtap='customerpagelist' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}};height:100% '>
+        <view class='bottom-view-1 align-c-center' style=''>
           <image class='bottom-view-1-image' src='/image/custom_1.png'></image>
         </view>
-        <view class='bottom-view-1 align-c-center font-size-7 font-color-4'>客服</view>
+        <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>客服</view>
       </view>
 
       <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>

@@ -13,11 +13,36 @@
         <view>
           <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
           <view class="home-5-2-2-2 font-size-6">
-            <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexa">
+
+            <block wx:if="{{item.actiontypenameindex == '1'}}">
+              <view class='font-color-11'> {{item.actiontypename}}</view>
+
+            </block>
+            <block wx:elif="{{item.actiontypenameindex == '2'}}">
+              <view class='font-color-5'> {{item.actiontypename}}</view>
+
+            </block>
+            <block wx:elif="{{item.actiontypenameindex == '3'}}">
+              <view class='font-color-8'> {{item.actiontypename}}</view>
+
+            </block>
+            <block wx:elif="{{item.actiontypenameindex == '4'}}">
+              <view class='font-color-8'> {{item.actiontypename}}</view>
+
+            </block>
+            <block wx:elif="{{item.actiontypenameindex == '6'}}">
+              <view class='font-color-4'> {{item.actiontypename}}</view>
+
+            </block>
+            <block wx:else>
+              <view> {{item.actiontypename}}</view>
+
+            </block>
+            <!-- <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexa">
               <block wx:if="{{index == indexa}}">
                 <template is="wxParse" data="{{wxParseData:item}}" />
               </block>
-            </block>
+            </block> -->
           </view>
         </view>
 
@@ -51,7 +76,7 @@
               <view class='home-5-2-4-4-view-figure4 bg-6 font-size-7 font-color-2 align-center'>{{item.link_price_name}}</view>
             </block>
             <block wx:elif="{{item.deal_type=='3'}}">
-<!-- 零售 -->
+              <!-- 零售 -->
               <block wx:if="{{item.keep_storage<=0}}">
                 <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
               </block>

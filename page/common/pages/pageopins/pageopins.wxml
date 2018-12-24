@@ -11,12 +11,12 @@
           <image class='pageopins-view-8-2-1-1-1-image' src='{{item.image_url}}'></image>
         </view>
         <view class='pageopins-view-8-2-1-1-2' style='flex:1'>
-          <view class='font-size-6'>{{item.friend_nickname}}</view>
-          <view class='font-size-7'>{{item.datetime}}</view>
+          <view class='font-size-6'>{{item.friend_nickname}}<block wx:if="{{item.opintype !='0'}}"><text class=' font-color-4'>(关系强度：{{item.strength}})</text></block></view>
+          <view class='font-size-7 font-color-4'>{{item.datetime}}</view>
         </view>
         <view class='pageopins-view-8-2-1-1-3 font-size-6'>{{item.opinion_code_name}}</view>
       </view>
-      <view class='font-size-6' style='margin:2rpx 10rpx;'>{{item.opinion_reason}}</view>
+      <view class='font-size-6 font-color-11' style='margin:2rpx 10rpx;'>{{item.opinion_reason}}</view>
       <!-- 图片 -->
 
       <view class='pageopins-view-8-2-1-3'>

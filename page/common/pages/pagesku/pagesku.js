@@ -10,6 +10,9 @@
 
        'myOrderInfo.orderCopies': newOrderCopies
      })
+     that.mylinkprice(newOrderCopies);
+     
+
 
    },
    subCopies: function(that) {
@@ -26,6 +29,8 @@
        that.setData({
          'myOrderInfo.orderCopies': newOrderCopies
        })
+
+       that.mylinkprice(newOrderCopies);
      }
 
 

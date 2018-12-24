@@ -165,6 +165,7 @@
 .bottom-view {
   display: flex;
   flex-direction: column;
+  background: #ffffff
 }
 /* 下单 */
 .bottom-xd {
@@ -218,4 +219,36 @@
 .view-modal-sign{
   width: 40rpx;
   height: 40rpx;
+}
+
+
+
+.precopies-add {
+  width: 80rpx;
+  height: 60rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-left: 1rpx solid rgb(224, 223, 223);
+  border-right: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  border-top-right-radius: 10%;
+  border-bottom-right-radius: 10%;
+  background-color: rgb(235, 230, 230);
+}
+
+.precopies-sub {
+  width: 80rpx;
+  height: 60rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-left: 1rpx solid rgb(224, 223, 223);
+  border-right: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+  background-color: rgb(235, 230, 230);
+}
+
+.precopies-num {
+  width: 100rpx;
+  border-top: 1rpx solid rgb(224, 223, 223);
+  border-bottom: 1rpx solid rgb(224, 223, 223);
 }
