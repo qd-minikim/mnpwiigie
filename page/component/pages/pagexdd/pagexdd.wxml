@@ -81,7 +81,7 @@
       </view>
     </view>
       <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
-      <view style='flex-direction:row;display:flex '>已<view style="color:#ffffff ">已选</view>选：</view>
+      <view style='flex-direction:row;display:flex '>已<view style="color:transparent ">已选</view>选：</view>
       <view style='flex-direction:row;display:flex ;'>
         {{myOrderInfo.mySkuInfo.sku_desc}} 
       </view>
@@ -252,7 +252,7 @@
       <view class='gap-line'></view>
       <view class='font-size-5' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
         <view style='flex-direction:row;display:flex'>已
-          <view style="color:#ffffff ">白白</view>选：</view>
+          <view style="color:transparent">白白</view>选：</view>
         <view style='flex:1'>{{myOrderInfo.mySkuInfo.sku_desc}} {{myOrderInfo.orderCopies}}份</view>
         <view class='align-center'>
           <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>

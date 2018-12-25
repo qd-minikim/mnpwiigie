@@ -3,7 +3,7 @@ var rCommon = require('../../../../utils/rCommon.js');
 var rRequest = require('../../../../utils/rRequest.js');
 var rUtils = require('../../../../utils/rUtils.js');
 var WxParse = require('../../../../wxParse/wxParse.js');
-
+var rAdvUtils = require('../../../../utils/rAdvUtils.js');
 var rUserInfo = require('../../../../utils/rUserInfo.js');
 var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
 var clickNative = false;
@@ -241,6 +241,22 @@ Page({
 
       that.getConfigMsgInfo()
 
+
+      if (options.advc && options.advp) {
+        var loginstatus = app.globalData.loginInfo.loginstatus;
+        var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+        var pdata = {
+          'isNew': isNew,
+          'advCode': options.advc,
+          'positionCode': options.advp,
+          'pageType': '1',
+          'userId': that.data.userInfo.id,
+          'parameters': options,
+        }
+        rAdvUtils.adv.doadv(that, pdata);
+
+      }
+
     } else {
 
       rUserInfo.getUserInfoApp(that, function(rdata) {
@@ -258,6 +274,22 @@ Page({
           that.getRequirementKeepInfo()
 
           that.getConfigMsgInfo()
+
+
+          if (options.advc && options.advp) {
+            var loginstatus = app.globalData.loginInfo.loginstatus;
+            var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+            var pdata = {
+              'isNew': isNew,
+              'advCode': options.advc,
+              'positionCode': options.advp,
+              'pageType': '1',
+              'userId': that.data.userInfo.id,
+              'parameters': options,
+            }
+            rAdvUtils.adv.doadv(that, pdata);
+
+          }
         }
 
       })
@@ -598,8 +630,11 @@ Page({
       that.mylinkprice(that.data.myOrderInfo.orderCopies);
 
       var userrole = that.data.initDetail.role;
+      var dealtype = that.data.requirementInfo.dealtype;
+     
       that.setData({
         'panelPage.userrole': userrole,
+        'panelPage.dealtype': dealtype,
       })
       
     }
@@ -1363,7 +1398,15 @@ Page({
     that.setData({
       'myOrderInfo.orderType': 2, //1选择2:下单拦截选择  3:送礼拦截选择
     })
+    that.mylinkprice(that.data.myOrderInfo.orderCopies);
 
+    var userrole = that.data.initDetail.role;
+    var dealtype = that.data.requirementInfo.dealtype;
+
+    that.setData({
+      'panelPage.userrole': userrole,
+      'panelPage.dealtype': dealtype,
+    })
 
   },
 
@@ -1376,7 +1419,15 @@ Page({
     that.setData({
       'myOrderInfo.orderType': 3, //1选择2:下单拦截选择  3:送礼拦截选择
     })
+    that.mylinkprice(that.data.myOrderInfo.orderCopies);
 
+    var userrole = that.data.initDetail.role;
+    var dealtype = that.data.requirementInfo.dealtype;
+
+    that.setData({
+      'panelPage.userrole': userrole,
+      'panelPage.dealtype': dealtype,
+    })
 
   },
 
@@ -1870,10 +1921,16 @@ Page({
     let that = this;
     var role = that.data.initDetail.role;
 
+    var dealtype = that.data.requirementInfo.dealtype;
+   
     if (role =='TW'){
       return;
     }
 
+    if (dealtype != '2') {
+      return;
+    }
+    
     var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
     var cfggroupgradeinfos = that.data.requirementInfo.cfggroupgradeinfos
 

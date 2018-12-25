@@ -331,8 +331,12 @@
        }
        var orderCopies = that.data.myOrderInfo.orderCopies;
        uppdateCopies.canBuyCopies(that, orderCopies);
+
+       that.mylinkprice(orderCopies);
      }
       
+
+
 
    },
 

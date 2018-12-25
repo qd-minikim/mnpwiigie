@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 60,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
@@ -48,7 +48,8 @@
 					"id": 1,
 					"name": "详情",
 					"pathName": "page/component/pages/pagexdd/pagexdd",
-					"query": "m=2d3789e782cbde91&r=1529296099516208"
+					"query": "m=2d3789e782cbde91&r=1529296099516208&advc=ssss&advp=2332",
+					"scene": "1011"
 				},
 				{
 					"id": -1,
@@ -92,14 +93,15 @@
 					"id": 8,
 					"name": "首页",
 					"pathName": "pages/pagehome/pagehome",
-					"query": "",
+					"query": "advc=1212&advp=2222&d=234234&f=234234",
 					"scene": "1011"
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "欢迎页",
 					"pathName": "pages/pagewelcome/pagewelcome",
-					"query": ""
+					"query": "",
+					"scene": "1011"
 				},
 				{
 					"id": -1,

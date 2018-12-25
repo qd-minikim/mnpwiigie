@@ -15,16 +15,18 @@
               <block wx:if="{{panelPage.userrole !='TW'}}">
                 <view style='white-space:nowrap;'>预付：</view>
               </block>
-               <block wx:if="{{panelPage.userrole =='TW'}}">
+              <block wx:if="{{panelPage.userrole =='TW'}}">
                 <view style='white-space:nowrap;'>金额：</view>
               </block>
               <view class='font-color-7'>￥{{filters.toFix(myOrderInfo.mySkuInfo.list_price*myOrderInfo.orderCopies,2)}}</view>
             </view>
             <block wx:if="{{panelPage.userrole !='TW'}}">
-              <view class='font-size-6' style='flex:1 ;;flex-direction:row;display:flex; '>
-                <view style='white-space:nowrap;'>待反：</view>
-                <view class='font-color-7'>￥{{filters.toFix(myOrderInfo.myrefound,2)}}</view>
-              </view>
+              <block wx:if="{{panelPage.dealtype=='2'}}">
+                <view class='font-size-6' style='flex:1 ;;flex-direction:row;display:flex; '>
+                  <view style='white-space:nowrap;'>待返：</view>
+                  <view class='font-color-7'>￥{{filters.toFix(myOrderInfo.myrefound,2)}}</view>
+                </view>
+              </block>
             </block>
             <view class='font-size-6' style='flex:1 ;flex-direction:row;display:flex; '>
               <view style='white-space:nowrap;'>库存：</view>

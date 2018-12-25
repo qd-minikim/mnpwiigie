@@ -5,7 +5,8 @@ var rCommon = require('../../utils/rCommon.js');
 var rRequest = require('../../utils/rRequest.js');
 var config = require('../../config.js')
 var WxParse = require('../../wxParse/wxParse.js');
-
+var rAdvUtils = require('../../utils/rAdvUtils.js');
+var rUserInfo = require('../../utils/rUserInfo.js');
 var pagehydt = require('../../page/common/pages/pagehydt/pagehydt.js');
 Page({
   data: {
@@ -94,8 +95,8 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function() {
-    console.log("-------------------")
+  onLoad: function (options) {
+     var that = this;
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       
@@ -113,8 +114,60 @@ Page({
       this.getPopularity();
       //配置信息
       this.getConfigMsgInfo()
+     
 
-      
+      if (options.advc && options.advp){
+        var loginstatus = app.globalData.loginInfo.loginstatus;
+        var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+        var pdata = {
+          'isNew': isNew,
+          'advCode': options.advc,
+          'positionCode': options.advp,
+          'pageType':'0',
+          'userId': that.data.userInfo.id,
+          'parameters': options,
+        }
+        rAdvUtils.adv.doadv(that, pdata);
+
+      }
+ 
+    } else {
+
+      rUserInfo.getUserInfoApp(that, function (rdata) {
+
+        if (app.globalData.userIData) {
+          that.setData({
+
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+
+          that.homepageCarousel();
+          //好友动态
+          that.getFriendsActive();
+          //人气推荐
+          that.getPopularity();
+          //配置信息
+          that.getConfigMsgInfo()
+
+
+          if (options.advc && options.advp) {
+            var loginstatus = app.globalData.loginInfo.loginstatus;
+            var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+            var pdata = {
+              'isNew': isNew,
+              'advCode': options.advc,
+              'positionCode': options.advp,
+              'pageType': '0',
+              'userId': that.data.userInfo.id,
+              'parameters': options,
+            }
+            rAdvUtils.adv.doadv(that, pdata);
+
+          }
+        }
+
+      })
     }
 
   },
