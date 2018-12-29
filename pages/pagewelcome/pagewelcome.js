@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    windowHeight: app.globalData.systemInfo.windowHeight + 'px',
+    windowHeight: 0,
     backgroundImage: config.imageUrl + '/wiigie/background/bg_1/bg_image.jpg',
     configMsgInfo: {}
   },
@@ -32,6 +32,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+    this.setData({
+
+      'windowHeight': windowHeight 
+    })
 
     wx.hideShareMenu();
   },

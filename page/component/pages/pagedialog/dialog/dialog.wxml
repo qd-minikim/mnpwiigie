@@ -35,7 +35,7 @@
 
             <view wx:if="{{item.dialog_type =='0'}}" class='view-1-2-sanjiao view-1-2-my'></view>
             <image class='view-1-2-image' src='{{userInfo.imageUrl}}'></image>
-        
+
           </view>
 
         </view>
@@ -58,7 +58,7 @@
               <text class='view-1-2-left-text' style='text-align:left'>{{item.content}}</text>
               <view style='flex:1'></view>
             </view>
- 
+
           </view>
         </view>
       </block>
@@ -80,12 +80,20 @@
     </block>
   </scroll-view>
 
-<!-- catchtap="upimg1" -->
+  <!-- catchtap="upimg1" -->
   <view class='view-2 flex-bottom'>
     <view class='view-2-1 align-r-center '>
-      <input bindinput="bindKeyInput" maxlength='200' class='view-2-1-input' placeholder='发送信息' value='{{inputValue}}'></input>
-      <button class='view-2-1-button' catchtap="sendDialog">发送</button>
-      <image  class='view-2-1-image-ja' src='/image/figure_13.png' catchtap='attachment' data-lx='attachment' data-code='' data-html='false'></image>
+
+      <view style='flex:1 ;padding:5rpx'>
+        <input bindinput="bindKeyInput" maxlength='200' class='view-2-1-input' placeholder='发送信息' value='{{inputValue}}'></input>
+
+      </view>
+      <view style=';padding:5rpx' class='align-center'>
+        <view wx:if='{{sendBtnShow}}' class='view-2-1-send align-center' catchtap="sendDialog">发送</view>
+        <image  wx:if='{{!sendBtnShow}}' class='view-2-1-image-ja' src='/image/figure_121.png' catchtap='attachment' data-lx='attachment' data-code='' data-html='false'></image>
+      </view>
+
+
     </view>
 
   </view>

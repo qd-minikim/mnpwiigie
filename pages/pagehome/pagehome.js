@@ -32,11 +32,13 @@ Page({
       home4Text1: ['分众崛起', '消费升级'],
       home4Text2: ['行家好友:洞察+互荐', '心仪好物:感知+优享'],
       home4Text3: ['', ''],
+      
       //home-5
       home5Text1: '~好友的洞察~',
       home5Array: [],
       home5Count: 0,
       home5Selected: false,
+      home5PagaSize:3,
       //home-6
       home6Text1: '-人气推荐-',
       home6Array: [],
@@ -54,12 +56,7 @@ Page({
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    // userWxInfo: {},
-
-    // loginInfo: {},
-    // // systemBaseInfo: {},
-    // canIUse: wx.canIUse('button.open-type.getUserInfo')
-
+   
     noticeNoReadNum:0,
 
     clickpageflg:''
@@ -177,13 +174,15 @@ Page({
    
   },
   onReady: function() {
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
-    var screenHeight = app.globalData.systemInfo.screenHeight
 
-    var pixelRatio = app.globalData.systemInfo.pixelRatio
+
+    const res = wx.getSystemInfoSync()
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+ 
     var percent = windowWidth / 750
-    var scrollViewHeight = windowHeight - 80 * percent - 130  * percent
+    var scrollViewHeight = windowHeight - 90 * percent 
     this.setData({
  
       'scrollView.height': scrollViewHeight
@@ -301,18 +300,22 @@ Page({
   },
   //获取好友动态
   getFriendsActive: function() {
+    const res = wx.getSystemInfoSync()
 
+    var windowWidth = res.windowWidth
 
     let that = this;
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
+
+    var home5PagaSize = that.data.defaultInfo.home5PagaSize
     var data = {
-      code_: 'x_getHome4New',
+      code_: 'x_getHome4NewS',
       homepageid: 'homepage_4',
       userid: usreId,
       endRow: '0',
-      itemsPerPage: '10',
-      windowWidth: app.globalData.systemInfo.windowWidth
+      itemsPerPage: home5PagaSize,
+      windowWidth: windowWidth
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -324,20 +327,7 @@ Page({
           home5Selected: true,
           home5Count: rdata.infocounts
         })
-
-        // var actiontyArr = [];
-
-        // for (let i = 0; i < rdata.infolist.length; i++) {
-        //   actiontyArr.push(rdata.infolist[i].actiontypename);
-        // }
-
-        // for (let i = 0; i < actiontyArr.length; i++) {
-        //   WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
-        //   if (i === actiontyArr.length - 1) {
-        //     WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
-        //   }
-        // }
-
+ 
       }
     })
 
@@ -378,6 +368,9 @@ Page({
 
   //获取人气推荐
   getPopularity: function() {
+
+    const res = wx.getSystemInfoSync()
+    var windowWidth = res.windowWidth
     let that = this;
     var url = config.requestUrl;
     var usreId = that.data.userInfo.id
@@ -387,7 +380,7 @@ Page({
       userid: usreId,
       endRow: '0',
       itemsPerPage: '4',
-      windowWidth: app.globalData.systemInfo.windowWidth
+      windowWidth: windowWidth
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -411,8 +404,8 @@ Page({
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
-    var userid = that.data.userInfo.id;
-    pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
+    var actiontype = event.currentTarget.dataset.actiontype;
+    pagehydt.pageHydt.showDetail(upmarkid, requirementid, actiontype);
 
 
   },
@@ -424,9 +417,11 @@ Page({
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
-    var userid = that.data.userInfo.id;
-    pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
-
+    // var userid = that.data.userInfo.id;
+    // pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
+    wx.navigateTo({
+      url: "/page/component/pages/pagexdd/pagexdd?m=" + upmarkid + "&r=" + requirementid,
+    })
 
   },
 

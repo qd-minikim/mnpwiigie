@@ -13,12 +13,7 @@ Page({
    * 页面的初始数据 
    */
   data: {
-    viewData1: [
-      '微波 转发了    2018-12-12 12:12:12',
-      '赵小米 转发了  2012-12-12 12:12:12',
-      '冯段斌 购买了  2012-12-12 12:12:12',
-      '冯联通 转发了  2012-12-12 12:12:12',
-    ],
+   
     backpage: '',
     /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
 
@@ -84,8 +79,8 @@ Page({
 
     attributeInfo: {},
     pagePard: {
-      headHeight: '40', //95
-      footHeight: '90',
+      headHeight: '40',  
+      footHeight: 90,
       contentHeight: '',
 
     },
@@ -214,11 +209,22 @@ Page({
     let that = this
     var fm = options.m;
     var r = options.r;
+
+    // var at = options.at;//好友动态的朋友说参数
     that.setData({
       'requirementId': r,
       'upmarkid': fm
     })
-
+    if (options.at && options.at =='opinion'){
+      setTimeout(function(){
+        that.setData({
+          'navigaSelected': 'part2',
+          'scrollview': 'part2',
+        }) 
+      },2000)
+     
+    }
+   
     var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
     wx.setStorage({
       key: "cardpage",
@@ -309,12 +315,22 @@ Page({
   onReady: function() {
 
     let that = this;
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
+
+   
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
     var percent = windowWidth / 750
-    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
-
+  
+    var footHeight = this.data.pagePard.footHeight
+    
+  
+    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent
+      - this.data.pagePard.footHeight * percent
     var maskPanHeight = 400 - 120 * percent
 
     var opinpicsize = (windowWidth - 80 * percent) / 8
@@ -335,6 +351,7 @@ Page({
       'percent': percent,
       'opinpicsize': opinpicsize,
       'navigaheight': percent * 50,
+  
     })
 
     this._observer = wx.createIntersectionObserver(this)
@@ -1855,41 +1872,14 @@ Page({
       'viewModal.myLinkPriceShow': true,
       'preCopies': preCopies
     })
-
-    // var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
-    // var discount = that.data.pcPromotionGroupOrderInfo.discount;
-
-
-
-    // var linkprice = ''
-    // if (Number(discount) > 0 && Number(discount) < 1) {
-
-    //   linkprice = Number(discount) * Number(skuprice)
-    //   linkprice = linkprice.toFixed(2)
-    // } else {
-
-    //   linkprice = Number(skuprice)
-    //   linkprice = linkprice.toFixed(2)
-    // }
-
-    // that.setData({
-
-    //   'mylinkprice': linkprice
-    // })
+ 
     
     that.mylinkprice(preCopies)
-
-    // var DETAIL_MSG_8 = that.data.configMsgInfo.DETAIL_MSG_8;
-
-    // DETAIL_MSG_8 = DETAIL_MSG_8.replace("@linkprice", linkprice)
-
-    // WxParse.wxParse('codemsg8', 'html', DETAIL_MSG_8, that, 5);
+ 
 
     WxParse.wxParse('codemsg9', 'html', that.data.configMsgInfo.DETAIL_MSG_9, that, 5);
 
-
-
-
+ 
   },
   subpre: function() {
     let that = this;

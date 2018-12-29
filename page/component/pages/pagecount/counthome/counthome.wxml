@@ -5,11 +5,9 @@
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <view class='container' bindtap='cancleattach'>
-
-
+ 
   <view class='counthome-view-0 align-center bg-9'>
-
-
+ 
     <view class='counthome-view-0-2 align-c-center'>
       <view class='font-size-5' style='text-align:center'>{{userInfo.nickname}}</view>
       <view class='font-size-7' style='text-align:center'>行为积分：{{creditInfo.actionPoint?creditInfo.actionPoint:0}}</view>
@@ -55,13 +53,7 @@
       <image src='/image/arrow_right_1.png' class='counthome-view-figure'></image>
     </view>
   </view>
-  <!-- <view class="gap-bg" style="flex-direction:column;"></view> -->
-
-
-
-  <!-- <view class='flex-bottom font-size-4'>
-    <button class='align-center font-size-5 font-color-7' type='default' style='width:100%;height:100%;color:#ff5858' catchtap='countoutPage'>去提现</button>
-  </view> -->
+ 
 </view>
 
 <template is="tabbar" data="{{tabbar}}" />

@@ -176,11 +176,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    const res = wx.getSystemInfoSync()
 
-
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
-    // var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+ 
     var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
 

@@ -42,7 +42,7 @@
 
 
 <template is="tabbar" data="{{tabbar}}" />
-<scroll-view style='height:{{pageScrollView.height}}' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+<scroll-view style='height:{{pageScrollView.height}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
   <view class='container ' style='flex-direction:colum;display:flex; '>
 
     <view class='gr-view-1 align-center' style='position: relative;'>

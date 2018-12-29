@@ -309,9 +309,9 @@
 /* 固定底部菜单 */
 
 .flex-bottom {
-  /* //height:8%; */
+  
   height: 90rpx;
-  /* background:#F4F4F4;  *//* padding: 16rpx; */
+ 
   display: flex;
   position: fixed;
   bottom: 0;
@@ -320,9 +320,9 @@
 }
 
 .flex-bottom-2 {
-  /* //height:8%; */
+   
   height: 90rpx;
-  /* background:#F4F4F4;  *//* padding: 16rpx; */
+ 
   display: flex;
   position: fixed;
   bottom: 110rpx;

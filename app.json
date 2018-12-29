@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-  
+    
   ],
   "subPackages": [
     {
@@ -75,6 +75,7 @@
         "pages/test/pagexdd/pagexdd",
         "pages/pagelink/pagelink",
         "pages/pageopin/opinremark/opinremark"
+        
       ]
     }
   ],

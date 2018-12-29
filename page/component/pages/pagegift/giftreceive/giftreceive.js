@@ -44,7 +44,7 @@ Page({
     },
     /**tabbar */
     pageScrollView: {
-      height: app.globalData.systemInfo.windowHeight
+      height: 0
     },
     tabbar: {}, //tabbar 信息
     tabbarPage: '/pages/pagemy/pagemy', //当前页面属于哪个tabbar 默认是null
@@ -118,6 +118,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    this.setData({
+
+      'pageScrollView.height': windowHeight
+    })
+  
+
     wx.hideShareMenu();
   },
 

@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.2",
+	"libVersion": "2.2.5",
 	"appid": "wxa95ca6d0de960e0d",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 61,
 			"list": [
 				{
 					"id": -1,
@@ -48,7 +48,7 @@
 					"id": 1,
 					"name": "详情",
 					"pathName": "page/component/pages/pagexdd/pagexdd",
-					"query": "m=2d3789e782cbde91&r=1529296099516208&advc=ssss&advp=2332",
+					"query": "m=2d3789e782cbde91&r=1529296099516208",
 					"scene": "1011"
 				},
 				{
@@ -93,7 +93,7 @@
 					"id": 8,
 					"name": "首页",
 					"pathName": "pages/pagehome/pagehome",
-					"query": "advc=1212&advp=2222&d=234234&f=234234",
+					"query": "",
 					"scene": "1011"
 				},
 				{
@@ -423,6 +423,13 @@
 					"name": "朋友说评论",
 					"pathName": "page/component/pages/pageopin/opinremark/opinremark",
 					"query": "o=1541518024215794"
+				},
+				{
+					"id": -1,
+					"name": "下拉刷新测试",
+					"pathName": "page/component/pages/test/pulldown/pulldown",
+					"query": "",
+					"scene": "1011"
 				}
 			]
 		}

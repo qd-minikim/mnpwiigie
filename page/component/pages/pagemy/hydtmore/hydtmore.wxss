@@ -1,4 +1,35 @@
 /* page/component/pages/pagemy/hydtmore/hydtmore.wxss */
+.hydtm-view-1 {
+  width: 100%;
+  border-bottom: 1rpx solid rgb(224, 223, 223);
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.hydtm-view-1-1 {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 25%;
+  color: #777;
+}
+
+.tab-on {
+  color: #da7c0c;
+  border-bottom: 5rpx solid #da7c0c;
+}
+
+.swiper-box {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-box view {
+  /* text-align: center; */
+}
+
+
 
 .home-5 {
   display: flex;
@@ -14,7 +45,7 @@
 }
 
 .home-5-2 {
-  width: 100%;
+  /* width: 100%; */
   height: 180rpx;
 }
 

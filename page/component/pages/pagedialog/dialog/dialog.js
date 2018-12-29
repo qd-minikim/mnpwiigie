@@ -41,7 +41,7 @@ Page({
       width: 0
     },
     scrollTop: 0,
-
+    sendBtnShow: false,
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -100,8 +100,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+
     var percent = windowWidth / 750
     var scrollHeight = windowHeight - app.globalData.bottomBtnHeight * percent - 20
     this.setData({
@@ -233,9 +238,25 @@ Page({
 
 
   },
-  bindKeyInput: function(e) {
-    this.setData({
-      inputValue: e.detail.value
+  bindKeyInput: function (event) {
+
+    let that = this;
+    var value = event.detail.value;
+    var len = value.length
+    if (len > 0) {
+
+      that.setData({
+        sendBtnShow: true
+      })
+
+    } else {
+      that.setData({
+        sendBtnShow: false
+      })
+    }
+
+    that.setData({
+      inputValue: value
     })
 
 
@@ -318,7 +339,8 @@ Page({
           dialogDetailList.push(newInfo);
           that.setData({
             'dialogDetailList': dialogDetailList,
-
+            'inputValue': '',
+            'sendBtnShow': false,
           })
           that.setData({
             scrollTop: 1000 * dialogDetailList.length
@@ -440,7 +462,8 @@ Page({
           dialogDetailList.push(newInfo);
           that.setData({
             'dialogDetailList': dialogDetailList,
-            'inputValue': ''
+            'inputValue': '',
+            'sendBtnShow': false,
           })
 
 

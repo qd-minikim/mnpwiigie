@@ -106,7 +106,7 @@
 }
 
 .view-2-1-input {
-  width: 80%;
+  
   height: 40px;
   background-color: white;
   line-height: 40px;
@@ -115,12 +115,14 @@
   padding-left: 10px;
 }
 
-.view-2-1-button {
-  border: 1px solid white;
-  width: 18%;
-  height: 41px;
+.view-2-1-send {
+  border: 1px solid #e36c09;
+  
+  width:3rem;
+  border-radius: 10rpx;
+  height: 40px;
   background: #fff;
-  color: #000;
+  color: #e36c09;
   line-height: 40px;
   font-size: 14px;
   padding-left: 5rpx;
@@ -128,9 +130,9 @@
 }
 
 .view-2-1-image-ja {
-  height: 60rpx;
-  width: 70rpx;
-  border: 1rpx solid #2223;
+  height: 65rpx;
+  width: 65rpx;
+  border: 1rpx solid #e36c09;
   border-radius: 50%;
   margin:5rpx 15rp;
 }

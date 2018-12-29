@@ -4,7 +4,7 @@ var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
 
-var defauthtime=3;
+var defauthtime = 3;
 App({
 
   //启动时执行的初始化工作
@@ -26,7 +26,7 @@ App({
     userInfo: null, //用户信息--wiigie
     userIData: false,
     userWxInfo: null, //用户微信信息--wiigie
-    systemInfo: null,
+    systemInfo: {},
 
     //登录信息
     loginInfo: null, //用户登录信息{appId:,sessionKey}
@@ -42,7 +42,7 @@ App({
     giftData: null,
     /**赋值在 giftdetar.js中 receiveAddress //funtion */
 
-    /** 底部按钮的高度*/
+    /** 底部大按钮的高度*/
     bottomBtnHeight: 90, //flex-bottom  同步修改
     /** */
 
@@ -82,6 +82,7 @@ App({
     wx.getSystemInfo({
       success: res => {
         that.globalData.systemInfo = res
+ 
       },
       fail: res => {},
       complete: res => {},
@@ -113,14 +114,14 @@ App({
               that.globalData.userIData = true
               rCommon.userDefAddr.getUserDefAddr(that, rdata.info.userinfo.id);
 
-              var authtime = rdata.info.authtime && rdata.info.authtime != '' && parseInt(rdata.info.authtime)>0 ? rdata.info.authtime :defauthtime
+              var authtime = rdata.info.authtime && rdata.info.authtime != '' && parseInt(rdata.info.authtime) > 0 ? rdata.info.authtime : defauthtime
               var authorizetime = wx.getStorageSync('authorizetime')
               var d = new Date()
               var longintimme = d.getTime();
               var t = parseInt(longintimme) - parseInt(authorizetime == '' ? 0 : authorizetime)
 
-              var s = Number(authtime)*24*60*60*1000;
-              if (authorizetime == '' || t > s) {//3天
+              var s = Number(authtime) * 24 * 60 * 60 * 1000;
+              if (authorizetime == '' || t > s) { //3天
 
                 wx.setStorage({
                   key: "authorizetime",
@@ -132,7 +133,7 @@ App({
 
                 that.redirectPage()
               }
-        
+
 
             } else if (rdata.info.loginfo.loginstatus == 'noexist') { //不存在老用户
               that.globalData.loginInfo = rdata.info
@@ -147,12 +148,12 @@ App({
           }
         })
 
-      }, fail: e => {
+      },
+      fail: e => {
 
-        console.log("3333333333"+e)
-      }, complete: e => {
+      },
+      complete: e => {
 
-        console.log("33333333223333" + e)
       }
     })
   },
@@ -164,11 +165,7 @@ App({
           that.getUsersInfo();
         } else {
           console.log("用户信息未授权--")
-
-          // wx.reLaunch({ ///pages/pagehome/pagehome
-          //   url: '/pages/pagewelcome/pagewelcome',
-          // })
-
+ 
         }
       },
       fail: function(res) {
@@ -290,8 +287,7 @@ App({
       _this = currentPages[currentPages.length - 1],
       pagePath = _this.data.tabbarPage
     if (pagePath) {
-
-
+ 
     } else {
       pagePath = _this.__route__;
     }

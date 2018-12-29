@@ -64,8 +64,10 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
 
     var percent = windowWidth / 750
 

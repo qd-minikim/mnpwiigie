@@ -220,7 +220,8 @@
         <swiper indicator-dots="false" indicator-color="#fff" indicator-active-color='#fff' autoplay="true" vertical="true" interval="3500" duration="500" style="height:40rpx" circular='true' display-multiple-items='1'>
           <block wx:for="{{friendActiveArray}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
             <swiper-item>
-              <view class='font-size-7 font-color-5' style='flex-direction:row;display:flex  '>
+              <view class='font-size-7 font-color-5 align-r-center' style='flex-direction:row;display:flex  '>
+              <view class='align-r-center' style='margin:2rpx 2rpx '><image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image></view>
                 <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
                 <view style='margin:2rpx 15rpx'>{{item.actiontypename}}</view>
                 <view style='margin:2rpx 10rpx'>{{item.actiontypetime}}</view>
@@ -716,11 +717,11 @@
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
-          <view style='flex-direction:column;display:flex;; height:100%'>
-            <view class='bottom-view-1 align-c-center' style='flex:1'>
+          <view class='align-center' style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style=''>
               <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
             </view>
-            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            <view style='line-height:1em;' class='bottom-view-1 align-c-center font-size-7'>推荐给
             </view>
           </view>
         </button>
@@ -753,11 +754,11 @@
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
-          <view style='flex-direction:column;display:flex;; height:100%'>
-            <view class='bottom-view-1 align-c-center' style='flex:1'>
+          <view  class='align-center' style='flex-direction:column;display:flex;; height:100%'>
+            <view class='bottom-view-1 align-c-center' style=' '>
               <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
             </view>
-            <view class='bottom-view-1 align-c-center font-size-7'>推荐给
+            <view style='line-height:1em;' class='bottom-view-1 align-c-center font-size-7'>推荐给
             </view>
           </view>
         </button>

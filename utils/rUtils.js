@@ -394,7 +394,7 @@ var giftTimerDown = {
 
       }, 1000);
 
-      console.log("-1----" + this_.timer)
+   
 
     } else {
 
@@ -406,11 +406,7 @@ var giftTimerDown = {
         ordergiftArray: ordergiftArray,
 
       })
-      //  if (this_.timer) {
-
-      //    clearTimeout(this_.timer)
-      //  }
-
+     
       let rdata = { "orderid": ordergiftArray[i].id }
 
       typeof callback == "function" && callback(rdata)
@@ -451,6 +447,22 @@ var giftTimerDown = {
   }
 
 }
+
+var systemInfo = {
+  getSystemInfo: function (that,callback) {
+    wx.getSystemInfo({
+      success: res => {
+        // that.globalData.systemInfo = res
+        typeof callback == "function" && callback(res)
+      },
+      fail: res => { },
+      complete: res => { },
+    })
+  },
+
+}
+
+
  module.exports = {
    slideModal: slideModal,
 
@@ -459,6 +471,7 @@ var giftTimerDown = {
    countSecondDown: countSecondDown,
    orderTimerDown: orderTimerDown,
    giftTimerDown: giftTimerDown,
+   systemInfo: systemInfo,
    // filters: filters,
    // toFix: filters.toFix
  }

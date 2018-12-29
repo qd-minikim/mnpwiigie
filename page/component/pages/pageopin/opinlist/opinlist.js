@@ -57,8 +57,10 @@ Page({
    */
   onReady: function() {
     let that = this;
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
 
     var percent = windowWidth / 750
 

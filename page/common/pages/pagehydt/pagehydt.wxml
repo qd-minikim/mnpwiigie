@@ -5,7 +5,7 @@
     <block wx:if="{{index >0}}">
       <view class="gap-line" style="flex-direction:column;"></view>
     </block>
-    <view class="home-5-2" style="flex-direction:row;display:flex;" catchtap='hydtShowDetail' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+    <view class="home-5-2" style="flex-direction:row;display:flex;margin:0rpx 15rpx;" catchtap='hydtShowDetail' data-actiontype='{{item.action_type}}' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
       <view class="home-5-2-1">
         <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
       </view>
@@ -14,23 +14,23 @@
           <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
           <view class="home-5-2-2-2 font-size-6">
 
-            <block wx:if="{{item.actiontypenameindex == '1'}}">
+            <block wx:if="{{item.action_type == 'opinion'}}">
               <view class='font-color-11'> {{item.actiontypename}}</view>
 
             </block>
-            <block wx:elif="{{item.actiontypenameindex == '2'}}">
+            <block wx:elif="{{item.action_type == 'buy'}}">
               <view class='font-color-5'> {{item.actiontypename}}</view>
 
             </block>
-            <block wx:elif="{{item.actiontypenameindex == '3'}}">
+            <block wx:elif="{{item.action_type == 'forward'}}">
               <view class='font-color-8'> {{item.actiontypename}}</view>
 
             </block>
-            <block wx:elif="{{item.actiontypenameindex == '4'}}">
+            <block wx:elif="{{item.action_type == 'share'}}">
               <view class='font-color-8'> {{item.actiontypename}}</view>
 
             </block>
-            <block wx:elif="{{item.actiontypenameindex == '6'}}">
+            <block wx:elif="{{item.action_type == 'read'}}">
               <view class='font-color-4'> {{item.actiontypename}}</view>
 
             </block>
@@ -38,11 +38,7 @@
               <view> {{item.actiontypename}}</view>
 
             </block>
-            <!-- <block wx:for="{{actiontyTemArray}}" wx:key="" wx:for-index="indexa">
-              <block wx:if="{{index == indexa}}">
-                <template is="wxParse" data="{{wxParseData:item}}" />
-              </block>
-            </block> -->
+         
           </view>
         </view>
 
@@ -100,4 +96,347 @@
       </view>
     </view>
   </block>
+  <block wx:if="{{home5Selected && home5Array.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有好友动态
+    </view>
+  </block>
+
+  
+</template>
+
+
+
+
+
+<template name="pagehydt0">
+  <block wx:for="{{home5Array0}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+    <block wx:if="{{index >0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+    <view class="home-5-2" style="flex-direction:row;display:flex;margin:0rpx 15rpx;" catchtap='hydtShowDetail' data-actiontype='{{item.action_type}}' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view class="home-5-2-1">
+        <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
+      </view>
+      <view class="home-5-2-2">
+        <view>
+          <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
+          <view class="home-5-2-2-2 font-size-8">
+              <view class='font-color-4'> {{item.timeinterval}}</view>
+           
+          </view>
+        </view>
+
+      </view>
+      <view class="home-5-2-3">
+        <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
+      </view>
+      <view class="home-5-2-4" style='flex:1'>
+        <view class="home-5-2-4-1 font-size-5 view-ellipsis-1">{{item.title}}</view>
+        <view class="home-5-2-4-2 font-size-7" style='height:1rem;'>
+          <view>{{item.leavehoursname}}{{item.leavehours}}</view>
+          <view class='font-color-4 view-ellipsis-1' style='padding:0 10rpx;border-radius:20rpx;flex:1'>({{item.merchant_brand_name}})</view>
+        </view>
+
+
+        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7 font-color-7">链购优享:{{item.link_discount}}</view>
+        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+
+
+        <view class='align-r-center' style="flex-direction:row;display:flex; justify-content:flex-end ">
+
+          <view class='align-r-center'>
+
+            <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
+
+          </view>
+          <view class='align-r-center'>
+
+            <block wx:if="{{item.deal_type=='0'}}">
+              <view class='home-5-2-4-4-view-figure4 bg-6 font-size-7 font-color-2 align-center'>{{item.link_price_name}}</view>
+            </block>
+            <block wx:elif="{{item.deal_type=='3'}}">
+              <!-- 零售 -->
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-17 font-color-12 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+
+            </block>
+
+            <block wx:else>
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-16 font-color-2 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+            </block>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{home5Selected0 && home5Array0.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有好友动态
+    </view>
+  </block>
+
+  
+</template>
+
+
+<template name="pagehydt1">
+  <block wx:for="{{home5Array1}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+    <block wx:if="{{index >0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+    <view class="home-5-2" style="flex-direction:row;display:flex;margin:0rpx 15rpx;" catchtap='hydtShowDetail' data-actiontype='{{item.action_type}}' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view class="home-5-2-1">
+        <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
+      </view>
+      <view class="home-5-2-2">
+        <view>
+          <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
+          <view class="home-5-2-2-2 font-size-8">
+
+             <view class='font-color-4'> {{item.timeinterval}}</view>
+           
+         
+          </view>
+        </view>
+
+      </view>
+      <view class="home-5-2-3">
+        <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
+      </view>
+      <view class="home-5-2-4" style='flex:1'>
+        <view class="home-5-2-4-1 font-size-5 view-ellipsis-1">{{item.title}}</view>
+        <view class="home-5-2-4-2 font-size-7" style='height:1rem;'>
+          <view>{{item.leavehoursname}}{{item.leavehours}}</view>
+          <view class='font-color-4 view-ellipsis-1' style='padding:0 10rpx;border-radius:20rpx;flex:1'>({{item.merchant_brand_name}})</view>
+        </view>
+
+
+        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7 font-color-7">链购优享:{{item.link_discount}}</view>
+        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+
+
+        <view class='align-r-center' style="flex-direction:row;display:flex; justify-content:flex-end ">
+
+          <view class='align-r-center'>
+
+            <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
+
+          </view>
+          <view class='align-r-center'>
+
+            <block wx:if="{{item.deal_type=='0'}}">
+              <view class='home-5-2-4-4-view-figure4 bg-6 font-size-7 font-color-2 align-center'>{{item.link_price_name}}</view>
+            </block>
+            <block wx:elif="{{item.deal_type=='3'}}">
+              <!-- 零售 -->
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-17 font-color-12 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+
+            </block>
+
+            <block wx:else>
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-16 font-color-2 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+            </block>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{home5Selected1 && home5Array1.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有好友动态
+    </view>
+  </block>
+
+  
+</template>
+
+
+ <template name="pagehydt2">
+  <block wx:for="{{home5Array2}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+    <block wx:if="{{index >0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+    <view class="home-5-2" style="flex-direction:row;display:flex;margin:0rpx 15rpx;" catchtap='hydtShowDetail' data-actiontype='{{item.action_type}}' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view class="home-5-2-1">
+        <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
+      </view>
+      <view class="home-5-2-2">
+        <view>
+          <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
+          <view class="home-5-2-2-2 font-size-8">
+
+              <view class='font-color-4'> {{item.timeinterval}}</view>
+           
+         
+          </view>
+        </view>
+
+      </view>
+      <view class="home-5-2-3">
+        <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
+      </view>
+      <view class="home-5-2-4" style='flex:1'>
+        <view class="home-5-2-4-1 font-size-5 view-ellipsis-1">{{item.title}}</view>
+        <view class="home-5-2-4-2 font-size-7" style='height:1rem;'>
+          <view>{{item.leavehoursname}}{{item.leavehours}}</view>
+          <view class='font-color-4 view-ellipsis-1' style='padding:0 10rpx;border-radius:20rpx;flex:1'>({{item.merchant_brand_name}})</view>
+        </view>
+
+
+        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7 font-color-7">链购优享:{{item.link_discount}}</view>
+        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+
+
+        <view class='align-r-center' style="flex-direction:row;display:flex; justify-content:flex-end ">
+
+          <view class='align-r-center'>
+
+            <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
+
+          </view>
+          <view class='align-r-center'>
+
+            <block wx:if="{{item.deal_type=='0'}}">
+              <view class='home-5-2-4-4-view-figure4 bg-6 font-size-7 font-color-2 align-center'>{{item.link_price_name}}</view>
+            </block>
+            <block wx:elif="{{item.deal_type=='3'}}">
+              <!-- 零售 -->
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-17 font-color-12 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+
+            </block>
+
+            <block wx:else>
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-16 font-color-2 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+            </block>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{home5Selected2 && home5Array2.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有好友动态
+    </view>
+  </block>
+
+  
+</template>
+
+
+<template name="pagehydt3">
+  <block wx:for="{{home5Array3}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+    <block wx:if="{{index >0}}">
+      <view class="gap-bg" style="flex-direction:column;"></view>
+    </block>
+    <view class="home-5-2" style="flex-direction:row;display:flex;margin:0rpx 15rpx;" catchtap='hydtShowDetail' data-actiontype='{{item.action_type}}' data-actiontype='{{item.action_type}}' data-upmarkid='{{item.upmarkid}}' data-requir='{{item.requirementid}}'>
+      <view class="home-5-2-1">
+        <image class="home-5-2-1-image" src='{{item.nicknameimage}}'></image>
+      </view>
+      <view class="home-5-2-2">
+        <view>
+          <view class="home-5-2-2-1 font-size-7 view-ellipsis-1">{{item.nickname}}</view>
+          <view class="home-5-2-2-2 font-size-8">
+
+              <view class='font-color-4'> {{item.timeinterval}}</view>
+        
+          </view>
+        </view>
+
+      </view>
+      <view class="home-5-2-3">
+        <image class="home-5-2-3-image" src='{{item.richtextcover}}'></image>
+      </view>
+      <view class="home-5-2-4" style='flex:1'>
+        <view class="home-5-2-4-1 font-size-5 view-ellipsis-1">{{item.title}}</view>
+        <view class="home-5-2-4-2 font-size-7" style='height:1rem;'>
+          <view>{{item.leavehoursname}}{{item.leavehours}}</view>
+          <view class='font-color-4 view-ellipsis-1' style='padding:0 10rpx;border-radius:20rpx;flex:1'>({{item.merchant_brand_name}})</view>
+        </view>
+
+
+        <view wx:if="{{item.deal_type=='2'}}" class="home-5-2-4-3 font-size-7 font-color-7">链购优享:{{item.link_discount}}</view>
+        <view wx:elif="{{item.deal_type=='1'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+        <view wx:elif="{{item.deal_type=='3'}}" class="home-5-2-4-3 font-size-7 font-color-7">价格:￥{{item.list_price}}</view>
+
+
+        <view class='align-r-center' style="flex-direction:row;display:flex; justify-content:flex-end ">
+
+          <view class='align-r-center'>
+
+            <image wx:for="{{item.my_friends}}" wx:for-item="itemi" wx:key="*this" class="home-5-2-4-4-image" src='{{itemi.friend_image_url}}'></image>
+
+          </view>
+          <view class='align-r-center'>
+
+            <block wx:if="{{item.deal_type=='0'}}">
+              <view class='home-5-2-4-4-view-figure4 bg-6 font-size-7 font-color-2 align-center'>{{item.link_price_name}}</view>
+            </block>
+            <block wx:elif="{{item.deal_type=='3'}}">
+              <!-- 零售 -->
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-17 font-color-12 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+
+            </block>
+
+            <block wx:else>
+              <block wx:if="{{item.keep_storage<=0}}">
+                <view class='home-5-2-4-4-view-figure4 font-size-7 font-color-4 bg-4 align-center'>售罄</view>
+              </block>
+              <block wx:else>
+                <view class='home-5-2-4-4-view-figure4 bg-16 font-color-2 font-size-7 align-center'>{{item.link_price_name}}</view>
+              </block>
+            </block>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{home5Selected3 && home5Array3.length==0}}">
+    <view class='font-size-6 align-center' style='margin-top:5rpx '>
+      还没有好友动态
+    </view>
+  </block>
+
+  
 </template>

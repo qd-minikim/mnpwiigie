@@ -19,12 +19,31 @@ Page({
     userIData: false,
     // userWxInfo: {},
 
+    currentTab: '0',
+    // home5Selected: false,
+    // home5Array: [],
     // 好友动态
-    home5Array: [],
-    home5Count: 0,
-    home5Selected: false,
-    home5endRow: 0,
-    itemsPerPage: 10,
+    home5Array0: [],
+    home5Count0: 0,
+    home5Selected0: false,
+    home5endRow0: 0,
+
+    home5Array1: [],
+    home5Count1: 0,
+    home5Selected1: false,
+    home5endRow1: 0,
+
+    home5Array2: [],
+    home5Count2: 0,
+    home5Selected2: false,
+    home5endRow2: 0,
+
+    home5Array3: [],
+    home5Count3: 0,
+    home5Selected3: false,
+    home5endRow3: 0,
+
+    itemsPerPage: 30,
     scrollViewHeight: 0,
 
     //是否下拉刷新
@@ -54,14 +73,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    var windowWidth = app.globalData.systemInfo.windowWidth
+    const res = wx.getSystemInfoSync()
 
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+
     var percent = windowWidth / 750
-  
+    var scrollViewHeight = windowHeight - 80 * percent
     this.setData({
 
-      scrollViewHeight: windowHeight
+      scrollViewHeight: scrollViewHeight
     })
   },
 
@@ -90,15 +112,42 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    let that = this;
+  
+    var currentTab = that.data.currentTab
+ 
+    if (currentTab == '0') {
+      that.setData({
+        home5endRow0: '0',
+        home5Count0: '0',
+        isPullDownRefresh: true
+      })
+    }
+    if (currentTab == '1') {
 
-    //wx.showNavigationBarLoading();
-    this.setData({
-      home5endRow: '0',
-      home5Count: '0',
-      isPullDownRefresh: true
-    })
-    this.getFriendsActive()
+      that.setData({
+        home5endRow1: '0',
+        home5Count1: '0',
+        isPullDownRefresh: true
+      })
+    }
+    if (currentTab == '2') {
+
+      that.setData({
+        home5endRow2: '0',
+        home5Count2: '0',
+        isPullDownRefresh: true
+      })
+    }
+    if (currentTab == '3') {
+      that.setData({
+        home5endRow3: '0',
+        home5Count3: '0',
+        isPullDownRefresh: true
+      })
     
+    }
+    that.getFriendsActive()
 
   },
 
@@ -111,17 +160,15 @@ Page({
     // })
     // this.getFriendsActive()
   },
-  scroll: function (e) {
+  scroll: function(e) {
 
     var scrollHeight = e.detail.scrollHeight;
     var scrollTop = e.detail.scrollTop
     var scrollViewHeight = this.data.scrollViewHeight
 
     var maxScrollTop = scrollHeight - scrollViewHeight
-
-    
-    // console.log(scrollTop + "______________________" + (scrollHeight - scrollTop - scrollViewHeight))
-    if (scrollHeight - scrollTop - scrollViewHeight >= 0 && scrollHeight - scrollTop - scrollViewHeight  < 5) {
+ 
+    if (scrollHeight - scrollTop - scrollViewHeight >= 0 && scrollHeight - scrollTop - scrollViewHeight < 5) {
       var isBottom = this.data.isBottom;
 
       if (isBottom) {
@@ -137,13 +184,13 @@ Page({
 
   },
 
-  upper: function (e) {
-     
+  upper: function(e) {
+
   },
-  lower: function (e) {
+  lower: function(e) {
 
     var isReachBottom = this.data.isReachBottom;
-    
+
     if (isReachBottom) {
 
     } else {
@@ -153,8 +200,76 @@ Page({
       })
       this.getFriendsActive()
     }
- 
 
+
+  },
+  bindChange: function(e) {
+
+    let that = this;
+
+    var currentTab = e.detail.current;
+
+    that.setData({
+      currentTab: currentTab,
+
+      isPullDownRefresh: false,
+      isReachBottom: false,
+      isRefresh: false,
+      isBottom: false,
+    });
+
+    if (currentTab == '0') {
+      var home5Selected0 = that.data.home5Selected0;
+    
+      if (!home5Selected0) {
+        that.getFriendsActive()
+
+      } 
+
+    }
+    if (currentTab == '1') {
+      var home5Selected1 = that.data.home5Selected1;
+     
+      if (!home5Selected1) {
+        that.getFriendsActive()
+      } 
+    }
+    if (currentTab == '2') {
+      var home5Selected2 = that.data.home5Selected2;
+      
+      if (!home5Selected2) {
+        that.getFriendsActive()
+      }  
+    }
+    if (currentTab == '3') {
+      var home5Selected3 = that.data.home5Selected3;
+       
+      if (!home5Selected3) {
+        
+      
+        that.getFriendsActive()
+      }  
+    }
+  },
+  /**
+   * 点击tab切换
+   */
+  swichNav: function(e) {
+
+    let that = this;
+
+    if (that.data.currentTab === e.currentTarget.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.currentTarget.dataset.current,
+        isPullDownRefresh: false,
+        isReachBottom: false,
+        isRefresh: false,
+        isBottom: false,
+      })
+     
+    }
   },
   /**
    * 用户点击右上角分享
@@ -169,8 +284,9 @@ Page({
 
     var upmarkid = event.currentTarget.dataset.upmarkid;
     var requirementid = event.currentTarget.dataset.requir;
-    var userid = that.data.userInfo.id;
-    pagehydt.pageHydt.showDetail(upmarkid, requirementid, userid);
+    var actiontype = event.currentTarget.dataset.actiontype;
+    // var userid = that.data.userInfo.id;
+    pagehydt.pageHydt.showDetail(upmarkid, requirementid, actiontype);
 
 
   },
@@ -183,21 +299,34 @@ Page({
     var isReachBottom = that.data.isReachBottom;
     var isBottom = that.data.isBottom;
 
-    var url = config.requestUrl;
-    var usreId = that.data.userInfo.id
+    var currentTab = that.data.currentTab
 
-    var endRow = that.data.home5endRow
+    var endRow = 0
     var itemsPerPage = that.data.itemsPerPage
-    var home5Count = that.data.home5Count
-    var data = {
-      code_: 'x_getHome4New',
-      homepageid: 'homepage_4',
-      userid: usreId,
-      endRow: endRow,
-      itemsPerPage: itemsPerPage,
-      windowWidth: app.globalData.systemInfo.windowWidth
+    var allRows = 0
+
+    if (currentTab == '0') {
+
+      endRow = that.data.home5endRow0;
+      allRows = that.data.home5Count0;
     }
-    if (isBottom && home5Count == endRow) {
+    if (currentTab == '1') {
+
+      endRow = that.data.home5endRow1;
+      allRows = that.data.home5Count1;
+    }
+    if (currentTab == '2') {
+
+      endRow = that.data.home5endRow2;
+      allRows = that.data.home5Count2;
+    }
+    if (currentTab == '3') {
+
+      endRow = that.data.home5endRow3;
+      allRows = that.data.home5Count3;
+    }
+
+    if (isBottom && allRows == endRow) {
 
       that.setData({
         isBottom: false,
@@ -211,8 +340,8 @@ Page({
       return
     }
 
-    if (isReachBottom){
-      if (home5Count == endRow) {
+    if (isReachBottom) {
+      if (allRows == endRow) {
 
         that.setData({
           isReachBottom: false,
@@ -221,54 +350,133 @@ Page({
         return false
       }
 
-    }else{
+    } else {
 
       wx.showLoading({
         title: '加载中...',
         mask: true,
       })
     }
-   
+
+
+    var url = config.requestUrl;
+    var usreId = that.data.userInfo.id
+
+    const res = wx.getSystemInfoSync()
+
+    var windowWidth = res.windowWidth
+    var data = {
+      code_: 'x_getHome4NewS',
+      homepageid: 'homepage_4',
+      userid: usreId,
+      endRow: endRow,
+      currentTab: currentTab,
+      itemsPerPage: itemsPerPage,
+      windowWidth: windowWidth
+    }
+
     rRequest.doRequest(url, data, that, function(rdata) {
 
       if (rdata.infolist) {
+        if (currentTab == '0') {
+          var home5Array0 = [];
 
-        var home5Array = [];
+          if (isPullDownRefresh) {
+            home5Array0 = [];
 
-        if (isPullDownRefresh) {
-          home5Array = [];
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            home5Array0 = that.data.home5Array0;
+          }
+          var home5Array0New = [...home5Array0, ...rdata.infolist]
 
-          wx.stopPullDownRefresh();
+          that.setData({
+            home5Array0: home5Array0New,
+            home5Selected0: true,
+            home5Count0: rdata.infocounts,
+            home5endRow0: rdata.endRow,
+            
+          })
+
         }
-        if (isReachBottom) {
-          home5Array = that.data.home5Array;
+        if (currentTab == '1') {
+          var home5Array1 = [];
+
+          if (isPullDownRefresh) {
+            home5Array1 = [];
+
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            home5Array1 = that.data.home5Array1;
+          }
+          var home5Array1New = [...home5Array1, ...rdata.infolist]
+
+          that.setData({
+            home5Array1: home5Array1New,
+            home5Selected1: true,
+            home5Count1: rdata.infocounts,
+            home5endRow1: rdata.endRow,
+             
+          })
+
         }
-        var home5ArrayNew = [...home5Array, ...rdata.infolist]
+        if (currentTab == '2') {
+          var home5Array2 = [];
 
-    
+          if (isPullDownRefresh) {
+            home5Array2 = [];
 
-        // var actiontyArr = [];
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            home5Array2 = that.data.home5Array2;
+          }
+          var home5Array2New = [...home5Array2, ...rdata.infolist]
 
-        // for (let i = 0; i < home5ArrayNew.length; i++) {
-        //   actiontyArr.push(home5ArrayNew[i].actiontypename);
-        // }
+          that.setData({
+            home5Array2: home5Array2New,
+            home5Selected2: true,
+            home5Count2: rdata.infocounts,
+            home5endRow2: rdata.endRow,
+           
+          })
 
-        // for (let i = 0; i < actiontyArr.length; i++) {
-        //   WxParse.wxParse('actionty' + i, 'html', actiontyArr[i], that);
-        //   if (i === actiontyArr.length - 1) {
-        //     WxParse.wxParseTemArray("actiontyTemArray", 'actionty', actiontyArr.length, that)
-        //   }
-        // }
-        that.setData({
-          home5Array: home5ArrayNew,
-          home5Selected: true,
-          home5Count: rdata.infocounts,
-          home5endRow: rdata.endRow,
-          isPullDownRefresh: false,
-          isReachBottom: false,
-          isBottom: false,
-        })
+        }
+        if (currentTab == '3') {
+          var home5Array3 = [];
+
+          if (isPullDownRefresh) {
+            home5Array3 = [];
+
+            wx.stopPullDownRefresh();
+          }
+          if (isReachBottom) {
+            home5Array3 = that.data.home5Array3;
+          }
+          var home5Array3New = [...home5Array3, ...rdata.infolist]
+
+          that.setData({
+            home5Array3: home5Array3New,
+            home5Selected3: true,
+            home5Count3: rdata.infocounts,
+            home5endRow3: rdata.endRow,
+           
+          })
+
+        }
+ 
+
       }
+
+
+      that.setData({
+        isPullDownRefresh: false,
+        isReachBottom: false,
+        isBottom: false,
+
+      })
 
 
       wx.hideLoading();

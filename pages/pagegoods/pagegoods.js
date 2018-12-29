@@ -32,12 +32,13 @@ Page({
     goodsendRow: 0,
     itemsPerPage: 10,
 
-    windowWidth: app.globalData.systemInfo.windowWidth,
-    screenWidth: app.globalData.systemInfo.screenWidth,
-    screenHeight: app.globalData.systemInfo.screenHeight,
-    windowHeight: app.globalData.systemInfo.windowHeight,
+    windowWidth: 0,
+    screenWidth: 0,
+    screenHeight: 0,
+    windowHeight: 0,
+
     scrollViewHeight: 0,
-    imageSize: app.globalData.systemInfo.screenWidth,
+    imageSize: 0,
 
     /**用户信息 */
     userInfo: {},
@@ -93,20 +94,28 @@ Page({
    */
   onReady: function() {
 
-    // var windowWidth = this.data.screenWidth
-    var windowWidth = app.globalData.systemInfo.windowWidth
+    const res = wx.getSystemInfoSync()
 
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+    var screenHeight = res.screenHeight
+    var screenWidth = res.screenWidth
+  
     var percent = windowWidth / 750
     var viewTagHeight = 102 * percent
 
     this.setData({
 
-      scrollViewHeight: (windowHeight - viewTagHeight * 2)
+      scrollViewHeight: (windowHeight - viewTagHeight),
+      windowWidth: windowWidth,
+      screenWidth: screenWidth,
+      screenHeight: screenHeight,
+      windowHeight: windowHeight,
+      imageSize: screenWidth
     })
     wx.hideShareMenu();
   },
-
+ 
   /**
    * 生命周期函数--监听页面显示
    */

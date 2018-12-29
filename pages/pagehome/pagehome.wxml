@@ -20,7 +20,7 @@
         {{defaultInfo.searchHolder}}
       </view>
 
-      <view class='home-1-a' style="flex-direction:column;position:relative" catchtap='homeNotice'>
+      <view class='home-1-a align-center' style="flex-direction:column;position:relative" catchtap='homeNotice'>
         <view class='home-1-a-v align-center'>
           <image class="home-1-a-i" src="{{defaultInfo.askIcon}}" mode="cover"></image>
         </view>
@@ -42,7 +42,7 @@
 
   </view>
 
-  <scroll-view style='  padding-top: 5rpx;padding-bottom: 5rpx;height:{{scrollView.height}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
+  <scroll-view style='height:{{scrollView.height}}px' scroll-y='true' scroll-into-view="target" scroll-with-animation="false">
 
     <view class="gap-bg" style="flex-direction:column;"></view>
 
@@ -131,7 +131,7 @@
         <block wx:if="{{home5Selected &&home5Array.length>0}}">
           <template is="pagehydt" data="{{home5Array,actiontyTemArray}}" />
 
-          <block wx:if="{{home5Count>8}}">
+          <block wx:if="{{home5Count>defaultInfo.home5PagaSize}}">
             <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
 
               <button catchtap='morehydt' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;'>查看更多</button>

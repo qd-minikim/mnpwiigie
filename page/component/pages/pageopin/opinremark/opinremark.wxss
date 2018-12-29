@@ -43,14 +43,14 @@
   padding-left: 10px;
 }
 
-.pageopins-view-2-1-button {
-  border: 1px solid white;
+.pageopins-view-2-1-send {
+  border: 1px solid #e36c09;
   /* width: 18%; */
   width:3rem;
-
-  height: 41px;
+  border-radius: 10rpx;
+  height: 40px;
   background: #fff;
-  color: #000;
+  color: #e36c09;
   line-height: 40px;
   font-size: 14px;
   padding-left: 5rpx;

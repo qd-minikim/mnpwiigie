@@ -233,9 +233,11 @@ Page({
    */
   onReady: function () {
 
+    const res = wx.getSystemInfoSync()
 
-    var windowWidth = app.globalData.systemInfo.windowWidth
-    var windowHeight = app.globalData.systemInfo.windowHeight
+    var windowWidth = res.windowWidth
+    var windowHeight = res.windowHeight
+  
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
     var percent = windowWidth / 750
     var contentHeight = windowHeight - this.data.pagePard.headHeight * percent - this.data.pagePard.footHeight * percent
