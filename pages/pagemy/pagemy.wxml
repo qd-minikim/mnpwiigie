@@ -99,27 +99,24 @@
 
   <view class="gap-bg" style="flex-direction:column;"></view>
   <view class='pagemy-view-4'>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='refund'>
+      <view>
+        <image src='/image/figure_123.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-6' style='flex:1'>我的返款</view>
+
+    </view>
     <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftgivelist'>
       <view>
         <image src='/image/figure_100.png' class='pagemy-view-figure'></image>
       </view>
       <view class='font-size-6' style='flex:1'>我送的礼</view>
-      <!-- <view>
-        <image src='/image/arrow_right_1.png' class='pagemy-view-figure'></image>
-      </view> -->
-    </view>
-    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap=''>
-
     </view>
     <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftrecelist'>
-
       <view>
         <image src='/image/figure_101.png' class='pagemy-view-figure'></image>
       </view>
       <view class='font-size-6' style='flex:1'>我收的礼</view>
-
-
-
     </view>
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
@@ -169,14 +166,14 @@
       </view>
       <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='' data-type='giftgivelist'>
         <view>
-         
+
         </view>
         <view class='font-size-6' style='flex:1'></view>
       </view>
 
     </view>
   </block>
- 
+
 
 
 </view>

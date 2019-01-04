@@ -4,7 +4,7 @@
 
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 
-<view class='container' bindtap='cancleattach'>
+<view class='container' >
  
   <view class='counthome-view-0 align-center bg-9'>
  

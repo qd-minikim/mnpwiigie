@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
+   
   ],
   "subPackages": [
     {
@@ -74,8 +74,11 @@
         "pages/test/testpagexdd/testpagexdd",
         "pages/test/pagexdd/pagexdd",
         "pages/pagelink/pagelink",
-        "pages/pageopin/opinremark/opinremark"
-        
+        "pages/pageopin/opinremark/opinremark",
+        "pages/pageorder/ordersucc/ordersucc",
+        "pages/pagegift/giftordersucc/giftordersucc",
+        "pages/pagemy/myrefund/refundpage/refundpage",
+        "pages/pagemy/myrefund/detailpage/detailpage"
       ]
     }
   ],

@@ -180,7 +180,7 @@
 
           </block>
           <block wx:elif="{{item.buy_status =='3'}}">
- 
+
             <block wx:if="{{!item.last_process_status||item.last_process_status=='99'}}">
 
               <view class='font-size-7  bg-6 font-color-2' style='  position: absolute;right:10rpx;border-radius:20rpx;padding:3rpx 12rpx;bottom:10rpx'>已取消</view>
@@ -1132,3 +1132,11 @@
 
   </block>
 </template>
+
+
+
+
+
+
+
+ 

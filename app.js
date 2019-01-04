@@ -28,6 +28,7 @@ App({
     userWxInfo: null, //用户微信信息--wiigie
     systemInfo: {},
 
+    configParameter:{},
     //登录信息
     loginInfo: null, //用户登录信息{appId:,sessionKey}
     cacheInfo: {
@@ -115,7 +116,11 @@ App({
               rCommon.userDefAddr.getUserDefAddr(that, rdata.info.userinfo.id);
 
               var authtime = rdata.info.authtime && rdata.info.authtime != '' && parseInt(rdata.info.authtime) > 0 ? rdata.info.authtime : defauthtime
-              var authorizetime = wx.getStorageSync('authorizetime')
+              
+              var lastudatetime = rdata.info.userinfo.lastUdatetime ? rdata.info.userinfo.lastUdatetime :''
+       
+             // var date1 = lastudatetime==''?0: new Date(lastudatetime.replace(/-/g, "/"));
+              var authorizetime = lastudatetime == '' ? 0 : new Date(lastudatetime.replace(/-/g, "/")).getTime();
               var d = new Date()
               var longintimme = d.getTime();
               var t = parseInt(longintimme) - parseInt(authorizetime == '' ? 0 : authorizetime)
@@ -123,10 +128,7 @@ App({
               var s = Number(authtime) * 24 * 60 * 60 * 1000;
               if (authorizetime == '' || t > s) { //3天
 
-                wx.setStorage({
-                  key: "authorizetime",
-                  data: longintimme,
-                })
+              
                 that.getSettingInfo();
 
               } else {

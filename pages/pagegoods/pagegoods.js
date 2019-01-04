@@ -3,6 +3,7 @@ var config = require('../../config.js')
 var pagegood = require('../../page/common/pages/pagegood/pagegood.js');
 var rRequest = require('../../utils/rRequest.js');
 var rUserInfo = require('../../utils/rUserInfo.js');
+var rAdvUtils = require('../../utils/rAdvUtils.js');
 const app = getApp()
 // //是否下拉刷新
 // var isPullDownRefresh = false
@@ -58,7 +59,9 @@ Page({
    */
   onLoad: function(options) {
     let that = this
-    // if (app.globalData.userWxInfo) {
+    
+    that.initInfo();
+
     if (app.globalData.userIData) {
       that.setData({
         // userWxInfo: app.globalData.userWxInfo,
@@ -67,6 +70,21 @@ Page({
       })
       that.promotionTag();
       that.getGoods();
+
+      if (options.advc && options.advp) {
+        var loginstatus = app.globalData.loginInfo.loginstatus;
+        var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+        var pdata = {
+          'isNew': isNew,
+          'advCode': options.advc,
+          'positionCode': options.advp,
+          'pageType': '2',
+          'userId': that.data.userInfo.id,
+          'parameters': options,
+        }
+        rAdvUtils.adv.doadv(that, pdata);
+
+      }
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
 
@@ -79,7 +97,24 @@ Page({
           })
           that.promotionTag();
           that.getGoods();
+
+
+          if (options.advc && options.advp) {
+            var loginstatus = app.globalData.loginInfo.loginstatus;
+            var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+            var pdata = {
+              'isNew': isNew,
+              'advCode': options.advc,
+              'positionCode': options.advp,
+              'pageType': '2',
+              'userId': that.data.userInfo.id,
+              'parameters': options,
+            }
+            rAdvUtils.adv.doadv(that, pdata);
+
+          }
         }
+
 
       })
 
@@ -94,28 +129,31 @@ Page({
    */
   onReady: function() {
 
-    const res = wx.getSystemInfoSync()
-
-    var windowWidth = res.windowWidth
-    var windowHeight = res.windowHeight
-    var screenHeight = res.screenHeight
-    var screenWidth = res.screenWidth
-  
-    var percent = windowWidth / 750
-    var viewTagHeight = 102 * percent
-
-    this.setData({
-
-      scrollViewHeight: (windowHeight - viewTagHeight),
-      windowWidth: windowWidth,
-      screenWidth: screenWidth,
-      screenHeight: screenHeight,
-      windowHeight: windowHeight,
-      imageSize: screenWidth
-    })
-    wx.hideShareMenu();
+    
+    //wx.hideShareMenu();
   },
  
+ initInfo:function(){
+   const res = wx.getSystemInfoSync()
+
+   var windowWidth = res.windowWidth
+   var windowHeight = res.windowHeight
+   var screenHeight = res.screenHeight
+   var screenWidth = res.screenWidth
+
+   var percent = windowWidth / 750
+   var viewTagHeight = 102 * percent
+
+   this.setData({
+
+     scrollViewHeight: (windowHeight - viewTagHeight),
+     windowWidth: windowWidth,
+     screenWidth: screenWidth,
+     screenHeight: screenHeight,
+     windowHeight: windowHeight,
+     imageSize: screenWidth
+   })
+ },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -228,6 +266,8 @@ Page({
 
   },
   promotionTag: function() {
+    let that = this;
+
     wx.request({
       url: config.requestUrl, //仅为示例，并非真实的接口地址
       data: {
@@ -250,8 +290,9 @@ Page({
             wCount += childrenNum;
           }
         }
-        var w = this.data.screenWidth
-        var n = this.data.promotiontagNum //默认5个
+        
+        var w = that.data.screenWidth
+        var n = that.data.promotiontagNum //默认5个
         var lwidth = w / n;
         if (1 <= wCount && wCount <= n) {
           lwidth = w / wCount;
@@ -261,7 +302,7 @@ Page({
         }
 
 
-        this.setData({
+        that.setData({
           promotiontagArry: res.data.infolist,
 
           promotiontagCount: wCount,

@@ -223,8 +223,8 @@
               <view class='font-size-7 font-color-5 align-r-center' style='flex-direction:row;display:flex  '>
               <view class='align-r-center' style='margin:2rpx 2rpx '><image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image></view>
                 <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
-                <view style='margin:2rpx 15rpx'>{{item.actiontypename}}</view>
-                <view style='margin:2rpx 10rpx'>{{item.actiontypetime}}</view>
+                <view style='margin:2rpx 15rpx'>{{item.timeinterval}}</view>
+                <view style='margin:2rpx 10rpx'>{{item.actiontypename}}</view>
               </view>
             </swiper-item>
           </block>

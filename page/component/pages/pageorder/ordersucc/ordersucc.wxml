@@ -1,0 +1,56 @@
+<!--page/component/pages/pageorder/ordersucc/ordersucc.wxml-->
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view style='width:100%;'>
+    <view style='flex-direction:row;display:flex;margin:2rpx 15rpx'>
+      <view class='align-center' style='width:230rpx;height:200rpx'>
+
+        <image style='width:120rpx;height:120rpx' src='/image/figure_122.png'></image>
+      </view>
+      <view style="flex-direction:column;display:flex;flex:1 ">
+        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+          <view class='font-size-6 font-color-4'>实付金额:</view>
+          <view class='font-size-6 font-color-7'>￥{{filters.toFix(ordersuccinfo.buy_cash?ordersuccinfo.buy_cash*1:0,2)}}</view>
+        </view>
+        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+          <view class='font-size-6 font-color-4'>待返金额:</view>
+          <view class='font-size-6 font-color-7'>￥100.00</view>
+        </view>
+        <view class='align-r-center' style='flex-direction:column;display:flex;'>
+          <view class='font-size-6 font-color-4' style='width:100%;text-align:left'>收货信息:</view>
+          <view style='flex-direction:column;display:flex;width:100%;'>
+            <view class='font-size-7 ' style='flex-direction:row;display:flex;'>
+              <view style=';flex:1'>{{ordersuccinfo.order_username}}</view>
+              <view style=';flex:1'>{{ordersuccinfo.mobile_phone}}</view>
+            </view>
+            <view class='font-size-7 '>{{ordersuccinfo.order_addr}}</view>
+          </view>
+        </view>
+
+
+      </view>
+    </view>
+    <view style='flex-direction:row;display:flex;'>
+      <view class='align-center' style='width:50%;'>
+        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='continueBuy' data-upmarkid='{{ordersuccinfo.upper_mark_id}}' data-requr='{{ordersuccinfo.requirement_id}}'>继续购买</view>
+      </view>
+      <view class='align-center' style='width:50%'>
+        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='showHome'>返回首页</view>
+      </view>
+
+
+    </view>
+
+  </view>
+
+  <view class='gap-line' style=';margin-top:15rpx'></view>
+  
+  <view style='width:100%;'>
+    <view class='font-size-6' style=';margin:15rpx 15rpx 2rpx 15rpx'>
+      {{configMsgInfo.ORDERSUCC}}
+    </view>
+  </view>
+
+
+</view>

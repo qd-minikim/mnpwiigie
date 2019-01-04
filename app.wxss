@@ -249,7 +249,10 @@
   border: 1px solid #cda36b;
   background-color: #cda36b;
 }
-
+.bg-21 {
+  border: 1px solid #f7f7f7;
+  background-color: #f7f7f7;
+}
 /* 超出范围省略号显示 */
 
 .view-ellipsis-1 {

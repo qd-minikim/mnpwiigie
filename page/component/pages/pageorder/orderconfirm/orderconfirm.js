@@ -161,7 +161,7 @@ Page({
     }
     var orderData = that.data.orderData;
 
-
+  
     var orderInfo = Object.assign(orderData, addressInfo);
     orderInfo = {
       ...orderInfo,

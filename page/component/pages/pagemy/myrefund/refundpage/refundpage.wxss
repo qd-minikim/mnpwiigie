@@ -1,0 +1,49 @@
+/* page/component/pages/pagemy/myrefund/refundpage/refundpage.wxss */
+
+.rp-view-0 {
+  flex-direction: column;
+  display: flex;
+  padding: 30rpx 0;
+}
+
+.rp-view-0-1 {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.rp-view-0-1-image {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+
+.rp-view-0-2 {
+  flex-direction: column;
+  flex: 1;
+  margin: 5rpx 10rpx;
+}
+
+.rp-view-1 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+
+.rp-view-2 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+
+.rp-view-3 {
+  flex-direction: row;
+  display: flex;
+  margin: 15rpx 10rpx;
+}
+
+.rp-view-figure {
+  width: 40rpx;
+  height: 40rpx;
+}

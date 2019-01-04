@@ -1,0 +1,44 @@
+<!--page/component/pages/pagemy/myrefund/refundpage/refundpage.wxml-->
+<wxs module="filters" src="../../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style='flex-direction:colum;display:flex; '>
+
+  <view style='width:100%'>
+
+    <view class='rp-view-1 align-r-center font_color_4' catchtap='refunddetail' data-rftype='' data-id='{{myrefundInfo.id}}'>
+      <view class='align-center' style='margin-right:20rpx'>
+        <image src='/image/figure_124.png' class='rp-view-figure'></image>
+      </view>
+      <view class='font-size-6'>总返款额：</view>
+      <view class='font-size-6' style='flex:1;text-align:right'>￥{{filters.toFix(myrefundInfo.all_refund?myrefundInfo.all_refund*1:0,2)}}</view>
+      <view class='align-r-center'>
+        <image src='/image/arrow_right_1.png' class='rp-view-figure'></image>
+      </view>
+    </view>
+ 
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='rp-view-2 align-r-center font_color_4'  catchtap='refunddetail' data-rftype='0' data-id='{{myrefundInfo.id}}'>
+      <view class='align-center' style='margin-right:20rpx'>
+        <image src='/image/figure_126.png' class='rp-view-figure'></image>
+      </view>
+      <view class='font-size-6'>未返款额：</view>
+      <view class='font-size-6' style='flex:1;text-align:right'>￥{{filters.toFix(myrefundInfo.unclose_refund?myrefundInfo.unclose_refund*1:0,2)}}</view>
+      <view class='align-r-center'>
+        <image src='/image/arrow_right_1.png' class='rp-view-figure'></image>
+      </view>
+    </view>
+    <view class="gap-line" style="flex-direction:column;"></view>
+    <view class='rp-view-3 align-r-center font_color_4' catchtap='refunddetail' data-rftype='1' data-id='{{myrefundInfo.id}}'>
+      <view class='align-center' style='margin-right:20rpx'>
+        <image src='/image/figure_125.png' class='rp-view-figure'></image>
+      </view>
+      <view class='font-size-6'>已返款额：</view>
+   
+      <view class='font-size-6' style='flex:1;text-align:right'>￥{{filters.toFix(myrefundInfo.close_refund?myrefundInfo.close_refund*1:0,2)}}</view>
+      <view class='align-r-center'>
+        <image src='/image/arrow_right_1.png' class='rp-view-figure'></image>
+      </view>
+    </view>
+
+  </view>
+</view>

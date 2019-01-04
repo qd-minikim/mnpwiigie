@@ -1,0 +1,38 @@
+<!--page/component/pages/pagegift/giftordersucc/giftordersucc.wxml-->
+ 
+<view class='container ' style="flex-direction:column;display:flex; ">
+  <view style='width:100%;'>
+    <view style='flex-direction:row;display:flex;margin:2rpx 15rpx'>
+      <view class='align-center' style='width:230rpx;height:140rpx'>
+
+        <image style='width:120rpx;height:120rpx' src='/image/figure_122.png'></image>
+      </view>
+      <view style="flex-direction:column;display:flex;flex:1 ">
+        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+          <view class='font-size-6 font-color-4'>实付金额:</view>
+          <view class='font-size-6'>￥200.00</view>
+        </view>
+        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+          <view class='font-size-6 font-color-4'>待返金额:</view>
+          <view class='font-size-6'>￥100.00</view>
+        </view>
+     
+
+
+      </view>
+    </view>
+    <view style='flex-direction:row;display:flex;'>
+      <view class='align-center' style='width:50%;'>
+        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='continueBuyGift'>继续送礼</view>
+      </view>
+      <view class='align-center' style='width:50%'>
+        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='showHome'>返回首页</view>
+      </view>
+
+
+    </view>
+
+  </view>
+  <view></view>
+
+</view>

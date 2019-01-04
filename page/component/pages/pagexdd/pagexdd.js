@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据 
    */
   data: {
-   
+
     backpage: '',
     /**记录有哪个页面返回到当前页，离开该页面时记录，返回时刷新 */
 
@@ -79,7 +79,7 @@ Page({
 
     attributeInfo: {},
     pagePard: {
-      headHeight: '40',  
+      headHeight: '40',
       footHeight: 90,
       contentHeight: '',
 
@@ -96,7 +96,7 @@ Page({
 
       msginfo: '',
       isHtml: false,
-      userrole:'XQ'
+      userrole: 'XQ'
     },
     swiperArea: {
       swiperImgUrls: [],
@@ -196,8 +196,8 @@ Page({
 
     preCopies: 1, //查看我的链团价时的预选份数
     mylinkprice: 0,
-    mydiscount:'',
-    
+    mydiscount: '',
+
     opinionmsg: '朋友说'
   },
 
@@ -215,16 +215,16 @@ Page({
       'requirementId': r,
       'upmarkid': fm
     })
-    if (options.at && options.at =='opinion'){
-      setTimeout(function(){
+    if (options.at && options.at == 'opinion') {
+      setTimeout(function() {
         that.setData({
           'navigaSelected': 'part2',
           'scrollview': 'part2',
-        }) 
-      },2000)
-     
+        })
+      }, 2000)
+
     }
-   
+
     var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
     wx.setStorage({
       key: "cardpage",
@@ -250,7 +250,7 @@ Page({
 
       if (options.advc && options.advp) {
         var loginstatus = app.globalData.loginInfo.loginstatus;
-        var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+        var isNew = loginstatus == 'ok' ? '0' : '1' //0不是；1是新用户
         var pdata = {
           'isNew': isNew,
           'advCode': options.advc,
@@ -284,7 +284,7 @@ Page({
 
           if (options.advc && options.advp) {
             var loginstatus = app.globalData.loginInfo.loginstatus;
-            var isNew = loginstatus == 'ok' ? '0' : '1'//0不是；1是新用户
+            var isNew = loginstatus == 'ok' ? '0' : '1' //0不是；1是新用户
             var pdata = {
               'isNew': isNew,
               'advCode': options.advc,
@@ -316,7 +316,7 @@ Page({
 
     let that = this;
 
-   
+
     const res = wx.getSystemInfoSync()
 
     var windowWidth = res.windowWidth
@@ -325,12 +325,12 @@ Page({
 
     var ongGridWidth = windowWidth / this.data.fixedBottom.gridNums
     var percent = windowWidth / 750
-  
+
     var footHeight = this.data.pagePard.footHeight
-    
-  
-    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent
-      - this.data.pagePard.footHeight * percent
+
+
+    var contentHeight = windowHeight - this.data.pagePard.headHeight * percent -
+      this.data.pagePard.footHeight * percent
     var maskPanHeight = 400 - 120 * percent
 
     var opinpicsize = (windowWidth - 80 * percent) / 8
@@ -351,7 +351,7 @@ Page({
       'percent': percent,
       'opinpicsize': opinpicsize,
       'navigaheight': percent * 50,
-  
+
     })
 
     this._observer = wx.createIntersectionObserver(this)
@@ -648,12 +648,12 @@ Page({
 
       var userrole = that.data.initDetail.role;
       var dealtype = that.data.requirementInfo.dealtype;
-     
+
       that.setData({
         'panelPage.userrole': userrole,
         'panelPage.dealtype': dealtype,
       })
-      
+
     }
 
   },
@@ -961,10 +961,13 @@ Page({
       buycopies: that.data.myOrderInfo.orderCopies,
       unitPrice: that.data.myOrderInfo.mySkuInfo.list_price,
       ordertype: orderType,
-      sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc
+      sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc,
+      /**20190103新加 */
+      dealtype: that.data.requirementInfo.dealtype,
+      myorderrefound: that.data.myOrderInfo.myrefound
     }
 
-    
+
 
     if (orderType == '1') {
 
@@ -1104,47 +1107,67 @@ Page({
 
     var storage = that.data.requirementInfo.keep_storage;
 
-    if (available != '0') {
+    var progressStatus = that.data.requirementInfo.progress_status;
+    var progressStatusName = that.data.requirementInfo.progress_status_name;
+    if (progressStatus == '0') {
 
-      that.setData({
 
-        'fixedBottom.xdClassName': 'bottom-xd-u',
-        'fixedBottom.xdText': '已下架',
-        'fixedBottom.xdClick': false,
-
-        'fixedBottom.slClassName': 'bottom-xd-u',
-        'fixedBottom.slText': '已下架',
-        'fixedBottom.slClick': false,
-      })
-
-    } else {
-      if (Number(storage) <= 0) {
+      if (available != '0') {
 
         that.setData({
 
           'fixedBottom.xdClassName': 'bottom-xd-u',
-          'fixedBottom.xdText': '已售罄',
+          'fixedBottom.xdText': '已下架',
           'fixedBottom.xdClick': false,
 
           'fixedBottom.slClassName': 'bottom-xd-u',
-          'fixedBottom.slText': '已售罄',
+          'fixedBottom.slText': '已下架',
           'fixedBottom.slClick': false,
         })
+
       } else {
-        that.setData({
+        if (Number(storage) <= 0) {
 
-          'fixedBottom.xdClassName': 'bottom-xd',
-          'fixedBottom.xdText': that.data.requirementInfo.button_name,
-          'fixedBottom.xdClick': true,
+          that.setData({
 
-          'fixedBottom.slClassName': 'bottom-sl',
-          'fixedBottom.slText': '送礼',
-          'fixedBottom.slClick': true,
-        })
+            'fixedBottom.xdClassName': 'bottom-xd-u',
+            'fixedBottom.xdText': '已售罄',
+            'fixedBottom.xdClick': false,
+
+            'fixedBottom.slClassName': 'bottom-xd-u',
+            'fixedBottom.slText': '已售罄',
+            'fixedBottom.slClick': false,
+          })
+        } else {
+          that.setData({
+
+            'fixedBottom.xdClassName': 'bottom-xd',
+            'fixedBottom.xdText': that.data.requirementInfo.button_name,
+            'fixedBottom.xdClick': true,
+
+            'fixedBottom.slClassName': 'bottom-sl',
+            'fixedBottom.slText': '送礼',
+            'fixedBottom.slClick': true,
+          })
+
+        }
 
       }
 
-    }
+    } else {
+
+      that.setData({
+
+        'fixedBottom.xdClassName': 'bottom-xd-u',
+        'fixedBottom.xdText': progressStatusName,
+        'fixedBottom.xdClick': false,
+
+        'fixedBottom.slClassName': 'bottom-xd-u',
+        'fixedBottom.slText': progressStatusName,
+        'fixedBottom.slClick': false,
+      })
+
+    }  
 
   },
   /**获取sku */
@@ -1872,14 +1895,14 @@ Page({
       'viewModal.myLinkPriceShow': true,
       'preCopies': preCopies
     })
- 
-    
+
+
     that.mylinkprice(preCopies)
- 
+
 
     WxParse.wxParse('codemsg9', 'html', that.data.configMsgInfo.DETAIL_MSG_9, that, 5);
 
- 
+
   },
   subpre: function() {
     let that = this;
@@ -1892,7 +1915,7 @@ Page({
     preCopies = preCopies - 1;
 
     that.mylinkprice(preCopies)
- 
+
 
   },
   addpre: function() {
@@ -1907,26 +1930,26 @@ Page({
     that.mylinkprice(preCopies)
   },
 
-  mylinkprice: function (preCopies){
+  mylinkprice: function(preCopies) {
     let that = this;
     var role = that.data.initDetail.role;
 
     var dealtype = that.data.requirementInfo.dealtype;
-   
-    if (role =='TW'){
+
+    if (role == 'TW') {
       return;
     }
 
     if (dealtype != '2') {
       return;
     }
-    
+
     var skuprice = that.data.myOrderInfo.mySkuInfo.list_price;
     var cfggroupgradeinfos = that.data.requirementInfo.cfggroupgradeinfos
 
     var combinedCopies = that.data.pcPromotionGroupOrderInfo.combinedCopies
     var mylinkCopies = combinedCopies + preCopies
-    
+
     var mylinkDiscount = 1
     var mydiscount = ''
     for (let i = 0; i < cfggroupgradeinfos.length; i++) {
@@ -1943,9 +1966,9 @@ Page({
       }
 
     }
-    var mylinkprice = preCopies * mylinkDiscount * skuprice ;
-    var myrefound = preCopies * (1 - mylinkDiscount)  * skuprice;
-    
+    var mylinkprice = preCopies * mylinkDiscount * skuprice;
+    var myrefound = preCopies * (1 - mylinkDiscount) * skuprice;
+
     that.setData({
       'mydiscount': mydiscount,
       'preCopies': preCopies,

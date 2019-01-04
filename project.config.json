@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.5",
-	"appid": "wxa95ca6d0de960e0d",
+	"appid": "wx1718994f5d471b54",
 	"projectname": "mnpwiigie",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -36,13 +36,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 61,
+			"current": 65,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "硬品",
 					"pathName": "pages/pagegoods/pagegoods",
-					"query": ""
+					"query": "",
+					"scene": "1011"
 				},
 				{
 					"id": 1,
@@ -429,6 +430,34 @@
 					"name": "下拉刷新测试",
 					"pathName": "page/component/pages/test/pulldown/pulldown",
 					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": 62,
+					"name": "下单成功",
+					"pathName": "page/component/pages/pageorder/ordersucc/ordersucc",
+					"query": "o=1543819262253866",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "送礼下单成功",
+					"pathName": "page/component/pages/pagegift/giftordersucc/giftordersucc",
+					"query": "o=3333333",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "我的返款",
+					"pathName": "page/component/pages/pagemy/myrefund/refundpage/refundpage",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": 65,
+					"name": "我的返款明细",
+					"pathName": "page/component/pages/pagemy/myrefund/detailpage/detailpage",
+					"query": "t=&rfid=''",
 					"scene": "1011"
 				}
 			]

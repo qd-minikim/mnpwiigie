@@ -1,5 +1,5 @@
 <!--page/component/pages/pageorder/orderconfirm/orderconfirm.wxml-->
- 
+
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <view class='container ' style="flex-direction:column;display:flex; ">
@@ -45,6 +45,14 @@
       <view class='confirm-view-title'>支付金额：</view>
       <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
     </view>
+    <block wx:if="{{orderData.dealtype=='2'}}">
+      <view class='confirm-view-row font-size-5'>
+        <view class='confirm-view-title'>待返金额：</view>
+        <view class=' font-color-7'>￥{{filters.toFix(orderData.myorderrefound*1,2)}}</view>
+      </view>
+    </block>
+
+
   </view>
 
 

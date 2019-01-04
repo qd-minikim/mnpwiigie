@@ -1,0 +1,75 @@
+<!--page/component/pages/pagemy/myrefund/detailpage/detailpage.wxml-->
+<wxs module="filters" src="../../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container bg-21' style='min-height:{{minheight}}px;flex-direction:colum;display:flex; '>
+  <view style='width:100%'>
+
+    <block wx:for="{{refundArray}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+
+      <block wx:if="{{index>0}}">
+        <view class='gap-bg' style=' height: 30rpx;'></view>
+      </block>
+      <view class='bg-2' style='flex-direction:column;display:flex;margin:5rpx 35rpx;border:1rpx solid #cfcfcf;border-radius:10rpx;padding:10rpx 15rpx;'>
+
+
+        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+          <view class='align-center' style=";width:38rpx;height:38rpx">
+            <image style='border-radius:5rpx;width:35rpx;height:35rpx' src='{{item.coverimage}}'></image>
+          </view>
+          <view class='font-size-6   view-ellipsis-1' style='flex:1'>{{item.title}}</view>
+        </view>
+        <view style='flex-direction:column;display:flex;margin:35rpx 0rpx;'>
+          <block wx:if="{{item.is_refund=='0'}}">
+            <view class='font-size-6 font-color-4 align-center'>待返金额</view>
+          </block>
+             <block wx:if="{{item.is_refund=='1'}}">
+            <view class='font-size-6 font-color-4 align-center'>返款金额</view>
+          </block>
+          <view class='font-size-0 align-center'>￥{{filters.toFix(item.refund_amount,2)}}</view>
+        </view>
+        <block wx:if="{{item.is_refund=='0'}}">
+          <view class='font-size-7 font-color-4 ' style='flex-direction:row;display:flex;margin:8rpx 0rpx;'>
+            <view>返款变化：</view>
+            <view>
+
+              <block wx:if="{{item.refund_amount-item.last_refund_amount>0}}">
+                +{{filters.toFix(item.refund_amount-item.last_refund_amount,2)}}
+
+              </block>
+              <block wx:else>
+                {{filters.toFix(item.refund_amount-item.last_refund_amount,2)}}
+              </block>
+            </view>
+          </view>
+        </block>
+        <view class='font-size-7 font-color-4 ' style='flex-direction:row;display:flex;margin:8rpx 0rpx;'>
+          <view>返款状态：</view>
+          <view class="{{item.is_refund=='0'?'font-color-7':''}}">{{item.is_refund_name}}</view>
+        </view>
+        <block wx:if="{{item.is_refund=='0'}}">
+          <view class='font-size-7 font-color-4 ' style='flex-direction:row;display:flex;margin:8rpx 0rpx;'>
+            <view>更新时间：</view>
+            <view>{{item.update_datetiem}}</view>
+          </view>
+          <view class='font-size-7 font-color-4 ' style='flex-direction:row;display:flex;margin:8rpx 0rpx;'>
+            <view>预计返款：</view>
+            <view>预计<text class='font_color_8'>{{item.interval_num}}天</text>后返款</view>
+          </view>
+        </block>
+        <block wx:if="{{item.is_refund=='1'}}">
+          <view class='font-size-7 font-color-4 ' style='flex-direction:row;display:flex;margin:8rpx 0rpx;'>
+            <view>返款时间：</view>
+            <view>{{item.update_datetiem}}</view>
+          </view>
+        </block>
+
+        <view></view>
+      </view>
+    </block>
+    <block wx:if="{{refundSelected && refundArray.length==0}}">
+      <view class='ordergift-view font-size-6 align-center'>
+        没有返款记录
+      </view>
+    </block>
+  </view>
+</view>

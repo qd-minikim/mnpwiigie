@@ -1,16 +1,16 @@
 var config = require('../config.js')
 var rRequest = require('../utils/rRequest.js');
-//  广告渠道
-var adv = {
+ 
+var configPara = {
   url: config.requestUrl,
-  code: 'x_doadv',
-  doadv: function(that, pdata) {
+  code: 'x_getConfigParameter',
+  doadv: function (that, pdata) {
     var this_ = this;
     var url = this_.url;
- 
+
     var data = { ...pdata, 'code_': this_.code };
- 
-    rRequest.doRequest(url, data, that, function(rdata) {
+
+    rRequest.doRequest(url, data, that, function (rdata) {
 
 
     })
@@ -19,6 +19,8 @@ var adv = {
 
 
 module.exports = {
-  adv: adv,
+  configPara: configPara,
 
 }
+
+
