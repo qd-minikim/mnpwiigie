@@ -64,7 +64,7 @@ Page({
     if (counttype == '0') {
 
       wx.setNavigationBarTitle({
-        title: '友托帮-总返款额',
+        title: '友托帮-账户余额',
       })
     }
     if (counttype == '1') {
@@ -76,7 +76,7 @@ Page({
     if (counttype == '2') {
 
       wx.setNavigationBarTitle({
-        title: '友托帮-已返款额',
+        title: '友托帮-可用余额',
       })
     }
     that.getCountDetailList();
