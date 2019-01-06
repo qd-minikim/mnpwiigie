@@ -1,8 +1,8 @@
-// page/component/pages/pagemy/myrefund/detailpage/detailpage.js
-
-var config = require('../../../../../../config.js');
-var rRequest = require('../../../../../../utils/rRequest.js');
-var rCommon = require('../../../../../../utils/rCommon.js');
+// page/component/pages/pagecount/countdetail/countdetail.js
+ 
+var config = require('../../../../../config.js');
+var rRequest = require('../../../../../utils/rRequest.js');
+var rCommon = require('../../../../../utils/rCommon.js');
 const app = getApp()
 Page({
 
@@ -11,14 +11,14 @@ Page({
    */
   data: {
 
-    refundArray: [],
-    refundSelected: false,
+    countArray: [],
+    countSelected: false,
     itemsPerPage: 20,
     endRow: 0,
     allRows: 0,
 
-    refundtype: '',
-    orderrefundid: '',
+    counttype: '',
+    countid: '',
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
@@ -36,7 +36,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let that = this;
 
     if (app.globalData.userIData) {
@@ -46,40 +46,40 @@ Page({
       })
     }
 
-    var refundtype = options.t;
-    if (refundtype) {
+    var counttype = options.t;
+    if (counttype) {
 
       that.setData({
-        refundtype: refundtype
+        counttype: counttype
       })
     }
-    var orderrefundid = options.rfid;
-    if (orderrefundid) {
+    var countid = options.cid;
+    if (countid) {
 
       that.setData({
-        orderrefundid: orderrefundid
+        countid: countid
       })
     }
 
-    if (refundtype == '') {
+    if (counttype == '0') {
 
       wx.setNavigationBarTitle({
         title: '友托帮-总返款额',
       })
     }
-    if (refundtype == '0') {
+    if (counttype == '1') {
 
       wx.setNavigationBarTitle({
-        title: '友托帮-待返款额',
+        title: '友托帮-预付款项',
       })
     }
-    if (refundtype == '1') {
+    if (counttype == '2') {
 
       wx.setNavigationBarTitle({
         title: '友托帮-已返款额',
       })
     }
-    that.getRefundList();
+    that.getCountDetailList();
 
     wx.hideShareMenu();
   },
@@ -87,7 +87,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     const res = wx.getSystemInfoSync()
 
     var windowWidth = res.windowWidth
@@ -105,40 +105,40 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.setData({
       endRow: '0',
       allRows: '0',
       isPullDownRefresh: true
     })
-    this.getRefundList();
+    this.getCountDetailList();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     var isReachBottom = this.data.isReachBottom;
 
     if (isReachBottom) {
@@ -148,34 +148,34 @@ Page({
       this.setData({
         isReachBottom: true
       })
-      this.getRefundList()
+      this.getCountDetailList()
     }
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
-  getRefundList: function() {
- 
+  getCountDetailList: function () {
+
     var that = this;
 
     var isPullDownRefresh = that.data.isPullDownRefresh;
     var isReachBottom = that.data.isReachBottom;
 
 
-    var refundtype = that.data.refundtype;
-    var orderrefundid = that.data.orderrefundid;
+    var counttype = that.data.counttype;
+    var countid = that.data.countid;
 
 
 
     var itemsPerPage = that.data.itemsPerPage;
     var endRow = that.data.endRow;
     var allRows = that.data.allRows;
- 
+
 
 
     if (isReachBottom) {
@@ -187,7 +187,7 @@ Page({
           title: '没有更多了',
           icon: 'none',
           duration: 1500,
-          success: function() {}
+          success: function () { }
         })
         return false
       }
@@ -202,35 +202,35 @@ Page({
     var url = config.requestUrl;
     var userid = that.data.userInfo.id //1528869953018820
     var data = {
-      code_: 'x_getRefundList',
-      refundtype: refundtype,
-      orderrefundid: orderrefundid,
+      code_: 'x_getCountDetailList',
+      counttype: counttype,
+      accountid: countid,
       endRow: endRow,
       itemsPerPage: itemsPerPage
     }
-    rRequest.doRequest(url, data, that, function(rdata) {
+    rRequest.doRequest(url, data, that, function (rdata) {
 
       if (rdata.infolist) {
 
-        var refundArray = [];
-        var refundArrayNew = [];
+        var countArray = [];
+        var countArrayNew = [];
         if (isPullDownRefresh) {
-          refundArray = [];
+          countArray = [];
 
           wx.stopPullDownRefresh();
         }
         if (isReachBottom) {
-          refundArray = that.data.refundArray;
+          countArray = that.data.countArray;
 
         }
 
-        refundArrayNew = refundArray.concat(rdata.infolist);
+        countArrayNew = countArray.concat(rdata.infolist);
 
         that.setData({
 
-          refundArray: refundArrayNew,
+          countArray: countArrayNew,
 
-          refundSelected: true,
+          countSelected: true,
           allRows: rdata.infocounts,
           endRow: rdata.endRow,
           isPullDownRefresh: false,
@@ -240,7 +240,7 @@ Page({
 
         wx.hideLoading();
       }
- 
+
     })
 
 

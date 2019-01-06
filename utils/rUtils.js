@@ -218,13 +218,12 @@
        this_.secondStart = secondStart
        that.setData({
          [downtimes]: this_.secondStart,
-
        })
        clearTimeout(this_.timer)
 
        typeof callback == "function" && callback()
      } else {
-
+       this_.secondStart = secondStart
 
        that.setData({
          [downtimes]: this_.secondStart,

@@ -22,7 +22,7 @@ Page({
     /**留言 */
     // inputValue: '',
     /**下单信息 */
-    orderData: null,
+    orderData: {},
   },
 
   /**
@@ -159,18 +159,20 @@ Page({
               duration: 2000,
               success: function() {}
             })
-            wx.setStorage({
-              key: "refresh",
-              data: "2",
+            // wx.setStorage({
+            //   key: "refresh",
+            //   data: "2",
+            // })
+
+            // setTimeout(function () { }, 1500)
+            wx.redirectTo({
+              url: '/page/component/pages/pagegift/giftordersucc/giftordersucc?gr=' + giftRecordId,
             })
+            // wx.redirectTo({
+            //   url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + giftRecordId,
+            // })
 
-            setTimeout(function() {
 
-              wx.redirectTo({
-                url: '/page/component/pages/pagegift/giftgivesucc/giftgivesucc?gr=' + giftRecordId,
-              })
-
-            }, 1500)
           },
           fail: function(res) {
             wx.showToast({

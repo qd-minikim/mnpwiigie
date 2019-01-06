@@ -11,7 +11,10 @@ Page({
   data: {
     orderId: '',
 
-    ordersuccinfo: {}
+    /**用户默认地址 */
+    userDefAddr: {},
+    /**下单信息 */
+    orderData: {},
   },
 
   /**
@@ -22,14 +25,30 @@ Page({
 
     let that = this;
     var orderId = options.o;
-
+    // var dealtype = options.dt;
+    // var prerefund = options.mf;
     that.setData({
-      orderId: orderId
+      orderId: orderId,
+      // dealtype: dealtype,
+      // prerefund: prerefund,
     })
+    that.setData({
+      orderData: app.globalData.orderData,
+    })
+    wx.getStorage({
+      key: 'userDefAddr',
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            userDefAddr: res.data
+          })
+        }
 
-    that.getOrderInfo();
+      },
+    })
+    //that.getOrderInfo();
 
-
+    that.getConfigMsgInfo();
     wx.hideShareMenu();
   },
 
@@ -81,32 +100,32 @@ Page({
   onShareAppMessage: function() {
 
   },
-  /**获取订单信息 */
-  getOrderInfo: function() {
-    let that = this;
-    let orderId = that.data.orderId;
+  // /**获取订单信息 */
+  // getOrderInfo: function() {
+  //   let that = this;
+  //   let orderId = that.data.orderId;
 
 
-    var url = config.requestUrl;
+  //   var url = config.requestUrl;
 
-    var data = {
-      code_: 'x_ordersucc',
-      orderid: orderId
-    }
-    rRequest.doRequest(url, data, that, function(rdata) {
+  //   var data = {
+  //     code_: 'x_ordersucc',
+  //     orderid: orderId
+  //   }
+  //   rRequest.doRequest(url, data, that, function(rdata) {
 
-      if (rdata.info) {
-        that.setData({
-          ordersuccinfo: rdata.info
-        })
+  //     if (rdata.info) {
+  //       that.setData({
+  //         ordersuccinfo: rdata.info
+  //       })
 
-        that.getConfigMsgInfo();
-      }
+  //       that.getConfigMsgInfo();
+  //     }
 
-    })
+  //   })
 
 
-  },
+  // },
   /**继续购买 */
   continueBuy: function(e) {
 
@@ -127,15 +146,15 @@ Page({
   getConfigMsgInfo: function () {
     let that = this;
     var url = config.requestUrl;
-    var buybush = that.data.ordersuccinfo.buy_cash
-    var refund = that.data.ordersuccinfo.refund
-
+    var buybush = that.data.orderData.buyCash
+    var refund = that.data.orderData.myorderrefound
+    
 
     
     var values = [{
       code: 'ORDERSUCC',
       replace: [{ regexp: 'buybush', replacement: Number(buybush).toFixed(2) },
-        { regexp: 'refund', replacement: refund }]
+        { regexp: 'refund', replacement: Number(refund).toFixed(2)  }]
     } 
     ];
 

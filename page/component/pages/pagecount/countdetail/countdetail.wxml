@@ -1,0 +1,43 @@
+<!--page/component/pages/pagecount/countdetail/countdetail.wxml-->
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
+
+<view class='container ' style='min-height:{{minheight}}px;flex-direction:colum;display:flex; '>
+  <view style='width:100%'>
+
+    <block wx:for="{{countArray}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
+      <block wx:if="{{index>0}}">
+        <view class='gap-line' style='margin-left:98rpx'></view>
+      </block>
+
+      <view style='flex-direction:row;display:flex;margin:5rpx 15rpx;padding:15rpx 2rpx'>
+
+        <view class='align-c-center' style='width:80rpx;'>
+          <image style='width:45rpx;height:45rpx' src='/image/figure_130.png'></image>
+        </view>
+        <view style='flex-direction:column;display:flex;flex:1'>
+          <view class='font-size-5 view-ellipsis-1' style='padding:6rpx 1rpx'>{{item.ttypename}}</view>
+          <view class='font-size-7' style='padding:6rpx 1rpx'>{{item.ttime}}</view>
+
+        </view>
+        <view class='font-size-4  align-c-center' style='min-width:100rpx;'>
+        
+          <block wx:if="{{item.statusflg =='0'}}">
+            <text class='font-color-5'>+{{filters.toFix(item.tmoney,2)}}</text>
+          </block>
+
+          <block wx:if="{{item.statusflg =='1'}}">
+           <text class='font-color-7'>-{{filters.toFix(item.tmoney,2)}}</text>
+          </block>
+        </view>
+
+      </view>
+
+
+    </block>
+    <block wx:if="{{countSelected && countArray.length==0}}">
+      <view class='ordergift-view font-size-6 align-center'>
+        没有账户记录
+      </view>
+    </block>
+  </view>
+</view>

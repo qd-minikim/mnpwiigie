@@ -26,12 +26,18 @@
       <view class='giftorder-view-title'>支付金额：</view>
       <view class=' font-color-7'>￥{{filters.toFix(orderData.buyCash*1,2)}}</view>
     </view>
+    <block wx:if="{{orderData.dealtype=='2'}}">
+      <view class='giftorder-view-row font-size-5'>
+        <view class='giftorder-view-title'>待返金额：</view>
+        <view class=' font-color-7'>￥{{filters.toFix(orderData.myorderrefound*1,2)}}</view>
+      </view>
+    </block>
   </view>
 
 
   <view class='flex-bottom align-center'>
-    
-      <button class='font-size-5 align-center' type="warn" bindtap='orderpay' style='width:100%;height:100%;border-radius:0'>提交订单</button>
-  
+
+    <button class='font-size-5 align-center' type="warn" bindtap='orderpay' style='width:100%;height:100%;border-radius:0'>提交订单</button>
+
   </view>
 </view>

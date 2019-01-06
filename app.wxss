@@ -249,10 +249,12 @@
   border: 1px solid #cda36b;
   background-color: #cda36b;
 }
+
 .bg-21 {
   border: 1px solid #f7f7f7;
   background-color: #f7f7f7;
 }
+
 /* 超出范围省略号显示 */
 
 .view-ellipsis-1 {
@@ -312,9 +314,7 @@
 /* 固定底部菜单 */
 
 .flex-bottom {
-  
   height: 90rpx;
- 
   display: flex;
   position: fixed;
   bottom: 0;
@@ -323,9 +323,7 @@
 }
 
 .flex-bottom-2 {
-   
   height: 90rpx;
- 
   display: flex;
   position: fixed;
   bottom: 110rpx;
@@ -364,6 +362,18 @@
   -webkit-transform: rotate(125deg);
   position: absolute;
   left: -15rpx;
+}
+/*形状1： 直角梯形 */
+ .shape_1{
+  height: 0;
+  /* width: 100px; */
+  /* line-height: 30px; */
+  padding-left: 5px;
+  border-width: 0px 35rpx 35rpx 0px;
+  border-style: none solid solid;
+  border-color: transparent transparent #cda36b;
+  color: #fff;
+  display: block
 }
 
 .linear {

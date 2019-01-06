@@ -187,15 +187,22 @@ Page({
               success: function () { }
             })
 
-            wx.setStorage({
-              key: "refresh",
-              data: "2",
+            // wx.setStorage({
+            //   key: "refresh",
+            //   data: "2",
+            // })
+            // setTimeout(function () {
+            //   wx.navigateBack({
+            //     delta: 1,
+            //   })
+            // }, 1000)
+
+            var orderId = rdata.info.buyId;
+    
+           
+            wx.redirectTo({
+              url: '/page/component/pages/pageorder/ordersucc/ordersucc?o=' + orderId ,
             })
-            setTimeout(function () {
-              wx.navigateBack({
-                delta: 1,
-              })
-            }, 1000)
 
 
           },

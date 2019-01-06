@@ -1,5 +1,5 @@
 <!--page/component/pages/pagegift/giftordersucc/giftordersucc.wxml-->
- 
+<wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 <view class='container ' style="flex-direction:column;display:flex; ">
   <view style='width:100%;'>
     <view style='flex-direction:row;display:flex;margin:2rpx 15rpx'>
@@ -7,32 +7,43 @@
 
         <image style='width:120rpx;height:120rpx' src='/image/figure_122.png'></image>
       </view>
-      <view style="flex-direction:column;display:flex;flex:1 ">
-        <view class='align-r-center' style='flex-direction:row;display:flex;'>
+      <view class='align-c-center' style="flex-direction:column;display:flex;flex:1 ">
+        <view class='align-r-center' style='flex-direction:row;display:flex;width:100%;'>
           <view class='font-size-6 font-color-4'>实付金额:</view>
-          <view class='font-size-6'>￥200.00</view>
+          <view class='font-size-6 font-color-7'>￥{{filters.toFix(orderData.buyCash?orderData.buyCash*1:0,2)}}</view>
         </view>
-        <view class='align-r-center' style='flex-direction:row;display:flex;'>
-          <view class='font-size-6 font-color-4'>待返金额:</view>
-          <view class='font-size-6'>￥100.00</view>
-        </view>
-     
+        <block wx:if="{{orderData.dealtype == '2'}}">
+          <view class='align-r-center' style='flex-direction:row;display:flex;width:100%;'>
+            <view class='font-size-6 font-color-4'>待返金额:</view>
+            <view class='font-size-6'>￥{{filters.toFix(orderData.myorderrefound?orderData.myorderrefound*1:0,2)}}</view>
+          </view>
+        </block>
 
 
       </view>
     </view>
-    <view style='flex-direction:row;display:flex;'>
-      <view class='align-center' style='width:50%;'>
-        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='continueBuyGift'>继续送礼</view>
-      </view>
-      <view class='align-center' style='width:50%'>
-        <view class='font-size-6 align-center' style='width:70%;border:1rpx solid #e36c09;padding:10rpx;border-radius:15rpx' catchtap='showHome'>返回首页</view>
-      </view>
+    <view class='font-size-7 align-center' style='flex-direction:row;display:flex;margin-top:5rpx'>
+      {{downtimes}}s后跳转到继续送礼
+    </view>
+    <view style='flex-direction:row;display:flex;margin-top:20rpx'>
+      <view class='align-center' style='width:100%;'>
 
+        <button catchtap='continueGift' plain="true" type="primary" class='font-size-7 align-center' style='padding:0 20rpx;;width:80%;border:1rpx solid #e36c09;color:#e36c09;'>继续送礼</button>
+      </view>
 
     </view>
+
+
 
   </view>
-  <view></view>
+  <block wx:if="{{orderData.dealtype == '2'}}">
+    <view class='gap-line' style=';margin-top:15rpx'></view>
+
+    <view style='width:100%;'>
+      <view class='font-size-6' style=';margin:15rpx 15rpx 2rpx 15rpx'>
+        {{configMsgInfo.GIFTORDERSUCC}}
+      </view>
+    </view>
+  </block>
 
 </view>

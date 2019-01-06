@@ -168,7 +168,7 @@ Page({
   refund: function (event) {
   
     wx.navigateTo({
-      url: '/page/component/pages/pagegift/giftgivelist/giftgivelist',
+      url: '/page/component/pages/pagemy/myrefund/refundpage/refundpage',
     })
 
 

@@ -156,7 +156,13 @@ Page({
 
     })
   },
-
+  countdetail: function (e) {
+    var counttype = e.currentTarget.dataset.counttype;
+    var countid = e.currentTarget.dataset.countid;
+    wx.navigateTo({
+      url: '/page/component/pages/pagecount/countdetail/countdetail?t=' + counttype+'&cid='+countid,
+    })
+  },
   /**去提现 */
   countoutPage: function() {
 

@@ -198,7 +198,8 @@ Page({
     mylinkprice: 0,
     mydiscount: '',
 
-    opinionmsg: '朋友说'
+    opinionmsg: '朋友说',
+    pageposition:''
   },
 
   /**
@@ -213,17 +214,18 @@ Page({
     // var at = options.at;//好友动态的朋友说参数
     that.setData({
       'requirementId': r,
-      'upmarkid': fm
+      'upmarkid': fm,
+      'pageposition': options.at ? options.at:''
     })
-    if (options.at && options.at == 'opinion') {
-      setTimeout(function() {
-        that.setData({
-          'navigaSelected': 'part2',
-          'scrollview': 'part2',
-        })
-      }, 2000)
+    // if (options.at && options.at == 'opinion') {
+    //   setTimeout(function() {
+    //     that.setData({
+    //       'navigaSelected': 'part2',
+    //       'scrollview': 'part2',
+    //     })
+    //   }, 2000)
 
-    }
+    // }
 
     var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
     wx.setStorage({
@@ -1354,6 +1356,18 @@ Page({
             that.setData({
               'opinionmsg': '粉丝说',
             })
+          }
+          if (role == "XQ"){
+            var pageposition = that.data.pageposition;
+            if (pageposition && pageposition == 'opinion') {
+             // setTimeout(function () {
+                that.setData({
+                  'navigaSelected': 'part2',
+                  'scrollview': 'part2',
+                })
+              //}, 2000)
+
+            }
           }
           wx.hideLoading();
           that.getFriendInfo();

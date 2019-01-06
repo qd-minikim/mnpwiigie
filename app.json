@@ -6,7 +6,7 @@
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-   
+    
   ],
   "subPackages": [
     {
@@ -78,7 +78,8 @@
         "pages/pageorder/ordersucc/ordersucc",
         "pages/pagegift/giftordersucc/giftordersucc",
         "pages/pagemy/myrefund/refundpage/refundpage",
-        "pages/pagemy/myrefund/detailpage/detailpage"
+        "pages/pagemy/myrefund/detailpage/detailpage",
+        "pages/pagecount/countdetail/countdetail"
       ]
     }
   ],
