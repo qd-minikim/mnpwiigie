@@ -2,34 +2,55 @@
 <wxs module="filters" src="../../../../../utils/rFiltersUtils.wxs"></wxs>
 
 <view class='container ' style='min-height:{{minheight}}px;flex-direction:colum;display:flex; '>
-  <view style='width:100%'>
+  <view style='width:100%;'>
 
     <block wx:for="{{countArray}}" wx:for-item="item" wx:key="trade" wx:for-index="index">
       <block wx:if="{{index>0}}">
-        <view class='gap-line' style='margin-left:98rpx'></view>
+        <view class='gap-bg'></view>
       </block>
 
-      <view style='flex-direction:row;display:flex;margin:5rpx 15rpx;padding:15rpx 2rpx'>
+      <view class='' style='flex-direction:column;display:flex;margin:5rpx 15rpx;padding:15rpx 2rpx 10rpx 2rpx; '>
+        <view style='flex-direction:row;display:flex;position:relative'>
+          <view class='align-c-center' style='width:70rpx;'>
+            <image style='width:45rpx;height:45rpx' src='/image/figure_130.png'></image>
+          </view>
+          <view style='flex-direction:column;display:flex;flex:1'>
+            <view class='font-size-5 view-ellipsis-1' style='padding:6rpx 1rpx'>{{item.ttypename}}</view>
+            <view class='font-size-7' style='padding:6rpx 1rpx'>{{item.ttime}}</view>
 
-        <view class='align-c-center' style='width:80rpx;'>
-          <image style='width:45rpx;height:45rpx' src='/image/figure_130.png'></image>
+          </view>
+
+
+          <view class='font-size-4  ' style='min-width:100rpx;text-align:right'>
+
+            <block wx:if="{{item.statusflg =='0'}}">
+              <text class='font-color-5'>+{{filters.toFix(item.tmoney,2)}}</text>
+            </block>
+
+            <block wx:if="{{item.statusflg =='1'}}">
+              <text class='font-color-7'>-{{filters.toFix(item.tmoney,2)}}</text>
+            </block>
+          </view>
+          <!-- <block wx:if="{{item.requirementflg =='1'}}">
+            <view class='font-size-7 font-color-8' style='position:absolute;bottom:0rpx;right:0rpx'>展开</view>
+          </block> -->
+
         </view>
-        <view style='flex-direction:column;display:flex;flex:1'>
-          <view class='font-size-5 view-ellipsis-1' style='padding:6rpx 1rpx'>{{item.ttypename}}</view>
-          <view class='font-size-7' style='padding:6rpx 1rpx'>{{item.ttime}}</view>
+        <block wx:if="{{item.requirementflg =='1'}}">
+          <view class='gap-line' style='margin-left:70rpx'></view>
+          <view style='flex-direction:column;display:flex; margin-left:70rpx;margin-top:5rpx'>
 
-        </view>
-        <view class='font-size-4  align-c-center' style='min-width:100rpx;'>
-        
-          <block wx:if="{{item.statusflg =='0'}}">
-            <text class='font-color-5'>+{{filters.toFix(item.tmoney,2)}}</text>
-          </block>
+            <view class='font-size-7 font-color-4' style='flex-direction:row;display:flex;'>
+              <view>活动编号：</view>
+              <view style='flex:1'>{{item.requirementid}}</view>
+            </view>
+            <view class='font-size-7 font-color-4' style='flex-direction:row;display:flex;'>
+              <view class='align-r-center'>活动标题：</view>
+              <view style='flex:1'>{{item.title}}</view>
+            </view>
 
-          <block wx:if="{{item.statusflg =='1'}}">
-           <text class='font-color-7'>-{{filters.toFix(item.tmoney,2)}}</text>
-          </block>
-        </view>
-
+          </view>
+        </block>
       </view>
 
 

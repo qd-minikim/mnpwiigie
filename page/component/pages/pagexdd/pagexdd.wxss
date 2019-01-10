@@ -178,6 +178,17 @@
   color: #ebe9e9;
   
 }
+
+/* 角色是商户时（控制：追加 延期 补库存） */
+.bottom-sh-u {
+  background-color: #c3c1c1;
+  color: #ebe9e9;  
+}
+.bottom-sh {
+  background-color: #fd4343;
+  color: #f6f4f4;  
+}
+
 /**送礼*/
 .bottom-sl {
   background-color: #e33ff7;

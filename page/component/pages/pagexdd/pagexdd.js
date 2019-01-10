@@ -115,15 +115,17 @@ Page({
       twoGridWidth: 0,
       gridNums: 8, //下单 送礼 推荐给 占用两个 首页或客服的 空间
 
-      xdClassName: 'bottom-xd-u',
-      slClassName: 'bottom-xd-u',
-      tjClassName: 'bottom-tj',
+      xdClassName: 'bottom-xd-u',//下单
+      slClassName: 'bottom-xd-u',//送礼
+      tjClassName: 'bottom-tj',//推荐
+      shClassName: 'bottom-sh',//角色是商户时（控制：追加 延期 补库存）
+      shClassFlg: '0',//配合classname的标志 0 未下线  1下线
 
       xdText: '下单',
       xdClick: false,
       slText: '送礼',
       slClick: false,
-
+     
 
     },
 
@@ -1167,8 +1169,21 @@ Page({
         'fixedBottom.slClassName': 'bottom-xd-u',
         'fixedBottom.slText': progressStatusName,
         'fixedBottom.slClick': false,
+  
       })
 
+      if (progressStatus == '6'){
+
+        that.setData({
+
+          'fixedBottom.shClassName': 'bottom-sh-u',
+          'fixedBottom.shClassFlg': '1',
+        })
+
+      }
+
+
+      
     }  
 
   },
@@ -1485,8 +1500,24 @@ Page({
 
   },
 
+  unbindDateChange: function () {
+    let that =this;
+    var progressStatusName = that.data.requirementInfo.progress_status_name
+    wx.showModal({
+      title: '提示',
+      content: '该活动' + progressStatusName,
+      showCancel: false,
+      confirmText: '知道了',
+      success: function (res) { }
+    })
+
+  },
+
   /**延期 */
   bindDateChange: function(e) {
+
+
+
 
     var newDate = e.detail.value;
 
@@ -1527,15 +1558,30 @@ Page({
   },
   /**追加 */
   opencommission: function() {
-
     let that = this;
-    that.setData({
-      'viewModal.addtoComossionShow': true,
 
-    })
-    WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
+    var shClassFlg = that.data.fixedBottom.shClassFlg
+    if (shClassFlg == '1') {
+      var progressStatusName = that.data.requirementInfo.progress_status_name
+      wx.showModal({
+        title: '提示',
+        content: '该活动' + progressStatusName,
+        showCancel: false,
+        confirmText: '知道了',
+        success: function (res) { }
+      })
 
-    WxParse.wxParse('codemsg1', 'html', that.data.configMsgInfo.CBDJSET, that, 5);
+    } else {
+
+      that.setData({
+        'viewModal.addtoComossionShow': true,
+
+      })
+      WxParse.wxParse('codemsg', 'html', that.data.configMsgInfo.ZJSM, that, 5);
+
+      WxParse.wxParse('codemsg1', 'html', that.data.configMsgInfo.CBDJSET, that, 5);
+    }
+
 
   },
   bindKeyInputCommission: function(e) {
@@ -1787,16 +1833,34 @@ Page({
   },
   /**添加库存 */
   addstorage: function() {
-    var spuid = this.data.requirementInfo.spuid;
 
-    wx.navigateTo({
+    let that =this;
+ 
+    var shClassFlg = that.data.fixedBottom.shClassFlg
+    if (shClassFlg =='1'){
+      var progressStatusName = that.data.requirementInfo.progress_status_name
+      wx.showModal({
+        title: '提示',
+        content: '该活动' + progressStatusName,
+        showCancel: false,
+        confirmText: '知道了',
+        success: function (res) { }
+      })
 
-      url: '/page/component/pages/pagespu/storage/storage?spuid=' + spuid,
+    }else{
 
-    })
-    this.setData({
-      'backpage': 'storage',
-    })
+      var spuid = that.data.requirementInfo.spuid;
+
+      wx.navigateTo({
+
+        url: '/page/component/pages/pagespu/storage/storage?spuid=' + spuid,
+
+      })
+      that.setData({
+        'backpage': 'storage',
+      })
+    }
+   
   },
 
   /**我要说 */

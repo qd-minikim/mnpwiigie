@@ -38,7 +38,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // if (app.globalData.userWxInfo) {
     if (app.globalData.userIData) {
       this.setData({
@@ -59,7 +59,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     const res = wx.getSystemInfoSync()
 
     var windowWidth = res.windowWidth
@@ -79,75 +79,75 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
-  getInitOpinion: function () {
+  getInitOpinion: function() {
 
-    let that = this;
-    var url = config.requestUrl;
+      let that = this;
+      var url = config.requestUrl;
 
-    var userid = that.data.userInfo.id;
-    var requirementId = that.data.requirementId;
+      var userid = that.data.userInfo.id;
+      var requirementId = that.data.requirementId;
 
-    var data = {
-      code_: 'x_getInitOpinion',
-      userid: userid,
-      requirementid: requirementId,
+      var data = {
+        code_: 'x_getInitOpinion',
+        userid: userid,
+        requirementid: requirementId,
 
 
-    }
-    rRequest.doRequest(url, data, that, function (rdata) {
-      if (rdata.info) {
-
-        that.setData({
-
-          'initOpinion': rdata.info
-        })
       }
+      rRequest.doRequest(url, data, that, function(rdata) {
+        if (rdata.info) {
 
-    })
-  }
+          that.setData({
+
+            'initOpinion': rdata.info
+          })
+        }
+
+      })
+    }
 
 
-  ,
-  addopinion: function () {
+    ,
+  addopinion: function() {
     let that = this;
     var url = config.requestUrl;
 
@@ -160,7 +160,7 @@ Page({
         title: '请选择您的表态',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
 
       return false;
@@ -172,7 +172,7 @@ Page({
         title: '请输入您的描述',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
 
       return false;
@@ -186,6 +186,7 @@ Page({
     var userid = that.data.userInfo.id;
     var requirementId = that.data.requirementId;
     var promotionId = that.data.initOpinion.promotionid;
+    var spuId = that.data.initOpinion.spuid;
 
     var data = {
       code_: 'x_addopinion',
@@ -194,27 +195,28 @@ Page({
       userid: userid,
       requirementid: requirementId,
       promotionid: promotionId,
+      spuid: spuId,
       otherRecommended: '',
       images: [],
       voices: []
     }
-    rRequest.doRequest(url, data, that, function (rdata) {
- 
+    rRequest.doRequest(url, data, that, function(rdata) {
+
       var data = {
         service_: 'addopinionimage',
         userid: userid,
         requirementId: requirementId,
         opinionId: rdata.info.opinionId,
-        
+
       }
       if (that.data.pics.length > 0) {
 
-        rUpload.upload.uploadImage('upfile', 0, that.data.pics.length, that.data.pics, data, that, function (rdata) {
+        rUpload.upload.uploadImage('upfile', 0, that.data.pics.length, that.data.pics, data, that, function(rdata) {
           wx.showToast({
             title: '提交成功',
             image: '/image/icon_ok.png',
             duration: 2000,
-            success: function () { }
+            success: function() {}
 
           })
           /**缓存 */
@@ -224,7 +226,7 @@ Page({
             data: "1",
           })
 
-          setTimeout(function () {
+          setTimeout(function() {
             wx.hideLoading();
             wx.navigateBack({
               delta: 1,
@@ -240,29 +242,29 @@ Page({
           title: '提交成功',
           image: '/image/icon_ok.png',
           duration: 2000,
-          success: function () { }
- 
+          success: function() {}
+
         })
         wx.setStorage({
           key: "refresh",
           data: "1",
         })
-        setTimeout(function () {
+        setTimeout(function() {
           wx.hideLoading();
           wx.navigateBack({
             delta: 1,
           })
 
         }, 1500)
- 
+
       }
 
- 
+
     })
 
 
   },
-  selectCode: function (event) {
+  selectCode: function(event) {
 
     var code = event.currentTarget.dataset.code;
 
@@ -273,7 +275,7 @@ Page({
   },
 
   //字数限制
-  bindWordLimit: function (e) {
+  bindWordLimit: function(e) {
     var value = e.detail.value,
       len = parseInt(value.length);
     if (len > this.data.noteMaxLen) return;
@@ -282,7 +284,7 @@ Page({
       opinionReason: e.detail.value
     });
   },
-  touchStart: function (e) {
+  touchStart: function(e) {
 
     this.setData({
       touchStartTime: e.timeStamp
@@ -290,7 +292,7 @@ Page({
   },
 
   /// 按钮触摸结束触发的事件
-  touchEnd: function (e) {
+  touchEnd: function(e) {
 
     this.setData({
       touchEndTime: e.timeStamp
@@ -298,19 +300,19 @@ Page({
   },
 
 
-  deleimage: function (event) {
+  deleimage: function(event) {
     let that = this;
     var index = event.currentTarget.dataset.index;
 
     wx.showModal({
       title: '提示',
       content: '您要删除这张图片吗',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           var pics = that.data.pics;
           if (index == -1) {
 
-           } else {
+          } else {
             pics.splice(index, 1);
           }
 
@@ -331,65 +333,65 @@ Page({
 
 
   },
-  selectImage: function (event) {
-    let that = this;
-    var index = event.currentTarget.dataset.index;
+  selectImage: function(event) {
+      let that = this;
+      var index = event.currentTarget.dataset.index;
 
-    var s = that.data.touchEndTime - that.data.touchStartTime;
-    if (that.data.touchEndTime - that.data.touchStartTime < 300) {
+      var s = that.data.touchEndTime - that.data.touchStartTime;
+      if (that.data.touchEndTime - that.data.touchStartTime < 300) {
 
-      wx.showActionSheet({
-        itemList: ['相册', '相机'],
-        success(res) {
+        wx.showActionSheet({
+          itemList: ['相册', '相机'],
+          success(res) {
 
-          if (res.tapIndex == 0) {
-            wx.chooseImage({
-              count: 1,
-              sizeType: ['original', 'compressed'],
-              sourceType: ['album'],
-              success: function (res) {
-                var pics = that.data.pics;
-                if (index == -1) {
-                  pics.push(res.tempFilePaths[0]);
-                } else {
+            if (res.tapIndex == 0) {
+              wx.chooseImage({
+                count: 1,
+                sizeType: ['original', 'compressed'],
+                sourceType: ['album'],
+                success: function(res) {
+                  var pics = that.data.pics;
+                  if (index == -1) {
+                    pics.push(res.tempFilePaths[0]);
+                  } else {
 
-                  pics.splice(index, 1, res.tempFilePaths[0]);
-                }
+                    pics.splice(index, 1, res.tempFilePaths[0]);
+                  }
 
-                that.setData({
-                  pics: pics,
-                  isShowImage: 1
-                })
+                  that.setData({
+                    pics: pics,
+                    isShowImage: 1
+                  })
 
 
-              },
-            })
-          }
-          if (res.tapIndex == 1) {
-            wx.chooseImage({
-              count: 1,
-              sizeType: ['original', 'compressed'],
-              sourceType: ['camera'],
-              success: function (res) {
-                var pics = that.data.pics;
+                },
+              })
+            }
+            if (res.tapIndex == 1) {
+              wx.chooseImage({
+                count: 1,
+                sizeType: ['original', 'compressed'],
+                sourceType: ['camera'],
+                success: function(res) {
+                  var pics = that.data.pics;
 
-                if (index == -1) {
-                  pics.push(res.tempFilePaths[0]);
-                } else {
-                  pics.splice(index, 1, res.tempFilePaths[0]);
-                }
-                that.setData({
-                  pics: pics
-                })
+                  if (index == -1) {
+                    pics.push(res.tempFilePaths[0]);
+                  } else {
+                    pics.splice(index, 1, res.tempFilePaths[0]);
+                  }
+                  that.setData({
+                    pics: pics
+                  })
 
-              },
-            })
-          }
-        },
-      })
+                },
+              })
+            }
+          },
+        })
+      }
     }
-  }
 
 
-  ,
+    ,
 })

@@ -30,11 +30,11 @@ Page({
       home4Figure1: ['', ''],
       home4Figure2: ['/image/figure_2.png', '/image/figure_3.png'],
       home4Text1: ['分众崛起', '消费升级'],
-      home4Text2: ['行家好友:洞察+互荐', '心仪好物:感知+优享'],
+      home4Text2: ['行家好友:发现+互荐', '心仪好物:感知+优享'],
       home4Text3: ['', ''],
       
       //home-5
-      home5Text1: '~好友的洞察~',
+      home5Text1: '~好友发现~',
       home5Array: [],
       home5Count: 0,
       home5Selected: false,

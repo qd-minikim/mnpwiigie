@@ -11,13 +11,12 @@ Page({
   data: {
     orderCancelInfo: {},
     orderid: '',
-
     cancel: '',
     /**用户信息 */
     userInfo: {},
     //hasUserInfo: false,
     userIData: false,
-    // userWxInfo: {},
+    //userWxInfo: {},
   },
 
   /**
@@ -168,8 +167,11 @@ cancelConfirm:function(){
 
     }
 
-
-
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+   
     var userid = that.data.userInfo.id //that.data.userInfo.id  
     var orderId = that.data.orderid
     var data = {
@@ -179,6 +181,7 @@ cancelConfirm:function(){
       userId: userid,
     }
     rRequest.doRequest(url, data, that, function(rdata) {
+      wx.hideLoading();
       if (rdata.status =='1'){
 
         wx.setStorage({
@@ -214,17 +217,7 @@ cancelConfirm:function(){
 
           }
         })
-        // wx.showToast({
-        //   title: rdata.msg,
-        //   image: '/image/icon_ok.png',
-        //   duration: 2000,
-        //   success: function () {
-
-        //   }
-        // })
-
-
-
+       
       }
       
 

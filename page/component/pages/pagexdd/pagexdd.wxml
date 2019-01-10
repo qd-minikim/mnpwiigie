@@ -80,10 +80,11 @@
         <image src='/image/figure_15.png' style='width:40rpx;height:40rpx'></image>
       </view>
     </view>
-      <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
-      <view style='flex-direction:row;display:flex '>已<view style="color:transparent ">已选</view>选：</view>
+    <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
+      <view style='flex-direction:row;display:flex '>已
+        <view style="color:transparent ">已选</view>选：</view>
       <view style='flex-direction:row;display:flex ;'>
-        {{myOrderInfo.mySkuInfo.sku_desc}} 
+        {{myOrderInfo.mySkuInfo.sku_desc}}
       </view>
     </view>
     <view class='font-size-5 align-r-center' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
@@ -96,11 +97,12 @@
     </view>
     <view class='font-size-5' style='flex-direction:row;display:flex ;width:95% ;padding:10rpx 0rpx'>
       <!-- <template is="wxParse" data="{{wxParseData:codemsg8.nodes}}" /> -->
-       <view>我的链团价(<text class='font-color-7'>{{mydiscount}}</text>)：</view>
+      <view>我的链团价(
+        <text class='font-color-7'>{{mydiscount}}</text>)：</view>
       <view class='font-color-7' style='flex-direction:row;display:flex ;'>
-         ￥{{mylinkprice}}
+        ￥{{mylinkprice}}
       </view>
-       
+
     </view>
 
     <view class='font-size-7' style=' width:95% ;padding:10rpx 0rpx'>
@@ -221,7 +223,9 @@
           <block wx:for="{{friendActiveArray}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
             <swiper-item>
               <view class='font-size-7 font-color-5 align-r-center' style='flex-direction:row;display:flex  '>
-              <view class='align-r-center' style='margin:2rpx 2rpx '><image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image></view>
+                <view class='align-r-center' style='margin:2rpx 2rpx '>
+                  <image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image>
+                </view>
                 <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
                 <view style='margin:2rpx 15rpx'>{{item.timeinterval}}</view>
                 <view style='margin:2rpx 10rpx'>{{item.actiontypename}}</view>
@@ -339,14 +343,25 @@
               <image style='width:40rpx;height:40rpx' src='/image/arrow_right_1.png'></image>
             </view>
           </view>
+
           <view class='gap-line'></view>
-          <view class='font-size-7' style=';flex-direction:row;display:flex' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>
+          <view class='align-r-center font-size-7' style=';flex-direction:row;display:flex' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>
             <view catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>红包预算：</view>
             <view style='flex:1' catchtap='clickView_7x' data-code='ZJSM' data-html='true' data-lx='default'>￥{{filters.toFix(requirementInfo.commission*1,2)}}</view>
             <view class='align-center'>
-              <view catchtap='opencommission' class='align-center font-color-5' style='flex-direction:row;display:flex'>
-                <image class='view-7-figure' src='/image/figure_44.png'></image>
-                <view>追加</view>
+              <view catchtap='opencommission' class='align-center ' style='flex-direction:row;display:flex'>
+                <block wx:if="{{fixedBottom.shClassFlg =='1'}}">
+                  <image class='view-7-figure' src='/image/figure_131.png'></image>
+                  <view class='font-color-4'>追加</view>
+                </block>
+
+                <block wx:else>
+                  <image class='view-7-figure' src='/image/figure_44.png'></image>
+                  <view class='font-color-5'>追加</view>
+                </block>
+
+
+
               </view>
             </view>
           </view>
@@ -360,16 +375,37 @@
           </view>
           <block wx:if="{{ requirementInfo.dealtype!='3'}}">
             <view class='gap-line'></view>
-            <view class='font-size-7' style=';flex-direction:row;display:flex'>
+            <view class='font-size-7 align-r-center' style=';flex-direction:row;display:flex'>
               <view catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default'>活动截至：</view>
               <view style='flex:1' catchtap='clickView_7x' data-code='TGJZ_MSG' data-html='true' data-lx='default'>{{requirementInfo.deadlinetime}}</view>
               <view class='align-center'>
-                <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
-                  <view class='align-center font-color-5' style='flex-direction:row;display:flex'>
-                    <image class='view-7-figure' src='/image/figure_36.png'></image>
-                    <view>延期</view>
+
+
+                <block wx:if="{{fixedBottom.shClassFlg =='1'}}">
+                  <view catchtap='unbindDateChange' class='align-center ' style='flex-direction:row;display:flex'>
+                    <image class='view-7-figure' src='/image/figure_132.png'></image>
+                    <view class='font-color-4'>延期</view>
                   </view>
-                </picker>
+                </block>
+                <block wx:else>
+                  <picker mode="date" value="{{requirementInfo.deadlinetime}}" start="{{requirementInfo.the_day}}" end="{{requirementInfo.the_end_day}}" bindchange="bindDateChange">
+                    <view class='align-center ' style='flex-direction:row;display:flex'>
+
+                      <block wx:if="{{fixedBottom.shClassFlg =='1'}}">
+                        <image class='view-7-figure' src='/image/figure_132.png'></image>
+                        <view class='font-color-4'>延期</view>
+                      </block>
+
+                      <block wx:else>
+                        <image class='view-7-figure' src='/image/figure_36.png'></image>
+                        <view class='font-color-5'>延期</view>
+                      </block>
+                    </view>
+                  </picker>
+                </block>
+
+
+
               </view>
             </view>
 
@@ -697,7 +733,7 @@
   <block wx:if="{{initDetail.role =='XQ'}}">
     <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
       <view catchtap='homepage' class='align-c-center bottom-view' style='width:{{oneGridWidth}};height:100% '>
-        <view class='bottom-view-1 align-c-center' >
+        <view class='bottom-view-1 align-c-center'>
           <image class='bottom-view-1-image' src='/image/home_0.png'></image>
         </view>
         <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>首页</view>
@@ -733,7 +769,7 @@
 
     <view class='flex-bottom align-r-center bottom-v' style='height:{{pagePard.footHeight}}rpx '>
       <view catchtap='homepage' class='align-c-center bottom-view' style='flex:1;width:{{twoGridWidth}}; ;height:100%'>
-        <view class='bottom-view-1 align-c-center'  >
+        <view class='bottom-view-1 align-c-center'>
           <image class='bottom-view-1-image' src='/image/home_0.png'></image>
         </view>
         <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>首页</view>
@@ -746,7 +782,7 @@
         <view class='bottom-view-1 align-c-center font-size-7 font-color-4' style='width:100%'>客服</view>
       </view>
 
-      <view class='align-center  bg-6' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
+      <view class='align-center  {{fixedBottom.shClassName}}' style='flex:1;flex-direction:column;display:flex; width:{{twoGridWidth}};height:100%' catchtap='addstorage'>
         <view class='font-size-7 font-color-2'>库存:{{requirementInfo.keep_storage}}</view>
         <view class='font-size-6 font-color-2'>补库存</view>
       </view>
@@ -754,7 +790,7 @@
       <view class='align-center  bottom-view' style=' width:{{twoGridWidth}};height:100%'>
 
         <button open-type="share" class='{{fixedBottom.tjClassName}}' style='border-radius:0;width:100%; height:100% '>
-          <view  class='align-center' style='flex-direction:column;display:flex;; height:100%'>
+          <view class='align-center' style='flex-direction:column;display:flex;; height:100%'>
             <view class='bottom-view-1 align-c-center' style=' '>
               <image class='bottom-view-1-image' src='/image/forward_0.png'></image>
             </view>

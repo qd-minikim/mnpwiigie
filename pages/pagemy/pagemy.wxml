@@ -103,7 +103,7 @@
       <view>
         <image src='/image/figure_123.png' class='pagemy-view-figure'></image>
       </view>
-      <view class='font-size-6' style='flex:1'>我的返款</view>
+      <view class='font-size-6' style='flex:1'>链购返款</view>
 
     </view>
     <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftgivelist'>

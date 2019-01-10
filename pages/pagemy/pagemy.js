@@ -164,7 +164,7 @@ Page({
     })
   },
  
-  /**我的返款 */
+  /**链购返款 */
   refund: function (event) {
   
     wx.navigateTo({
