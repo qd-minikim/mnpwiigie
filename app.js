@@ -3,12 +3,13 @@ var config = require('/config.js')
 var WXBizDataCrypt = require('/utils/WXBizDataCrypt.js')
 var rCommon = require('/utils/rCommon.js');
 var rRequest = require('/utils/rRequest.js');
-
+var rTicket = require('/utils/rTicket.js');
+ 
 var defauthtime = 3;
 App({
 
   //启动时执行的初始化工作
-  onLaunch: function() {
+  onLaunch: function (ops) {
 
     wx.setStorage({
       key: "cardpage",
@@ -16,13 +17,11 @@ App({
     })
 
     this.getSystemInfo();
-
-
-    // this.userLogin();
-
-
+ 
   },
   globalData: {
+   
+    openGId:'',//当前打开时的群id
     userInfo: null, //用户信息--wiigie
     userIData: false,
     userWxInfo: null, //用户微信信息--wiigie
@@ -55,9 +54,15 @@ App({
       "borderStyle": "#e4e5e4",
       "list": [{
           "pagePath": "/pages/pagehome/pagehome",
-          "text": "好友",
+          "text": "首页",
           "iconPath": "/image/home_0.png",
           "selectedIconPath": "/image/home_1.png"
+        },
+        {
+          "pagePath": "/pages/pagehydt/pagehydt",
+          "text": "好友",
+          "iconPath": "/image/hydt_0.png",
+          "selectedIconPath": "/image/hydt_1.png"
         },
         {
           "pagePath": "/pages/pagegoods/pagegoods",
@@ -144,9 +149,9 @@ App({
 
 
             }
-
-
-
+       
+            rTicket.getOpenGId(that);
+             
           }
         })
 
@@ -217,12 +222,10 @@ App({
 
       },
       fail: function(e) {
-
-        console.log("--------fail---------" + e)
+ 
       },
       complete: function(e) {
-
-        console.log("--------complete---------")
+ 
       }
     })
   },
@@ -331,4 +334,10 @@ App({
 
   },
 
-})
+  clearopenGId:function(){
+ 
+    this.globalData.openGId='';
+     
+  }
+
+})  

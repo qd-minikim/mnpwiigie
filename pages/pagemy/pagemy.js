@@ -324,5 +324,35 @@ Page({
 
     })
 
-  }
+  },
+ 
+  navigateToMiniProgram: function () {
+    let that = this;
+    let appid = config.otherAppId.jdhsc
+    wx.navigateToMiniProgram({
+      appId: appid,
+       
+      envVersion: 'release',
+      success(res) {
+       
+      }
+    })
+
+  },
+
+  linkTest: function () {
+    let that = this;
+    let appid = config.otherAppId.wiigiecs
+    wx.navigateToMiniProgram({
+      appId: appid,
+      path: 'page/component/pages/pagexdd/pagexdd?m=d2075481358f42f4&r=1547458472899123',
+      envVersion: 'trial',
+      success(res) {
+
+      }
+    })
+
+  },
+
+  
 })

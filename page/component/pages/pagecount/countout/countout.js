@@ -170,10 +170,12 @@ Page({
   takeoutAll: function() {
 
     let that = this;
-
+  
     that.setData({
 
-      accountOut: parseFloat(Number(that.data.accountInfo.available_amount)).toFixed(2)
+      accountOut: parseFloat(Number(that.data.accountInfo.available_amount)).toFixed(2),
+      istackout: true,
+      tipmsg: '提现',
     })
   },
 
@@ -256,12 +258,20 @@ Page({
         that.getAccount()
 
       } else {
-        wx.showToast({
-          title: rdata.msg,
-          image: '/image/icon_warn.png',
-          duration: 2000,
-          success: function() {}
+        // wx.showToast({
+        //   title: rdata.msg,
+        //   image: '/image/icon_warn.png',
+        //   duration: 2000,
+        //   success: function() {}
+        // })
+        wx.showModal({
+          title: '提示',
+          content: rdata.msg,
+          showCancel: false,
+          confirmText: '知道了',
+          success: function (res) { }
         })
+
       }
 
     })

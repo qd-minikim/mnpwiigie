@@ -2,11 +2,11 @@
   "pages": [
     "pages/pagewelcome/pagewelcome",
     "pages/pagehome/pagehome",
+    "pages/pagehydt/pagehydt",
     "pages/pagegoods/pagegoods",
     "pages/pagemy/pagemy",
     "pages/logs/logs",
     "pages/index/index"
-    
   ],
   "subPackages": [
     {
@@ -90,7 +90,8 @@
     "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
-    "downloadFile": 5000
+    "downloadFile": 5000,
+    "request":20000
   },
   "tabBar": {
     "color": "#a0a0a0",
@@ -100,9 +101,15 @@
     "list": [
       {
         "pagePath": "pages/pagehome/pagehome",
-        "text": "好友",
+        "text": "首页",
         "iconPath": "image/home_0.png",
         "selectedIconPath": "image/home_1.png"
+      },
+      {
+        "pagePath": "pages/pagehydt/pagehydt",
+        "text": "好友",
+        "iconPath": "image/hydt_0.png",
+        "selectedIconPath": "image/hydt_1.png"
       },
       {
         "pagePath": "pages/pagegoods/pagegoods",
@@ -119,7 +126,12 @@
     ],
     "position": "bottom"
   },
+
   "navigateToMiniProgramAppIdList": [
-    "wx1edf489cb248852c"
+    "wx1edf489cb248852c",
+    "wx91d27dbf599dff74",
+    "wx1718994f5d471b54"
   ]
 }
+
+  

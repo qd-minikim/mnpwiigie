@@ -360,12 +360,22 @@ Page({
   /**更多好友动态 */
   morehydt: function(e) {
 
- 
-    wx.navigateTo({
-      url: '/page/component/pages/pagemy/hydtmore/hydtmore',
+    wx.switchTab({
+      url: '/pages/pagehydt/pagehydt',
     })
+    // wx.navigateTo({
+    //   url: '/page/component/pages/pagemy/hydtmore/hydtmore',
+    // })
   },
+  /** */
+  moregoods: function (e) {
 
+    wx.switchTab({
+      url: '/pages/pagegoods/pagegoods',
+    })
+ 
+  },
+  
   //获取人气推荐
   getPopularity: function() {
 

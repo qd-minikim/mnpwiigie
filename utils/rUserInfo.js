@@ -1,7 +1,9 @@
 var config = require('../config.js')
 var rRequest = require('../utils/rRequest.js');
 var rCommon = require('../utils/rCommon.js');
-var WXBizDataCrypt = require('../utils/WXBizDataCrypt.js')
+var WXBizDataCrypt = require('../utils/WXBizDataCrypt.js');
+
+var rTicket = require('../utils/rTicket.js');
 const app = getApp()
 //
 function userLogin(that, callback) {
@@ -14,9 +16,7 @@ function userLogin(that, callback) {
       rRequest.doRequest(url, data, that, function(rdata) {
 
         if (rdata.info) {
-
-          // app.globalData.loginInfo = rdata.info
-
+ 
           if (rdata.info.loginfo.loginstatus == 'ok') {//存在老用户
 
             app.globalData.loginInfo = rdata.info.loginfo
@@ -34,9 +34,8 @@ function userLogin(that, callback) {
 
 
           }
-
-
          
+          rTicket.getOpenGId(app);
           
         }
       })
@@ -108,12 +107,10 @@ function getUsersInfo(that, callback) {
 
     },
     fail: function (e) {
-
-      console.log("--------fail---------" + e)
+ 
     },
     complete: function (e) {
-
-      console.log("--------complete---------")
+ 
     }
   })
 }

@@ -14,9 +14,7 @@ function connectSocket(url, paramdata, that, callback) {
        typeof callback == "function" && callback(res)
     },
     fail:err=>{
-      // wx.showToast({
-      //   title: '网络异常！',
-      // })
+     
     }
   })
 

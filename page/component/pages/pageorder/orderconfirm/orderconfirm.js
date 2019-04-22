@@ -41,7 +41,7 @@ Page({
       orderData: app.globalData.orderData,
     })
 
-
+   
     /** */
     wx.getStorage({
       key: 'userDefAddr',

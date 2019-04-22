@@ -6,6 +6,8 @@ var WxParse = require('../../../../wxParse/wxParse.js');
 var rAdvUtils = require('../../../../utils/rAdvUtils.js');
 var rUserInfo = require('../../../../utils/rUserInfo.js');
 var pagekskujs = require('../../../../page/common/pages/pagesku/pagesku.js');
+
+
 var clickNative = false;
 const app = getApp()
 Page({
@@ -64,7 +66,8 @@ Page({
 
       },
       /**选择规格时的动态赋值变化 */
-      selectSkuId: []
+      selectSkuId: [],
+     
     },
 
     pcPromotionGroupOrderInfo: {},
@@ -219,15 +222,7 @@ Page({
       'upmarkid': fm,
       'pageposition': options.at ? options.at:''
     })
-    // if (options.at && options.at == 'opinion') {
-    //   setTimeout(function() {
-    //     that.setData({
-    //       'navigaSelected': 'part2',
-    //       'scrollview': 'part2',
-    //     })
-    //   }, 2000)
-
-    // }
+    
 
     var url = "/page/component/pages/pagexdd/pagexdd?m=" + fm + "&r=" + r
     wx.setStorage({
@@ -237,7 +232,6 @@ Page({
 
     if (app.globalData.userIData) {
       that.setData({
-        // userWxInfo: app.globalData.userWxInfo,
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
 
@@ -266,6 +260,8 @@ Page({
         rAdvUtils.adv.doadv(that, pdata);
 
       }
+   
+
 
     } else {
 
@@ -300,6 +296,8 @@ Page({
             rAdvUtils.adv.doadv(that, pdata);
 
           }
+ 
+         
         }
 
       })
@@ -310,7 +308,9 @@ Page({
       mask: true,
     })
 
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
 
   /**
@@ -584,7 +584,7 @@ Page({
 
     // var upmarkid = that.data.upmarkid;
     var upmarkid = that.data.initDetail.upmarkid;
-
+    // var opengid = app.globalData.openGId
     var markid = that.data.initDetail.markid;
     var url = config.requestUrl;
 
@@ -593,7 +593,8 @@ Page({
       "userid": userid,
       "requirement_id": requirementId,
       "upmarkid": upmarkid,
-      "markid": markid
+      "markid": markid,
+      // "opengid": opengid,
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
@@ -968,7 +969,9 @@ Page({
       sku_desc: that.data.myOrderInfo.mySkuInfo.sku_desc,
       /**20190103新加 */
       dealtype: that.data.requirementInfo.dealtype,
-      myorderrefound: that.data.myOrderInfo.myrefound
+      myorderrefound: that.data.myOrderInfo.myrefound,
+     /**20190111新加 */
+      opengid: app.globalData.openGId,
     }
 
 
@@ -1180,6 +1183,14 @@ Page({
           'fixedBottom.shClassFlg': '1',
         })
 
+      }else if (progressStatus == '8') {
+
+        that.setData({
+
+          'fixedBottom.shClassName': 'bottom-sh-u',
+          'fixedBottom.shClassFlg': '1',
+        })
+
       }
 
 
@@ -1212,8 +1223,17 @@ Page({
         })
 
         if (rdata.info.requirement_person != usreId) {
+ 
+          var groupingModel = rdata.info.grouping_model ;
+          var treetype = that.data.treetype;
+          if (groupingModel ==1){
 
+            treetype ='ZFC12_1'
+          }
+          if (groupingModel == 2) {
 
+            treetype = 'ZFC12_2'
+          }
           that.setData({
 
             'fixedBottom.xdClassName': 'bottom-xd-u',
@@ -1223,11 +1243,12 @@ Page({
             'fixedBottom.slClassName': 'bottom-xd-u',
             'fixedBottom.slText': '送礼',
             'fixedBottom.slClick': false,
+
+            'treetype': treetype
           })
 
           that.getPcPromotionGroupOrderInfo()
-
-
+          that.initWxGroup()
         }
         if (rdata.info.requirement_person == usreId) {
 
@@ -1235,7 +1256,6 @@ Page({
 
           that.setData({
             treetype: 'TW'
-
           })
         }
         that.getOpinionInfo()
@@ -1383,19 +1403,23 @@ Page({
               //}, 2000)
 
             }
+
+
+            // that.addRead();
           }
+          
           wx.hideLoading();
           that.getFriendInfo();
-          setTimeout(function() {
-
-
+         
+          setTimeout(function () {
+ 
             if (rdata.info.EARN_READ && rdata.info.EARN_READ != '') {
               wx.showModal({
                 title: '恭喜',
                 content: rdata.info.EARN_READ,
                 showCancel: false,
                 confirmText: '知道了',
-                success: function(res) {
+                success: function (res) {
 
                 }
               })
@@ -1403,17 +1427,38 @@ Page({
             }
 
           }, 500)
-
-
-
-
         }
-
-
+ 
       })
 
     }
+,
+  /** */
+  initWxGroup: function () {
+    let that = this
+    var usreId = that.data.userInfo.id;
+    var requirementid = that.data.requirementId;
+    var upmarkid = that.data.upmarkid;
+    var promotionId = that.data.requirementInfo.promotionid;
+    var opengid = app.globalData.openGId
+    var url = config.requestUrl
+    var data = {
+      code_: 'x_initWxGroup',
+      userid: usreId,
+      requirementid: requirementid,
+      promotionid: promotionId,
+      upmarkid: upmarkid,
+      
+      opengid: opengid,
 
+    }
+    rRequest.doRequest(url, data, that, function (rdata) {
+      if(rdata.info){
+
+        
+      }
+    })
+  }
     ,
   /**获取收藏信息 */
   getRequirementKeepInfo: function() {
@@ -1515,10 +1560,7 @@ Page({
 
   /**延期 */
   bindDateChange: function(e) {
-
-
-
-
+ 
     var newDate = e.detail.value;
 
     let that = this;
@@ -1802,6 +1844,10 @@ Page({
   },
   /**首页 */
   homepage: function() {
+
+
+    app.clearopenGId();
+
 
     wx.switchTab({
       url: '/pages/pagehome/pagehome',
@@ -2148,8 +2194,10 @@ Page({
     var r = that.data.requirementId;
     var u = that.data.userInfo.id;
 
+    var treetype = that.data.treetype;
+
     wx.navigateTo({
-      url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' + u,
+      url: '/page/component/pages/pagelink/pagelink?dt=' + dt + '&ro=' + ro + '&r=' + r + '&u=' + u + '&t=' + treetype,
     })
   },
   /**************朋友说留言************** */

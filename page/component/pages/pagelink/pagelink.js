@@ -33,16 +33,31 @@ Page({
       orders: '0'
 
     },
+
+    /**群聊的下单用户*/
+    groupCanvasViewInfo: {
+      canvasSaveImage: '',
+      canvasWidth: '0',
+      canvasHeight: '0',
+      canvasTop: '0',
+      canvasLeft: '0',
+      copies: '0',
+      orders: '0'
+
+    },
+
+
     downSuccess: false,
     downNoLinkSuccess: false,
+    downGroupSuccess: false,
     percent: 1,
 
     animationshow: true,
     dealtype: '',
     role: '',
-    treetype:'ZFC12_1',
-    requirementId:'',
-    usreId:''
+    treetype: 'ZFC12_2',
+    requirementId: '',
+    usreId: ''
   },
 
   /**
@@ -50,30 +65,30 @@ Page({
    */
   onLoad: function(options) {
 
- 
+
     let that = this
     var dt = options.dt;
     var ro = options.ro;
     var r = options.r;
     var u = options.u;
-    var treetype ='ZFC12_1'
-    var title ='链购-我的链团' 
+    var treetype = options.t//t
+    var title = '链购-我的链团'
     if (ro == 'TW') {
       treetype = 'TW';
-      title = '链购-活动链团' 
+      title = '链购-活动链团'
     }
 
 
-     wx.setNavigationBarTitle({
-       title: title,
-     })
+    wx.setNavigationBarTitle({
+      title: title,
+    })
 
     that.setData({
       'role': ro,
       'dealtype': dt,
       'treetype': treetype,
-      'requirementId':r,
-      'usreId':u
+      'requirementId': r,
+      'usreId': u
     })
     this.getProgressRouteInfo()
 
@@ -86,7 +101,7 @@ Page({
    */
   onReady: function() {
     let that = this;
-    var role=that.data.role;
+    var role = that.data.role;
     var dealtype = that.data.dealtype;
 
     const res = wx.getSystemInfoSync()
@@ -94,17 +109,17 @@ Page({
     var windowWidth = res.windowWidth
     var windowHeight = res.windowHeight
 
- 
+
     var percent = windowWidth / 750
 
-  
-    if (role == 'XQ' && dealtype == '2'){
+
+    if (role == 'XQ' && dealtype == '2') {
       that.setData({
         'percent': percent,
         'canvasViewInfo.imageMaxWidth': windowWidth,
-        'canvasViewInfo.imageMaxHeight': windowHeight * 0.7,
+        'canvasViewInfo.imageMaxHeight': windowHeight * 0.6,
       })
-    }else{
+    } else {
 
       that.setData({
         'percent': percent,
@@ -112,7 +127,7 @@ Page({
         'canvasViewInfo.imageMaxHeight': windowHeight - 25 * percent,
       })
     }
-     
+
   },
 
   /**
@@ -156,7 +171,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  showAction: function (that, param ) {
+  showAction: function(that, param) {
     let duration = 6000;
     var animation = wx.createAnimation({
       //持续时间5000ms
@@ -170,21 +185,21 @@ Page({
     json = JSON.parse(json);
     json[param] = animation.export()
     //设置动画
-    
-  setTimeout(function () {
+
+    setTimeout(function() {
       animation.opacity(0).step()
       that.setData(json)
-     
+
     }, 500)
-    setTimeout(function () {
+    setTimeout(function() {
       that.setData({
         'animationshow': false,
       })
 
     }, duration)
-    
+
   },
- 
+
   imageYl: function(event) {
 
     var src = event.currentTarget.dataset.src; //获取data-src
@@ -202,10 +217,10 @@ Page({
   //获取进展区路径图
   getProgressRouteInfo: function() {
     let that = this
-    var usreId = that.data.usreId;//1493385648561700  1493393524428946
-    var requirementid =that.data.requirementId;//1543742012288937 1538373911382413
+    var usreId = that.data.usreId; //1493385648561700  1493393524428946
+    var requirementid = that.data.requirementId; //1543742012288937 1538373911382413
     var treetype = that.data.treetype; //TW ZFC12_1
- 
+
     var url = config.requestUrl
     var data = {
       code_: 'x_getRelateTree',
@@ -228,36 +243,81 @@ Page({
         'canvasInfo.canvasLeft':
           (rdata.boder.max_width * config.routeCicleConfig.circleRM),
 
+
+        'nolinkCanvasViewInfo.canvasWidth':
+          (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+        'nolinkCanvasViewInfo.canvasHeight':
+          (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+
+        'nolinkCanvasViewInfo.canvasTop':
+          (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+        'nolinkCanvasViewInfo.canvasLeft':
+          (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+        'nolinkCanvasViewInfo.copies': rdata.copies ? rdata.copies : 0,
+        'nolinkCanvasViewInfo.orders': rdata.orders ? rdata.orders : 0,
+
+
+
+        'groupCanvasViewInfo.canvasWidth':
+          (rdata.boder.max_wg_width * config.routeCicleConfig.circleRM),
+        'groupCanvasViewInfo.canvasHeight':
+          (rdata.boder.max_wg_height * config.routeCicleConfig.circleRM),
+
+        'groupCanvasViewInfo.canvasTop':
+          (rdata.boder.max_wg_height * config.routeCicleConfig.circleRM),
+        'groupCanvasViewInfo.canvasLeft':
+          (rdata.boder.max_wg_width * config.routeCicleConfig.circleRM),
+        'groupCanvasViewInfo.copies': rdata.gcopies ? rdata.gcopies : 0,
+        'groupCanvasViewInfo.orders': rdata.gorders ? rdata.gorders : 0,
+
       })
+
+      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that, function () {
+        that.showAction(that, 'showaction')
+      });
+
       if (that.data.dealtype == '2') {
-        that.setData({
+        // that.setData({
 
-          'nolinkCanvasViewInfo.canvasWidth':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.canvasHeight':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+        //   'nolinkCanvasViewInfo.canvasWidth':
+        //     (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+        //   'nolinkCanvasViewInfo.canvasHeight':
+        //     (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
 
-          'nolinkCanvasViewInfo.canvasTop':
-            (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.canvasLeft':
-            (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
-          'nolinkCanvasViewInfo.copies': rdata.copies ? rdata.copies : 0,
-          'nolinkCanvasViewInfo.orders': rdata.orders ? rdata.orders : 0,
+        //   'nolinkCanvasViewInfo.canvasTop':
+        //     (rdata.boder.max_nl_height * config.routeCicleConfig.circleRM),
+        //   'nolinkCanvasViewInfo.canvasLeft':
+        //     (rdata.boder.max_nl_width * config.routeCicleConfig.circleRM),
+        //   'nolinkCanvasViewInfo.copies': rdata.copies ? rdata.copies : 0,
+        //   'nolinkCanvasViewInfo.orders': rdata.orders ? rdata.orders : 0,
 
-        })
+        // })
         if (rdata.rInfo_) {
           rCommon.nolinkCanvaProgressRoute.doProgressRouteInfoImplNolink(rdata, 'content_12', 'no_route_canvas_id', that, function() {});
         }
 
+
+        // that.setData({
+
+        //   'groupCanvasViewInfo.canvasWidth':
+        //     (rdata.boder.max_wg_width * config.routeCicleConfig.circleRM),
+        //   'groupCanvasViewInfo.canvasHeight':
+        //     (rdata.boder.max_wg_height * config.routeCicleConfig.circleRM),
+
+        //   'groupCanvasViewInfo.canvasTop':
+        //     (rdata.boder.max_wg_height * config.routeCicleConfig.circleRM),
+        //   'groupCanvasViewInfo.canvasLeft':
+        //     (rdata.boder.max_wg_width * config.routeCicleConfig.circleRM),
+        //   'groupCanvasViewInfo.copies': rdata.gcopies ? rdata.gcopies : 0,
+        //   'groupCanvasViewInfo.orders': rdata.gcopies ? rdata.gcopies : 0,
+
+        // })
+        if (rdata.rGInfo_) {
+          rCommon.groupCanvaProgressRoute.doGroupCanvaProgressRoute(rdata.rGInfo_, 'content_12', 'group_route_canvas_id', that, function() {});
+        }
+
+
       }
-      rCommon.canvaProgressRoute.doProgressRouteInfoImpl(rdata, 'content_12', 'route_canvas_id', that, function() {
-        that.showAction(that,'showaction')
-      });
-      // if (that.data.requirementInfo.dealtype == '2') { }
-
-
-
-
 
 
 

@@ -438,11 +438,6 @@ Page({
 
 
         }
-      },
-      fail: res => {
-
-      },
-      complete: res => {
 
         that.setData({
           isPullDownRefresh: false,
@@ -450,6 +445,18 @@ Page({
           isBottom: false,
         })
         wx.hideLoading();
+      },
+      fail: res => {
+
+      },
+      complete: res => {
+
+        // that.setData({
+        //   isPullDownRefresh: false,
+        //   isReachBottom: false,
+        //   isBottom: false,
+        // })
+        // wx.hideLoading();
       }
     })
 

@@ -216,25 +216,26 @@
     </view>
 
     <!-- 好友动态区 -->
-
-    <view style='margin:5rpx 15rpx'>
-      <view style=''>
-        <swiper indicator-dots="false" indicator-color="#fff" indicator-active-color='#fff' autoplay="true" vertical="true" interval="3500" duration="500" style="height:40rpx" circular='true' display-multiple-items='1'>
-          <block wx:for="{{friendActiveArray}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-            <swiper-item>
-              <view class='font-size-7 font-color-5 align-r-center' style='flex-direction:row;display:flex  '>
-                <view class='align-r-center' style='margin:2rpx 2rpx '>
-                  <image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image>
+    <block wx:if="{{friendActiveArray.length>0}}">
+      <view style='margin:5rpx 15rpx'>
+        <view style=''>
+          <swiper indicator-dots="false" indicator-color="#fff" indicator-active-color='#fff' autoplay="true" vertical="true" interval="3500" duration="500" style="height:40rpx" circular='true' display-multiple-items='1'>
+            <block wx:for="{{friendActiveArray}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+              <swiper-item>
+                <view class='font-size-7 font-color-5 align-r-center' style='flex-direction:row;display:flex  '>
+                  <view class='align-r-center' style='margin:2rpx 2rpx '>
+                    <image style='width:25rpx;height:25rpx;border-radius:50%' src='{{item.nicknameimage}}'></image>
+                  </view>
+                  <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
+                  <view style='margin:2rpx 15rpx'>{{item.timeinterval}}</view>
+                  <view style='margin:2rpx 10rpx'>{{item.actiontypename}}</view>
                 </view>
-                <view style='margin:2rpx 10rpx'>{{item.nickname}}</view>
-                <view style='margin:2rpx 15rpx'>{{item.timeinterval}}</view>
-                <view style='margin:2rpx 10rpx'>{{item.actiontypename}}</view>
-              </view>
-            </swiper-item>
-          </block>
-        </swiper>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
       </view>
-    </view>
+    </block>
     <!-- 标题 -->
     <view style='margin:5rpx 15rpx'>
       <view style='flex-direction:row;display:flex   '>
@@ -255,6 +256,7 @@
       </block>
 
       <view class='gap-line'></view>
+
       <view class='font-size-5' style=';flex-direction:row;display:flex' bindtap='clickView_7x' data-lx='sku' data-code='' data-html='false'>
         <view style='flex-direction:row;display:flex'>已
           <view style="color:transparent">白白</view>选：</view>
@@ -523,8 +525,8 @@
                 </view>
                 <view style=';flex-direction:row;display:flex'>
 
-                  <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies}}/{{pcPromotionGroupOrderInfo.myOrders}}/{{pcPromotionGroupOrderInfo.combinedCopies}}</view>
-                  <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund*1,2)}}</view>
+                  <view class='font-size-6 ' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.myCopies?pcPromotionGroupOrderInfo.myCopies:0}}/{{pcPromotionGroupOrderInfo.myOrders?pcPromotionGroupOrderInfo.myOrders:0}}/{{pcPromotionGroupOrderInfo.combinedCopies?pcPromotionGroupOrderInfo.combinedCopies:0}}</view>
+                  <view class='font-size-6' style='flex:1;text-align:center'>{{pcPromotionGroupOrderInfo.discountLeave?pcPromotionGroupOrderInfo.discountLeave:'暂无折扣'}}/{{filters.toFix(pcPromotionGroupOrderInfo.discountRefund?pcPromotionGroupOrderInfo.discountRefund*1:0,2)}}</view>
                 </view>
               </view>
             </view>

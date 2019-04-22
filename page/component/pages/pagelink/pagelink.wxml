@@ -4,17 +4,17 @@
 <canvas style=" position:absolute;transform: translateX(-200%);width:{{nolinkCanvasViewInfo.canvasWidth}}px;height:{{nolinkCanvasViewInfo.canvasHeight}}px;left:{{nolinkCanvasViewInfo.canvasTop1}}px;top:{{nolinkCanvasViewInfo.canvasLeft1}}px; " canvas-id="no_route_canvas_id"
 />
 
-<!-- width:{{canvasViewInfo.canvasWidth}}px;height:{{canvasViewInfo.canvasHeight}}px; -->
-
+<canvas style=" position:absolute;transform: translateX(-200%);width:{{groupCanvasViewInfo.canvasWidth}}px;height:{{groupCanvasViewInfo.canvasHeight}}px;left:{{groupCanvasViewInfo.canvasTop1}}px;top:{{groupCanvasViewInfo.canvasLeft1}}px; " canvas-id="group_route_canvas_id"
+/>
 
 
 <view class='container ' style='flex-direction:colum;display:flex; '>
   <view style='width:100%; '>
     <view class='font-size-7' style='margin:5rpx 10rpx; '>
       <block wx:if="{{role =='XQ'}}">我的传播链</block>
-     
+
       <block wx:if="{{role =='TW'}}">活动传播链</block>
-      
+
     </view>
   </view>
   <view class='gap-line'></view>
@@ -33,12 +33,12 @@
       </view>
 
     </block>
- <block wx:if="{{downSuccess}}">
+    <block wx:if="{{downSuccess}}">
       <view wx:if='{{animationshow}}' style='position:absolute;width:100%;top:45%' class='align-center font-color-9 font-size-2' animation="{{showaction}}">
-         点击可放大
+        点击可放大
       </view>
 
-</block>
+    </block>
   </view>
   <block wx:if="{{role =='XQ' && dealtype =='2'}}">
     <view style='width:100%; '>
@@ -59,7 +59,38 @@
         </scroll-view>
       </view>
     </block>
+
+
+    <block wx:if="{{treetype=='ZFC12_2'}}">
+      <view style='width:100%; '>
+        <view class='font-size-7' style='margin:5rpx 10rpx; '>我的群友（{{groupCanvasViewInfo.copies}}份/{{groupCanvasViewInfo.orders}}人）</view>
+      </view>
+      <block wx:if="{{groupCanvasViewInfo.orders>0}}">
+        <view style='position:relative;width:100%'>
+          <scroll-view style=' position:relative; ' scroll-x='true' scroll-into-view="target" scroll-with-animation="false">
+            <image style="width:{{groupCanvasViewInfo.canvasWidth}}px;height:{{groupCanvasViewInfo.canvasHeight}}px;  " src='{{groupCanvasViewInfo.canvasSaveImage}}'> </image>
+            <block wx:if="{{groupCanvasViewInfo.orders>0 && !downGroupSuccess}}">
+              <view style='position:absolute;width:100%;top:{{groupCanvasViewInfo.canvasHeight/2-20*percent}}px' class='align-center'>
+                <image src='/image/loader.gif' style='width:40rpx;height:40rpx'></image>
+              </view>
+
+            </block>
+
+
+          </scroll-view>
+        </view>
+      </block>
+
+    </block>
+
+
+
   </block>
+
+
+
+
+
   <view>
 
   </view>

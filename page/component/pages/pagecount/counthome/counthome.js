@@ -1,6 +1,7 @@
 // page/component/pages/pagecount/counthome/counthome.js
 var config = require('../../../../../config.js');
 var rRequest = require('../../../../../utils/rRequest.js');
+var rUserInfo = require('../../../../../utils/rUserInfo.js');
 const app = getApp()
 Page({
 
@@ -29,27 +30,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let that = this
     app.editTabBar();
     var url = "/page/component/pages/pagecount/counthome/counthome"
     wx.setStorage({
       key: "cardpage",
       data: url,
     })
-
-    // if (app.globalData.userWxInfo) {
+ 
     if (app.globalData.userIData) {
-      this.setData({
-        // userWxInfo: app.globalData.userWxInfo,
+      that.setData({
+        
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
-      this.getAccount()
-      this.getCredit()
+      that.getAccount()
+      that.getCredit()
 
     } else {
+      rUserInfo.getUserInfoApp(that, function (rdata) {
 
-      app.userLogin();
+        if (app.globalData.userIData) {
+          that.setData({
+
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
+          
+          that.getAccount()
+          that.getCredit()
+
+        }
+
+      })
+      // app.userLogin();
     }
 
 
@@ -67,7 +81,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getAccount()
+    this.getCredit()
   },
 
   /**

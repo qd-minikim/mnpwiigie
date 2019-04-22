@@ -249,6 +249,7 @@
   display: flex;
   padding-top: 5rpx;
   padding-bottom: 5rpx;
+  margin: 5rpx 10rpx
 }
 
 .home-6-1 {

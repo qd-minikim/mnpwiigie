@@ -235,6 +235,11 @@
 
         </view>
       </block>
+
+             <view class='  align-c-center' style='margin-top:20rpx;margin-bottom:10rpx;'>
+
+              <button catchtap='moregoods' class='font-size-6' type="default" style='width:100%;background-color:#fffffb;'>查看更多</button>
+            </view>
     </view>
   </scroll-view>
 </view>

@@ -2,7 +2,7 @@
 <view class="container" style="flex-direction:column;">
 
   <view class='pagemy-view-1'>
-    <view class='pagemy-view-1-1'>
+    <view class='pagemy-view-1-1' >
       <image class='pagemy-view-1-1-image' src='{{userInfo.imageUrl}}'></image>
     </view>
 
@@ -120,6 +120,39 @@
     </view>
   </view>
   <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+<block wx:if="{{userInfo.id =='1491217475065412' || userInfo.id =='1493385648561700' || userInfo.id =='1527671283933540'}}">
+
+<view class='pagemy-view-4'>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='navigateToMiniProgram'>
+      <view>
+        <image src='/image/figure_133.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-6' style='flex:1'>京东商城</view>
+
+    </view>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='linkTest'>
+      <view>
+         <image src='/image/hydt_1.png' class='pagemy-view-figure'></image>
+      </view>
+      <view class='font-size-6' style='flex:1'>链购测试</view>
+    </view>
+    <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='giftrecelist'>
+      <view>
+        
+      </view>
+      <view class='font-size-6' style='flex:1'></view>
+    </view>
+  </view>
+  <view class="gap-bg" style="flex-direction:column;"></view>
+
+
+</block>
+
+
+
+
   <block wx:if="{{initPagaInfo.isbunding =='0'}}">
     <!-- 将！=0还原为 ==0 -->
 
@@ -166,7 +199,7 @@
       </view>
       <view class='align-r-center' style='width:33%;flex-direction: column;display: flex;padding:20rpx 15rpx' bindtap='' data-type='giftgivelist'>
         <view>
-
+ 
         </view>
         <view class='font-size-6' style='flex:1'></view>
       </view>

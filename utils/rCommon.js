@@ -676,6 +676,186 @@ var nolinkCanvaProgressRoute = {
   },
 }
 
+var groupCanvaProgressRoute = {
+
+  headImage: null,
+  contextn: null,
+  callback: null,
+  c: 0,
+  outtimecount: 0,
+  doGroupCanvaProgressRoute: function (data, category, id, that, callback) {
+    let info_ = data
+    let this_ = this;
+    this_.callback = callback
+    this_.headImage = {
+      url: [],
+      x: [],
+      y: [],
+      r: [],
+      t: [],
+      resource: []
+    };
+
+    this_.contextn = wx.createCanvasContext(id)
+
+    this_.contextn.save()
+    for (let i = 0; i < info_.length; i++) {
+      let node = info_[i];
+      this_.readInfo(node, category, id);
+    }
+    let len = this_.headImage.url.length
+    this_.c = 0;
+    for (let n = 0; n < len; n++) {
+
+      this_.drawImageInfo(n, id, that);
+    }
+
+    let n = setTimeout(function () {
+      let downGroupSuccess = that.data.downGroupSuccess;
+
+      if (!downGroupSuccess) {
+
+        if (this_.outtimecount < 5) {
+          this_.outtimecount++;
+          this_.doGroupCanvaProgressRoute(data, category, id, that, callback)
+
+        }
+      } else {
+
+        clearTimeout(n)
+
+      }
+
+    }, 10000)
+  },
+  readInfo: function (node, category, id) {
+    let this_ = this;
+    let x = node.circlepoint[0] * config.routeCicleConfig.circleRM;
+    let y = node.circlepoint[1] * config.routeCicleConfig.circleRM;
+    let r = 48 * config.routeCicleConfig.circleRM;
+    let url = node.imagurl;
+
+
+    this_.headImage.url.push(url);
+    this_.headImage.x.push(x);
+    this_.headImage.y.push(y);
+    this_.headImage.r.push(r);
+
+
+    this_.contextn.beginPath();
+    this_.contextn.setStrokeStyle(config.routeCicleConfig.circleHf)
+    this_.contextn.arc(x, y, r, Math.PI * 0, Math.PI * 2)
+    this_.contextn.stroke()
+  },
+  /**下载图 */
+  downloadImage: function (url) {
+    return new Promise(function (resolve, reject) {
+      wx.downloadFile({
+        url: url,
+        success: res => {
+          if (res.statusCode === 200) {
+            resolve(res.tempFilePath);
+          } else {
+            resolve("");
+          }
+        },
+        fail: function (e) {
+
+          resolve("");
+        }
+
+      })
+
+    });
+
+  },
+  /**画图 */
+  drawImageInfo: function (i, id, that) {
+
+    let this_ = this;
+    let image = config.imageUrl + "/wiigie/background/icon/default_head.png";
+    if (this_.headImage.url[i] != undefined) {
+      image = this_.headImage.url[i];
+    }
+
+    image = image.replace('http:', 'https:')
+    this_.downloadImage(image).then(function (value) {
+
+      if (value != '') {
+        this_.headImage.resource[i] = value;
+        this_.c = this_.c + 1;
+
+        if (this_.c == this_.headImage.url.length) {
+
+          this_.drawHeadImage(id, that);
+
+        }
+      } else {
+
+        this_.drawImageInfo(i, id, that)
+      }
+
+
+    }).catch(function (e) {
+      console.log("------eee----" + e)
+
+    });
+
+
+  },
+  drawHeadImage: function (id, that) {
+    let this_ = this;
+    let leng = this_.headImage.resource.length;
+
+    for (let n = 0; n < leng; n++) {
+
+
+      let r = this_.headImage.r[n] - 5;
+
+      this_.contextn.save();
+
+      this_.contextn.beginPath()
+      this_.contextn.arc(this_.headImage.x[n], this_.headImage.y[n], r, 0, 2 * Math.PI);
+      this_.contextn.stroke();
+      this_.contextn.clip();
+      this_.contextn.drawImage(this_.headImage.resource[n], this_.headImage.x[n] - r, this_.headImage.y[n] - r, 2 * r, 2 * r);
+
+      this_.contextn.restore();
+
+    }
+    let callback = this_.callback;
+
+    this_.contextn.draw(false, function (e) {
+
+      setTimeout(function () {
+
+        wx.canvasToTempFilePath({
+          canvasId: id, //canvasId和标签里面的id对应 nolinkCanvasViewInfo.canvasWidth
+          quality: 0.9,
+
+          fileType: 'png',
+          success: (res) => {
+            
+            that.setData({
+              'groupCanvasViewInfo.canvasSaveImage': res.tempFilePath,
+              'downGroupSuccess': true
+            })
+            if (callback != null) {
+
+              typeof callback == "function" && callback()
+            }
+
+
+          }
+
+        })
+      }, 100)
+    });
+
+
+
+  },
+}
 
 //收藏
 var requirementKeep = {
@@ -771,6 +951,7 @@ module.exports = {
   // doProgressRouteInfoImpl: doProgressRouteInfoImpl,
   canvaProgressRoute: canvaProgressRoute,
   nolinkCanvaProgressRoute: nolinkCanvaProgressRoute,
+  groupCanvaProgressRoute: groupCanvaProgressRoute,
   requirementKeep: requirementKeep,
   requirementMarkAction: requirementMarkAction,
   configMsgInfo: configMsgInfo,

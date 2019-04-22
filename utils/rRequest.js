@@ -1,6 +1,6 @@
 var config = require('../config.js')
  //对外请求公共方法
- function doRequest(url, paramdata, that, callback) {
+ function doRequest(url, paramdata, that, callback ) {
    url = url || config.requestUrl;
     
    wx.request({
@@ -14,7 +14,7 @@ var config = require('../config.js')
      },
      fail:res=>{
 
-       console.log("----------"+res)
+        
      },
      complete: res => {
 

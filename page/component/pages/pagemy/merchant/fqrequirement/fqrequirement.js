@@ -4,6 +4,8 @@ var rRequest = require('../../../../../../utils/rRequest.js');
 var rUpload = require('../../../../../../utils/rUpload.js');
 var WxParse = require('../../../../../../wxParse/wxParse.js');
 var rCommon = require('../../../../../../utils/rCommon.js');
+var rUserInfo = require('../../../../../../utils/rUserInfo.js');
+
 const app = getApp()
 Page({
 
@@ -11,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    autofocus: false,
     promotionid: '',
     initFq: {},
     pcPromotion: {},
@@ -38,6 +40,10 @@ Page({
     singlepricedisable: false,
     deadlinetime: '',
 
+    sowerpercentfocus: false,
+    sowerpercent: '0',
+
+
 
     showGroupGrade: true,
     showGroupGradeArrow: '/image/arrow_down_2.png',
@@ -45,7 +51,7 @@ Page({
     forwardcontrol: '',
     aidcontrol: '',
     initialcontrol: '',
-
+    progressstatus: '',
     //参数
 
     requirementid: '',
@@ -72,30 +78,30 @@ Page({
       requirementid: requirementid
     })
 
-    // if (app.globalData.userWxInfo) {
-      if (app.globalData.userIData) {
+
+    if (app.globalData.userIData) {
       that.setData({
-        // userWxInfo: app.globalData.userWxInfo,
+
         userIData: app.globalData.userIData,
         userInfo: app.globalData.userInfo,
       })
       that.initPage()
       that.getConfigMsgInfo()
 
-      that.getPcPromotion()
+
     } else {
       rUserInfo.getUserInfoApp(that, function(rdata) {
         if (app.globalData.userIData) {
-        that.setData({
-          // userWxInfo: app.globalData.userWxInfo,
-          userIData: app.globalData.userIData,
-          userInfo: app.globalData.userInfo,
-        })
+          that.setData({
 
-        that.initPage()
-        that.getConfigMsgInfo()
+            userIData: app.globalData.userIData,
+            userInfo: app.globalData.userInfo,
+          })
 
-        that.getPcPromotion()
+          that.initPage()
+          that.getConfigMsgInfo()
+
+
         }
       })
 
@@ -199,10 +205,10 @@ Page({
     if (Number(commission) <= 0) {
       commission = 0
       that.setData({
-        
+
         singlepricedisable: true,
       })
-    }else{
+    } else {
 
       that.setData({
 
@@ -275,8 +281,49 @@ Page({
     })
   },
 
-  initPage: function() {
+  /**上级分成获取焦点 */
+  sowerpercentfocus: function(e) {
 
+    var sowerpercent = e.detail.value
+    if (Number(sowerpercent) <= 0) {
+      this.setData({
+        sowerpercent: '',
+      })
+    }
+    this.setData({
+
+      sowerpercentfocus: true,
+
+    })
+  },
+  /**上级分成失去焦点 */
+  sowerpercentblur: function(e) {
+    var sowerpercent = e.detail.value
+    if (Number(sowerpercent) <= 0) {
+      sowerpercent = 0
+    }
+    this.setData({
+      sowerpercent: Number(sowerpercent).toFixed(2),
+      sowerpercentfocus: false,
+
+    })
+  },
+  sowerpercentinput: function(e) {
+    var sowerpercent = e.detail.value
+
+    this.setData({
+
+      sowerpercent: sowerpercent,
+
+    })
+  },
+
+
+  initPage: function() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+    })
     let that = this
 
     var userid = that.data.userInfo.id;
@@ -304,8 +351,13 @@ Page({
           'forwardcontrol': rdata.info.forward_control,
           'aidcontrol': rdata.info.aid_control,
           'initialcontrol': rdata.info.initial_control,
-
+          'progressstatus': rdata.info.progress_status ? rdata.info.progress_status:''
         })
+
+        that.getPcPromotion()
+
+
+
       }
 
     })
@@ -333,6 +385,12 @@ Page({
     }, {
       code: 'CFG_GROUP_MSG',
       replace: []
+    }, {
+      code: 'XDSJFC',
+      replace: []
+    }, {
+      code: 'XDSJFCM',
+      replace: []
     }];
 
 
@@ -354,6 +412,8 @@ Page({
         WxParse.wxParse('cbdjms', 'html', rdata.info.CBDJSM, that, 5);
         WxParse.wxParse('cfg_group_msg', 'html', rdata.info.CFG_GROUP_MSG, that, 5);
         // WxParse.wxParse('richtext', 'html', richtext, that, 5);
+        WxParse.wxParse('xdsjfcm', 'html', rdata.info.XDSJFCM, that, 5);
+
       }
 
     });
@@ -415,10 +475,7 @@ Page({
 
     let that = this;
 
-    wx.showLoading({
-      title: '请稍候...',
-      mask: true,
-    })
+    
     var url = config.requestUrl;
     var promotionId = that.data.promotionid
     var typeflg = 'add'
@@ -431,6 +488,7 @@ Page({
     }
     rRequest.doRequest(url, data, that, function(rdata) {
 
+      
       if (rdata.status == '1') {
 
         if (rdata.info) {
@@ -439,10 +497,28 @@ Page({
             'title': rdata.info.title
           })
         }
+ 
+        // <block wx: if="{{pcPromotion.dealType && pcPromotion.dealType =='3'}}">
+        //   <block wx: if="{{ progressstatus == '4' }}">
+        if (rdata.info.dealType == '3' && that.data.progressstatus != '4') {
+
+       
+            var requirementid = that.data.requirementid
+            wx.redirectTo({
+              url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + requirementid,
+            })
+        
+
+        }else{
+
+          that.setData({
+            autofocus: true,
+          })
+          that.getAttribute();
+          that.getRequirementRichtext();
+        }
 
 
-        that.getAttribute();
-        that.getRequirementRichtext();
       } else {
 
         wx.showModal({
@@ -497,7 +573,174 @@ Page({
 
   },
 
-  submit: function (e) {
+
+  online: function(e) {
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '上架确认后，您的活动将可以被好友发现和分享了',
+      success: function(res) {
+        if (res.confirm) {
+          that.onlineInfo()
+        } else if (res.cancel) {
+
+        }
+      }
+    })
+
+  },
+
+  onlineInfo: function() {
+    let that = this;
+
+    var code_ = 'x_addOnlineInfo'
+
+    var title = that.data.title;
+
+    if (title == '') {
+      wx.showToast({
+        title: '标题不为空',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      return
+    }
+    var commission = that.data.commission;
+
+    var singleprice = that.data.singleprice;
+
+    if (Number(commission) < 0) {
+
+      wx.showToast({
+        title: '传播预算<0',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      return
+
+    }
+    if (Number(singleprice) < 0) {
+
+      wx.showToast({
+        title: '传播单价<0',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      return
+
+    }
+
+
+
+    if (Number(singleprice) > 0 && Number(commission) < Number(singleprice)) {
+
+      wx.showToast({
+        title: '预算<传播单价',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      return
+    }
+    if (Number(singleprice) == 0 && Number(commission) > 0) {
+
+      wx.showToast({
+        title: '传播单价不为0',
+        image: '/image/icon_warn.png',
+        duration: 2000,
+        success: function() {}
+      })
+
+      return
+    }
+
+    wx.showLoading({
+      title: '请稍候...',
+      mask: true,
+    })
+
+
+    var url = config.requestUrl;
+    var userid = that.data.userInfo.id
+
+    var requirementid = that.data.requirementid
+
+    var singleprice = that.data.singleprice
+
+    var promotionid = that.data.promotionid
+
+    var sowerpercent = that.data.sowerpercent;
+
+    var commission = that.data.commission
+    var forwardcontrol = that.data.forwardcontrol
+    var aidcontrol = that.data.aidcontrol
+    var initialcontrol = that.data.initialcontrol
+    var title = that.data.title
+
+    var data = {
+      code_: code_,
+
+      title: encodeURIComponent(title),
+      commission: commission,
+      sowerpercent: sowerpercent,
+      // initial_control: initialcontrol,
+      // forward_control: forwardcontrol,
+      // aid_control: aidcontrol,
+      userid: userid,
+      pc_promotion_id: promotionid,
+      settlement_single_price: singleprice,
+      requirement_id: requirementid,
+
+    }
+
+    rRequest.doRequest(url, data, that, function(rdata) {
+
+      if (rdata.info) {
+
+        var r = rdata.info.requirementid;
+        var m = rdata.info.markid;
+        that.setData({
+          requirementid: r,
+          markid: m,
+        })
+        if (rdata.info.iszero == '1') { //启动微信支付
+
+          that.toPayCommission()
+
+        } else {
+
+          wx.showToast({
+            title: '提交成功',
+            image: '/image/icon_ok.png',
+            duration: 2000,
+            success: function() {}
+          })
+          setTimeout(function() {
+            wx.redirectTo({
+              url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + r,
+            })
+
+          }, 1500)
+
+        }
+
+      }
+
+      wx.hideLoading();
+
+
+    })
+  },
+
+
+  submit: function(e) {
     let that = this;
     var addtype = e.currentTarget.dataset.addtype; //"4" 暂存 "0" 下一步
 
@@ -506,11 +749,10 @@ Page({
       wx.showModal({
         title: '提示',
         content: '成功后，您的活动将可以被好友发现和分享了',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             that.submitInfo(addtype)
-          }
-          else if (res.cancel) {
+          } else if (res.cancel) {
 
           }
         }
@@ -522,11 +764,10 @@ Page({
       wx.showModal({
         title: '提示',
         content: '暂时保存您编辑的信息，活动仍处于编辑中状态',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             that.submitInfo(addtype)
-          }
-          else if (res.cancel) {
+          } else if (res.cancel) {
 
           }
         }
@@ -536,10 +777,10 @@ Page({
 
   },
 
- 
-  submitInfo: function (addtype) {
+
+  submitInfo: function(addtype) {
     let that = this;
-  
+
     var code_ = ''
     if (addtype == '0') {
       code_ = 'x_addRequirement'
@@ -584,7 +825,7 @@ Page({
 
       }
 
-   
+
 
       if (Number(singleprice) > 0 && Number(commission) < Number(singleprice)) {
 
@@ -597,13 +838,13 @@ Page({
 
         return
       }
-      if (Number(singleprice) == 0 && Number(commission)>0) {
+      if (Number(singleprice) == 0 && Number(commission) > 0) {
 
         wx.showToast({
           title: '传播单价不为0',
           image: '/image/icon_warn.png',
           duration: 2000,
-          success: function () { }
+          success: function() {}
         })
 
         return
@@ -684,15 +925,15 @@ Page({
               title: '提交成功',
               image: '/image/icon_ok.png',
               duration: 2000,
-              success: function () { }
+              success: function() {}
             })
-            setTimeout(function(){
+            setTimeout(function() {
               wx.redirectTo({
                 url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + r,
               })
 
-            },1500)
-          
+            }, 1500)
+
           }
 
 
@@ -733,8 +974,7 @@ Page({
 
     })
   },
-  // requirementid: r,
-  // markid: m,
+
   toPayCommission: function() {
 
     let that = this;
@@ -747,7 +987,7 @@ Page({
         title: '传播预算为零',
         image: '/image/icon_warn.png',
         duration: 1500,
-        success: function () { }
+        success: function() {}
       })
       return false;
     }
@@ -782,7 +1022,7 @@ Page({
               duration: 2000,
               success: function() {}
             })
-           
+
             wx.redirectTo({
               url: "/page/component/pages/pagexdd/pagexdd?m=0&r=" + requirementid,
             })
@@ -793,7 +1033,7 @@ Page({
               url: "/page/component/pages/pagemy/merchant/fkrequirement/fkrequirement?p=" + promotionid + "&r=" + requirementid,
             })
 
-          
+
           },
           complete: function(res) {
 
